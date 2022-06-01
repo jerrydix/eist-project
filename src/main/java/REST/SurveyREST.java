@@ -1,4 +1,4 @@
-package REST.Survey;
+package REST;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import Server.Controllers.SurveyController;
+import Server.Model.Surveys.Survey;
+
 import java.util.UUID;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-import Server.Surveys.Survey;
-import Server.Surveys.SurveyService;
-
 @RestController
 @RequestMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 public class SurveyREST {
 
-    private SurveyService surveyController;
+    private SurveyController surveyController;
 
-    public SurveyREST(SurveyService surveyController){
+    public SurveyREST(SurveyController surveyController){
         this.surveyController = surveyController;
     }
 

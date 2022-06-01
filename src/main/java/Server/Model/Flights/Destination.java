@@ -1,10 +1,10 @@
-package Server.Flights;
+package Server.Model.Flights;
 
 import java.util.List;
 
-import Server.Flights.POI.PointOfInterest;
-import Server.Flights.Weather.Weather;
-import Server.Flights.Weather.WeatherType;
+import Server.Model.Flights.POI.PointOfInterest;
+import Server.Model.Flights.Weather.Weather;
+import Server.Model.Flights.Weather.WeatherType;
 
 public class Destination {
 

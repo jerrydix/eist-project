@@ -1,7 +1,8 @@
-package Server.Flights.POI;
+package Server.Model.Flights.POI;
 
 public class PointOfInterest {
 
+    private int id = -1; //defaults to nonexistent
     private String name;
     private PointOfInterestType pointOfInterestType;
 
@@ -17,6 +18,12 @@ public class PointOfInterest {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getID(){
+        return id;
+    }
+
+    
 
     public PointOfInterestType getPointOfInterestType() {
         return pointOfInterestType;

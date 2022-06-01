@@ -1,13 +1,15 @@
-package Server.Surveys;
+package Server.Controllers;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class SurveyService {
+import Server.Model.Surveys.Survey;
+
+public class SurveyController {
     private List<Survey> surveys;
 
-    public SurveyService(){
+    public SurveyController(){
         this.surveys = new ArrayList<Survey>();
     }
 
@@ -22,8 +24,7 @@ public class SurveyService {
 
 
     public Survey saveSurvey(Survey survey) {
-        //TODO: Michael
-        //used in updating an existing and adding new surveys
+        //TODO: used in updating an existing and adding new surveys
         return null;
     }
 

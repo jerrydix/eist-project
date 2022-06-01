@@ -1,4 +1,4 @@
-package Server.Surveys;
+package Server.Model.Surveys;
 
 import java.util.UUID;
 
