@@ -13,10 +13,10 @@ public class POIController {
         this.pois = new ArrayList<PointOfInterest>();
     }
 
-    private PointOfInterest getPointOfInterestWithID(int surveyID){
-        for(PointOfInterest survey : pois){
-            if(survey.getID() == surveyID){
-                return survey;
+    private PointOfInterest getPointOfInterestWithID(int poiID){
+        for(PointOfInterest poi : pois){
+            if(poi.getID() == poiID){
+                return poi;
             }
         }
         return null;
@@ -31,8 +31,8 @@ public class POIController {
         return getPointOfInterestWithID(poiID);
     }
 
-    public void removePointOfInterest(Integer surveyID) {
-        this.pois.removeIf(poi -> poi.getID() == surveyID);
+    public void removePointOfInterest(Integer poiID) {
+        this.pois.removeIf(poi -> poi.getID() == poiID);
     }
     
 }
