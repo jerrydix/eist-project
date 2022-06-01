@@ -1,4 +1,4 @@
-package Flights.Weather;
+package Server.Flights.Weather;
 
 public class Weather {
 

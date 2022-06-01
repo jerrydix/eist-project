@@ -1,7 +1,4 @@
-package Flights;
-
-import Flights.Weather.Weather;
-import Flights.Weather.WeatherType;
+package Server.Flights;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -9,6 +6,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+
+import Server.Flights.Weather.Weather;
+import Server.Flights.Weather.WeatherType;
 
 public class Flight {
     private int number;

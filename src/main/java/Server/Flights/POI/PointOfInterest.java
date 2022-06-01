@@ -1,4 +1,4 @@
-package Flights.POI;
+package Server.Flights.POI;
 
 public class PointOfInterest {
 
