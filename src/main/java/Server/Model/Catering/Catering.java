@@ -3,6 +3,8 @@ package Server.Model.Catering;
 import java.util.List;
 
 public class Catering {
+    // defaults to -1, if non-existent
+    private int id = -1;
     private List<Consumable> consumables;
 
     Catering(List<Consumable> consumables) {
@@ -11,6 +13,9 @@ public class Catering {
 
     public List<Consumable> getConsumables() {
         return consumables;
+    }
+    public int getId() {
+        return id;
     }
 
     public void addConsumableToMenu(Consumable consumable) {
