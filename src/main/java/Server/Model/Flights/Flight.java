@@ -24,7 +24,8 @@ public class Flight {
     private Destination startDestination;
     private Destination endDestination;
 
-    public Flight(int number, LocalDateTime startTime, LocalDateTime endTime, int gate, String terminal, int seat, String airplane, Destination startDestination, Destination endDestination) {
+    public Flight(int number, LocalDateTime startTime, LocalDateTime endTime, int gate, String terminal, int seat,
+                  String airplane, Destination startDestination, Destination endDestination) {
         this.number = number;
         this.startTime = startTime;
         this.endTime = endTime;
