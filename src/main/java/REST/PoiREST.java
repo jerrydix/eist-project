@@ -5,13 +5,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import Server.Controllers.POIController;
-import Server.Model.Flights.Location;
 import Server.Model.Flights.POI.PointOfInterest;
+
+
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,15 +46,13 @@ public class PoiREST {
     }
 
     @GetMapping("pois/{poiID}")
-    public ResponseEntity<PointOfInterest> getPointOfInterest(@PathVariable("poiID") Integer poiID){
-        return ResponseEntity.ok(poiController.getPointOfInterest(poiID));
+    public ResponseEntity<Object> getPointOfInterest(@PathVariable("poiID") Integer poiID, @RequestParam String getReq){
+        return switch (getReq) {
+            case "POI"-> ResponseEntity.ok(poiController.getPointOfInterest(poiID));
+            case "POI_Location"-> ResponseEntity.ok(poiController.getPointOfInterest(poiID).getLocation());
+            default -> ResponseEntity.badRequest().build();
+        };
     }
-
-    @GetMapping("pois/{poiID}")
-    public ResponseEntity<Location> getDestinationOfPOI(@PathVariable("poiID") Integer poiID){
-        return ResponseEntity.ok(poiController.getPointOfInterest(poiID).getLocation());
-    }
-
 
     @DeleteMapping("pois/{poiID}")
     public ResponseEntity<Void> deletePointOfInterest(@PathVariable("poiID") Integer poiID){
