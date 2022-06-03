@@ -1,17 +1,17 @@
 package Server.Model.Flights.POI;
 
-import Server.Model.Flights.Destination;
+import Server.Model.Flights.Location;
 
 public class PointOfInterest {
 
     private int id = -1; //defaults to nonexistent
     private String name;
-    private Destination destination;
+    private Location location;
     private PointOfInterestType pointOfInterestType;
 
-    public PointOfInterest(String name, Destination destination, PointOfInterestType pointOfInterestType) {
+    public PointOfInterest(String name, Location location, PointOfInterestType pointOfInterestType) {
         this.name = name;
-        this.destination = destination;
+        this.location = location;
         this.pointOfInterestType = pointOfInterestType;
     }
 
@@ -37,12 +37,12 @@ public class PointOfInterest {
         this.pointOfInterestType = pointOfInterestType;
     }
     
-    public Destination getDestination(){
-        return this.destination;
+    public Location getLocation(){
+        return this.location;
     }
 
-    public void setDestination(Destination destination) {
-        this.destination = destination;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
 }

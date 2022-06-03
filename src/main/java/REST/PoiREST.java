@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import Server.Controllers.POIController;
-import Server.Model.Flights.Destination;
+import Server.Model.Flights.Location;
 import Server.Model.Flights.POI.PointOfInterest;
 
 import org.springframework.http.MediaType;
@@ -49,8 +49,8 @@ public class PoiREST {
     }
 
     @GetMapping("pois/{poiID}")
-    public ResponseEntity<Destination> getDestinationOfPOI(@PathVariable("poiID") Integer poiID){
-        return ResponseEntity.ok(poiController.getPointOfInterest(poiID).getDestination());
+    public ResponseEntity<Location> getDestinationOfPOI(@PathVariable("poiID") Integer poiID){
+        return ResponseEntity.ok(poiController.getPointOfInterest(poiID).getLocation());
     }
 
 

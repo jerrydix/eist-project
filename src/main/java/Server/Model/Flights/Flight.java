@@ -21,11 +21,11 @@ public class Flight {
     private boolean cancelled;
     private boolean delayed;
     private Time delayTime;
-    private Destination startDestination;
-    private Destination endDestination;
+    private Location startLocation;
+    private Location endLocation;
 
     public Flight(int number, LocalDateTime startTime, LocalDateTime endTime, int gate, String terminal, int seat,
-                  String airplane, Destination startDestination, Destination endDestination) {
+                  String airplane, Location startLocation, Location endLocation) {
         this.number = number;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -36,8 +36,8 @@ public class Flight {
         this.cancelled = false;
         this.delayed = false;
         this.delayTime = new Time(121212);
-        this.startDestination = startDestination;
-        this.endDestination = endDestination;
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
     }
 
     public int getNumber() {
@@ -120,20 +120,20 @@ public class Flight {
         this.delayTime = delayTime;
     }
 
-    public Destination getStartDestination() {
-        return startDestination;
+    public Location getStartLocation() {
+        return startLocation;
     }
 
-    public void setStartDestination(Destination startDestination) {
-        this.startDestination = startDestination;
+    public void setStartLocation(Location startLocation) {
+        this.startLocation = startLocation;
     }
 
-    public Destination getEndDestination() {
-        return endDestination;
+    public Location getEndLocation() {
+        return endLocation;
     }
 
-    public void setEndDestination(Destination endDestination) {
-        this.endDestination = endDestination;
+    public void setEndLocation(Location endLocation) {
+        this.endLocation = endLocation;
     }
 
     public String toString() {
@@ -141,7 +141,8 @@ public class Flight {
     }
 
     public static void main(String[] args) {
-        Flight flight = new Flight(1, LocalDateTime.of(1994, Month.APRIL, 15,11,30), LocalDateTime.of(1994, Month.APRIL, 15,11,30),1,"a", 1, "Lufthansa", new Destination("test", new Weather(WeatherType.FOGGY, 23), new ArrayList<>()), new Destination("test", new Weather(WeatherType.FOGGY, 23), new ArrayList<>()));
+        Flight flight = new Flight(1, LocalDateTime.of(1994, Month.APRIL, 15,11,30), LocalDateTime.of(1994, Month.APRIL, 15,11,30),1,"a", 1, "Lufthansa", 
+        new Location("test", new Weather(WeatherType.FOGGY, 23), 0.0,0.0, new ArrayList<>()), new Location("test", new Weather(WeatherType.FOGGY, 23),0.0,0.0, new ArrayList<>()));
         System.out.println(flight);
     }
 }
