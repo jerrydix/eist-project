@@ -1,4 +1,4 @@
-package Server.Model.Catering;
+package Server.Model.Entertainment.Catering;
 
 import java.util.ArrayList;
 import java.util.List;
