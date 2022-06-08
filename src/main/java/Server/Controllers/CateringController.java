@@ -1,7 +1,7 @@
 package Server.Controllers;
 
-import Server.Model.Catering.Catering;
-import Server.Model.Catering.CateringFactory;
+import Server.Model.Entertainment.Catering.Catering;
+import Server.Model.Entertainment.Catering.CateringFactory;
 
 public class CateringController {
 
