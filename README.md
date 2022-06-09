@@ -2,9 +2,9 @@
 A flight management software developed for a team project in EIST at TUM
 
 
-## Recommended IDE Setup
+## Recommended IDE for Front-End Development
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 
 ## Project Setup
 
@@ -25,13 +25,7 @@ npm run build
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
-If you run this for the first time:
-```sh
-npm init @eslint/config
-replace plugin:vue/vue/recommended with plugin:vue/vue3-recommended
-npm run lint
-```
-else:
+
 ```sh
 npm run lint
 ```

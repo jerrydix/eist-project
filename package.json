@@ -2,9 +2,9 @@
   "name": "ui",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite src/main/ui",
-    "build": "vite build src/main/ui",
-    "preview": "vite preview --port 4173 src/main/ui",
+    "dev": "vite --config vite.config.js src/main/ui",
+    "build": "vite --config vite.config.js build src/main/ui",
+    "preview": "vite --config vite.config.js preview --port 4173 src/main/ui",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {

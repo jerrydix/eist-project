@@ -1,26 +1,35 @@
 <script setup>
 import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="./assets/logo.svg"
-      width="125"
-      height="125"
-    />
+  <w-app>
+    <header>
+      <img
+        alt="Vue logo"
+        class="logo"
+        src="./assets/logo.svg"
+        width="125"
+        height="125"
+      />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+      <div class="wrapper">
+        <HelloWorld msg="This is where the fun begins ( ͡° ͜ʖ ͡°)" />
+      </div>
+    </header>
 
-  <main>
-    <TheWelcome />
-  </main>
+    <main>
+      <w-flex class="wrap">
+        <w-button class="ma1" bg-color="success">This</w-button>
+        <w-button class="ma1" bg-color="error">took</w-button>
+        <w-button class="ma1" bg-color="warning">way</w-button>
+        <w-button class="ma1" bg-color="info">too</w-button>
+        <w-button class="ma1" bg-color="primary">long</w-button>
+        <w-button class="ma1" bg-color="secondary">..</w-button>
+        <w-button class="ma1" bg-color="purple-light4">....</w-button>
+      </w-flex>
+    </main>
+  </w-app>
 </template>
 
 <style>
