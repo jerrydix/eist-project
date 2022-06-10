@@ -115,4 +115,3 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-.eslintrc*
