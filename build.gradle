@@ -14,6 +14,39 @@ repositories {
     mavenCentral()
 }
 
+processResources{
+    dependsOn 'copyFrontendToBuild'
+}
+
+task copyFrontendToBuild(type: Copy) {
+    dependsOn 'npmBuild'
+    from "$projectDir/src/main/ui/dist"
+    into "$buildDir/resources/main/static"
+}
+
+task npmBuild(type: Exec) {
+    dependsOn 'npmSetup'
+    workingDir './src/main/ui/'
+    commandLine 'npm','run', 'build'
+}
+
+task npmDev(type: Exec) {
+    dependsOn 'npmSetup'
+    workingDir './src/main/ui/'
+    commandLine 'npm', 'run', 'dev'
+}
+
+task npmLint(type: Exec) {
+    dependsOn 'npmSetup'
+    workingDir './src/main/ui/'
+    commandLine 'npm', 'run', 'lint'
+}
+
+task npmSetup(type: Exec) {
+    workingDir './src/main/ui/'
+    commandLine 'npm', 'install'
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter'
