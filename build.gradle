@@ -25,19 +25,16 @@ task copyFrontendToBuild(type: Copy) {
 }
 
 task npmBuild(type: Exec) {
-    dependsOn 'npmSetup'
     workingDir './src/main/ui/'
     commandLine 'npm','run', 'build'
 }
 
 task npmDev(type: Exec) {
-    dependsOn 'npmSetup'
     workingDir './src/main/ui/'
     commandLine 'npm', 'run', 'dev'
 }
 
 task npmLint(type: Exec) {
-    dependsOn 'npmSetup'
     workingDir './src/main/ui/'
     commandLine 'npm', 'run', 'lint'
 }
