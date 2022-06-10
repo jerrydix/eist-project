@@ -24,8 +24,14 @@ public class SurveyController {
 
 
     public Survey saveSurvey(Survey survey) {
-        //TODO: used in updating an existing and adding new surveys
-        return null;
+        for(int i = 0; i < surveys.size(); i++) { //TODO: not necessary if we don't do PutMapping
+            if(survey.getID().equals(surveys.get(i).getID())) {
+                surveys.set(i, survey);
+                return survey;
+            }
+        }
+        surveys.add(survey);
+        return survey;
     }
 
     public Survey getSurvey(UUID surveyID) {

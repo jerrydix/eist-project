@@ -42,14 +42,14 @@ public class SurveyREST {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(surveyController.saveSurvey(newSurvey));
-    }
+    } //TODO: do we need a put option for survey -> customre usually would not be able to update the survey once finished
 
     @GetMapping("surveys/{surveyID}")
     public ResponseEntity<Survey> getSurvey(@PathVariable("surveyID") UUID surveyID){
         return ResponseEntity.ok(surveyController.getSurvey(surveyID));
     }
 
-    @DeleteMapping("surveys/{surveyID}")
+    @DeleteMapping("surveys/{surveyID}") //TODO: same with this, is customer able to delete the survey?
     public ResponseEntity<Void> deleteSurvey(@PathVariable("surveyID") UUID surveyID){
         surveyController.removeSurvey(surveyID);
         return ResponseEntity.noContent().build();

@@ -4,9 +4,8 @@ import java.util.UUID;
 
 public class Survey {
     private UUID surveyID;
-
-    private UUID passengerID; //TODO: do we want to save this?
-    private UUID flightNumber;
+    private int passengerID;
+    private int flightNumber;
 
 
     private int flightRating;
@@ -20,7 +19,7 @@ public class Survey {
     private Reward reward;
 
 
-    public Survey(UUID surveyID, UUID passengerID, UUID flightNumber, int flightRating, int cateringRating, int entertainmentRating, int comfortRating,
+    public Survey(UUID surveyID, int passengerID, int flightNumber, int flightRating, int cateringRating, int entertainmentRating, int comfortRating,
     int serviceRating, String comment) {
         this.surveyID = surveyID;
         this.passengerID = passengerID;
@@ -31,13 +30,9 @@ public class Survey {
         this.flightRating = flightRating;
         this.serviceRating = serviceRating;
         this.comment = comment;
-        this.reward = generateReward();
+        this.reward = new Reward();
     }
 
-    //TODO: generateReward-Funktion oder reward als Argument mitgeben
-    private Reward generateReward() {
-        return null;
-    }
 
     public UUID getID(){
         return this.surveyID;
@@ -59,15 +54,12 @@ public class Survey {
         return comment;
     }
 
-    public UUID getFlightNumber() {
+    public int getFlightNumber() {
         return flightNumber;
     }
 
-    public UUID getPassengerID() {
+    public int getPassengerID() {
         return passengerID;
     }
 
-    public UUID getSurveyID() {
-        return surveyID;
-    }
 }
