@@ -11,21 +11,21 @@ Install [Node.js](https://nodejs.org/en/download/package-manager/). Then:
 ./gradlew npmSetup
 ```
 
-## Compile and Hot-Reload for Development
+## Compile and Hot-Reload for Front-End Development
+This does not start the Spring Boot backend!
 ```sh
 ./gradlew npmDev
 ```
 open a web browser and visit `localhost:3000`
-
-## Lint with [ESLint](https://eslint.org/)
+ 
+## Lint JavaScript with [ESLint](https://eslint.org/)
 ```sh
 ./gradlew npmLint
 ```
 
 ## Compile and View the Production Build
+This starts both the server and client applications, but does not have hot-reload capabilities.
 ```sh
-./gradlew clean build
-cd build/libs
-java -jar ./<name>.jar
+./gradlew bootRun
 ```
 open a web browser and visit `localhost:8080`
