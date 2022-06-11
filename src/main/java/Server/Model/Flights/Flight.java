@@ -11,28 +11,28 @@ import Server.Model.Flights.Weather.Weather;
 import Server.Model.Flights.Weather.WeatherType;
 
 public class Flight {
-    private int number;
+    private String number;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private int gate;
+    private String gate;
     private String terminal;
     private int seat;
-    private String airplane;
+    private String airline;
     private boolean cancelled;
     private boolean delayed;
     private Time delayTime;
     private Location startLocation;
     private Location endLocation;
 
-    public Flight(int number, LocalDateTime startTime, LocalDateTime endTime, int gate, String terminal, int seat,
-                  String airplane, Location startLocation, Location endLocation) {
+    public Flight(String number, LocalDateTime startTime, LocalDateTime endTime, String gate, String terminal, int seat,
+                  String airline, Location startLocation, Location endLocation) {
         this.number = number;
         this.startTime = startTime;
         this.endTime = endTime;
         this.gate = gate;
         this.terminal = terminal;
         this.seat = seat;
-        this.airplane = airplane;
+        this.airline = airline;
         this.cancelled = false;
         this.delayed = false;
         this.delayTime = new Time(121212);
@@ -40,11 +40,11 @@ public class Flight {
         this.endLocation = endLocation;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -64,11 +64,11 @@ public class Flight {
         this.endTime = endTime;
     }
 
-    public int getGate() {
+    public String getGate() {
         return gate;
     }
 
-    public void setGate(int gate) {
+    public void setGate(String gate) {
         this.gate = gate;
     }
 
@@ -89,11 +89,11 @@ public class Flight {
     }
 
     public String getAirplane() {
-        return airplane;
+        return airline;
     }
 
     public void setAirplane(String airplane) {
-        this.airplane = airplane;
+        this.airline = airplane;
     }
 
     public boolean isCancelled() {
@@ -141,7 +141,7 @@ public class Flight {
     }
 
     public static void main(String[] args) {
-        Flight flight = new Flight(1, LocalDateTime.of(1994, Month.APRIL, 15,11,30), LocalDateTime.of(1994, Month.APRIL, 15,11,30),1,"a", 1, "Lufthansa", 
+        Flight flight = new Flight("1", LocalDateTime.of(1994, Month.APRIL, 15,11,30), LocalDateTime.of(1994, Month.APRIL, 15,11,30),"1","a", 1, "Lufthansa",
         new Location("test", new Weather(WeatherType.FOGGY, 23), 0.0,0.0, new ArrayList<>()), new Location("test", new Weather(WeatherType.FOGGY, 23),0.0,0.0, new ArrayList<>()));
         System.out.println(flight);
     }
