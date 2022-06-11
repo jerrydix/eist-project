@@ -5,27 +5,26 @@ A flight management software developed for a team project in EIST at TUM
 ## Recommended IDE for Front-End Development
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
 
-## Project Setup
-Install [Node.js](https://nodejs.org/en/download/package-manager/). Then:
+## Start the Front-End Development Server
+This has hot-reload capabilities but does not start the Spring Boot backend.
 ```sh
-./gradlew npmSetup
-```
-
-## Compile and Hot-Reload for Front-End Development
-This does not start the Spring Boot backend!
-```sh
-./gradlew npmDev
+./gradlew npm_run_dev
 ```
 open a web browser and visit `localhost:3000`
  
 ## Lint JavaScript with [ESLint](https://eslint.org/)
 ```sh
-./gradlew npmLint
+./gradlew npm_run_lint
 ```
 
-## Compile and View the Production Build
-This starts both the server and client applications, but does not have hot-reload capabilities.
+## View the Production Build
+This starts both the server and client applications but does not have hot-reload capabilities.
 ```sh
 ./gradlew bootRun
 ```
 open a web browser and visit `localhost:8080`
+
+## Compile the JAR file
+```sh
+./gradlew clean build
+```
