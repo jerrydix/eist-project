@@ -1,9 +1,15 @@
 plugins {
     id 'org.springframework.boot' version '2.6.7'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'com.github.node-gradle.node' version '3.3.0'
     id 'java'
 }
 
+node {
+    download = true
+    version = "16.15.1"
+    nodeProjectDir = file("${project.projectDir}/src/main/ui")
+}
 group = 'hello.world'
 version = '1.0.0'
 sourceCompatibility = '17'
@@ -19,29 +25,9 @@ processResources{
 }
 
 task copyFrontendToBuild(type: Copy) {
-    dependsOn 'npmBuild'
+    dependsOn 'npm_run_build'
     from "$projectDir/src/main/ui/dist"
     into "$buildDir/resources/main/static"
-}
-
-task npmBuild(type: Exec) {
-    workingDir './src/main/ui/'
-    commandLine 'npm','run', 'build'
-}
-
-task npmDev(type: Exec) {
-    workingDir './src/main/ui/'
-    commandLine 'npm', 'run', 'dev'
-}
-
-task npmLint(type: Exec) {
-    workingDir './src/main/ui/'
-    commandLine 'npm', 'run', 'lint'
-}
-
-task npmSetup(type: Exec) {
-    workingDir './src/main/ui/'
-    commandLine 'npm', 'install'
 }
 
 dependencies {
