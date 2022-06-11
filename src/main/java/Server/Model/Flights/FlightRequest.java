@@ -53,19 +53,6 @@ public class FlightRequest {
 
         return parseFlightJson(response.toString());
         //Read JSON response and print
-        /*JSONObject myResponse = new JSONObject(response.toString());
-        System.out.println("result after Reading JSON Response");
-        System.out.println("statusCode- "+myResponse.getString("statusCode"));
-        System.out.println("statusMessage- "+myResponse.getString("statusMessage"));
-        System.out.println("ipAddress- "+myResponse.getString("ipAddress"));
-        System.out.println("countryCode- "+myResponse.getString("countryCode"));
-        System.out.println("countryName- "+myResponse.getString("countryName"));
-        System.out.println("regionName- "+myResponse.getString("regionName"));
-        System.out.println("cityName- "+myResponse.getString("cityName"));
-        System.out.println("zipCode- "+myResponse.getString("zipCode"));
-        System.out.println("latitude- "+myResponse.getString("latitude"));
-        System.out.println("longitude- "+myResponse.getString("longitude"));
-        System.out.println("timeZone- "+myResponse.getString("timeZone"));*/
     }
 
     public static List<Flight> parseFlightJson(String jsonText) throws JSONException {
@@ -73,19 +60,6 @@ public class FlightRequest {
         JSONArray dataArray = jsonObject.getJSONArray("data");
         List<Flight> flights = new ArrayList<>();
         for (int i = 0; i < dataArray.length(); i++) {
-
-            /*  0: number
-                1: startTime
-                2: endTime
-                3: gate
-                4: terminal
-                5: seat
-                6: airplane
-                7: cancelled
-                8: delayTime
-                9: startLocation
-                10: endLocation
-             */
 
             String number = dataArray.getJSONObject(i).getJSONObject("flight").getString("iata");
             String startDate = dataArray.getJSONObject(i).getString("flight_date");
