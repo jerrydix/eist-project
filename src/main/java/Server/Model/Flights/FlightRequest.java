@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -68,22 +69,8 @@ public class FlightRequest {
             int startDay = Integer.parseInt(startDate.substring(8));
             int startHour = Integer.parseInt(dataArray.getJSONObject(i).getJSONObject("departure").getString("scheduled").substring(12,14));
             int startMinute = Integer.parseInt(dataArray.getJSONObject(i).getJSONObject("departure").getString("scheduled").substring(15,17));
-            Month startM = Month.JANUARY;
-            switch (startMonth) {
-                case 1 -> startM = Month.JANUARY;
-                case 2 -> startM = Month.FEBRUARY;
-                case 3 -> startM = Month.MARCH;
-                case 4 -> startM = Month.APRIL;
-                case 5 -> startM = Month.MAY;
-                case 6 -> startM = Month.JUNE;
-                case 7 -> startM = Month.JULY;
-                case 8 -> startM = Month.AUGUST;
-                case 9 -> startM = Month.SEPTEMBER;
-                case 10 -> startM = Month.OCTOBER;
-                case 11 -> startM = Month.NOVEMBER;
-                case 12 -> startM = Month.DECEMBER;
-                default -> System.out.println("No such month");
-            }
+
+            Month startM = parseToMonth(startMonth);
             LocalDateTime startTime = LocalDateTime.of(startYear, startM, startDay, startHour, startMinute);
 
             String endDate = dataArray.getJSONObject(i).getJSONObject("arrival").getString("scheduled");
@@ -92,22 +79,8 @@ public class FlightRequest {
             int endDay = Integer.parseInt(endDate.substring(8,11));
             int endHour = Integer.parseInt(dataArray.getJSONObject(i).getJSONObject("arrival").getString("scheduled").substring(12,14));
             int endMinute = Integer.parseInt(dataArray.getJSONObject(i).getJSONObject("arrival").getString("scheduled").substring(15,17));
-            Month endM = Month.DECEMBER;
-            switch (endMonth) {
-                case 1 -> endM = Month.JANUARY;
-                case 2 -> endM = Month.FEBRUARY;
-                case 3 -> endM = Month.MARCH;
-                case 4 -> endM = Month.APRIL;
-                case 5 -> endM = Month.MAY;
-                case 6 -> endM = Month.JUNE;
-                case 7 -> endM = Month.JULY;
-                case 8 -> endM = Month.AUGUST;
-                case 9 -> endM = Month.SEPTEMBER;
-                case 10 -> endM = Month.OCTOBER;
-                case 11 -> endM = Month.NOVEMBER;
-                case 12 -> endM = Month.DECEMBER;
-                default -> System.out.println("No such month");
-            }
+
+            Month endM = parseToMonth(endMonth);
             LocalDateTime endTime = LocalDateTime.of(endYear, endM, endDay, endHour, endMinute);
 
             String gate = dataArray.getJSONObject(i).getJSONObject("departure").getString("gate");
@@ -142,6 +115,24 @@ public class FlightRequest {
             builder.append(", ");
         }
         return builder.toString();
+    }
+
+    private static Month parseToMonth(int month) throws NoSuchElementException {
+        switch (month) {
+            case 1 -> {return Month.JANUARY;}
+            case 2 -> {return Month.FEBRUARY;}
+            case 3 -> {return Month.MARCH;}
+            case 4 -> {return Month.APRIL;}
+            case 5 -> {return Month.MAY;}
+            case 6 -> {return Month.JUNE;}
+            case 7 -> {return Month.JULY;}
+            case 8 -> {return Month.AUGUST;}
+            case 9 -> {return Month.SEPTEMBER;}
+            case 10 -> {return Month.OCTOBER;}
+            case 11 -> {return Month.NOVEMBER;}
+            case 12 -> {return Month.DECEMBER;}
+            default -> throw new NoSuchElementException("No such month");
+        }
     }
 
     public static void main(String[] args) throws JSONException {
