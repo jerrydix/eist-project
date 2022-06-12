@@ -88,7 +88,7 @@ public class FlightRequest {
             int seat = ThreadLocalRandom.current().nextInt(1, 288);
             String airline = dataArray.getJSONObject(i).getJSONObject("airline").getString("name");
             boolean cancelled = true;
-            boolean delayed;
+            boolean delayed = false;
             if (dataArray.getJSONObject(i).getString("flight_status").equals("scheduled")) {
                 cancelled = false;
             }
@@ -103,7 +103,10 @@ public class FlightRequest {
 
             Location endLocation = new Location(dataArray.getJSONObject(i).getJSONObject("arrival").getString("timezone").substring(dataArray.getJSONObject(i).getJSONObject("arrival").getString("timezone").indexOf("/") + 1), new Weather(WeatherType.CLOUDY, 12),1,1, new ArrayList<>());
 
-            flights.add(new Flight(number, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation));
+            Flight current = new Flight(number, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation);
+            current.setDelayed(delayed);
+            current.setCancelled(cancelled);
+            flights.add(current);
         }
         return flights;
     }
