@@ -99,9 +99,9 @@ public class FlightRequest {
             int delayTime = 0;
 
             //todo weather, poilist, latitude, longitude
-            Location startLocation = new Location(dataArray.getJSONObject(i).getJSONObject("departure").getString("timezone").substring(dataArray.getJSONObject(i).getJSONObject("departure").getString("timezone").indexOf("/") + 1), new Weather(WeatherType.CLOUDY, 12),1,1, new ArrayList<>());
+            Location startLocation = new Location(dataArray.getJSONObject(i).getJSONObject("departure").getString("timezone").substring(dataArray.getJSONObject(i).getJSONObject("departure").getString("timezone").indexOf("/") + 1), new Weather(null,-1,-1,-1), new ArrayList<>());
 
-            Location endLocation = new Location(dataArray.getJSONObject(i).getJSONObject("arrival").getString("timezone").substring(dataArray.getJSONObject(i).getJSONObject("arrival").getString("timezone").indexOf("/") + 1), new Weather(WeatherType.CLOUDY, 12),1,1, new ArrayList<>());
+            Location endLocation = new Location(dataArray.getJSONObject(i).getJSONObject("arrival").getString("timezone").substring(dataArray.getJSONObject(i).getJSONObject("arrival").getString("timezone").indexOf("/") + 1), new Weather(null,-1,-1,-1), new ArrayList<>());
 
             Flight current = new Flight(number, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation);
             current.setDelayed(delayed);

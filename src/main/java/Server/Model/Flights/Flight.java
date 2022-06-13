@@ -142,7 +142,7 @@ public class Flight {
 
     public static void main(String[] args) {
         Flight flight = new Flight("1", LocalDateTime.of(1994, Month.APRIL, 15,11,30), LocalDateTime.of(1994, Month.APRIL, 15,11,30),"1","a", 1, "Lufthansa",
-        new Location("test", new Weather(WeatherType.FOGGY, 23), 0.0,0.0, new ArrayList<>()), new Location("test", new Weather(WeatherType.FOGGY, 23),0.0,0.0, new ArrayList<>()));
+        new Location("test", new Weather("Fog", -1, -1, -1), new ArrayList<>()), new Location("test", new Weather("Fog", -1, -1, -1), new ArrayList<>()));
         System.out.println(flight);
     }
 }

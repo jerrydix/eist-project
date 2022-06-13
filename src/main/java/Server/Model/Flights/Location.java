@@ -9,17 +9,13 @@ public class Location {
 
     static int currentID = 0;
     private int locationID = -1; //defaults to -1 if nonexistent
-    private double latitude;
-    private double longitude;
     private String name;
     private Weather weather;
     List<PointOfInterest> poiList;
 
-    public Location(String name, Weather weather,double longitude, double latitude, List<PointOfInterest> poiList) {
+    public Location(String name, Weather weather, List<PointOfInterest> poiList) {
         this.name = name;
         this.weather = weather;
-        this.longitude = longitude;
-        this.latitude = latitude;
         this.poiList = poiList;
         locationID = currentID;
         currentID++;
