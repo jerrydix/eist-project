@@ -15,7 +15,7 @@ public class POIController {
 
     private PointOfInterest getPointOfInterestWithID(int poiID){
         for(PointOfInterest poi : pois){
-            if(poi.getID() == poiID){
+            if(poi.getID().equals(poiID)){ // todo fix
                 return poi;
             }
         }
@@ -32,7 +32,7 @@ public class POIController {
     }
 
     public void removePointOfInterest(Integer poiID) {
-        this.pois.removeIf(poi -> poi.getID() == poiID);
+        this.pois.removeIf(poi -> poi.getID().equals(poiID)); // todo fix
     }
     
 }

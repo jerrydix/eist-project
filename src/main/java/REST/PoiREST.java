@@ -31,7 +31,7 @@ public class PoiREST {
 
     @PostMapping("pois")
     public ResponseEntity<PointOfInterest> createPointOfInterest(@RequestBody PointOfInterest poi){
-        if (poi.getID() != -1) {
+        if (poi.getID() == null) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(poiController.savePointOfInterest(poi));
@@ -39,7 +39,7 @@ public class PoiREST {
 
     @PutMapping("pois/{poiID}")
     public ResponseEntity<PointOfInterest> updatePointOfInterest(@RequestBody PointOfInterest newPointOfInterest, @PathVariable("poiID") Integer poiID){
-        if(! (newPointOfInterest.getID() == poiID) ){
+        if(!newPointOfInterest.getID().equals(poiID)){ // todo fix this
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(poiController.savePointOfInterest(newPointOfInterest));

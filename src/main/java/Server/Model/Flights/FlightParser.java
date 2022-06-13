@@ -76,10 +76,10 @@ public class FlightParser {
     }
 
     public String toString(List<Flight> flights) {
-        StringBuilder builder = new StringBuilder("[");
-        for (int i = 0; i < flights.size(); i++) {
-            builder.append(flights.get(i).toString());
-            builder.append(", ");
+        StringBuilder builder = new StringBuilder();
+        for (Flight flight : flights) {
+            builder.append(flight.toString());
+            builder.append("\n\n");
         }
         return builder.toString();
     }
