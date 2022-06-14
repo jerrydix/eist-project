@@ -20,12 +20,18 @@ public class PointOfInterestParser {
             JSONArray resultsArray = jsonObject.getJSONArray("results");
             List<PointOfInterest> poiList = new ArrayList<>();
 
-            for (int i = 0; i < resultsArray.length(); i++) {
+            for (int i = 0; i < resultsArray.length() && i<10; i++) {
                 String id = resultsArray.getJSONObject(i).getString("place_id");
                 String name = resultsArray.getJSONObject(i).getString("name");
                 String address = resultsArray.getJSONObject(i).getString("vicinity");
                 String type = resultsArray.getJSONObject(i).getJSONArray("types").getString(0);
-                double rating = resultsArray.getJSONObject(i).getDouble("rating") ;
+                if(type.equals("lodging")){
+                    continue;
+                }
+                double rating = -1;
+                if(!resultsArray.getJSONObject(i).isNull("rating")){
+                    rating = resultsArray.getJSONObject(i).getDouble("rating") ;
+                }
                 double latitude = resultsArray.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat");
                 double longitude = resultsArray.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng");
 
@@ -48,7 +54,7 @@ public class PointOfInterestParser {
     }
 
     public static void main(String[] args) {
-        System.out.println(PointOfInterestParser.toString(PointOfInterest.fetchPOIs(41.8902102,12.4900422)));
+        System.out.println((PointOfInterest.fetchPOIs(-15.960259,-5.691079)).size());
     }
 
 

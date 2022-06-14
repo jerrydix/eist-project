@@ -30,7 +30,7 @@ public class PointOfInterest {
     }
 
     public static List<PointOfInterest> fetchPOIs(double longitude,double latitude){
-        return PointOfInterestParser.parsePOIJson(HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json", new String[]{"?location=" + longitude + "%2C" + latitude, "&radius=30000" , "&rankby=prominence", "&type=point_of_interest", "&key=AIzaSyBKiScI4WumTVipTbFuC6KPHic3dC66tvM"}));
+        return PointOfInterestParser.parsePOIJson(HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json", new String[]{"?location=" + longitude + "%2C" + latitude, "&radius=30000" , "&rankby=prominence", "&type=tourist_attraction", "&key=AIzaSyBKiScI4WumTVipTbFuC6KPHic3dC66tvM"}));
     }
 
     public String getName() {
