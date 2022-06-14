@@ -14,7 +14,7 @@ import java.util.List;
 
 public class PointOfInterestParser {
 
-    public static List<PointOfInterest> parsePOIJson(String jsonText) {
+    public static List<PointOfInterest> parsePOIJson(String jsonText, Location location) {
         try {
             JSONObject jsonObject = new JSONObject(jsonText.toString());
             JSONArray resultsArray = jsonObject.getJSONArray("results");
@@ -35,11 +35,11 @@ public class PointOfInterestParser {
                 double latitude = resultsArray.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat");
                 double longitude = resultsArray.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng");
 
-                poiList.add(new PointOfInterest(id, name, address, type, null, rating, longitude, latitude));
+                poiList.add(new PointOfInterest(id, name, address, type, location, rating, longitude, latitude));
             }
             return poiList;
-        }catch (JSONException exception){
-            System.out.println("Couldn't parse POI JSON "+exception.toString());
+        } catch (JSONException exception) {
+            System.out.println("Couldn't parse POI JSON " + exception.toString());
         }
         return null;
     }
@@ -54,7 +54,7 @@ public class PointOfInterestParser {
     }
 
     public static void main(String[] args) {
-        System.out.println((PointOfInterest.fetchPOIs(-15.960259,-5.691079)).size());
+        System.out.println((PointOfInterest.fetchPOIs(-15.960259,-5.691079, null)));
     }
 
 

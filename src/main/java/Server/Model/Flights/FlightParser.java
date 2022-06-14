@@ -63,9 +63,9 @@ public class FlightParser {
             int delayTime = 0;
 
             //todo weather, poilist, latitude, longitude
-            Location startLocation = new Location(dataArray.getJSONObject(i).getJSONObject("departure").getString("timezone").substring(dataArray.getJSONObject(i).getJSONObject("departure").getString("timezone").indexOf("/") + 1), new ArrayList<>(), -1, -1);
+            Location startLocation = new Location(dataArray.getJSONObject(i).getJSONObject("departure").getString("timezone").substring(dataArray.getJSONObject(i).getJSONObject("departure").getString("timezone").indexOf("/") + 1), -1, -1);
 
-            Location endLocation = new Location(dataArray.getJSONObject(i).getJSONObject("arrival").getString("timezone").substring(dataArray.getJSONObject(i).getJSONObject("arrival").getString("timezone").indexOf("/") + 1), new ArrayList<>(), -1, -1);
+            Location endLocation = new Location(dataArray.getJSONObject(i).getJSONObject("arrival").getString("timezone").substring(dataArray.getJSONObject(i).getJSONObject("arrival").getString("timezone").indexOf("/") + 1), -1, -1);
 
             Flight current = new Flight(number, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation);
             current.setDelayed(delayed);

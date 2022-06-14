@@ -29,8 +29,8 @@ public class PointOfInterest {
         this.latitude = latitude;
     }
 
-    public static List<PointOfInterest> fetchPOIs(double longitude,double latitude){
-        return PointOfInterestParser.parsePOIJson(HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json", new String[]{"?location=" + longitude + "%2C" + latitude, "&radius=30000" , "&rankby=prominence", "&type=tourist_attraction", "&key=AIzaSyBKiScI4WumTVipTbFuC6KPHic3dC66tvM"}));
+    public static List<PointOfInterest> fetchPOIs(double longitude , double latitude, Location location){
+        return PointOfInterestParser.parsePOIJson(HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json", new String[]{"?location=" + longitude + "%2C" + latitude, "&radius=30000" , "&rankby=prominence", "&type=tourist_attraction", "&key=AIzaSyBKiScI4WumTVipTbFuC6KPHic3dC66tvM"}), location);
     }
 
     public String getName() {
