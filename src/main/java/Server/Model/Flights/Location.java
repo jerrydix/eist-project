@@ -11,12 +11,17 @@ public class Location {
     private int locationID = -1; //defaults to -1 if nonexistent
     private String name;
     private Weather weather;
+    private double longitude;
+    private double latidute;
+
     List<PointOfInterest> poiList;
 
-    public Location(String name, Weather weather, List<PointOfInterest> poiList) {
+    public Location(String name, List<PointOfInterest> poiList, double longitude, double latitude) {
         this.name = name;
-        this.weather = weather;
+        this.weather = Weather.fetchWeather(latitude, longitude);
         this.poiList = poiList;
+        this.longitude = longitude;
+        this.latidute = latitude;
         locationID = currentID;
         currentID++;
         for (PointOfInterest pointOfInterest : poiList) {
@@ -30,5 +35,21 @@ public class Location {
 
     public List<PointOfInterest> getPointsOfInterest(){
         return this.poiList;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatidute() {
+        return latidute;
+    }
+
+    public void setLatidute(double latitude) {
+        this.latidute = latitude;
     }
 }

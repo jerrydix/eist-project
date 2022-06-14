@@ -10,14 +10,18 @@ public class PointOfInterest {
     private String pointOfInterestType;
     private Location location;
     private double rating;
+    private double longitude;
+    private double latitude;
 
-    public PointOfInterest(String id, String name, String address, String pointOfInterestType, Location location, double rating) {
+    public PointOfInterest(String id, String name, String address, String pointOfInterestType, Location location, double rating, double longitude, double latitude) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.pointOfInterestType = pointOfInterestType;
         this.location = location;
         this.rating = rating;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public String getName() {
@@ -66,6 +70,22 @@ public class PointOfInterest {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
     @Override

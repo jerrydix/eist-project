@@ -25,7 +25,10 @@ public class PointOfInterestParser {
             String address = resultsArray.getJSONObject(i).getString("vicinity");
             String type = resultsArray.getJSONObject(i).getJSONArray("types").getString(0);
             double rating = resultsArray.getJSONObject(i).getDouble("rating");
-            poiList.add(new PointOfInterest(id, name, address, type, null, rating));
+            double latitude = resultsArray.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat");
+            double longitude = resultsArray.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng");
+
+            poiList.add(new PointOfInterest(id, name, address, type, null, rating, longitude, latitude));
         }
         return poiList;
     }

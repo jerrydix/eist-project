@@ -1,17 +1,22 @@
 package Server.Model.Flights.Weather;
 
+import Server.Model.Networking.HTTP_GetRequest;
+import org.json.JSONException;
+
+import java.io.IOException;
+
 public class Weather {
 
     private String weatherType;
     private double degrees;
-    private double latitude;
-    private double longitude;
 
-    public Weather(String weatherType, double degrees, double latitude, double longitude) {
+    public Weather(String weatherType, double degrees) {
         this.weatherType = weatherType;
         this.degrees = degrees;
-        this.latitude = latitude;
-        this.longitude = longitude;
+    }
+
+    public static Weather fetchWeather(double latitude, double longitude) {
+        return WeatherParser.parseWeatherJson(HTTP_GetRequest.httpRequest("http://api.openweathermap.org/data/2.5/weather", new String[]{"?lat=" + latitude + "&lon=" + longitude, "&appid=9ea515dfae2ad349f12da21f050ede90"}));
     }
 
     public String getWeatherType() {
@@ -31,6 +36,6 @@ public class Weather {
     }
 
     public String toString() {
-        return "Weather type: " + weatherType + "\nTemperature: " + degrees + "\nLatitude: " + latitude + "\nLongitude: " + longitude;
+        return "Weather type: " + weatherType + "\nTemperature: " + degrees;
     }
 }
