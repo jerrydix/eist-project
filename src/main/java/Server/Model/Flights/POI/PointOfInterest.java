@@ -1,6 +1,11 @@
 package Server.Model.Flights.POI;
 
 import Server.Model.Flights.Location;
+import Server.Model.Networking.HTTP_GetRequest;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 public class PointOfInterest {
 
@@ -22,6 +27,10 @@ public class PointOfInterest {
         this.rating = rating;
         this.longitude = longitude;
         this.latitude = latitude;
+    }
+
+    public static List<PointOfInterest> fetchPOIs(double longitude,double latitude){
+        return PointOfInterestParser.parsePOIJson(HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json", new String[]{"?location=" + longitude + "%2C" + latitude, "&radius=30000" , "&rankby=prominence", "&type=point_of_interest", "&key=AIzaSyBKiScI4WumTVipTbFuC6KPHic3dC66tvM"}));
     }
 
     public String getName() {

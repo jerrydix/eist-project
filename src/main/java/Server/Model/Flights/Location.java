@@ -24,6 +24,7 @@ public class Location {
         this.latidute = latitude;
         locationID = currentID;
         currentID++;
+
         for (PointOfInterest pointOfInterest : poiList) {
             pointOfInterest.setLocation(this);
         }
