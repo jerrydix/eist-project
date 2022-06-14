@@ -1,20 +1,19 @@
 package Server.Model.Flights;
 
-import java.util.List;
-
 import Server.Model.Flights.POI.PointOfInterest;
 import Server.Model.Flights.Weather.Weather;
+
+import java.util.List;
 
 public class Location {
 
     static int currentID = 0;
+    List<PointOfInterest> poiList;
     private int locationID = -1; //defaults to -1 if nonexistent
     private String name;
     private Weather weather;
     private double longitude;
     private double latidute;
-
-    List<PointOfInterest> poiList;
 
     public Location(String name, List<PointOfInterest> poiList, double longitude, double latitude) {
         this.name = name;
@@ -24,17 +23,19 @@ public class Location {
         this.latidute = latitude;
         locationID = currentID;
         currentID++;
-
-        for (PointOfInterest pointOfInterest : poiList) {
-            pointOfInterest.setLocation(this);
+        poiList = PointOfInterest.fetchPOIs(longitude, latitude);
+        if (poiList != null) {
+            for (PointOfInterest pointOfInterest : poiList) {
+                pointOfInterest.setLocation(this);
+            }
         }
     }
 
-    public int getID(){
+    public int getID() {
         return locationID;
     }
 
-    public List<PointOfInterest> getPointsOfInterest(){
+    public List<PointOfInterest> getPointsOfInterest() {
         return this.poiList;
     }
 
