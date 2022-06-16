@@ -1,1 +1,5 @@
 /* TODO: move css from landing page to this file */
+body {
+    background: url("../img/above_clouds.jpg") center center fixed no-repeat;
+    background-size: cover;
+}
