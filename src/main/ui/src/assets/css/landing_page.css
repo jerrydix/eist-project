@@ -1,5 +1,28 @@
-/* TODO: move css from landing page to this file */
+@media (prefers-color-scheme: light) {
+    :root {
+        --background-image: url("../img/above_clouds.jpg");
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-image: url("../img/above_clouds_dark.jpg");
+    }
+}
+
 body {
-    background: url("../img/above_clouds.jpg") center center fixed no-repeat;
+    background: var(--background-image) center center fixed no-repeat;
     background-size: cover;
+}
+
+
+
+.card-wrapper {
+    background-color: var(--color-background-soft);
+    margin-top: 12px;
+}
+
+.card-wrapper > .w-card {
+    margin: 12px;
+    color: var(--color-text)
 }
