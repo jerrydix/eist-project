@@ -1,12 +1,20 @@
+:root {
+    --background-transparency: 0.5;
+}
+
 @media (prefers-color-scheme: light) {
     :root {
         --background-image: url("../img/above_clouds.jpg");
+
+        --color-background-mute-transparent: rgba(242, 242, 242, var(--background-transparency));
     }
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --background-image: url("../img/above_clouds_dark.jpg");
+
+        --color-background-mute-transparent: rgba(40, 40, 40, var(--background-transparency));
     }
 }
 
@@ -18,11 +26,23 @@ body {
 
 
 .card-wrapper {
-    background-color: var(--color-background-soft);
+    background-color: var(--color-background-mute-transparent);
     margin-top: 12px;
+    box-shadow: 0px 0px 22px -3px rgba(0,0,0,0.45);
+    -webkit-box-shadow: 0px 0px 22px -3px rgba(0,0,0,0.45);
+    -moz-box-shadow: 0px 0px 22px -3px rgba(0,0,0,0.45);
 }
 
-.card-wrapper > .w-card {
+.card-wrapper > .w-button {
     margin: 12px;
-    color: var(--color-text)
+    padding: 12px;
+    height: 50px !important;
+    background-color: var(--color-background-soft);
+    color: var(--color-text) !important;
+    text-align: center;
+}
+
+.survey-button {
+    margin: 24px;
+    padding: 24px;
 }
