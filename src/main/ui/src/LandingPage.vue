@@ -9,11 +9,11 @@
 
             <div class="spacer"></div>
 
-            <h1 style="text-align: center;">Welcome to Garching Airlines</h1>
-            <h3 style="text-align: center;">Flights of Excellence</h3>
+            <h1>Welcome to Garching Airlines</h1>
+            <h3>Flights of Excellence</h3>
 
             <w-grid columns="4" class="card-wrapper">
-                <w-button>Flights</w-button>
+                <w-button href="/flights">Flights</w-button>
                 <w-button>Catering</w-button>
                 <w-button>About my destination</w-button>
                 <w-button>About my trip</w-button>

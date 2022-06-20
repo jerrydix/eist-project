@@ -21,6 +21,7 @@
 body {
     background: var(--background-image) center center fixed no-repeat;
     background-size: cover;
+    text-align: center;
 }
 
 
