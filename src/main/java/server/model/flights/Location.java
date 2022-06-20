@@ -3,7 +3,9 @@ package server.model.flights;
 import server.model.flights.poi.PointOfInterest;
 import server.model.flights.poi.PointOfInterestParser;
 import server.model.flights.weather.Weather;
+import server.model.networking.HTTP_GetRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Location {
@@ -15,12 +17,15 @@ public class Location {
     private Weather weather;
     private double longitude;
     private double latidute;
+    private List<String> airports;
+    private String iata;
 
     public Location(String name, double longitude, double latitude) {
         this.name = name;
         this.weather = Weather.fetchWeather(latitude, longitude);
         this.longitude = longitude;
         this.latidute = latitude;
+        this.airports = new ArrayList<>();
         locationID = currentID;
         currentID++;
         this.poiList = PointOfInterest.fetchPOIs(longitude, latitude, this);
@@ -29,6 +34,55 @@ public class Location {
                 pointOfInterest.setLocation(this);
             }
         }
+    }
+
+    public String getIata() {
+        return iata;
+    }
+
+    public void setIata(String iata) {
+        this.iata = iata;
+    }
+
+    public static int getCurrentID() {
+        return currentID;
+    }
+
+    public static void setCurrentID(int currentID) {
+        Location.currentID = currentID;
+    }
+
+    public List<PointOfInterest> getPoiList() {
+        return poiList;
+    }
+
+    public void setPoiList(List<PointOfInterest> poiList) {
+        this.poiList = poiList;
+    }
+
+    public int getLocationID() {
+        return locationID;
+    }
+
+    public void setLocationID(int locationID) {
+        this.locationID = locationID;
+    }
+
+    public List<String> getAirports() {
+        return airports;
+    }
+
+    public void setAirports(List<String> airports) {
+        this.airports = airports;
+    }
+
+    private void fetchIATACode() {
+        this.iata = HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/findplacefromtext/json", new String[]{"?inputtype=textquery", "&input=" + this.name});
+    }
+
+    public void fetchAirports() {
+        this.fetchIATACode();
+        this.airports = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports", new String[]{"?iata_code=&api_key=18d0b081-fd7f-4c9e-a723-a05e8ff627cf"}));
     }
 
     public int getID() {
