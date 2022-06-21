@@ -19,8 +19,8 @@
 }
 
 body {
-    background: var(--background-image) center center fixed no-repeat;
-    background-size: cover;
+    background: var(--background-image) center center fixed no-repeat !important;
+    background-size: cover !important;
     text-align: center;
 }
 
@@ -34,12 +34,13 @@ body {
     -moz-box-shadow: 0px 0px 22px -3px rgba(0,0,0,0.45);
 }
 
-.card-wrapper > .w-button {
+.card-wrapper > a > .w-button {
     margin: 12px;
     padding: 12px;
-    height: 50px !important;
+    height: 50px;
+    width: 120px !important;
     background-color: var(--color-background-soft);
-    color: var(--color-text) !important;
+    color: var(--color-text);
     text-align: center;
 }
 

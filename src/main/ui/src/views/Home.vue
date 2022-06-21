@@ -1,5 +1,6 @@
 <script setup>
-
+import { RouterLink } from "vue-router";
+import "../assets/css/home.css";
 </script>
 
 <template>
@@ -13,7 +14,9 @@
             <h3>Flights of Excellence</h3>
 
             <w-grid columns="4" class="card-wrapper">
-                <w-button href="/flights">Flights</w-button>
+                <RouterLink to="/flights">
+                    <w-button class="nav-button">Flights</w-button>
+                </RouterLink>
                 <w-button>Catering</w-button>
                 <w-button>About my destination</w-button>
                 <w-button>About my trip</w-button>
@@ -30,8 +33,6 @@
 </w-app>
 </template>
 
-<style>
-@import "./assets/css/base.css";
-@import "./assets/css/landing_page.css";
+<style scoped>
 
 </style>

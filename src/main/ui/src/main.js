@@ -1,12 +1,15 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import router from "./router"
+
 import WaveUI from "wave-ui";
 import "wave-ui/dist/wave-ui.css";
 
-const app = createApp(App);
+import "./assets/css/base.css";
 
-new WaveUI(app, {
-  // Some Wave UI options.
-});
+const app = createApp(App)
 
+new WaveUI(app, {});
+
+app.use(router);
 app.mount("#app");
