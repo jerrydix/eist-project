@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "vue": "^3.2.36",
+    "vue-router": "^4.0.16",
     "wave-ui": "^2.39.1"
   },
   "devDependencies": {
