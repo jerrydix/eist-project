@@ -25,4 +25,8 @@ public class User {
         }
         return this.authenticated;
     }
+
+    public void logout() {
+        this.authenticated = false;
+    }
 }
