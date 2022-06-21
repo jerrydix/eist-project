@@ -3,7 +3,9 @@ package server.model.surveys;
 import java.util.UUID;
 
 public class Survey {
-    private UUID surveyID;
+
+    private static int currentID = 0;
+    private int surveyID;
     private int passengerID;
     private int flightNumber;
 
@@ -20,8 +22,8 @@ public class Survey {
 
 
     public Survey(UUID surveyID, int passengerID, int flightNumber, int flightRating, int cateringRating, int entertainmentRating, int comfortRating,
-    int serviceRating, String comment) {
-        this.surveyID = surveyID;
+                  int serviceRating, String comment) {
+        this.surveyID = currentID++;
         this.passengerID = passengerID;
         this.flightNumber = flightNumber;
         this.cateringRating = cateringRating;
@@ -34,7 +36,7 @@ public class Survey {
     }
 
 
-    public UUID getID(){
+    public int getID() {
         return this.surveyID;
     }
 
