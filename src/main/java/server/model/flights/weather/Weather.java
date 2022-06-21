@@ -1,6 +1,7 @@
 package server.model.flights.weather;
 
 import server.model.networking.HTTP_GetRequest;
+import server.model.parsing.WeatherParser;
 
 public class Weather {
 

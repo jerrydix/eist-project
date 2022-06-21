@@ -1,5 +1,6 @@
-package server.model.flights.weather;
+package server.model.parsing;
 
+import server.model.flights.weather.Weather;
 import server.model.networking.HTTP_GetRequest;
 import org.json.JSONArray;
 import org.json.JSONException;

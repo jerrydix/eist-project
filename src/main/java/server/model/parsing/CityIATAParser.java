@@ -1,4 +1,4 @@
-package server.model.flights;
+package server.model.parsing;
 
 import org.json.JSONException;
 

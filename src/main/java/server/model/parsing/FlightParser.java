@@ -1,4 +1,4 @@
-package server.model.flights;
+package server.model.parsing;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -10,6 +10,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import server.model.flights.Flight;
+import server.model.flights.Location;
 
 //TODO DO NOT EXECUTE MAIN METHOD, WE GOTTA SAFE THEM API REQUESTS
 public class FlightParser {

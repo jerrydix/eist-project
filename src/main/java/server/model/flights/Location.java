@@ -1,7 +1,8 @@
 package server.model.flights;
 
 import server.model.flights.poi.PointOfInterest;
-import server.model.flights.poi.PointOfInterestParser;
+import server.model.parsing.AirportParser;
+import server.model.parsing.PointOfInterestParser;
 import server.model.flights.weather.Weather;
 import server.model.networking.HTTP_GetRequest;
 

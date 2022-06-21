@@ -2,6 +2,7 @@ package server.model.flights.poi;
 
 import server.model.flights.Location;
 import server.model.networking.HTTP_GetRequest;
+import server.model.parsing.PointOfInterestParser;
 
 import java.util.List;
 

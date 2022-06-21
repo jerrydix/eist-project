@@ -1,9 +1,10 @@
-package server.model.flights.poi;
+package server.model.parsing;
 
 import server.model.flights.Location;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import server.model.flights.poi.PointOfInterest;
 
 import java.util.ArrayList;
 import java.util.List;
