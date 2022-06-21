@@ -21,7 +21,7 @@ public class SurveyRest {
 
     @PostMapping("surveys")
     public ResponseEntity<Survey> createSurvey(@RequestBody Survey survey) {
-        if (survey.getID() != null) {
+        if (survey.getUser() == null) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(surveyService.saveSurvey(survey));

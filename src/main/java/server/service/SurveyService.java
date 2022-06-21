@@ -25,13 +25,8 @@ public class SurveyService {
 
 
     public Survey saveSurvey(Survey survey) {
-        for (int i = 0; i < surveys.size(); i++) { //TODO: not necessary if we don't do PutMapping
-            if (survey.getID() == (surveys.get(i).getID())) {
-                surveys.set(i, survey);
-                return survey;
-            }
-        }
         surveys.add(survey);
+        survey.surveyCompletion();
         return survey;
     }
 

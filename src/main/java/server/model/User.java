@@ -1,7 +1,9 @@
 package server.model;
 
 import server.model.flights.FlightJourney;
+import server.model.surveys.Reward;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -10,6 +12,8 @@ public class User {
 
     private boolean authenticated;
 
+    private List<Reward> rewards;
+
     private List<FlightJourney> bookedFlightJourneys;
 
 
@@ -17,6 +21,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.authenticated = false;
+        rewards = new ArrayList<>();
     }
 
     public boolean authenticateUser(String password) {
@@ -28,5 +33,9 @@ public class User {
 
     public void logout() {
         this.authenticated = false;
+    }
+
+    public void reward() {
+        rewards.add(new Reward());
     }
 }
