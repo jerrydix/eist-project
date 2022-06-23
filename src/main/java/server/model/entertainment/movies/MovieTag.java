@@ -1,5 +1,10 @@
 package server.model.entertainment.movies;
 
 public enum MovieTag {
-    HULK, RICKROLL, PENGUINS
+    /*
+    ####
+    #### When adding new movies here, add the title to CatalogueFactory.getMovie() please
+    ####
+     */
+    HULK, BLADERUNNER, MORBIUS, STARWARS
 }
