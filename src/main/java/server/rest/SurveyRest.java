@@ -2,10 +2,8 @@ package server.rest;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import server.model.User;
 import server.model.surveys.Survey;
 import server.service.SurveyService;
 
@@ -19,11 +17,13 @@ public class SurveyRest {
         this.surveyService = surveyService;
     }
 
-    @PostMapping("surveys")
-    public ResponseEntity<Survey> createSurvey(@RequestBody Survey survey) {
-        if (survey.getUser() == null) {
+    @PostMapping("api/surveys")
+    public ResponseEntity<Survey> createSurvey(@RequestParam(name = "username") String username, @RequestBody Survey survey) {
+        User current = User.getUser(username);
+        if (current == null || !current.isAuthenticated()) {
             return ResponseEntity.badRequest().build();
         }
+        survey.setUser(current);
         return ResponseEntity.ok(surveyService.saveSurvey(survey));
     }
 }

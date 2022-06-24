@@ -2,14 +2,12 @@ package server.model.surveys;
 
 import server.model.User;
 
-import java.util.UUID;
-
 public class Survey {
 
     private static int currentID = 0;
     private int surveyID;
     private User user;
-    private int flightNumber;
+    private String flightNumber;
 
 
     private int flightRating;
@@ -23,7 +21,7 @@ public class Survey {
     private Reward reward;
 
 
-    public Survey(UUID surveyID, User user, int flightNumber, int flightRating, int cateringRating, int entertainmentRating, int comfortRating,
+    public Survey(User user, String flightNumber, int flightRating, int cateringRating, int entertainmentRating, int comfortRating,
                   int serviceRating, String comment) {
         this.surveyID = currentID++;
         this.user = user;
@@ -61,7 +59,7 @@ public class Survey {
         return comment;
     }
 
-    public int getFlightNumber() {
+    public String getFlightNumber() {
         return flightNumber;
     }
 
@@ -69,4 +67,7 @@ public class Survey {
         return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
