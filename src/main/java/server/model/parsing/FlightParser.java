@@ -1,7 +1,9 @@
 package server.model.parsing;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,8 +46,8 @@ public class FlightParser {
                 int endMonth = Integer.parseInt(endDate.substring(5,7));
                 int endDay = Integer.parseInt(endDate.substring(8,10));
 
-                int endHour = Integer.parseInt(dataArray.getJSONObject(i).getJSONObject("arrival").getString("scheduled").substring(startHourTIndex + 1, startHourTIndex + 3));
-                int endMinute = Integer.parseInt(dataArray.getJSONObject(i).getJSONObject("arrival").getString("scheduled").substring(startHourTIndex + 4, startHourTIndex + 6));
+                int endHour = Integer.parseInt(endDate.substring(startHourTIndex + 1, startHourTIndex + 3));
+                int endMinute = Integer.parseInt(endDate.substring(startHourTIndex + 4, startHourTIndex + 6));
 
                 Month endM = parseToMonth(endMonth);
                 LocalDateTime endTime = LocalDateTime.of(endYear, endM, endDay, endHour, endMinute);
@@ -54,20 +56,43 @@ public class FlightParser {
                 String terminal = dataArray.getJSONObject(i).getJSONObject("departure").getString("terminal");
                 int seat = ThreadLocalRandom.current().nextInt(1, 288);
                 String airline = dataArray.getJSONObject(i).getJSONObject("airline").getString("name");
+
                 boolean cancelled = true;
                 boolean delayed = false;
                 if (dataArray.getJSONObject(i).getString("flight_status").equals("scheduled")) {
                     cancelled = false;
                 }
-                if (!dataArray.getJSONObject(i).getJSONObject("departure").getString("scheduled").equals(dataArray.getJSONObject(i).getJSONObject("departure").getString("estimated"))) {
+
+                String delayedDate = dataArray.getJSONObject(i).getJSONObject("departure").getString("estimated");
+
+                int delayedYear = Integer.parseInt(delayedDate.substring(0,4));
+                int delayedMonth = Integer.parseInt(delayedDate.substring(5,7));
+                int delayedDay = Integer.parseInt(delayedDate.substring(8,10));
+
+                int delayedHour = Integer.parseInt(delayedDate.substring(startHourTIndex + 1, startHourTIndex + 3));
+                int delayedMinute = Integer.parseInt(delayedDate.substring(startHourTIndex + 4, startHourTIndex + 6));
+
+                Month delayedM = parseToMonth(delayedMonth);
+                LocalDateTime delayedTime = LocalDateTime.of(delayedYear, delayedM, delayedDay, delayedHour, delayedMinute);
+
+                if (!startTime.equals(delayedTime)) {
                     delayed = true;
                 }
-                //todo delayTime
-                int delayTime = 0;
+
+                //todo decide whether delayTime just as LocalDateTime or as number of hours minutes by which delayed (both works
+                int minutes = (int) ChronoUnit.MINUTES.between(startTime, delayedTime);
+                int hours = (int) ChronoUnit.HOURS.between(startTime, delayedTime);
+                System.out.println(minutes);
+                System.out.println(hours);
+
+                int delayHours = minutes / 60;
+                int delayMinutes = minutes % 60;
+
+                System.out.println("The flight is delayed by " + delayHours + " hour(s) and " + delayMinutes + " minute(s).");
 
                 //todo weather, poilist, latitude, longitude: done (check if working)
-                //todo add airports
-                //todo fix when coords arent available for location
+                //todo add airports (not yet decided if necessary)
+                //todo fix when coords arent available for location: done
 
                 String startName = dataArray.getJSONObject(i).getJSONObject("departure").getString("timezone").substring(dataArray.getJSONObject(i).getJSONObject("departure").getString("timezone").indexOf("/") + 1);
                 String endName = dataArray.getJSONObject(i).getJSONObject("arrival").getString("timezone").substring(dataArray.getJSONObject(i).getJSONObject("arrival").getString("timezone").indexOf("/") + 1);
@@ -83,6 +108,7 @@ public class FlightParser {
                 Flight current = new Flight(number, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation);
                 current.setDelayed(delayed);
                 current.setCancelled(cancelled);
+                current.setDelayTime(delayedTime);
                 flights.add(current);
             }
             return flights;
@@ -145,7 +171,7 @@ public class FlightParser {
                 "            \"gate\":null,\n" +
                 "            \"delay\":null,\n" +
                 "            \"scheduled\":\"2022-06-25T08:55:00+00:00\",\n" +
-                "            \"estimated\":\"2022-06-25T08:55:00+00:00\",\n" +
+                "            \"estimated\":\"2022-06-25T10:43:00+00:00\",\n" +
                 "            \"actual\":null,\n" +
                 "            \"estimated_runway\":null,\n" +
                 "            \"actual_runway\":null\n" +
