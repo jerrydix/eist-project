@@ -1,5 +1,8 @@
 package server.model.entertainment.movies;
 
+import server.model.networking.HTTP_GetRequest;
+import server.model.parsing.MovieParser;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,27 +10,30 @@ public class CatalogueFactory {
     public static Catalogue createMovieCatalogue() {
         List<Movie> movies = new ArrayList<>();
         for (MovieTag tag : MovieTag.values()) {
-            movies.add(getMovie(tag));
+            Movie movie = getMovie(tag);
+            if (movie != null) {
+                movies.add(movie);
+            }
         }
         return new Catalogue(movies);
     }
 
-    public static Movie getMovie(MovieTag tag) {
-        String description = switch(tag) {
-            case HULK -> "The Green Menace";
-            case RICKROLL -> "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-            case PENGUINS -> "There is no sweeter creature on earth!";
+    private static Movie getMovie(MovieTag tag) {
+        String title = "&t=" + switch (tag) {
+            case HULK -> "Hulk";
+            case BLADERUNNER -> "Blade+Runner";
+            case MORBIUS -> "Morbius";
+            case STARWARS -> "Star+Wars";
         };
-        String name = switch (tag) {
-            case HULK -> "The Monstrous Hulk";
-            case RICKROLL -> "Rick Astley - Never Gonna Give You Up";
-            case PENGUINS -> "PGdP - A Documentary";
+        String[] urlParameters = {
+                "?apikey=b0c08011",
+                "&type=movie",
+                "&plot=short",
+                "&r=json",
+                title
         };
-        int ageRating = switch (tag) {
-            case HULK -> 12;
-            case RICKROLL, PENGUINS -> 0;
-        };
-        String coverPath = "movieCovers/" + tag + ".jpg";
-        return new Movie(tag, name, description, ageRating, coverPath);
+        return MovieParser.parseMovieJson(
+                HTTP_GetRequest.httpRequest("http://www.omdbapi.com", urlParameters)
+        );
     }
 }
