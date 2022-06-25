@@ -13,27 +13,27 @@ import server.model.User;
 public class UserRest {
 
     @PostMapping("api/register")
-    public ResponseEntity<String> register(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<User> register(@RequestParam String username, @RequestParam String password) {
         User some = User.getUser(username);
         if (some != null) {
-            return ResponseEntity.badRequest().body("Username " + username + " is already taken");
+            return ResponseEntity.badRequest().build();
         }
 
         User user = new User(username, password);
 
-        return ResponseEntity.ok("Registered Successfully, " + user.getUsername());
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("api/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<User> login(@RequestParam String username, @RequestParam String password) {
         if (User.isLoggedIn()) {
-            return ResponseEntity.badRequest().body("Can't login when already logged in");
+            return ResponseEntity.badRequest().build();
         }
         User current = User.getUser(username);
         if (current == null || !current.authenticateUser(password)) {
-            return ResponseEntity.badRequest().body("Incorrect username or password, please try again");
+            return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok("Welcome " + current.getUsername());
+        return ResponseEntity.ok(current);
     }
 
     @PostMapping("api/logout")

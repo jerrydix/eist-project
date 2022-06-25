@@ -6,7 +6,7 @@ export async function register(user, pass) {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
     })
-    return await response.text();
+    return await response;
 }
 
 
