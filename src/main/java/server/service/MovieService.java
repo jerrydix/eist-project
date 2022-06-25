@@ -1,17 +1,17 @@
 package server.service;
 
-import server.model.entertainment.movies.Catalogue;
+import server.model.entertainment.movies.MovieCatalogue;
 import server.model.entertainment.movies.CatalogueFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MovieService {
-    private Catalogue catalogue;
+    private MovieCatalogue movieCatalogue;
     public MovieService() {
-        catalogue = CatalogueFactory.createMovieCatalogue();
+        movieCatalogue = CatalogueFactory.createMovieCatalogue();
     }
 
-    public Catalogue getCatalogue() {
-        return catalogue;
+    public MovieCatalogue getCatalogue() {
+        return movieCatalogue;
     }
 }

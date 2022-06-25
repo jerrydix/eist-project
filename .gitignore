@@ -107,6 +107,7 @@ dist-ssr
 coverage
 *.local
 
+##############
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -115,3 +116,8 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+###############
+# Config files
+.prettierrc
+

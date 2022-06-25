@@ -1,8 +1,8 @@
 package server.model.flights;
 
 import server.model.networking.HTTP_GetRequest;
+import server.model.parsing.FlightParser;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
@@ -15,9 +15,11 @@ public class Flight {
     private String terminal;
     private int seat;
     private String airline;
-    private boolean cancelled;
-    private boolean delayed;
+    private boolean isCancelled;
+    private boolean isDelayed;
     private LocalDateTime delayTime;
+    private int delayHours;
+    private int delayMinutes;
     private Location startLocation;
     private Location endLocation;
 
@@ -30,8 +32,8 @@ public class Flight {
         this.terminal = terminal;
         this.seat = seat;
         this.airline = airline;
-        this.cancelled = false;
-        this.delayed = false;
+        this.isCancelled = false;
+        this.isDelayed = false;
         this.startLocation = startLocation;
         this.endLocation = endLocation;
     }
@@ -58,6 +60,30 @@ public class Flight {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public String getAirline() {
+        return airline;
+    }
+
+    public void setAirline(String airline) {
+        this.airline = airline;
+    }
+
+    public int getDelayHours() {
+        return delayHours;
+    }
+
+    public void setDelayHours(int delayHours) {
+        this.delayHours = delayHours;
+    }
+
+    public int getDelayMinutes() {
+        return delayMinutes;
+    }
+
+    public void setDelayMinutes(int delayMinutes) {
+        this.delayMinutes = delayMinutes;
     }
 
     public String getGate() {
@@ -93,19 +119,19 @@ public class Flight {
     }
 
     public boolean isCancelled() {
-        return cancelled;
+        return isCancelled;
     }
 
     public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
+        this.isCancelled = cancelled;
     }
 
     public boolean isDelayed() {
-        return delayed;
+        return isDelayed;
     }
 
     public void setDelayed(boolean delayed) {
-        this.delayed = delayed;
+        this.isDelayed = delayed;
     }
 
     public LocalDateTime getDelayTime() {
@@ -136,7 +162,9 @@ public class Flight {
         return "Number: " + number + "\nTerminal: " + terminal + "\nGate: " + gate + "\nStart Time: " + startTime + "\nEnd Time: " + endTime;
     }
 
-    public List<Flight> fetch10FlightsFromToAt(String fromAirport, Location toAirport, LocalDateTime localDateTime) {
+    //todo make a parser for localdatetime
+
+    public static List<Flight> fetch10FlightsFromToAt(String from, String to, LocalDateTime localDateTime) {
         int month = localDateTime.getMonth().getValue();
         int day = localDateTime.getDayOfMonth();
         String monthStr = String.valueOf(localDateTime.getMonth().getValue());
@@ -149,9 +177,9 @@ public class Flight {
             dayStr = "0" + localDateTime.getDayOfMonth();
         }
         String flightDate = localDateTime.getYear() + "-" + monthStr + "-" + dayStr;
-        //todo
-        //return FlightParser.parseFlightJson(HTTP_GetRequest.httpRequest("http://api.aviationstack.com/v1/flights", new String[]{"?access_key=8df0ff3c6cd266e3219eed88b44cc2ee", "?limit=10", "?flight_date=" + flightDate, ""})
-        return null;
+        String fromIATA = Location.fetchCityIATACode(from);
+        String toIATA = Location.fetchCityIATACode(to);
+        return FlightParser.parseFlightJson(HTTP_GetRequest.httpRequest("http://api.aviationstack.com/v1/flights", new String[]{"?access_key=8df0ff3c6cd266e3219eed88b44cc2ee", "&limit=10", "&flight_date=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}));
     }
 
     public static void main(String[] args) {

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CatalogueFactory {
-    public static Catalogue createMovieCatalogue() {
+    public static MovieCatalogue createMovieCatalogue() {
         List<Movie> movies = new ArrayList<>();
         for (MovieTag tag : MovieTag.values()) {
             Movie movie = getMovie(tag);
@@ -15,7 +15,7 @@ public class CatalogueFactory {
                 movies.add(movie);
             }
         }
-        return new Catalogue(movies);
+        return new MovieCatalogue(movies);
     }
 
     private static Movie getMovie(MovieTag tag) {

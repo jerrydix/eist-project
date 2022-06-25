@@ -82,13 +82,13 @@ public class FlightParser {
                 //todo decide whether delayTime just as LocalDateTime or as number of hours minutes by which delayed (both works
                 int minutes = (int) ChronoUnit.MINUTES.between(startTime, delayedTime);
                 int hours = (int) ChronoUnit.HOURS.between(startTime, delayedTime);
-                System.out.println(minutes);
-                System.out.println(hours);
+                //System.out.println(minutes);
+                //System.out.println(hours);
 
                 int delayHours = minutes / 60;
                 int delayMinutes = minutes % 60;
 
-                System.out.println("The flight is delayed by " + delayHours + " hour(s) and " + delayMinutes + " minute(s).");
+                //System.out.println("The flight is delayed by " + delayHours + " hour(s) and " + delayMinutes + " minute(s).");
 
                 //todo weather, poilist, latitude, longitude: done (check if working)
                 //todo add airports (not yet decided if necessary)
@@ -99,8 +99,8 @@ public class FlightParser {
 
                 double[] startCoords = fetchCoordsForGivenAddress(startName);
                 double[] endCoords = fetchCoordsForGivenAddress(endName);
-                System.out.println(Arrays.toString(startCoords));
-                System.out.println(Arrays.toString(endCoords));
+                //System.out.println(Arrays.toString(startCoords));
+                //System.out.println(Arrays.toString(endCoords));
 
                 Location startLocation = new Location(startName, startCoords[1], startCoords[0]);
                 Location endLocation = new Location(endName, endCoords[1], endCoords[0]);
@@ -109,6 +109,8 @@ public class FlightParser {
                 current.setDelayed(delayed);
                 current.setCancelled(cancelled);
                 current.setDelayTime(delayedTime);
+                current.setDelayMinutes(delayMinutes);
+                current.setDelayHours(delayHours);
                 flights.add(current);
             }
             return flights;
