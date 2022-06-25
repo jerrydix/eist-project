@@ -2,6 +2,7 @@ package server.model.flights;
 
 import server.model.flights.poi.PointOfInterest;
 import server.model.parsing.AirportParser;
+import server.model.parsing.CityIATAParser;
 import server.model.parsing.PointOfInterestParser;
 import server.model.flights.weather.Weather;
 import server.model.networking.HTTP_GetRequest;
@@ -77,13 +78,18 @@ public class Location {
         this.airports = airports;
     }
 
-    private void fetchIATACode() {
-        this.iata = HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/findplacefromtext/json", new String[]{"?inputtype=textquery", "&input=" + this.name});
+    private void fetchCurrentCityIATACode() {
+        this.iata = CityIATAParser.parseCityIATAJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/suggest", new String[]{"?q=" + this.name, "&api_key=18d0b081-fd7f-4c9e-a723-a05e8ff627cf",}));
     }
 
+    public static String fetchCityIATACode(String name) {
+        return CityIATAParser.parseCityIATAJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/suggest", new String[]{"?q=" + name, "&api_key=18d0b081-fd7f-4c9e-a723-a05e8ff627cf",}));
+    }
+
+    //todo remove
     public void fetchAirports() {
-        this.fetchIATACode();
-        this.airports = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports", new String[]{"?iata_code=&api_key=18d0b081-fd7f-4c9e-a723-a05e8ff627cf"}));
+        this.fetchCurrentCityIATACode();
+        this.airports = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports", new String[]{}));
     }
 
     public int getID() {
