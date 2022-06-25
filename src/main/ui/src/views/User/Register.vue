@@ -29,8 +29,7 @@ export default {
   <label>Password:</label>
   <w-textarea v-model="user.password" placeholder="Enter your password"></w-textarea>
   <w-button @click="registerUser">Register</w-button>
-  <w-button @click="registerUser2">Register2</w-button>
-  <p>{{ ans }}</p>
+  <w-button @click="reg">Lala</w-button>
 </template>
 
 
