@@ -4,30 +4,27 @@
 
 @media (prefers-color-scheme: light) {
     :root {
-        --background-image: url("../img/above_clouds.jpg");
-
         --color-background-mute-transparent: rgba(242, 242, 242, var(--background-transparency));
+    }
+
+    .card-wrapper {
+        background-color: rgba(242, 242, 242, var(--background-transparency));
     }
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --background-image: url("../img/above_clouds_dark.jpg");
-
         --color-background-mute-transparent: rgba(40, 40, 40, var(--background-transparency));
+    }
+
+    .card-wrapper {
+        background-color: rgba(40, 40, 40, 0.5);
     }
 }
 
-body {
-    background: var(--background-image) center center fixed no-repeat !important;
-    background-size: cover !important;
-    text-align: center;
-}
-
-
-
 .card-wrapper {
-    background-color: var(--color-background-mute-transparent);
+    /* background-color: var(--color-background-mute-transparent); */
+    background-color: rgba(40, 40, 40, 0.5);
     margin-top: 12px;
     box-shadow: 0px 0px 22px -3px rgba(0,0,0,0.45);
     -webkit-box-shadow: 0px 0px 22px -3px rgba(0,0,0,0.45);
@@ -38,7 +35,7 @@ body {
     margin: 12px;
     padding: 12px;
     height: 50px;
-    width: 120px !important;
+    width: 150px !important;
     background-color: var(--color-background-soft);
     color: var(--color-text);
     text-align: center;

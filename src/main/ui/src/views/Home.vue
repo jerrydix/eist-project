@@ -1,6 +1,7 @@
 <script setup>
-import {RouterLink} from "vue-router";
-import "../assets/css/home.css";</script>
+import { RouterLink } from "vue-router";
+//import "../assets/css/home.css";
+</script>
 
 <template>
   <w-app>
@@ -32,9 +33,11 @@ import "../assets/css/home.css";</script>
 
         <div class="spacer"></div>
 
-        <w-button class="survey-button align-self-end">
-          We value your opinion
-        </w-button>
+            <div class="align-self-end">
+                <RouterLink to="/survey">
+                    <w-button class="survey-button">We value your opinion</w-button>
+                </RouterLink>
+            </div>
 
       </w-flex>
     </w-flex>
@@ -42,5 +45,21 @@ import "../assets/css/home.css";</script>
 </template>
 
 <style scoped>
+@import "../assets/css/home.css";
+@media (prefers-color-scheme: light) {
+    .w-app {
+        background: url("../assets/img/above_clouds.jpg") center center fixed no-repeat !important;
+    }
+}
 
+@media (prefers-color-scheme: dark) {
+    .w-app {
+    background: url("../assets/img/above_clouds_dark.jpg") center center fixed no-repeat !important;
+}
+}
+
+.w-app {
+    background-size: cover !important;
+    text-align: center;
+}
 </style>

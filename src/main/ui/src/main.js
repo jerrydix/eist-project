@@ -9,8 +9,5 @@ import "./assets/css/base.css";
 
 
 const app = createApp(App)
-
 new WaveUI(app, {});
-
-app.use(router);
-app.mount("#app");
+app.use(router).mount("#app");
