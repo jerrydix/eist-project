@@ -7,9 +7,7 @@
         --color-background-mute-transparent: rgba(242, 242, 242, var(--background-transparency));
     }
 
-    .card-wrapper {
-        background-color: rgba(242, 242, 242, var(--background-transparency));
-    }
+    
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,29 +15,10 @@
         --color-background-mute-transparent: rgba(40, 40, 40, var(--background-transparency));
     }
 
-    .card-wrapper {
-        background-color: rgba(40, 40, 40, 0.5);
-    }
+    
 }
 
-.card-wrapper {
-    /* background-color: var(--color-background-mute-transparent); */
-    background-color: rgba(40, 40, 40, 0.5);
-    margin-top: 12px;
-    box-shadow: 0px 0px 22px -3px rgba(0,0,0,0.45);
-    -webkit-box-shadow: 0px 0px 22px -3px rgba(0,0,0,0.45);
-    -moz-box-shadow: 0px 0px 22px -3px rgba(0,0,0,0.45);
-}
 
-.card-wrapper > a > .w-button {
-    margin: 12px;
-    padding: 12px;
-    height: 50px;
-    width: 150px !important;
-    background-color: var(--color-background-soft);
-    color: var(--color-text);
-    text-align: center;
-}
 
 .survey-button {
     margin: 24px;

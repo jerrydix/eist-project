@@ -34,6 +34,8 @@
   --color-text: var(--vt-c-text-light-1);
 
   --section-gap: 160px;
+
+  --color-background-mute-transparent: rgba(242, 242, 242, 0.5);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,6 +49,7 @@
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
+    --color-background-mute-transparent: rgba(40, 40, 40, 0.5);
   }
 }
 
