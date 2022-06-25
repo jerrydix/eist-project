@@ -1,7 +1,8 @@
 <script setup>
 import { RouterLink } from "vue-router";
 
-import HomeNav from "../components/HomeNav.vue"
+import HomeNav from "../components/HomeNav.vue";
+import HomeLoginButton from "../components/HomeLoginButton.vue"
 //import "../assets/css/home.css";
 </script>
 
@@ -9,6 +10,10 @@ import HomeNav from "../components/HomeNav.vue"
   <w-app>
     <w-flex basis-zero grow wrap>
       <w-flex class="grow column align-center justify-center">
+        
+        <div class="align-self-end">
+          <HomeLoginButton />
+        </div>
 
         <div class="spacer"></div>
 
@@ -20,11 +25,10 @@ import HomeNav from "../components/HomeNav.vue"
         <div class="spacer"></div>
 
         <div class="align-self-end">
-            <RouterLink to="/survey">
-                <w-button class="survey-button">We value your opinion</w-button>
-            </RouterLink>
+          <RouterLink to="/survey">
+            <w-button class="survey-button">We value your opinion</w-button>
+          </RouterLink>
         </div>
-
       </w-flex>
     </w-flex>
   </w-app>
@@ -33,27 +37,22 @@ import HomeNav from "../components/HomeNav.vue"
 <style scoped>
 @import "../assets/css/home.css";
 @media (prefers-color-scheme: light) {
-    .w-app {
-        background: url("../assets/img/above_clouds.jpg") center center fixed no-repeat !important;
-    }
-
-    /* .card-wrapper {
-        background-color: rgba(242, 242, 242, var(--background-transparency));
-    } */
+  .w-app {
+    background: url("../assets/img/above_clouds.jpg") center center fixed
+      no-repeat !important;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
-    .w-app {
-      background: url("../assets/img/above_clouds_dark.jpg") center center fixed no-repeat !important;
-    }
-    
-    /* .card-wrapper {
-        background-color: rgba(40, 40, 40, 0.5);
-    } */
+  .w-app {
+    background: url("../assets/img/above_clouds_dark.jpg") center center fixed
+      no-repeat !important;
+  }
 }
 
 .w-app {
-    background-size: cover !important;
-    text-align: center;
+  background-size: cover !important;
+  text-align: center;
 }
+
 </style>

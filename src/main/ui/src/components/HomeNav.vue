@@ -12,12 +12,6 @@
     <RouterLink to="/survey">
       <w-button class="nav-button">Take Survey</w-button>
     </RouterLink>
-    <RouterLink to="/register">
-      <w-button class="nav-button">Register</w-button>
-    </RouterLink>
-    <RouterLink to="/login">
-      <w-button class="nav-button">Login</w-button>
-    </RouterLink>
   </w-grid>
 </template>
 
@@ -31,14 +25,6 @@
   -moz-box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);
 }
 
-.card-wrapper > a > .w-button {
-  margin: 12px;
-  padding: 12px;
-  height: 50px;
-  width: 150px !important;
-  background-color: var(--color-background-soft);
-  color: var(--color-text);
-  text-align: center;
-}
+
 
 </style>
