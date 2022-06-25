@@ -1,4 +1,5 @@
 import {createApp} from "vue";
+import {createPinia} from "pinia";
 import App from "./App.vue";
 import router from "./router"
 
@@ -7,7 +8,7 @@ import "wave-ui/dist/wave-ui.css";
 
 import "./assets/css/base.css";
 
-
-const app = createApp(App)
+const pinia = createPinia();
+const app = createApp(App);
 new WaveUI(app, {});
-app.use(router).mount("#app");
+app.use(router).use(pinia).mount("#app");

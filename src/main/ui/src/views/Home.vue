@@ -1,26 +1,54 @@
-<script setup>
-import { RouterLink } from "vue-router";
-
+<script>
 import HomeNav from "../components/HomeNav.vue";
 import HomeLoginButton from "../components/HomeLoginButton.vue"
+import {userStore} from '../userStore.js'
+import {logout} from "../services/UserService.js";
 //import "../assets/css/home.css";
+export default {
+  components: {
+    HomeNav,
+    HomeLoginButton
+  },
+  setup() {
+    const store = userStore()
+    return {
+      store
+    }
+  },
+  methods: {
+    logoutUser() {
+      logout(this.store.username).then((response) => {
+        if (!(response === "Broke the system") && !(response === "Error")) {
+          window.localStorage.removeItem('user');
+          this.store.username = null;
+        }
+        console.log(response);
+      });
+    }
+  }
+}
+
 </script>
 
 <template>
   <w-app>
     <w-flex basis-zero grow wrap>
       <w-flex class="grow column align-center justify-center">
-        
-        <div class="align-self-end">
-          <HomeLoginButton />
+
+        <div v-if="!this.store.username" class="align-self-end">
+          <HomeLoginButton/>
         </div>
+        <div v-if="this.store.username" class="align-self-end">
+          <w-button class="nav-button" @click="logoutUser">Logout</w-button>
+        </div>
+
 
         <div class="spacer"></div>
 
         <h1>Welcome to Garching Airlines</h1>
         <h3>Flights of Excellence</h3>
 
-        <HomeNav />
+        <HomeNav/>
 
         <div class="spacer"></div>
 
@@ -36,6 +64,7 @@ import HomeLoginButton from "../components/HomeLoginButton.vue"
 
 <style scoped>
 @import "../assets/css/home.css";
+
 @media (prefers-color-scheme: light) {
   .w-app {
     background: url("../assets/img/above_clouds.jpg") center center fixed no-repeat !important;

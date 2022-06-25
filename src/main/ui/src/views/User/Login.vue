@@ -1,5 +1,6 @@
 <script>
-import {login, logout} from "../../services/UserService.js";
+import {login} from "../../services/UserService.js";
+import {userStore} from '../../userStore.js'
 
 export default {
   data() {
@@ -11,14 +12,26 @@ export default {
       }
     }
   },
+  setup() {
+    const store = userStore()
+    return {
+      store
+    }
+  },
   methods: {
     loginUser() {
       login(this.user.username, this.user.password).then((response) => {
-        this.ans = response
-      });
-    }, logoutUser() {
-      logout(this.user.username).then((response) => {
-        this.ans = response
+        if (
+            response === "Wrong username or password" ||
+            response === "Broke the system"
+        ) {
+          this.ans = response;
+        } else {
+          console.log(response);
+          window.localStorage.setItem('user', response);
+          this.store.username = response;
+          this.ans = "Successfully logged in"
+        }
       });
     }
   }
@@ -34,7 +47,7 @@ export default {
 
   <p>{{ ans }}</p>
 
-  <w-button @click="logoutUser">Logout</w-button>
+
 </template>
 
 

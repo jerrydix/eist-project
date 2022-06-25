@@ -13,39 +13,40 @@ import server.model.User;
 public class UserRest {
 
     @PostMapping("api/register")
-    public ResponseEntity<User> register(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<String> register(@RequestParam String username, @RequestParam String password) {
         User some = User.getUser(username);
         if (some != null) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Username taken");
         }
 
         User user = new User(username, password);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok("Registered successfully");
     }
 
     @PostMapping("api/login")
-    public ResponseEntity<User> login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
         if (User.isLoggedIn()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Broke the system");
         }
         User current = User.getUser(username);
         if (current == null || !current.authenticateUser(password)) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Wrong username or password");
         }
-        return ResponseEntity.ok(current);
+
+        return ResponseEntity.ok(current.getUsername());
     }
 
     @PostMapping("api/logout")
     public ResponseEntity<String> logout(@RequestParam String username) {
         if (!User.isLoggedIn()) {
-            return ResponseEntity.badRequest().body("Can't logout when not logged in");
+            return ResponseEntity.badRequest().body("Broke the system");
         }
         User current = User.getUser(username);
         if (current == null || !current.isAuthenticated()) {
-            return ResponseEntity.badRequest().body("User doesn't exist or hasn't logged in");
+            return ResponseEntity.badRequest().body("Error");
         }
         current.logout();
-        return ResponseEntity.ok("Thanks for using Garching Airlines");
+        return ResponseEntity.ok("Logged out");
     }
 }
