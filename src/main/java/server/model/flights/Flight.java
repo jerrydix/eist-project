@@ -17,7 +17,7 @@ public class Flight {
     private String airline;
     private boolean cancelled;
     private boolean delayed;
-    private Time delayTime;
+    private LocalDateTime delayTime;
     private Location startLocation;
     private Location endLocation;
 
@@ -32,7 +32,6 @@ public class Flight {
         this.airline = airline;
         this.cancelled = false;
         this.delayed = false;
-        this.delayTime = new Time(121212);
         this.startLocation = startLocation;
         this.endLocation = endLocation;
     }
@@ -109,11 +108,11 @@ public class Flight {
         this.delayed = delayed;
     }
 
-    public Time getDelayTime() {
+    public LocalDateTime getDelayTime() {
         return delayTime;
     }
 
-    public void setDelayTime(Time delayTime) {
+    public void setDelayTime(LocalDateTime delayTime) {
         this.delayTime = delayTime;
     }
 

@@ -14,6 +14,9 @@ public class Weather {
     }
 
     public static Weather fetchWeather(double latitude, double longitude) {
+        if (latitude == -1 || longitude == -1) {
+            return new Weather("cloudy", 20);
+        }
         return WeatherParser.parseWeatherJson(HTTP_GetRequest.httpRequest("http://api.openweathermap.org/data/2.5/weather", new String[]{"?lat=" + latitude + "&lon=" + longitude, "&appid=9ea515dfae2ad349f12da21f050ede90"}));
     }
 
