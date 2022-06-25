@@ -1,7 +1,7 @@
 package server.rest;
 
 import server.service.MovieService;
-import server.model.entertainment.movies.Catalogue;
+import server.model.entertainment.movies.MovieCatalogue;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,7 @@ public class MovieRest {
     }
 
     @GetMapping("movies")
-    public ResponseEntity<Catalogue> getCatalogue() {
+    public ResponseEntity<MovieCatalogue> getCatalogue() {
         return ResponseEntity.ok(movieService.getCatalogue());
     }
 }

@@ -17,7 +17,7 @@ public class Location {
     private String name;
     private Weather weather;
     private double longitude;
-    private double latidute;
+    private double latitude;
     private List<String> airports;
     private String iata;
 
@@ -25,7 +25,7 @@ public class Location {
         this.name = name;
         this.weather = null; //Weather.fetchWeather(latitude, longitude); //todo fix weather
         this.longitude = longitude;
-        this.latidute = latitude;
+        this.latitude = latitude;
         this.airports = new ArrayList<>();
         locationID = currentID;
         currentID++;
@@ -102,12 +102,12 @@ public class Location {
         this.longitude = longitude;
     }
 
-    public double getLatidute() {
-        return latidute;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLatidute(double latitude) {
-        this.latidute = latitude;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
     public String getName() {

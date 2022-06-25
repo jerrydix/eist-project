@@ -16,7 +16,6 @@ public class User {
     private boolean authenticated = false;
 
     private List<Reward> rewards = new ArrayList<>();
-    ;
 
     private List<FlightJourney> bookedFlightJourneys;
 

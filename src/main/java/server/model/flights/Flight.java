@@ -1,8 +1,5 @@
 package server.model.flights;
 
-import server.model.networking.HTTP_GetRequest;
-
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
@@ -15,8 +12,8 @@ public class Flight {
     private String terminal;
     private int seat;
     private String airline;
-    private boolean cancelled;
-    private boolean delayed;
+    private boolean isCancelled;
+    private boolean isDelayed;
     private LocalDateTime delayTime;
     private Location startLocation;
     private Location endLocation;
@@ -30,8 +27,8 @@ public class Flight {
         this.terminal = terminal;
         this.seat = seat;
         this.airline = airline;
-        this.cancelled = false;
-        this.delayed = false;
+        this.isCancelled = false;
+        this.isDelayed = false;
         this.startLocation = startLocation;
         this.endLocation = endLocation;
     }
@@ -93,19 +90,19 @@ public class Flight {
     }
 
     public boolean isCancelled() {
-        return cancelled;
+        return isCancelled;
     }
 
     public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
+        this.isCancelled = cancelled;
     }
 
     public boolean isDelayed() {
-        return delayed;
+        return isDelayed;
     }
 
     public void setDelayed(boolean delayed) {
-        this.delayed = delayed;
+        this.isDelayed = delayed;
     }
 
     public LocalDateTime getDelayTime() {
