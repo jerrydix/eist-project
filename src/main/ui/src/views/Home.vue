@@ -38,15 +38,13 @@ import HomeLoginButton from "../components/HomeLoginButton.vue"
 @import "../assets/css/home.css";
 @media (prefers-color-scheme: light) {
   .w-app {
-    background: url("../assets/img/above_clouds.jpg") center center fixed
-      no-repeat !important;
+    background: url("../assets/img/above_clouds.jpg") center center fixed no-repeat !important;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .w-app {
-    background: url("../assets/img/above_clouds_dark.jpg") center center fixed
-      no-repeat !important;
+    background: url("../assets/img/above_clouds_dark.jpg") center center fixed no-repeat !important;
   }
 }
 
