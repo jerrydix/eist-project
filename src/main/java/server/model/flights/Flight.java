@@ -168,25 +168,19 @@ public class Flight {
         String dayStr = date.substring(0,2);
         String monthStr = date.substring(3,5);
         String year = date.substring(6);
-        /*int month = localDateTime.getMonth().getValue();
-        int day = localDateTime.getDayOfMonth();
-        String monthStr = String.valueOf(localDateTime.getMonth().getValue());
-        String dayStr = String.valueOf(localDateTime.getDayOfMonth());
-
-        if (Integer.toString(month).length() == 1) {
-            monthStr = "0" + localDateTime.getMonth().getValue();
-        }
-        if (Integer.toString(day).length() == 1) {
-            dayStr = "0" + localDateTime.getDayOfMonth();
-        }
-        String flightDate = localDateTime.getYear() + "-" + monthStr + "-" + dayStr;*/
         String flightDate = year + "-" + monthStr + "-" + dayStr;
+
         System.out.println(flightDate);
-        String fromIATA = Location.fetchCityIATACode(from);
-        String toIATA = Location.fetchCityIATACode(to);
-        System.out.println(fromIATA);
-        System.out.println(toIATA);
-        return FlightParser.parseFlightJson(HTTP_GetRequest.httpRequest("http://api.aviationstack.com/v1/flights", new String[]{"?access_key=8df0ff3c6cd266e3219eed88b44cc2ee", "&limit=10", "&flight_date=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}));
+
+        String[] fromData = Location.fetchCityIATACode(from);
+        String[] toData = Location.fetchCityIATACode(to);
+
+        String fromName = fromData[0];
+        String fromIATA = fromData[1];
+        String toName = toData[0];
+        String toIATA = toData[1];
+
+        return FlightParser.parseFlightJson(HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{"?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM1ZjFjNDVmZGExNDNlODcwNDhkOGRmNzcyOTZhMThhNTMyNTNjNWUzYjIxMWUzNTA3OTAyMzlmMDVkYzk3ODAxNDQ5ZGM1MzI0MmY0N2QiLCJpYXQiOjE2NTYyMzY1MTIsIm5iZiI6MTY1NjIzNjUxMiwiZXhwIjoxNjg3NzcyNTEyLCJzdWIiOiI3MDg0Iiwic2NvcGVzIjpbXX0.jr7CLxzMAJETsHmt2YfH6OBb53pJvEcXNqDuTArRGCNX2AHxGPocVyax2RcaC0zL3u61qZe2g1NzEM0typORcQ", "arr_scheduled_time_dep=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}), fromName, toName);
     }
 
     public static void main(String[] args) {
@@ -194,6 +188,6 @@ public class Flight {
         new Location("test", -1, -1), new Location("test", -1, -1));
         System.out.println(flight);*/
 
-        System.out.println(fetch10FlightsFromToAt("Berlin", "London", "27/06/2022"));
+        System.out.println(fetch10FlightsFromToAt("Munich", "Las Vegas", "26/06/2022"));
     }
 }
