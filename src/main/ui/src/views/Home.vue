@@ -2,13 +2,15 @@
 import HomeNav from "../components/HomeNav.vue";
 import HomeLoginButton from "../components/HomeLoginButton.vue"
 import FlightInfo from "../components/FlightInfo.vue";
+import {userStore} from '../userStore.js'
+import {logout} from "../services/UserService.js";
 //import "../assets/css/home.css";
 export default {
   components: {
     HomeNav,
     HomeLoginButton,
     FlightInfo
-},
+  },
   setup() {
     const store = userStore()
     return {
@@ -50,7 +52,7 @@ export default {
 
         <HomeNav/>
 
-        <FlightInfo />
+        <FlightInfo/>
 
         <div class="spacer"></div>
 
@@ -58,7 +60,7 @@ export default {
           <RouterLink to="/survey">
             <w-button class="survey-button">We value your opinion</w-button>
           </RouterLink>
-        </div>       
+        </div>
 
       </w-flex>
     </w-flex>
