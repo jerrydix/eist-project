@@ -16,9 +16,8 @@
 .card-wrapper {
 	background-color: var(--color-background-mute-transparent);
 	margin-top: 12px;
-  width: 32vw;
-  border-radius: 15px;
-  margin-bottom: 20px;
+	border-radius: 15px;
+	margin-bottom: 20px;
 	box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);
 	-webkit-box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);
 	-moz-box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);
