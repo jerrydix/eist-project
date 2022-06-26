@@ -20,6 +20,8 @@ import server.model.networking.HTTP_GetRequest;
 //TODO DO NOT EXECUTE MAIN METHOD, WE GOTTA SAFE THEM API REQUESTS
 public class FlightParser {
 
+    //todo change to airlabs
+
     public static List<Flight> parseFlightJson(String jsonText) {
         try {
             JSONObject jsonObject = new JSONObject(jsonText);
@@ -91,7 +93,7 @@ public class FlightParser {
                 //System.out.println("The flight is delayed by " + delayHours + " hour(s) and " + delayMinutes + " minute(s).");
 
                 //todo weather, poilist, latitude, longitude: done (check if working)
-                //todo add airports (not yet decided if necessary)
+                //todo add airport info to flight
                 //todo fix when coords arent available for location: done
 
                 String startName = dataArray.getJSONObject(i).getJSONObject("departure").getString("timezone").substring(dataArray.getJSONObject(i).getJSONObject("departure").getString("timezone").indexOf("/") + 1);

@@ -164,8 +164,11 @@ public class Flight {
 
     //todo make a parser for localdatetime
 
-    public static List<Flight> fetch10FlightsFromToAt(String from, String to, LocalDateTime localDateTime) {
-        int month = localDateTime.getMonth().getValue();
+    public static List<Flight> fetch10FlightsFromToAt(String from, String to, String date) {
+        String dayStr = date.substring(0,2);
+        String monthStr = date.substring(3,5);
+        String year = date.substring(6);
+        /*int month = localDateTime.getMonth().getValue();
         int day = localDateTime.getDayOfMonth();
         String monthStr = String.valueOf(localDateTime.getMonth().getValue());
         String dayStr = String.valueOf(localDateTime.getDayOfMonth());
@@ -176,15 +179,21 @@ public class Flight {
         if (Integer.toString(day).length() == 1) {
             dayStr = "0" + localDateTime.getDayOfMonth();
         }
-        String flightDate = localDateTime.getYear() + "-" + monthStr + "-" + dayStr;
+        String flightDate = localDateTime.getYear() + "-" + monthStr + "-" + dayStr;*/
+        String flightDate = year + "-" + monthStr + "-" + dayStr;
+        System.out.println(flightDate);
         String fromIATA = Location.fetchCityIATACode(from);
         String toIATA = Location.fetchCityIATACode(to);
+        System.out.println(fromIATA);
+        System.out.println(toIATA);
         return FlightParser.parseFlightJson(HTTP_GetRequest.httpRequest("http://api.aviationstack.com/v1/flights", new String[]{"?access_key=8df0ff3c6cd266e3219eed88b44cc2ee", "&limit=10", "&flight_date=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}));
     }
 
     public static void main(String[] args) {
-        Flight flight = new Flight("1", LocalDateTime.of(1994, Month.APRIL, 15,11,30), LocalDateTime.of(1994, Month.APRIL, 15,11,30),"1","a", 1, "Lufthansa",
+        /*Flight flight = new Flight("1", LocalDateTime.of(1994, Month.APRIL, 15,11,30), LocalDateTime.of(1994, Month.APRIL, 15,11,30),"1","a", 1, "Lufthansa",
         new Location("test", -1, -1), new Location("test", -1, -1));
-        System.out.println(flight);
+        System.out.println(flight);*/
+
+        System.out.println(fetch10FlightsFromToAt("Berlin", "London", "27/06/2022"));
     }
 }
