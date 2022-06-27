@@ -72,8 +72,12 @@ public class FlightFactory {
         } else {
             endLocation = new Location(from, -1, -1);
         }
-
-        return new Flight(flightID, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation);
+        Flight flight = new Flight(flightID, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation);
+        flight.setDelayed(delayed);
+        flight.setDelayHours(delayHours);
+        flight.setDelayMinutes(delayMinutes);
+        flight.setCancelled(false);
+        return flight;
     }
 
     private static String pickIATA(int index) {
