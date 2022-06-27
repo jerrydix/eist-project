@@ -158,7 +158,7 @@ public class FlightParser {
         return builder.toString();
     }
 
-    private static Month parseToMonth(int month) throws NoSuchElementException {
+    public static Month parseToMonth(int month) throws NoSuchElementException {
         switch (month) {
             case 1 -> {return Month.JANUARY;}
             case 2 -> {return Month.FEBRUARY;}
