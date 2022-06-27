@@ -96,6 +96,10 @@ public class Location {
         this.airports = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports", new String[]{}));
     }
 
+    public List<Flight> find10Flights(String to, String date) {
+        return Flight.fetch10FlightsFromToAt(this.name, to, date);
+    }
+
     public int getID() {
         return locationID;
     }
