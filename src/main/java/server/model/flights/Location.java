@@ -24,7 +24,7 @@ public class Location {
 
     public Location(String name, double longitude, double latitude) {
         this.name = name;
-        this.weather = Weather.fetchWeather(longitude, latitude); //todo fix weather
+        this.weather = Weather.fetchWeather(longitude, latitude);
         this.longitude = longitude;
         this.latitude = latitude;
         this.airports = new ArrayList<>();
@@ -90,7 +90,7 @@ public class Location {
         return CityParser.parseCityJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/suggest", new String[]{"?q=" + name, "&api_key=18d0b081-fd7f-4c9e-a723-a05e8ff627cf",}));
     }
 
-    //todo remove
+    //todo keep / remove?
     public void fetchAirports() {
         this.fetchCurrentCityIATACode();
         this.airports = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports", new String[]{}));

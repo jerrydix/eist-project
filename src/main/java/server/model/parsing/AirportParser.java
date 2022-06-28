@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AirportParser {
 
-    //todo remove
+    //todo keep / remove?
 
     public static List<String> parseAirportJson(String jsonText) {
         try {
