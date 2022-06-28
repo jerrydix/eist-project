@@ -8,13 +8,13 @@ import Register from "./User/Register.vue";
 
 export default {
 	components: {
-    HomeNav,
-    HomeLoginButton,
-    FlightInfo,
-    Login,
-    WelcomeMessage,
-    Register
-},
+		HomeNav,
+		HomeLoginButton,
+		FlightInfo,
+		Login,
+		WelcomeMessage,
+		Register,
+	},
 	data: () => ({
 		showLoginDialog: false,
 		showRegisterDialog: false,
@@ -63,7 +63,11 @@ export default {
 					<FlightInfo />
 				</div>
 
-				<w-dialog v-model="showRegisterDialog" title="Register" :width="550">
+				<w-dialog
+					v-model="showRegisterDialog"
+					title="Register"
+					:width="550"
+				>
 					<Register />
 				</w-dialog>
 
@@ -108,7 +112,14 @@ export default {
 }
 
 .w-toolbar {
+	background-color: var(--color-background-mute-transparent);
+	min-height: 60px;
 	max-height: 8vh;
+	backdrop-filter: blur(10);
+}
+
+.w-toolbar > * {
+	z-index: 2;
 }
 
 .top-wrapper {
