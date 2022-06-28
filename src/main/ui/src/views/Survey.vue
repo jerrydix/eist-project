@@ -2,6 +2,7 @@
 
 import SurveyBody from "../components/SurveyBody.vue";
 import {submitSurvey} from "../services/SurveyService.js";
+import {userStore} from "../userStore";
 
 export default {
   components: {
@@ -12,9 +13,15 @@ export default {
       ans: "a"
     }
   },
+  setup() {
+    const store = userStore();
+    return {
+      store,
+    };
+  },
   methods: {
     submit(survey) {
-      submitSurvey(survey).then(response => {
+      submitSurvey(this.store.username, survey).then(response => {
         this.ans = response
       });
     }

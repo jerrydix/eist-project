@@ -2,10 +2,7 @@ package server.rest;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import server.model.User;
 
 @RestController
@@ -48,5 +45,18 @@ public class UserRest {
         }
         current.logout();
         return ResponseEntity.ok("Logged out");
+    }
+
+    @GetMapping("api/users/{username}")
+    public ResponseEntity<User> getUser(@PathVariable String username) {
+        if (!User.isLoggedIn()) {
+            return ResponseEntity.badRequest().build();
+        }
+        User current = User.getUser(username);
+        if (current == null || !current.isAuthenticated()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok(current);
     }
 }

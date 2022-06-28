@@ -5,17 +5,12 @@ export default {
     return {
       text: "",
       survey: {
-
-        user: {
-          username: "lala",
-          password: "alal"
-        },
         flightNumber: null,
-        flightRating: null,
-        cateringRating: null,
-        entertainmentRating: null,
-        comfortRating: null,
-        serviceRating: null,
+        flightRating: 0,
+        cateringRating: 0,
+        entertainmentRating: 0,
+        comfortRating: 0,
+        serviceRating: 0,
         comment: null,
       },
     }
@@ -31,12 +26,26 @@ export default {
 <template>
   <w-button @click="submitSurvey">Submit</w-button>
   <w-textarea v-model="this.survey.flightNumber" placeholder="flightNumber"></w-textarea>
-  <w-textarea v-model="this.survey.flightRating" placeholder="flightRating"></w-textarea>
-  <w-textarea v-model="this.survey.cateringRating" placeholder="cateringRating"></w-textarea>
-  <w-textarea v-model="this.survey.entertainmentRating" placeholder="entertainmentRating"></w-textarea>
-  <w-textarea v-model="this.survey.comfortRating" placeholder="comfortRating"></w-textarea>
-  <w-textarea v-model="this.survey.serviceRating" placeholder="serviceRating"></w-textarea>
-  <w-textarea v-model="this.survey.comment" placeholder="comment"></w-textarea>
+
+  <w-divider></w-divider>
+  <div>Flight Rating</div>
+  <w-rating v-model="this.survey.flightRating" color="green"></w-rating>
+  <br>
+  <div>Catering Rating</div>
+  <w-rating v-model="this.survey.cateringRating"></w-rating>
+  <br>
+  <div>Entertainment Rating</div>
+  <w-rating v-model="this.survey.entertainmentRating"></w-rating>
+  <br>
+  <div>Comfort Rating</div>
+  <w-rating v-model="this.survey.comfortRating"></w-rating>
+  <br>
+  <div>Service Rating</div>
+  <w-rating v-model="this.survey.serviceRating"></w-rating>
+  <br>
+  <br>
+  <div>Additional Feedback</div>
+  <w-textarea v-model="this.survey.comment" placeholder="Your feedback"></w-textarea>
 
 </template>
 

@@ -23,7 +23,7 @@ public class SurveyRest {
         if (current == null || !current.isAuthenticated()) {
             return ResponseEntity.badRequest().build();
         }
-        survey.setUser(current);
-        return ResponseEntity.ok(surveyService.saveSurvey(survey));
+
+        return ResponseEntity.ok(surveyService.saveSurvey(current, survey));
     }
 }

@@ -18,13 +18,10 @@ public class Survey {
 
     private String comment;
 
-    private Reward reward;
 
-
-    public Survey(User user, String flightNumber, int flightRating, int cateringRating, int entertainmentRating, int comfortRating,
+    public Survey(String flightNumber, int flightRating, int cateringRating, int entertainmentRating, int comfortRating,
                   int serviceRating, String comment) {
         this.surveyID = currentID++;
-        this.user = user;
         this.flightNumber = flightNumber;
         this.cateringRating = cateringRating;
         this.entertainmentRating = entertainmentRating;
@@ -32,11 +29,6 @@ public class Survey {
         this.flightRating = flightRating;
         this.serviceRating = serviceRating;
         this.comment = comment;
-        this.reward = new Reward();
-    }
-
-    public void surveyCompletion() {
-        user.reward();
     }
 
     public int getID() {
@@ -69,5 +61,13 @@ public class Survey {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int getFlightRating() {
+        return flightRating;
+    }
+
+    public int getServiceRating() {
+        return serviceRating;
     }
 }

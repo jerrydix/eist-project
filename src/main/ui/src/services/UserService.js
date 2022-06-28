@@ -30,3 +30,12 @@ export async function logout(user) {
     })
     return await response.text();
 }
+
+export async function getUserData(user) {
+    const response = await fetch(`api/users` + "/" + user
+        , {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'},
+        })
+    return await response.json();
+}

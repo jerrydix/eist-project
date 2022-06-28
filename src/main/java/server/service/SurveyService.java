@@ -1,6 +1,7 @@
 package server.service;
 
 import org.springframework.stereotype.Service;
+import server.model.User;
 import server.model.surveys.Survey;
 
 import java.util.ArrayList;
@@ -24,9 +25,10 @@ public class SurveyService {
     }
 
 
-    public Survey saveSurvey(Survey survey) {
+    public Survey saveSurvey(User current, Survey survey) {
         surveys.add(survey);
-        survey.surveyCompletion();
+        survey.setUser(current);
+        current.reward();
         return survey;
     }
 
