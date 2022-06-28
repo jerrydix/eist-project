@@ -49,11 +49,10 @@ public class FlightFactory {
         String terminal = String.valueOf(r.nextInt(1,5));
         int seat = r.nextInt(1,288);
 
-        String[] sampleAirlines = new String[]{"TUMAir", "PinguPinguWings", "Excellence Airways", "Krusche Airlines", "Lasser Schafways", "Air Hams", "Claudian Air", "Schosair", "Cremers", "OCamlFly", "OnlyFlights", "Garching Airlines", "Pretschnerwings"};
         String id = String.format("%04d", r.nextInt(10000));
 
-        int number = r.nextInt(0, 12);
-        String airline = sampleAirlines[number];
+        int number = r.nextInt(0, 13);
+        String airline = pickAirline();
 
         String flightID = pickIATA(number) + id;
 
@@ -159,6 +158,12 @@ public class FlightFactory {
             default -> airline = "Boeing 737-800";
         }
         return airline;
+    }
+
+    public static String pickAirline() {
+        Random r = new Random();
+        int index = r.nextInt(0, 13);
+        return new String[]{"TUMAir", "PinguPinguWings", "Excellence Airways", "Krusche Airlines", "Lasser Schafways", "Air Hams", "Claudian Air", "Schosair", "Cremers", "OCamlFly", "OnlyFlights", "Garching Airlines", "Pretschnerwings"}[index];
     }
     public static void main(String[] args) {
         System.out.println(generateRandomFlight());

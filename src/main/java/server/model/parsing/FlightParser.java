@@ -4,10 +4,7 @@ import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.json.JSONArray;
@@ -15,13 +12,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import server.model.flights.Flight;
 import server.model.flights.FlightFactory;
+import server.model.flights.FlightJourney;
 import server.model.flights.Location;
 import server.model.networking.HTTP_GetRequest;
 
 //TODO DO NOT EXECUTE MAIN METHOD, WE GOTTA SAFE THEM API REQUESTS
 public class FlightParser {
-
-    //todo manage edge cases
 
     public static List<Flight> parseFlightJson(String jsonText, String fromName, String toName) {
         try {
@@ -78,20 +74,22 @@ public class FlightParser {
                 LocalDateTime endTime = LocalDateTime.of(endYear, endM, endDay, endHour, endMinute);
 
                 String gate = current.getJSONObject("departure").getString("gate");
+
+                Random r = new Random();
                 if (gate.equals("null")) {
                     //filler
-                    gate = "32";
+                    gate = String.valueOf(r.nextInt(1,89));
                 }
                 String terminal = current.getJSONObject("departure").getString("terminal");
                 if (terminal.equals("null")) {
                     //filler
-                    terminal = "2";
+                    terminal = String.valueOf(r.nextInt(1,5));;
                 }
                 int seat = ThreadLocalRandom.current().nextInt(1, 288);
                 String airline = current.getJSONObject("airline").getString("name");
                 if (airline.equals("empty")) {
                     //filler
-                    airline = "Qatar Airways";
+                    airline = FlightFactory.pickAirline();
                 }
 
                 boolean cancelled = true;
@@ -116,20 +114,13 @@ public class FlightParser {
                     delayed = true;
                 }
 
-                //todo decide whether delayTime just as LocalDateTime or as number of hours minutes by which delayed (both works
                 int minutes = (int) ChronoUnit.MINUTES.between(startTime, delayedTime);
                 int hours = (int) ChronoUnit.HOURS.between(startTime, delayedTime);
-                //System.out.println(minutes);
-                //System.out.println(hours);
 
                 int delayHours = minutes / 60;
                 int delayMinutes = minutes % 60;
 
-                //System.out.println("The flight is delayed by " + delayHours + " hour(s) and " + delayMinutes + " minute(s).");
-
-                //todo add airport info to flight
-                //todo fix when coords arent available for location: done
-                //todo maybe optimize parser in order for coords to be taken from parameter right away (flight class)
+                //todo add airport info to flight?
 
                 Flight currentFlight = new Flight(number, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation, FlightFactory.generateRandomAirplane());
                 currentFlight.setDelayed(delayed);
