@@ -33,14 +33,14 @@ public class FlightFactory {
         LocalDateTime endTime = LocalDateTime.of(year, FlightParser.parseToMonth(month), day, toHour, toMinute);
         LocalDateTime delayedTime = null;
 
-        int minutes = (int) ChronoUnit.MINUTES.between(startTime, delayedTime);
         int delayHours = 0;
         int delayMinutes = 0;
 
         boolean delayed = r.nextBoolean();
-        int delay;
+
         if (delayed) {
             delayedTime = LocalDateTime.of(year, FlightParser.parseToMonth(month), day, fromHour, delayMinute);
+            int minutes = (int) ChronoUnit.MINUTES.between(startTime, delayedTime);
             delayHours = minutes / 60;
             delayMinutes = minutes % 60;
         }
@@ -49,7 +49,7 @@ public class FlightFactory {
         String terminal = String.valueOf(r.nextInt(1,5));
         int seat = r.nextInt(1,288);
 
-        String[] sampleAirlines = new String[]{"Lufthansa", "Qatar Airways", "American Airlines", "Air Berlin", "EasyJet", "British Airways", "Emirates", "Air France", "China Southern Airlines", "Ryanair", "Garching Airlines", "Condor", "Germanwings"};
+        String[] sampleAirlines = new String[]{"TUMAir", "PinguPinguWings", "Excellence Airways", "Krusche Airlines", "Lasser Schafways", "Air Hams", "Claudian Air", "Schosair", "Cremers", "OCamlFly", "OnlyFlights", "Garching Airlines", "Pretschnerwings"};
         String id = String.format("%04d", r.nextInt(10000));
 
         int number = r.nextInt(0, 12);
@@ -83,19 +83,19 @@ public class FlightFactory {
     private static String pickIATA(int index) {
         String prefix;
         switch (index) {
-            case 0 -> prefix = "LH";
-            case 1 -> prefix = "QR";
-            case 2 -> prefix = "AA";
-            case 3 -> prefix = "AB";
-            case 4 -> prefix = "U2";
-            case 5 -> prefix = "BA";
-            case 6 -> prefix = "EK";
-            case 7 -> prefix = "AF";
-            case 8 -> prefix = "CZ";
-            case 9 -> prefix = "FR";
-            case 10 -> prefix = "GA";
-            case 11 -> prefix = "DE";
-            case 12 -> prefix = "4U";
+            case 0 -> prefix = "TU";
+            case 1 -> prefix = "PP";
+            case 2 -> prefix = "XA";
+            case 3 -> prefix = "KR";
+            case 4 -> prefix = "LS";
+            case 5 -> prefix = "AH";
+            case 6 -> prefix = "CA";
+            case 7 -> prefix = "SC";
+            case 8 -> prefix = "CR";
+            case 9 -> prefix = "OC";
+            case 10 -> prefix = "OF";
+            case 11 -> prefix = "GA";
+            case 12 -> prefix = "PW";
             default -> prefix = "GA";
         }
         return prefix;

@@ -6,7 +6,9 @@ import server.model.parsing.FlightParser;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class Flight {
     private String number;
@@ -160,18 +162,14 @@ public class Flight {
     }
 
     public String toString() {
-        return "Number: " + number + "\nTerminal: " + terminal + "\nGate: " + gate + "\nStart Time: " + startTime + "\nEnd Time: " + endTime;
+        return "\n\nAirline: " + airline + "\nNumber: " + number + "\nTerminal: " + terminal + "\nGate: " + gate + "\nDeparture time: " + startTime + "\nArrival time: " + endTime;
     }
-
-    //todo make a parser for localdatetime
 
     public static List<Flight> fetch10FlightsFromToAt(String from, String to, String date) {
         String dayStr = date.substring(0,2);
         String monthStr = date.substring(3,5);
         String year = date.substring(6);
         String flightDate = year + "-" + monthStr + "-" + dayStr;
-
-        System.out.println(flightDate);
 
         String[] fromData = Location.fetchCityIATACode(from);
         String[] toData = Location.fetchCityIATACode(to);
@@ -181,19 +179,23 @@ public class Flight {
         String toName = toData[0];
         String toIATA = toData[1];
 
-        List<Flight> list = FlightParser.parseFlightJson(HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{"?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM1ZjFjNDVmZGExNDNlODcwNDhkOGRmNzcyOTZhMThhNTMyNTNjNWUzYjIxMWUzNTA3OTAyMzlmMDVkYzk3ODAxNDQ5ZGM1MzI0MmY0N2QiLCJpYXQiOjE2NTYyMzY1MTIsIm5iZiI6MTY1NjIzNjUxMiwiZXhwIjoxNjg3NzcyNTEyLCJzdWIiOiI3MDg0Iiwic2NvcGVzIjpbXX0.jr7CLxzMAJETsHmt2YfH6OBb53pJvEcXNqDuTArRGCNX2AHxGPocVyax2RcaC0zL3u61qZe2g1NzEM0typORcQ", "arr_scheduled_time_dep=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}), fromName, toName);
+        List<Flight> list = FlightParser.parseFlightJson(HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{"?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM1ZjFjNDVmZGExNDNlODcwNDhkOGRmNzcyOTZhMThhNTMyNTNjNWUzYjIxMWUzNTA3OTAyMzlmMDVkYzk3ODAxNDQ5ZGM1MzI0MmY0N2QiLCJpYXQiOjE2NTYyMzY1MTIsIm5iZiI6MTY1NjIzNjUxMiwiZXhwIjoxNjg3NzcyNTEyLCJzdWIiOiI3MDg0Iiwic2NvcGVzIjpbXX0.jr7CLxzMAJETsHmt2YfH6OBb53pJvEcXNqDuTArRGCNX2AHxGPocVyax2RcaC0zL3u61qZe2g1NzEM0typORcQ", "&arr_scheduled_time_dep=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}), fromName, toName);
+
+        Random r = new Random();
+        int amount = r.nextInt(5, 15);
         if (list != null) {
-            while (list.size() < 10) {
+            while (list.size() < amount) {
                 list.add(FlightFactory.generateFlight(from, to, date));
             }
         } else {
             List<Flight> fakeFlights = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < amount; i++) {
                 fakeFlights.add(FlightFactory.generateFlight(from, to, date));
             }
             return fakeFlights;
         }
         return list;
+
     }
 
     public static void main(String[] args) {
@@ -201,6 +203,10 @@ public class Flight {
         new Location("test", -1, -1), new Location("test", -1, -1));
         System.out.println(flight);*/
 
-        System.out.println(fetch10FlightsFromToAt("Munich", "Las Vegas", "26/06/2022"));
+        List<Flight> flights = fetch10FlightsFromToAt("Berlin", "Rome", "28/06/2022");
+        System.out.println(flights);
+        System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
+        System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
+
     }
 }

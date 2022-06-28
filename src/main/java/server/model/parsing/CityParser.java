@@ -18,6 +18,7 @@ public class CityParser {
             JSONArray array = jsonObject.getJSONObject("response").getJSONArray("cities");
             data[0] = array.getJSONObject(0).getString("name");
             data[1] = array.getJSONObject(0).getString("city_code");
+            return data;
         } catch (JSONException e) {
             System.out.println("City IATA could not be parsed");
         }

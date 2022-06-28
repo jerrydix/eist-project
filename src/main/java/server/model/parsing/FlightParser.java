@@ -24,12 +24,12 @@ public class FlightParser {
 
     public static List<Flight> parseFlightJson(String jsonText, String fromName, String toName) {
         try {
-            JSONObject jsonObject = new JSONObject(jsonText);
+            //JSONObject jsonObject = new JSONObject(jsonText);
             List<Flight> flights = new ArrayList<>();
-            int counter = 0;
-            while (jsonObject.has(String.valueOf(counter))) {
+            JSONArray array = new JSONArray(jsonText);
+            for (int i = 0; i < array.length(); i++) {
 
-                JSONObject current = jsonObject.getJSONObject(String.valueOf(counter));
+                JSONObject current = array.getJSONObject(i);
 
                 String number = current.getJSONObject("flight").getString("iata");
                 String startDate = current.getString("flight_date");
@@ -136,7 +136,6 @@ public class FlightParser {
                 currentFlight.setDelayMinutes(delayMinutes);
                 currentFlight.setDelayHours(delayHours);
                 flights.add(currentFlight);
-                counter++;
             }
             return flights;
         } catch (JSONException exception) {
@@ -146,6 +145,7 @@ public class FlightParser {
     }
 
     public static double[] fetchCoordsForGivenAddress(String address) {
+        address = address.replaceAll(" ","");
         return GeocodingParser.parseGeocodingJson(HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/geocode/json", new String[]{"?address=" + address, "&key=AIzaSyBKiScI4WumTVipTbFuC6KPHic3dC66tvM"}));
     }
 
