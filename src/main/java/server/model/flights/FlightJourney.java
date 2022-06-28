@@ -8,6 +8,8 @@ public class FlightJourney {
     private List<Flight> flights;
     private List<Location> locations;
 
+    private Location origin;
+
     public FlightJourney() {
         this.flights = new ArrayList<>();
         this.locations = new ArrayList<>();
@@ -19,6 +21,22 @@ public class FlightJourney {
 
     public void setFlights(List<Flight> flights) {
         this.flights = flights;
+    }
+
+    public Location getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Location origin) {
+        this.origin = origin;
+    }
+
+    public List<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
     }
 
     public List<Location> getDestinations() {
@@ -63,16 +81,6 @@ public class FlightJourney {
         return flights.remove(flight);
     }
 
-    public List<Flight> list10AvailableFlights(Location from, Location to) {
-        List<Flight> availableFlights = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            //todo get request find available flights
-            Flight flight = new Flight("1", null, null, "1", null, 1, null, from, to);
-            availableFlights.add(flight);
-        }
-        return flights;
-    }
-
     public boolean pickFlight(Flight flight) {
         if (flight == null) {
             return false;
@@ -82,8 +90,13 @@ public class FlightJourney {
             locations.add(flight.getEndLocation());
         } else {
             locations.add(flight.getStartLocation());
+            this.origin = flight.getStartLocation();
             locations.add(flight.getEndLocation());
         }
         return true;
+    }
+
+    public List<Flight> fetchReturningFlights(String date) {
+        return Flight.fetchFlightsFromToAt(this.getFlights().get(this.getFlights().size() - 1).getEndLocation().getName(), origin.getName(), date);
     }
 }

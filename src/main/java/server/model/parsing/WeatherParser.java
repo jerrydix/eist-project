@@ -6,19 +6,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Random;
+
 public class WeatherParser {
 
     public static Weather parseWeatherJson(String jsonText) {
         try {
             JSONObject jsonObject = new JSONObject(jsonText.toString());
+            if (!jsonObject.has("weather")) {
+                Random r = new Random();
+                return new Weather("Clouds", r.nextInt(-5,30));
+            }
             JSONArray weatherArray = jsonObject.getJSONArray("weather");
 
             String weatherType = weatherArray.getJSONObject(0).getString("main");
             double tempInKelvin = jsonObject.getJSONObject("main").getDouble("temp");
 
             double temp = Math.round((WeatherParser.kelvinToCelsius(tempInKelvin)) * 100.0) / 100.0;
-            //double longitude = jsonObject.getJSONObject("coord").getDouble("lon");
-            //double latidude = jsonObject.getJSONObject("coord").getDouble("lat");
 
             return new Weather(weatherType, temp);
         } catch (JSONException exception) {

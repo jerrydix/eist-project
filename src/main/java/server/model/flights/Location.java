@@ -24,7 +24,7 @@ public class Location {
 
     public Location(String name, double longitude, double latitude) {
         this.name = name;
-        this.weather = null; //Weather.fetchWeather(latitude, longitude); //todo fix weather
+        this.weather = Weather.fetchWeather(longitude, latitude); //todo fix weather
         this.longitude = longitude;
         this.latitude = latitude;
         this.airports = new ArrayList<>();
@@ -97,7 +97,7 @@ public class Location {
     }
 
     public List<Flight> find10Flights(String to, String date) {
-        return Flight.fetch10FlightsFromToAt(this.name, to, date);
+        return Flight.fetchFlightsFromToAt(this.name, to, date);
     }
 
     public int getID() {

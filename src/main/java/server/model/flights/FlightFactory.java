@@ -72,7 +72,7 @@ public class FlightFactory {
         } else {
             endLocation = new Location(from, -1, -1);
         }
-        Flight flight = new Flight(flightID, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation);
+        Flight flight = new Flight(flightID, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation, generateRandomAirplane());
         flight.setDelayed(delayed);
         flight.setDelayHours(delayHours);
         flight.setDelayMinutes(delayMinutes);
@@ -99,5 +99,68 @@ public class FlightFactory {
             default -> prefix = "GA";
         }
         return prefix;
+    }
+
+    private static String pickLocationString(int index) {
+        String loc;
+        switch (index) {
+            case 0 -> loc = "Berlin";
+            case 1 -> loc = "Rome";
+            case 2 -> loc = "Dubai";
+            case 3 -> loc = "Paris";
+            case 4 -> loc = "London";
+            case 5 -> loc = "Los Angeles";
+            case 6 -> loc = "Frankfurt";
+            case 7 -> loc = "Budapest";
+            case 8 -> loc = "Tehran";
+            case 9 -> loc = "Sydney";
+            case 10 -> loc = "Warsaw";
+            case 11 -> loc = "Vienna";
+            case 12 -> loc = "Madrid";
+            default -> loc = "Mumbai";
+        }
+        return loc;
+    }
+
+    private static Flight generateRandomFlight() {
+        Random r = new Random();
+        int first = r.nextInt(0,12);
+        int second;
+        do {
+            second = r.nextInt(0,12);
+        } while (first == second);
+        LocalDateTime now = LocalDateTime.now();
+        String date = now.toString();
+        String day = date.substring(8, 10);
+        String month = date.substring(5, 7);
+        String year = date.substring(0,4);
+        String finDate = day + "/" + month + "/" + year;
+        return generateFlight(pickLocationString(first), pickLocationString(second), finDate);
+    }
+
+    public static String generateRandomAirplane() {
+        Random r = new Random();
+        return pickAirplane(r.nextInt(0,10));
+    }
+
+    private static String pickAirplane(int index) {
+        String airline;
+        switch (index) {
+            case 0 -> airline = "Boeing 737-800";
+            case 1 -> airline = "Boeing 737-700";
+            case 2 -> airline = "Airbus A320";
+            case 3 -> airline = "Airbus A321";
+            case 4 -> airline = "Bombardier CRJ200";
+            case 5 -> airline = "Boeing 757-200";
+            case 6 -> airline = "Embraer E175";
+            case 7 -> airline = "Airbus A319";
+            case 8 -> airline = "Boeing 737-900ER";
+            case 9 -> airline = "Bombardier CRJ900";
+            default -> airline = "Boeing 737-800";
+        }
+        return airline;
+    }
+    public static void main(String[] args) {
+        System.out.println(generateRandomFlight());
     }
 }

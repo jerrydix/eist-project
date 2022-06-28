@@ -25,9 +25,9 @@ export default {
 
 <template>
   <label>Username:</label>
-  <w-textarea v-model="user.username" placeholder="Enter your username"></w-textarea>
+  <w-input v-model="user.username" placeholder="Enter your username"></w-input>
   <label>Password:</label>
-  <w-textarea v-model="user.password" placeholder="Enter your password"></w-textarea>
+  <w-input v-model="user.password" placeholder="Enter your password"></w-input>
   <w-button @click="registerUser">Register</w-button>
   <p>{{ ans }}</p>
 </template>
