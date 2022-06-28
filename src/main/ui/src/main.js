@@ -7,12 +7,14 @@ import WaveUI from "wave-ui";
 import "wave-ui/dist/wave-ui.css";
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { 
-    faCloud, faSun, faCloudSun, faCloudBolt, faCloudRain, faCloudSunRain, faWind, faSnowflake 
+    faCloud, faSun, faCloudSun, faCloudBolt, faCloudRain, faCloudSunRain, 
+    faWind, faSnowflake, faRightLong, 
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
-    faCloud, faSun, faCloudSun, faCloudBolt, faCloudRain, faCloudSunRain, faWind, faSnowflake
+    faCloud, faSun, faCloudSun, faCloudBolt, faCloudRain, faCloudSunRain, 
+    faWind, faSnowflake, faRightLong,
     )
 
 import "./assets/css/base.css";
