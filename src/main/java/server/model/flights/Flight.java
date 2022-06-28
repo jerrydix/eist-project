@@ -174,6 +174,10 @@ public class Flight {
         String[] fromData = Location.fetchCityIATACode(from);
         String[] toData = Location.fetchCityIATACode(to);
 
+        if (fromData == null || toData == null) {
+            return new ArrayList<>();
+        }
+
         String fromName = fromData[0];
         String fromIATA = fromData[1];
         String toName = toData[0];
@@ -203,7 +207,7 @@ public class Flight {
         new Location("test", -1, -1), new Location("test", -1, -1));
         System.out.println(flight);*/
 
-        List<Flight> flights = fetch10FlightsFromToAt("Berlin", "Rome", "28/06/2022");
+        List<Flight> flights = fetch10FlightsFromToAt("Frankfurt", "Dubai", "28/06/2022");
         System.out.println(flights);
         System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
         System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
