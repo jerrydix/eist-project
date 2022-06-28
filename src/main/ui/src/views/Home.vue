@@ -5,6 +5,7 @@ import FlightInfo from "../components/FlightInfo.vue";
 import Login from "./User/Login.vue";
 import WelcomeMessage from "../components/WelcomeMessage.vue";
 import Register from "./User/Register.vue";
+import TopBar from "../components/TopBar.vue";
 
 export default {
 	components: {
@@ -14,6 +15,7 @@ export default {
 		Login,
 		WelcomeMessage,
 		Register,
+		TopBar,
 	},
 	data: () => ({
 		showLoginDialog: false,
@@ -53,17 +55,18 @@ export default {
 					<WelcomeMessage />
 				</div>
 
-				<!-- <div class="spacer"></div> -->
-
 				<div class="xs4">
 					<h1>Welcome to Garching Airlines</h1>
 					<h3><em>Flights of Excellence</em></h3>
 
-					<!-- <HomeNav /> -->
 					<FlightInfo />
 				</div>
 
-				<w-dialog v-model="showRegisterDialog" title="Register" :width="550">
+				<w-dialog
+					v-model="showRegisterDialog"
+					title="Register"
+					:width="550"
+				>
 					<Register />
 				</w-dialog>
 
@@ -106,18 +109,6 @@ export default {
 	background-size: cover !important;
 	text-align: center;
 }
-
-.w-toolbar {
-	background-color: var(--color-background-mute-transparent);
-	min-height: 60px;
-	max-height: 8vh;
-	backdrop-filter: blur(10);
-}
-
-.w-toolbar > * {
-	z-index: 2;
-}
-
 .top-wrapper {
 	width: 100%;
 }
@@ -125,6 +116,13 @@ export default {
 /* .top-wrapper .login-wrapper {
 	float: right;
 } */
+
+.w-toolbar {
+	background-color: var(--color-background-mute-transparent);
+	min-height: 60px;
+	max-height: 8vh;
+	backdrop-filter: blur(10);
+}
 
 .top-wrapper .welcome-wrapper {
 	float: left;

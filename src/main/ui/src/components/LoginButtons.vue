@@ -1,18 +1,21 @@
-<script>
-export default {
+<!-- <script setup>
+/* export default {
 	data: () => ({
 		showLoginDialog: false,
 		showRegisterDialog: false,
 	}),
-};
+}; */
+
+let showRegisterDialog = false;
+let showLoginDialog = false;
+
+const emit = defineEmits(['register', 'login'])
+
+emit('register', showRegisterDialog)
+emit('login', showLoginDialog)
+
 </script>
 <template>
-	<div class="ml2">
-		<w-button class="px4" @click="showRegisterDialog = true">
-			Register
-		</w-button>
-	</div>
-	<div class="ml2">
-		<w-button class="px4" @click="showLoginDialog = true"> Login </w-button>
-	</div>
+	
 </template>
+ -->
