@@ -39,10 +39,16 @@ export default {
 </script>
 
 <template>
-  <label>Username:</label>
+  <!-- <label>Username:</label>
   <w-textarea v-model="user.username" placeholder="Enter your username"></w-textarea>
   <label>Password:</label>
   <w-textarea v-model="user.password" placeholder="Enter your password"></w-textarea>
+  <w-button @click="loginUser">Login</w-button> -->
+
+  <label>Username:</label>
+  <w-input v-model="user.username" class="mb4" placeholder="Enter your username"></w-input>
+  <label>Password:</label>
+  <w-input v-model="user.password" class="mb4" placeholder="Enter your password"></w-input>
   <w-button @click="loginUser">Login</w-button>
 
   <p>{{ ans }}</p>

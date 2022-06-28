@@ -28,6 +28,7 @@
 .flight-info-card {
 	height: 300px;
 	width: 100%;
+	margin-top: 50px;
 	min-width: 300px;
 	border-radius: 15px;
 	background-color: var(--color-background-mute-transparent);

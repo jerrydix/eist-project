@@ -120,6 +120,5 @@ coverage
 ###############
 # Config files
 .prettierrc
-*.json
-package-lock.json
+
 
