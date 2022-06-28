@@ -3,6 +3,7 @@ import HomeNav from "../components/HomeNav.vue";
 import HomeLoginButton from "../components/HomeLoginButton.vue";
 import FlightInfo from "../components/FlightInfo.vue";
 import Login from "./User/Login.vue";
+import WelcomeMessage from "../components/WelcomeMessage.vue";
 
 export default {
 	components: {
@@ -10,8 +11,8 @@ export default {
 		HomeLoginButton,
 		FlightInfo,
 		Login,
+		WelcomeMessage,
 	},
-
 	data: () => ({
 		showLoginDialog: false,
 	}),
@@ -22,19 +23,21 @@ export default {
 	<w-app>
 		<w-flex basis-zero grow wrap>
 			<w-flex class="grow column align-center justify-center">
-				<HomeLoginButton />
+				
+				<div class="top-wrapper">
+					<HomeLoginButton />
+					<WelcomeMessage />
+				</div>
+
+				<!-- <div class="spacer"></div> -->
 
 				<div class="xs4">
 					<h1>Welcome to Garching Airlines</h1>
-					<h3>Flights of Excellence</h3>
+					<h3><em>Flights of Excellence</em></h3>
 
 					<HomeNav />
 					<FlightInfo />
 				</div>
-
-				<HomeNav />
-
-				<FlightInfo />
 
 				<w-button class="px4" @click="showLoginDialog = true">
 					Open dialog
@@ -78,5 +81,22 @@ export default {
 .w-app {
 	background-size: cover !important;
 	text-align: center;
+}
+
+.top-wrapper {
+	width: 100%;
+}
+
+.top-wrapper .login-wrapper {
+	float: right;
+}
+
+.top-wrapper .welcome-wrapper {
+	float: left;
+}
+
+h1 {
+	line-height: 3rem;
+	padding-bottom: 1.5rem;
 }
 </style>
