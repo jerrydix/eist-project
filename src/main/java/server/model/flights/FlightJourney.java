@@ -96,7 +96,7 @@ public class FlightJourney {
         return true;
     }
 
-    public void addReturningFlight(String date) {
-        this.flights.add(FlightFactory.generateFlight(this.getFlights().get(this.getFlights().size() - 1).getEndLocation().getName(), origin.getName(), date));
+    public List<Flight> fetchReturningFlights(String date) {
+        return Flight.fetchFlightsFromToAt(this.getFlights().get(this.getFlights().size() - 1).getEndLocation().getName(), origin.getName(), date);
     }
 }

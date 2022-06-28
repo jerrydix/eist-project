@@ -4,9 +4,7 @@ import server.model.networking.HTTP_GetRequest;
 import server.model.parsing.FlightParser;
 
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -167,7 +165,7 @@ public class Flight {
         return "\n\nAirline: " + airline + "\nNumber: " + number + "\nTerminal: " + terminal + "\nGate: " + gate + "\nDeparture time: " + startTime + "\nArrival time: " + endTime;
     }
 
-    public static List<Flight> fetch10FlightsFromToAt(String from, String to, String date) {
+    public static List<Flight> fetchFlightsFromToAt(String from, String to, String date) {
         String dayStr = date.substring(0,2);
         String monthStr = date.substring(3,5);
         String year = date.substring(6);
@@ -209,7 +207,7 @@ public class Flight {
         new Location("test", -1, -1), new Location("test", -1, -1));
         System.out.println(flight);*/
 
-        List<Flight> flights = fetch10FlightsFromToAt("Frankfurt", "Dubai", "28/06/2022");
+        List<Flight> flights = fetchFlightsFromToAt("Amsterdam", "New York City", "28/06/2022");
         System.out.println(flights);
         System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
         System.out.println(flights.get(0).getEndLocation().getPoiList().toString());

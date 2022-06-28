@@ -28,6 +28,25 @@ public class FlightParser {
             //JSONObject jsonObject = new JSONObject(jsonText);
             List<Flight> flights = new ArrayList<>();
             JSONArray array = new JSONArray(jsonText);
+
+            double[] startCoords = fetchCoordsForGivenAddress(fromName);
+            double[] endCoords = fetchCoordsForGivenAddress(toName);
+
+            //System.out.println(Arrays.toString(startCoords));
+            //System.out.println(Arrays.toString(endCoords));
+            Location startLocation;
+            Location endLocation;
+            if (startCoords != null) {
+                startLocation = new Location(fromName, startCoords[1], startCoords[0]);
+            } else {
+                startLocation = new Location(fromName, -1, -1);
+            }
+            if (endCoords != null) {
+                endLocation = new Location(toName, endCoords[1], endCoords[0]);
+            } else {
+                endLocation = new Location(fromName, -1, -1);
+            }
+
             for (int i = 0; i < array.length(); i++) {
 
                 JSONObject current = array.getJSONObject(i);
@@ -111,24 +130,6 @@ public class FlightParser {
                 //todo add airport info to flight
                 //todo fix when coords arent available for location: done
                 //todo maybe optimize parser in order for coords to be taken from parameter right away (flight class)
-
-                double[] startCoords = fetchCoordsForGivenAddress(fromName);
-                double[] endCoords = fetchCoordsForGivenAddress(toName);
-
-                //System.out.println(Arrays.toString(startCoords));
-                //System.out.println(Arrays.toString(endCoords));
-                Location startLocation;
-                Location endLocation;
-                if (startCoords != null) {
-                    startLocation = new Location(fromName, startCoords[1], startCoords[0]);
-                } else {
-                    startLocation = new Location(fromName, -1, -1);
-                }
-                if (endCoords != null) {
-                    endLocation = new Location(toName, endCoords[1], endCoords[0]);
-                } else {
-                    endLocation = new Location(fromName, -1, -1);
-                }
 
                 Flight currentFlight = new Flight(number, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation, FlightFactory.generateRandomAirplane());
                 currentFlight.setDelayed(delayed);

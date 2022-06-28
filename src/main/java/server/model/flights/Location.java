@@ -97,7 +97,7 @@ public class Location {
     }
 
     public List<Flight> find10Flights(String to, String date) {
-        return Flight.fetch10FlightsFromToAt(this.name, to, date);
+        return Flight.fetchFlightsFromToAt(this.name, to, date);
     }
 
     public int getID() {
