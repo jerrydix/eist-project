@@ -49,7 +49,7 @@
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
-    --color-background-mute-transparent: rgba(40, 40, 40, 0.5);
+    --color-background-mute-transparent: rgba(40, 40, 40, 0.90);
   }
 }
 

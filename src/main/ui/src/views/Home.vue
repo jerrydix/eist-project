@@ -63,11 +63,7 @@ export default {
 					<FlightInfo />
 				</div>
 
-				<w-dialog
-					v-model="showRegisterDialog"
-					title="Register"
-					:width="550"
-				>
+				<w-dialog v-model="showRegisterDialog" title="Register" :width="550">
 					<Register />
 				</w-dialog>
 
