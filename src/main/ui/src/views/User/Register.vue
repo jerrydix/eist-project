@@ -5,7 +5,7 @@ import {register} from "../../services/UserService.js";
 export default {
   data() {
     return {
-      ans: "null",
+      ans: null,
       user: {
         username: null,
         password: null
@@ -29,6 +29,7 @@ export default {
   <label>Password:</label>
   <w-input v-model="user.password" placeholder="Enter your password"></w-input>
   <w-button @click="registerUser">Register</w-button>
+  <br>
   <p>{{ ans }}</p>
 </template>
 

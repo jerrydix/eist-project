@@ -13,6 +13,7 @@ export default {
         serviceRating: 0,
         comment: null,
       },
+      flights: [{label: "MT123"}, {label: "TUM123"}, {label: "KR666"}],
     }
   },
   methods: {
@@ -24,12 +25,12 @@ export default {
 </script>
 
 <template>
-  <w-button @click="submitSurvey">Submit</w-button>
-  <w-textarea v-model="this.survey.flightNumber" placeholder="flightNumber"></w-textarea>
+
+  <w-select v-model="this.survey.flightNumber" :items="this.flights" outline placeholder="Your flight"></w-select>
 
   <w-divider></w-divider>
   <div>Flight Rating</div>
-  <w-rating v-model="this.survey.flightRating" color="green"></w-rating>
+  <w-rating v-model="this.survey.flightRating"></w-rating>
   <br>
   <div>Catering Rating</div>
   <w-rating v-model="this.survey.cateringRating"></w-rating>
@@ -45,8 +46,11 @@ export default {
   <br>
   <br>
   <div>Additional Feedback</div>
-  <w-textarea v-model="this.survey.comment" placeholder="Your feedback"></w-textarea>
+  <w-textarea v-model="this.survey.comment" outline placeholder="Your feedback" resizable></w-textarea>
 
+  <w-divider></w-divider>
+
+  <w-button @click="submitSurvey">Submit</w-button>
 </template>
 
 

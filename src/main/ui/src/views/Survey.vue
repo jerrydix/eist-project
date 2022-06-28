@@ -10,7 +10,7 @@ export default {
   },
   data() {
     return {
-      ans: "a"
+      ans: null
     }
   },
   setup() {
@@ -35,6 +35,7 @@ export default {
 
   <SurveyBody @submitted="submit"/>
 
+  <br>
   <br>
   <p>{{ this.ans }}</p>
 </template>
