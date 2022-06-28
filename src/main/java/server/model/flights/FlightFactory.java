@@ -100,4 +100,45 @@ public class FlightFactory {
         }
         return prefix;
     }
+
+    private static String pickLocationString(int index) {
+        String loc;
+        switch (index) {
+            case 0 -> loc = "Berlin";
+            case 1 -> loc = "Rome";
+            case 2 -> loc = "Dubai";
+            case 3 -> loc = "Paris";
+            case 4 -> loc = "London";
+            case 5 -> loc = "Los Angeles";
+            case 6 -> loc = "Frankfurt";
+            case 7 -> loc = "Budapest";
+            case 8 -> loc = "Shanghai";
+            case 9 -> loc = "Sydney";
+            case 10 -> loc = "Warsaw";
+            case 11 -> loc = "Vienna";
+            case 12 -> loc = "Madrid";
+            default -> loc = "Mumbai";
+        }
+        return loc;
+    }
+
+    public static Flight generateRandomFlight() {
+        Random r = new Random();
+        int first = r.nextInt(0,12);
+        int second;
+        do {
+            second = r.nextInt(0,12);
+        } while (first == second);
+        LocalDateTime now = LocalDateTime.now();
+        String date = now.toString();
+        String day = date.substring(8, 10);
+        String month = date.substring(5, 7);
+        String year = date.substring(0,4);
+        String finDate = day + "/" + month + "/" + year;
+        return generateFlight(pickLocationString(first), pickLocationString(second), finDate);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(generateRandomFlight());
+    }
 }
