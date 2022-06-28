@@ -4,59 +4,48 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.model.User;
+import server.service.UserService;
 
 @RestController
 @RequestMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 public class UserRest {
 
+    private UserService userService;
+
+    public UserRest(UserService userService) {
+        this.userService = userService;
+    }
+
     @PostMapping("api/register")
     public ResponseEntity<String> register(@RequestParam String username, @RequestParam String password) {
-        User some = User.getUser(username);
-        if (some != null) {
+        if (!userService.registerUser(username, password)) {
             return ResponseEntity.badRequest().body("Username taken");
         }
-
-        User user = new User(username, password);
-
         return ResponseEntity.ok("Registered successfully");
     }
 
     @PostMapping("api/login")
     public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        if (User.isLoggedIn()) {
-            return ResponseEntity.badRequest().body("Broke the system");
-        }
-        User current = User.getUser(username);
-        if (current == null || !current.authenticateUser(password)) {
+        if (!userService.authenticateUser(username, password)) {
             return ResponseEntity.badRequest().body("Wrong username or password");
         }
-
-        return ResponseEntity.ok(current.getUsername());
+        return ResponseEntity.ok(username);
     }
 
     @PostMapping("api/logout")
     public ResponseEntity<String> logout(@RequestParam String username) {
-        if (!User.isLoggedIn()) {
-            return ResponseEntity.badRequest().body("Broke the system");
-        }
-        User current = User.getUser(username);
-        if (current == null || !current.isAuthenticated()) {
+        if (!userService.logout(username)) {
             return ResponseEntity.badRequest().body("Error");
         }
-        current.logout();
         return ResponseEntity.ok("Logged out");
     }
 
     @GetMapping("api/users/{username}")
     public ResponseEntity<User> getUser(@PathVariable String username) {
-        if (!User.isLoggedIn()) {
+        User user = userService.getUserData(username);
+        if (user == null) {
             return ResponseEntity.badRequest().build();
         }
-        User current = User.getUser(username);
-        if (current == null || !current.isAuthenticated()) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        return ResponseEntity.ok(current);
+        return ResponseEntity.ok(user);
     }
 }

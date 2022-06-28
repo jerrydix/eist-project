@@ -3,7 +3,6 @@ package server.rest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import server.model.User;
 import server.model.surveys.Survey;
 import server.service.SurveyService;
 
@@ -19,11 +18,10 @@ public class SurveyRest {
 
     @PostMapping("api/surveys")
     public ResponseEntity<Survey> createSurvey(@RequestParam(name = "username") String username, @RequestBody Survey survey) {
-        User current = User.getUser(username);
-        if (current == null || !current.isAuthenticated()) {
+        Survey newSurvey = surveyService.saveSurvey(username, survey);
+        if (newSurvey == null) {
             return ResponseEntity.badRequest().build();
         }
-
-        return ResponseEntity.ok(surveyService.saveSurvey(current, survey));
+        return ResponseEntity.ok(newSurvey);
     }
 }
