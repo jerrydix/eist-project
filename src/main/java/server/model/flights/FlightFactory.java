@@ -72,7 +72,7 @@ public class FlightFactory {
         } else {
             endLocation = new Location(from, -1, -1);
         }
-        Flight flight = new Flight(flightID, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation);
+        Flight flight = new Flight(flightID, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation, generateRandomAirplane());
         flight.setDelayed(delayed);
         flight.setDelayHours(delayHours);
         flight.setDelayMinutes(delayMinutes);
@@ -112,7 +112,7 @@ public class FlightFactory {
             case 5 -> loc = "Los Angeles";
             case 6 -> loc = "Frankfurt";
             case 7 -> loc = "Budapest";
-            case 8 -> loc = "Shanghai";
+            case 8 -> loc = "Tehran";
             case 9 -> loc = "Sydney";
             case 10 -> loc = "Warsaw";
             case 11 -> loc = "Vienna";
@@ -122,7 +122,7 @@ public class FlightFactory {
         return loc;
     }
 
-    public static Flight generateRandomFlight() {
+    private static Flight generateRandomFlight() {
         Random r = new Random();
         int first = r.nextInt(0,12);
         int second;
@@ -138,6 +138,28 @@ public class FlightFactory {
         return generateFlight(pickLocationString(first), pickLocationString(second), finDate);
     }
 
+    public static String generateRandomAirplane() {
+        Random r = new Random();
+        return pickAirplane(r.nextInt(0,10));
+    }
+
+    private static String pickAirplane(int index) {
+        String airline;
+        switch (index) {
+            case 0 -> airline = "Boeing 737-800";
+            case 1 -> airline = "Boeing 737-700";
+            case 2 -> airline = "Airbus A320";
+            case 3 -> airline = "Airbus A321";
+            case 4 -> airline = "Bombardier CRJ200";
+            case 5 -> airline = "Boeing 757-200";
+            case 6 -> airline = "Embraer E175";
+            case 7 -> airline = "Airbus A319";
+            case 8 -> airline = "Boeing 737-900ER";
+            case 9 -> airline = "Bombardier CRJ900";
+            default -> airline = "Boeing 737-800";
+        }
+        return airline;
+    }
     public static void main(String[] args) {
         System.out.println(generateRandomFlight());
     }

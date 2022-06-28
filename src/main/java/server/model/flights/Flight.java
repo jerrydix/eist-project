@@ -25,9 +25,10 @@ public class Flight {
     private int delayMinutes;
     private Location startLocation;
     private Location endLocation;
+    private String airplane;
 
     public Flight(String number, LocalDateTime startTime, LocalDateTime endTime, String gate, String terminal, int seat,
-                  String airline, Location startLocation, Location endLocation) {
+                  String airline, Location startLocation, Location endLocation, String airplane) {
         this.number = number;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -39,6 +40,7 @@ public class Flight {
         this.isDelayed = false;
         this.startLocation = startLocation;
         this.endLocation = endLocation;
+        this.airplane = airplane;
     }
 
     public String getNumber() {
@@ -114,11 +116,11 @@ public class Flight {
     }
 
     public String getAirplane() {
-        return airline;
+        return airplane;
     }
 
     public void setAirplane(String airplane) {
-        this.airline = airplane;
+        this.airplane = airplane;
     }
 
     public boolean isCancelled() {

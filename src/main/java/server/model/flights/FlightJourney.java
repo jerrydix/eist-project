@@ -67,7 +67,7 @@ public class FlightJourney {
         List<Flight> availableFlights = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             //todo get request find available flights
-            Flight flight = new Flight("1", null, null, "1", null, 1, null, from, to);
+            Flight flight = new Flight("1", null, null, "1", null, 1, null, from, to, FlightFactory.generateRandomAirplane());
             availableFlights.add(flight);
         }
         return flights;

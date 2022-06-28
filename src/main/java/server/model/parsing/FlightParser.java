@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import server.model.flights.Flight;
+import server.model.flights.FlightFactory;
 import server.model.flights.Location;
 import server.model.networking.HTTP_GetRequest;
 
@@ -129,7 +130,7 @@ public class FlightParser {
                     endLocation = new Location(fromName, -1, -1);
                 }
 
-                Flight currentFlight = new Flight(number, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation);
+                Flight currentFlight = new Flight(number, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation, FlightFactory.generateRandomAirplane());
                 currentFlight.setDelayed(delayed);
                 currentFlight.setCancelled(cancelled);
                 currentFlight.setDelayTime(delayedTime);
