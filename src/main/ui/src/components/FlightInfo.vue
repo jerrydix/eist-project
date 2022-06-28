@@ -12,6 +12,7 @@
 				<p class="plane">Plane: Airbus A320</p>
 			</div>
 			<div class="xs4 icon-wrapper">
+				<p class="temperature">+26°C</p>
 				<font-awesome-icon icon="fa-solid fa-cloud" />
 				<p class="weather-text">Wolkig mit Aussicht auf Fleischbällchen</p>
 			</div>
@@ -51,6 +52,10 @@
 
 .delay {
 	color: red;
+}
+
+.temperature {
+	font-size: 3rem;
 }
 
 </style>

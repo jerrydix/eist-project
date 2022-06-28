@@ -11,7 +11,12 @@
     "pinia": "^2.0.14",
     "vue": "^3.2.36",
     "vue-router": "^4.0.16",
-    "wave-ui": "^2.39.1"
+    "wave-ui": "^2.39.1",
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-brands-svg-icons": "^6.1.1",
+    "@fortawesome/free-regular-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/vue-fontawesome": "^3.0.1"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",
