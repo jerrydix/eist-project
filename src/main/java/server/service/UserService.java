@@ -12,9 +12,12 @@ public class UserService {
 
     private boolean loggedIn;
 
+    private User loggedInUser;
+
     public UserService() {
         this.systemUsers = new ArrayList<>();
         loggedIn = false;
+        loggedInUser = null;
     }
 
     public boolean registerUser(String username, String password) {
@@ -36,6 +39,9 @@ public class UserService {
             return false;
         }
         loggedIn = user.authenticateUser(password);
+        if (loggedIn) {
+            loggedInUser = user;
+        }
         return loggedIn;
     }
 
@@ -48,6 +54,7 @@ public class UserService {
             return false;
         }
         user.logout();
+        loggedInUser = null;
         return true;
     }
 
@@ -73,5 +80,9 @@ public class UserService {
 
     public List<User> getSystemUsers() {
         return systemUsers;
+    }
+
+    public User getLoggedInUser() {
+        return loggedInUser;
     }
 }

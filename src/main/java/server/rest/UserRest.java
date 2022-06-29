@@ -40,6 +40,15 @@ public class UserRest {
         return ResponseEntity.ok("Logged out");
     }
 
+    @GetMapping("api/user/loggedIn")
+    public ResponseEntity<String> getLoggedInUser() {
+        User user = userService.getLoggedInUser();
+        if (user == null) {
+            return ResponseEntity.ok("null");
+        }
+        return ResponseEntity.ok(user.getUsername());
+    }
+
     @GetMapping("api/users/{username}")
     public ResponseEntity<User> getUser(@PathVariable String username) {
         User user = userService.getUserData(username);

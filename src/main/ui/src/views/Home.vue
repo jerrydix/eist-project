@@ -7,6 +7,8 @@ import WelcomeMessage from "../components/WelcomeMessage.vue";
 import Register from "./User/Register.vue";
 import TopBar from "../components/TopBar.vue";
 import Survey from "./Survey.vue";
+import {getLoggedInUser} from "../services/UserService.js";
+import {userStore} from "../userStore";
 
 export default {
   components: {
@@ -17,56 +19,47 @@ export default {
     Login,
     WelcomeMessage,
     Register,
-	TopBar
+    TopBar
   },
   data: () => ({
     showLoginDialog: false,
     showRegisterDialog: false,
     showSurveyDialog: false
   }),
+  setup() {
+    const store = userStore()
+    return {
+      store
+    }
+  },
+  beforeMount() {
+    getLoggedInUser().then((response) => {
+      if (response === "null") {
+        this.store.username = null;
+        this.window.localStorage.removeItem('user');
+      } else {
+        this.store.username = response;
+        this.window.localStorage.setItem('user', response);
+      }
+    });
+  }
 };
 </script>
 
 <template>
-	<w-app>
-		<!-- <w-toolbar>
-			<RouterLink to="/flights">
-				<w-button>Flights</w-button>
-			</RouterLink>
-			<RouterLink to="/catering">
-				<w-button>Catering</w-button>
-			</RouterLink>
-			<RouterLink to="/poi">
-				<w-button>About my destination</w-button>
-			</RouterLink>
+  <w-app>
+    <TopBar/>
+    <w-flex basis-zero grow wrap>
+      <w-flex class="grow column align-center justify-center">
+        <div class="top-wrapper">
+          <WelcomeMessage/>
+        </div>
 
-			<div class="spacer"></div>
-
-			<div class="ml2">
-				<w-button class="px4" @click="showRegisterDialog = true">
-					Register
-				</w-button>
-			</div>
-			<div class="ml2">
-				<w-button class="px4" @click="showLoginDialog = true">
-					Login
-				</w-button>
-			</div>
-		</w-toolbar> -->
-		<TopBar />
-		<w-flex basis-zero grow wrap>
-			<w-flex class="grow column align-center justify-center">
-				<div class="top-wrapper">
-					<WelcomeMessage />
-				</div>
-
-
-        
 
         <div class="xs4">
           <h1>Welcome to Garching Airlines</h1>
           <h3><em>Flights of Excellence</em></h3>
-         
+
           <FlightInfo/>
         </div>
 
@@ -143,10 +136,10 @@ export default {
 } */
 
 .w-toolbar {
-	background-color: var(--color-background-mute-transparent);
-	min-height: 60px;
-	max-height: 8vh;
-	backdrop-filter: blur(10);
+  background-color: var(--color-background-mute-transparent);
+  min-height: 60px;
+  max-height: 8vh;
+  backdrop-filter: blur(10);
 }
 
 .top-wrapper .welcome-wrapper {
