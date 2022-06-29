@@ -24,7 +24,7 @@ export default {
 	},
 	data: () => ({
 		showRegisterDialog: false,
-    showLoginDialog: false,
+		showLoginDialog: false,
 	}),
 };
 </script>
@@ -34,7 +34,7 @@ export default {
 		<w-flex v-if="!this.store.username" align-self-end class="xs1 pa0">
 			<RouterLink to="/register">
 				<!-- <w-button class="nav-button">Register</w-button> -->
-        <w-button class="px4" @click="showRegisterDialog = true">
+				<w-button class="px4" @click="showRegisterDialog = true">
 					Register
 				</w-button>
 			</RouterLink>

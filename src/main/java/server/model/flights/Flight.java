@@ -171,35 +171,37 @@ public class Flight {
         String year = date.substring(6);
         String flightDate = year + "-" + monthStr + "-" + dayStr;
 
-        String[] fromData = Location.fetchCityIATACode(from);
-        String[] toData = Location.fetchCityIATACode(to);
+        //todo replace with parser for name and iata
 
-        if (fromData == null || toData == null) {
-            return new ArrayList<>();
-        }
-
-        String fromName = fromData[0];
-        String fromIATA = fromData[1];
-        String toName = toData[0];
-        String toIATA = toData[1];
+        String fromIATA = from.substring(from.indexOf("(") + 1, from.indexOf(")"));
+        String toIATA = to.substring(to.indexOf("(") + 1, to.indexOf(")"));
+        String fromName = from.substring(0, from.indexOf("(") - 1);
+        String toName = to.substring(0, to.indexOf("(") - 1);
+        System.out.println(fromName);
+        System.out.println(toName);
+        System.out.println(fromIATA);
+        System.out.println(toIATA);
 
         List<Flight> list = FlightParser.parseFlightJson(HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{"?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM1ZjFjNDVmZGExNDNlODcwNDhkOGRmNzcyOTZhMThhNTMyNTNjNWUzYjIxMWUzNTA3OTAyMzlmMDVkYzk3ODAxNDQ5ZGM1MzI0MmY0N2QiLCJpYXQiOjE2NTYyMzY1MTIsIm5iZiI6MTY1NjIzNjUxMiwiZXhwIjoxNjg3NzcyNTEyLCJzdWIiOiI3MDg0Iiwic2NvcGVzIjpbXX0.jr7CLxzMAJETsHmt2YfH6OBb53pJvEcXNqDuTArRGCNX2AHxGPocVyax2RcaC0zL3u61qZe2g1NzEM0typORcQ", "&arr_scheduled_time_dep=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}), fromName, toName);
 
-        Random r = new Random();
+        /*Random r = new Random();
         int amount = r.nextInt(5, 15);
         if (list != null) {
             while (list.size() < amount) {
-                list.add(FlightFactory.generateFlight(from, to, date));
+                list.add(FlightFactory.generateFlight(fromName, toName, date));
             }
         } else {
             List<Flight> fakeFlights = new ArrayList<>();
             for (int i = 0; i < amount; i++) {
-                fakeFlights.add(FlightFactory.generateFlight(from, to, date));
+                fakeFlights.add(FlightFactory.generateFlight(fromName, toName, date));
             }
             return fakeFlights;
-        }
+        }*/
         return list;
+    }
 
+    public static String[] get3citySuggestions(String city) {
+        return Location.fetchCityIATACode(city);
     }
 
     public static void main(String[] args) {
@@ -207,10 +209,10 @@ public class Flight {
         new Location("test", -1, -1), new Location("test", -1, -1));
         System.out.println(flight);*/
 
-        List<Flight> flights = fetchFlightsFromToAt("Amsterdam", "New York City", "28/06/2022");
+        List<Flight> flights = fetchFlightsFromToAt("Amsterdam (MUC)", "New York City (CDG)", "28/06/2022");
         System.out.println(flights);
-        System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
-        System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
+        //System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
+        //System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
 
     }
 }

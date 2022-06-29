@@ -1,5 +1,3 @@
 <template>
-
-    <h1>journey</h1>
-
+	<h1>journey</h1>
 </template>
