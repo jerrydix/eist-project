@@ -37,24 +37,20 @@ export default {
 </script>
 
 <template>
-	<div v-if="!this.store.username">
-		<div class="ml2">
-			<w-button class="px4" @click="showRegisterDialog = true">
-				Register
-			</w-button>
-		</div>
-		<div class="ml2">
-			<w-button class="px4" @click="showLoginDialog = true">
-				Login
-			</w-button>
-		</div>
-		<w-dialog v-model="showRegisterDialog" title="Register" :width="550">
-			<Register />
-		</w-dialog>
-		<w-dialog v-model="showLoginDialog" title="Login" :width="550">
-			<Login />
-		</w-dialog>
+	<div v-if="!this.store.username" class="ml2">
+		<w-button class="px4" @click="showRegisterDialog = true">
+			Register
+		</w-button>
 	</div>
+	<div v-if="!this.store.username" class="ml2">
+		<w-button class="px4" @click="showLoginDialog = true"> Login </w-button>
+	</div>
+	<w-dialog v-model="showRegisterDialog" title="Register" :width="550">
+		<Register />
+	</w-dialog>
+	<w-dialog v-model="showLoginDialog" title="Login" :width="550">
+		<Login />
+	</w-dialog>
 
 	<div v-if="this.store.username" align-self-end class="xs1 pa1">
 		<w-button class="nav-button" @click="logoutUser"> Logout</w-button>
