@@ -77,7 +77,7 @@ export default {
         <div class="spacer"></div>
 
         <div class="align-self-end">
-          <w-button class="survey-button" @click="showSurveyDialog = true">
+          <w-button v-if="this.store.username" class="survey-button" @click="showSurveyDialog = true">
             We value your opinion
           </w-button>
         </div>
