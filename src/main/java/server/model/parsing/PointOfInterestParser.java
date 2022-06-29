@@ -17,7 +17,7 @@ public class PointOfInterestParser {
             JSONArray resultsArray = jsonObject.getJSONArray("results");
             List<PointOfInterest> poiList = new ArrayList<>();
 
-            for (int i = 0; i < resultsArray.length() && i<10; i++) {
+            for (int i = 0; i < resultsArray.length() && i < 50; i++) {
                 String id = resultsArray.getJSONObject(i).getString("place_id");
                 String name = resultsArray.getJSONObject(i).getString("name");
                 String address = resultsArray.getJSONObject(i).getString("vicinity");
