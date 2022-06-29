@@ -30,17 +30,36 @@ public class FlightParser {
 
             //System.out.println(Arrays.toString(startCoords));
             //System.out.println(Arrays.toString(endCoords));
-            Location startLocation;
-            Location endLocation;
-            if (startCoords != null) {
-                startLocation = new Location(fromName, startCoords[1], startCoords[0]);
-            } else {
-                startLocation = new Location(fromName, -1, -1);
+            Location startLocation = null;
+            Location endLocation = null;
+
+            boolean startFound = false;
+            boolean endFound = false;
+
+            for (int i = 0; i < Location.getLocationList().size(); i++) {
+                if (Location.getLocationList().get(i).getName().equals(fromName)) {
+                    startLocation = Location.getLocationList().get(i);
+                    startFound = true;
+                }
+                if (Location.getLocationList().get(i).getName().equals(toName)) {
+                    endLocation = Location.getLocationList().get(i);
+                    endFound = true;
+                }
+                if (startFound && endFound) break;
             }
-            if (endCoords != null) {
-                endLocation = new Location(toName, endCoords[1], endCoords[0]);
-            } else {
-                endLocation = new Location(fromName, -1, -1);
+            if (!startFound) {
+                if (startCoords != null) {
+                    startLocation = new Location(fromName, startCoords[1], startCoords[0]);
+                } else {
+                    startLocation = new Location(fromName, -1, -1);
+                }
+            }
+            if (!endFound) {
+                if (endCoords != null) {
+                    endLocation = new Location(toName, endCoords[1], endCoords[0]);
+                } else {
+                    endLocation = new Location(fromName, -1, -1);
+                }
             }
 
             for (int i = 0; i < array.length(); i++) {
