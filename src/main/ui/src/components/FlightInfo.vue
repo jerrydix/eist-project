@@ -1,29 +1,48 @@
 <script setup>
-let date = new Date()
-let flight = {
-	
+let date = new Date();
 
-}
+let flight = {
+	from: "Berlin",
+	to: "Garching",
+	startTime: "20:00",
+	endTime: "23:00",
+	delay: "+00:25",
+	seat: 42,
+	id: "GA2553",
+	terminal: 7,
+	gate: "A4",
+	plane: "Airbus A320",
+	date: date.toISOString().split("T")[0],
+};
 </script>
 
 <template>
 	<w-card class="flight-info-card">
 		<w-flex>
 			<div class="xs8 data-wrapper">
-				<p class="from-to-location">Berlin <font-awesome-icon icon="fa-solid fa-right-long" /> Garching</p>
-				<p class="from-to-time">20:00 - 23:00</p>
-				<p class="delay">+00:25</p>
-				<p class="seat">Seat: 42</p>
-				<p class="id">Flight No: GA2553</p>
-				<p class="terminal">Terminal: 7</p>
-				<p class="gate">Gate: A4</p> 
-				<p class="plane">Plane: Airbus A320</p>
-				<p class="date"> {{  }} </p>
+				<p class="from-to-location">
+					{{ flight.from }}
+					<font-awesome-icon icon="fa-solid fa-right-long" />
+					{{ flight.to }}
+				</p>
+				<p class="from-to-time">
+					{{ flight.startTime }} - {{ flight.endTime }}
+				</p>
+				<p class="delay">{{ flight.delay }}</p>
+				<p class="seat">Seat: {{ flight.seat }}</p>
+				<p class="id">Flight No: {{ flight.id }}</p>
+				<p class="terminal">Terminal: {{ flight.terminal }}</p>
+				<p class="gate">Gate: {{ flight.gate }}</p>
+				<p class="plane">Plane: {{ flight.plane }}</p>
 			</div>
 			<div class="xs4 icon-wrapper">
 				<p class="temperature">+26°C</p>
 				<font-awesome-icon icon="fa-solid fa-cloud" />
-				<p class="weather-text">Wolkig mit Aussicht auf Fleischbällchen</p>
+				<p class="weather-text">
+					Wolkig mit Aussicht auf Fleischbällchen
+				</p>
+				<div class="spacer"></div>
+				<p class="date">{{ flight.date }}</p>
 			</div>
 		</w-flex>
 	</w-card>
@@ -68,5 +87,4 @@ let flight = {
 .temperature {
 	font-size: 3rem;
 }
-
 </style>
