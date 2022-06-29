@@ -22,6 +22,8 @@ public class Location {
     private List<String> airports;
     private String iata;
 
+    private static List<Location> locationList = new ArrayList<>();
+
     public Location(String name, double longitude, double latitude) {
         this.name = name;
         this.weather = Weather.fetchWeather(longitude, latitude);
@@ -36,6 +38,7 @@ public class Location {
                 pointOfInterest.setLocation(this);
             }
         }
+        locationList.add(this);
     }
 
     public String getIata() {
@@ -44,6 +47,14 @@ public class Location {
 
     public void setIata(String iata) {
         this.iata = iata;
+    }
+
+    public static List<Location> getLocationList() {
+        return locationList;
+    }
+
+    public static void setLocationList(List<Location> locationList) {
+        Location.locationList = locationList;
     }
 
     public static int getCurrentID() {
