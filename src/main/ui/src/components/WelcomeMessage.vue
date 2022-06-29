@@ -1,6 +1,6 @@
 <script>
-import {userStore} from "../userStore.js";
-import {logout} from "../services/UserService.js";
+import { userStore } from "../userStore.js";
+import { logout } from "../services/UserService.js";
 
 export default {
 	setup() {
