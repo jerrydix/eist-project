@@ -41,6 +41,57 @@ public class Flight {
         this.airplane = airplane;
     }
 
+    public static List<Flight> fetchFlightsFromToAt(String from, String to, String date) {
+        String dayStr = date.substring(0, 2);
+        String monthStr = date.substring(3, 5);
+        String year = date.substring(6);
+        String flightDate = year + "-" + monthStr + "-" + dayStr;
+
+        //todo replace with parser for name and iata
+
+        String fromIATA = from.substring(from.indexOf("(") + 1, from.indexOf(")"));
+        String toIATA = to.substring(to.indexOf("(") + 1, to.indexOf(")"));
+        String fromName = from.substring(0, from.indexOf("(") - 1);
+        String toName = to.substring(0, to.indexOf("(") - 1);
+        System.out.println(fromName);
+        System.out.println(toName);
+        System.out.println(fromIATA);
+        System.out.println(toIATA);
+
+        List<Flight> list = FlightParser.parseFlightJson(HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{"?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM1ZjFjNDVmZGExNDNlODcwNDhkOGRmNzcyOTZhMThhNTMyNTNjNWUzYjIxMWUzNTA3OTAyMzlmMDVkYzk3ODAxNDQ5ZGM1MzI0MmY0N2QiLCJpYXQiOjE2NTYyMzY1MTIsIm5iZiI6MTY1NjIzNjUxMiwiZXhwIjoxNjg3NzcyNTEyLCJzdWIiOiI3MDg0Iiwic2NvcGVzIjpbXX0.jr7CLxzMAJETsHmt2YfH6OBb53pJvEcXNqDuTArRGCNX2AHxGPocVyax2RcaC0zL3u61qZe2g1NzEM0typORcQ", "&arr_scheduled_time_dep=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}), fromName, toName);
+
+        Random r = new Random();
+        int amount = r.nextInt(5, 15);
+        if (list != null) {
+            while (list.size() < amount) {
+                list.add(FlightFactory.generateFlight(fromName, toName, date));
+            }
+        } else {
+            List<Flight> fakeFlights = new ArrayList<>();
+            for (int i = 0; i < amount; i++) {
+                fakeFlights.add(FlightFactory.generateFlight(fromName, toName, date));
+            }
+            return fakeFlights;
+        }
+        return list;
+    }
+
+    public static String[] getSuggestions(String city) {
+        return Location.fetchCityIATACode(city);
+    }
+
+    public static void main(String[] args) {
+        /*Flight flight = new Flight("1", LocalDateTime.of(1994, Month.APRIL, 15,11,30), LocalDateTime.of(1994, Month.APRIL, 15,11,30),"1","a", 1, "Lufthansa",
+        new Location("test", -1, -1), new Location("test", -1, -1));
+        System.out.println(flight);*/
+
+        List<Flight> flights = fetchFlightsFromToAt("Amsterdam (MUC)", "New York City (CDG)", "28/06/2022");
+        System.out.println(flights);
+        System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
+        System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
+
+    }
+
     public String getNumber() {
         return number;
     }
@@ -163,56 +214,5 @@ public class Flight {
 
     public String toString() {
         return "\n\nAirline: " + airline + "\nNumber: " + number + "\nTerminal: " + terminal + "\nGate: " + gate + "\nDeparture time: " + startTime + "\nArrival time: " + endTime;
-    }
-
-    public static List<Flight> fetchFlightsFromToAt(String from, String to, String date) {
-        String dayStr = date.substring(0,2);
-        String monthStr = date.substring(3,5);
-        String year = date.substring(6);
-        String flightDate = year + "-" + monthStr + "-" + dayStr;
-
-        //todo replace with parser for name and iata
-
-        String fromIATA = from.substring(from.indexOf("(") + 1, from.indexOf(")"));
-        String toIATA = to.substring(to.indexOf("(") + 1, to.indexOf(")"));
-        String fromName = from.substring(0, from.indexOf("(") - 1);
-        String toName = to.substring(0, to.indexOf("(") - 1);
-        System.out.println(fromName);
-        System.out.println(toName);
-        System.out.println(fromIATA);
-        System.out.println(toIATA);
-
-        List<Flight> list = FlightParser.parseFlightJson(HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{"?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM1ZjFjNDVmZGExNDNlODcwNDhkOGRmNzcyOTZhMThhNTMyNTNjNWUzYjIxMWUzNTA3OTAyMzlmMDVkYzk3ODAxNDQ5ZGM1MzI0MmY0N2QiLCJpYXQiOjE2NTYyMzY1MTIsIm5iZiI6MTY1NjIzNjUxMiwiZXhwIjoxNjg3NzcyNTEyLCJzdWIiOiI3MDg0Iiwic2NvcGVzIjpbXX0.jr7CLxzMAJETsHmt2YfH6OBb53pJvEcXNqDuTArRGCNX2AHxGPocVyax2RcaC0zL3u61qZe2g1NzEM0typORcQ", "&arr_scheduled_time_dep=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}), fromName, toName);
-
-        Random r = new Random();
-        int amount = r.nextInt(5, 15);
-        if (list != null) {
-            while (list.size() < amount) {
-                list.add(FlightFactory.generateFlight(fromName, toName, date));
-            }
-        } else {
-            List<Flight> fakeFlights = new ArrayList<>();
-            for (int i = 0; i < amount; i++) {
-                fakeFlights.add(FlightFactory.generateFlight(fromName, toName, date));
-            }
-            return fakeFlights;
-        }
-        return list;
-    }
-
-    public static String[] get3citySuggestions(String city) {
-        return Location.fetchCityIATACode(city);
-    }
-
-    public static void main(String[] args) {
-        /*Flight flight = new Flight("1", LocalDateTime.of(1994, Month.APRIL, 15,11,30), LocalDateTime.of(1994, Month.APRIL, 15,11,30),"1","a", 1, "Lufthansa",
-        new Location("test", -1, -1), new Location("test", -1, -1));
-        System.out.println(flight);*/
-
-        List<Flight> flights = fetchFlightsFromToAt("Amsterdam (MUC)", "New York City (CDG)", "28/06/2022");
-        System.out.println(flights);
-        System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
-        System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
-
     }
 }

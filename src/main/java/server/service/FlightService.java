@@ -9,10 +9,10 @@ import java.util.List;
 public class FlightService {
 
     public String[] getSuggestions(String city) {
-        return null;
+        return Flight.getSuggestions(city);
     }
 
     public List<Flight> getFlights(String from, String to, String date) {
-        return null;
+        return Flight.fetchFlightsFromToAt(from, to, date);
     }
 }
