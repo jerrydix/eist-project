@@ -12,6 +12,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+/* import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config()
+ */
+
 library.add(
     faCloud, faSun, faCloudSun, faCloudBolt, faCloudRain, faCloudSunRain, 
     faWind, faSnowflake, faRightLong,
@@ -23,4 +27,7 @@ const pinia = createPinia();
 const app = createApp(App);
 new WaveUI(app, {});
 app.component('font-awesome-icon', FontAwesomeIcon)
-app.use(router).use(pinia).mount("#app");
+app.use(router)
+app.use(pinia)
+
+app.mount("#app");
