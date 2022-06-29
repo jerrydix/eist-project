@@ -133,6 +133,7 @@ public class FlightParser {
             return flights;
         } catch (JSONException exception) {
             System.out.println("Couldn't parse flights");
+
         }
         return null;
     }
