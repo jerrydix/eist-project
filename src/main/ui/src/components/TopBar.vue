@@ -1,13 +1,6 @@
 <script setup>
-/* import LoginButtons from "./LoginButtons.vue";
- */
-const emit = defineEmits(["register", "login"]);
+import LoginButtons from './LoginButtons.vue';
 
-let showRegisterDialog = false;
-let showLoginDialog = false;
-
-emit("register", showRegisterDialog);
-emit("login", showLoginDialog);
 </script>
 <template>
 	<w-toolbar>
@@ -20,18 +13,10 @@ emit("login", showLoginDialog);
 		<RouterLink to="/poi">
 			<w-button>About my destination</w-button>
 		</RouterLink>
+		
 		<div class="spacer"></div>
-		<!-- <span class="ml2">Item 1</span> -->
-		<div class="ml2">
-			<w-button class="px4" @click="showRegisterDialog = true">
-				Register
-			</w-button>
-		</div>
-		<div class="ml2">
-			<w-button class="px4" @click="showLoginDialog = true">
-				Login
-			</w-button>
-		</div>
+		
+		<LoginButtons />
 	</w-toolbar>
 </template>
 

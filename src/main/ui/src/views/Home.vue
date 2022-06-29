@@ -28,6 +28,7 @@ export default {
 </script>
 
 <template>
+<<<<<<< HEAD
   <w-app>
     <w-toolbar>
       <RouterLink to="/flights">
@@ -57,10 +58,44 @@ export default {
         <div class="top-wrapper">
           <WelcomeMessage/>
         </div>
+=======
+	<w-app>
+		<!-- <w-toolbar>
+			<RouterLink to="/flights">
+				<w-button>Flights</w-button>
+			</RouterLink>
+			<RouterLink to="/catering">
+				<w-button>Catering</w-button>
+			</RouterLink>
+			<RouterLink to="/poi">
+				<w-button>About my destination</w-button>
+			</RouterLink>
+
+			<div class="spacer"></div>
+
+			<div class="ml2">
+				<w-button class="px4" @click="showRegisterDialog = true">
+					Register
+				</w-button>
+			</div>
+			<div class="ml2">
+				<w-button class="px4" @click="showLoginDialog = true">
+					Login
+				</w-button>
+			</div>
+		</w-toolbar> -->
+		<TopBar />
+		<w-flex basis-zero grow wrap>
+			<w-flex class="grow column align-center justify-center">
+				<div class="top-wrapper">
+					<WelcomeMessage />
+				</div>
+>>>>>>> 914ed0b (made own component for loginbuttons)
 
 
         
 
+<<<<<<< HEAD
         <div class="xs4">
           <h1>Welcome to Garching Airlines</h1>
           <h3><em>Flights of Excellence</em></h3>
@@ -68,6 +103,19 @@ export default {
           <FlightInfo/>
         </div>
 
+=======
+				<!-- <w-dialog
+					v-model="showRegisterDialog"
+					title="Register"
+					:width="550"
+				>
+					<Register />
+				</w-dialog>
+
+				<w-dialog v-model="showLoginDialog" title="Login" :width="550">
+					<Login />
+				</w-dialog> -->
+>>>>>>> 914ed0b (made own component for loginbuttons)
 
         <w-dialog
             v-model="showRegisterDialog"
