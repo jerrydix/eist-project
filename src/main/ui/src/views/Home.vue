@@ -29,30 +29,6 @@ export default {
 
 <template>
 	<w-app>
-		<!-- <w-toolbar>
-			<RouterLink to="/flights">
-				<w-button>Flights</w-button>
-			</RouterLink>
-			<RouterLink to="/catering">
-				<w-button>Catering</w-button>
-			</RouterLink>
-			<RouterLink to="/poi">
-				<w-button>About my destination</w-button>
-			</RouterLink>
-
-			<div class="spacer"></div>
-
-			<div class="ml2">
-				<w-button class="px4" @click="showRegisterDialog = true">
-					Register
-				</w-button>
-			</div>
-			<div class="ml2">
-				<w-button class="px4" @click="showLoginDialog = true">
-					Login
-				</w-button>
-			</div>
-		</w-toolbar> -->
 		<TopBar />
 		<w-flex basis-zero grow wrap>
 			<w-flex class="grow column align-center justify-center">
@@ -137,10 +113,6 @@ export default {
 .top-wrapper {
   width: 100%;
 }
-
-/* .top-wrapper .login-wrapper {
-	float: right;
-} */
 
 .w-toolbar {
 	background-color: var(--color-background-mute-transparent);

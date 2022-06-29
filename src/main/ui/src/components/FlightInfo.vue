@@ -1,3 +1,11 @@
+<script setup>
+let date = new Date()
+let flight = {
+	
+
+}
+</script>
+
 <template>
 	<w-card class="flight-info-card">
 		<w-flex>
@@ -10,6 +18,7 @@
 				<p class="terminal">Terminal: 7</p>
 				<p class="gate">Gate: A4</p> 
 				<p class="plane">Plane: Airbus A320</p>
+				<p class="date"> {{  }} </p>
 			</div>
 			<div class="xs4 icon-wrapper">
 				<p class="temperature">+26°C</p>
