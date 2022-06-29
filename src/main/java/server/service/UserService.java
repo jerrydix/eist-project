@@ -54,6 +54,7 @@ public class UserService {
             return false;
         }
         user.logout();
+        loggedIn = false;
         loggedInUser = null;
         return true;
     }
@@ -80,6 +81,12 @@ public class UserService {
 
     public List<User> getSystemUsers() {
         return systemUsers;
+    }
+
+    public void printUsers() {
+        for (User user : systemUsers) {
+            System.out.println(user.getUsername());
+        }
     }
 
     public User getLoggedInUser() {

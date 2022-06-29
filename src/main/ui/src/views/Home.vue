@@ -19,30 +19,30 @@ export default {
     Login,
     WelcomeMessage,
     Register,
-    TopBar
+    TopBar,
   },
   data: () => ({
     showLoginDialog: false,
     showRegisterDialog: false,
-    showSurveyDialog: false
+    showSurveyDialog: false,
   }),
   setup() {
-    const store = userStore()
+    const store = userStore();
     return {
-      store
-    }
+      store,
+    };
   },
-  beforeMount() {
+  mounted() {
     getLoggedInUser().then((response) => {
       if (response === "null") {
         this.store.username = null;
-        this.window.localStorage.removeItem('user');
+        window.localStorage.removeItem("user");
       } else {
         this.store.username = response;
-        this.window.localStorage.setItem('user', response);
+        window.localStorage.setItem("user", response);
       }
     });
-  }
+  },
 };
 </script>
 
@@ -55,7 +55,6 @@ export default {
           <WelcomeMessage/>
         </div>
 
-
         <div class="xs4">
           <h1>Welcome to Garching Airlines</h1>
           <h3><em>Flights of Excellence</em></h3>
@@ -63,12 +62,7 @@ export default {
           <FlightInfo/>
         </div>
 
-
-        <w-dialog
-            v-model="showRegisterDialog"
-            :width="550"
-            title="Register"
-        >
+        <w-dialog v-model="showRegisterDialog" :width="550" title="Register">
           <Register/>
         </w-dialog>
 
@@ -83,11 +77,9 @@ export default {
         <div class="spacer"></div>
 
         <div class="align-self-end">
-
           <w-button class="survey-button" @click="showSurveyDialog = true">
             We value your opinion
           </w-button>
-
         </div>
       </w-flex>
     </w-flex>
@@ -114,7 +106,6 @@ export default {
   text-align: center;
 }
 
-
 .w-toolbar {
   background-color: var(--color-background-mute-transparent);
   min-height: 60px;
@@ -125,7 +116,6 @@ export default {
 .w-toolbar > * {
   z-index: 2;
 }
-
 
 .top-wrapper {
   width: 100%;

@@ -32,7 +32,7 @@ export async function logout(user) {
 }
 
 export async function getLoggedInUser() {
-    const response = await fetch(`api/users/loggedIn`
+    const response = await fetch(`api/loggedInUser`
         , {
             method: 'GET',
             headers: {'Content-Type': 'application/json'},

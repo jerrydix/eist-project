@@ -26,6 +26,7 @@ public class UserRest {
 
     @PostMapping("api/login")
     public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
+        userService.printUsers();
         if (!userService.authenticateUser(username, password)) {
             return ResponseEntity.badRequest().body("Wrong username or password");
         }
@@ -40,7 +41,7 @@ public class UserRest {
         return ResponseEntity.ok("Logged out");
     }
 
-    @GetMapping("api/user/loggedIn")
+    @GetMapping("api/loggedInUser")
     public ResponseEntity<String> getLoggedInUser() {
         User user = userService.getLoggedInUser();
         if (user == null) {
