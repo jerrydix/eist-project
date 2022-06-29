@@ -131,10 +131,6 @@ export default {
   width: 100%;
 }
 
-/* .top-wrapper .login-wrapper {
-	float: right;
-} */
-
 .w-toolbar {
   background-color: var(--color-background-mute-transparent);
   min-height: 60px;

@@ -44,7 +44,7 @@ export default {
 		</w-flex>
 
 		<w-flex v-if="this.store.username" align-self-end class="xs1 pa1">
-			<w-button class="nav-button" @click="logoutUser"> Logout</w-button>
+			<w-button class="nav-button" @click="logoutUser">Logout</w-button>
 		</w-flex>
 	</w-flex>
 </template>
