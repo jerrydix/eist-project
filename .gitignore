@@ -125,6 +125,6 @@ coverage
 # API Keys
 .env
 .env.production
-
+keys.txt
 
 

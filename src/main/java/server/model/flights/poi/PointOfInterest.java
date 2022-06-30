@@ -3,6 +3,7 @@ package server.model.flights.poi;
 import server.model.flights.Location;
 import server.model.networking.HTTP_GetRequest;
 import server.model.parsing.PointOfInterestParser;
+import server.utility.KeyReader;
 
 import java.util.List;
 
@@ -17,7 +18,8 @@ public class PointOfInterest {
     private double longitude;
     private double latitude;
 
-    public PointOfInterest(String id, String name, String address, String pointOfInterestType, Location location, double rating, double longitude, double latitude) {
+    public PointOfInterest(String id, String name, String address, String pointOfInterestType, Location location,
+            double rating, double longitude, double latitude) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -28,8 +30,13 @@ public class PointOfInterest {
         this.latitude = latitude;
     }
 
-    public static List<PointOfInterest> fetchPOIs(double longitude , double latitude, Location location){
-        return PointOfInterestParser.parsePOIJson(HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json", new String[]{"?location=" + longitude + "%2C" + latitude, "&radius=30000" , "&rankby=prominence", "&type=tourist_attraction", "&key=AIzaSyBKiScI4WumTVipTbFuC6KPHic3dC66tvM"}), location);
+    public static List<PointOfInterest> fetchPOIs(double longitude, double latitude, Location location) {
+        return PointOfInterestParser.parsePOIJson(
+                HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+                        new String[] { "?location=" + longitude + "%2C" + latitude, "&radius=30000",
+                                "&rankby=prominence", "&type=tourist_attraction",
+                                "&key=" + KeyReader.getAPIkey() }),
+                location);
     }
 
     public String getName() {
@@ -40,7 +47,7 @@ public class PointOfInterest {
         this.name = name;
     }
 
-    public String getID(){
+    public String getID() {
         return id;
     }
 
@@ -51,8 +58,8 @@ public class PointOfInterest {
     public void setPointOfInterestType(String pointOfInterestType) {
         this.pointOfInterestType = pointOfInterestType;
     }
-    
-    public String getLocation(){
+
+    public String getLocation() {
         return this.address;
     }
 
@@ -98,6 +105,7 @@ public class PointOfInterest {
 
     @Override
     public String toString() {
-        return "ID: " + id + "\nName: " + name + "\nAddress: " + address + "\nPOI Type: " + pointOfInterestType + "\nLocation: " + location + "\nRating: " + rating;
+        return "ID: " + id + "\nName: " + name + "\nAddress: " + address + "\nPOI Type: " + pointOfInterestType
+                + "\nLocation: " + location + "\nRating: " + rating;
     }
 }
