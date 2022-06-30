@@ -15,6 +15,7 @@ import server.model.flights.FlightFactory;
 import server.model.flights.FlightJourney;
 import server.model.flights.Location;
 import server.model.networking.HTTP_GetRequest;
+import server.utility.KeyReader;
 
 //TODO DO NOT EXECUTE MAIN METHOD, WE GOTTA SAFE THEM API REQUESTS
 public class FlightParser {
@@ -159,7 +160,7 @@ public class FlightParser {
 
     public static double[] fetchCoordsForGivenAddress(String address) {
         address = address.replaceAll(" ","");
-        return GeocodingParser.parseGeocodingJson(HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/geocode/json", new String[]{"?address=" + address, "&key=AIzaSyBKiScI4WumTVipTbFuC6KPHic3dC66tvM"}));
+        return GeocodingParser.parseGeocodingJson(HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/geocode/json", new String[]{"?address=" + address, "&key=" + KeyReader.getAPIkey()}));
     }
 
     public String toString(List<Flight> flights) {

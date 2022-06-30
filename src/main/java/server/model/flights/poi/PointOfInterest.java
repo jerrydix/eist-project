@@ -33,9 +33,9 @@ public class PointOfInterest {
     public static List<PointOfInterest> fetchPOIs(double longitude, double latitude, Location location) {
         return PointOfInterestParser.parsePOIJson(
                 HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-                        new String[] { "?location=" + longitude + "%2C" + latitude, "&radius=30000",
+                        new String[] {"?location=" + longitude + "%2C" + latitude, "&radius=30000",
                                 "&rankby=prominence", "&type=tourist_attraction",
-                                "&key=" + KeyReader.getAPIkey() }),
+                                "&key=" + KeyReader.getAPIkey()}),
                 location);
     }
 
