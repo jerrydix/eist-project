@@ -2,12 +2,12 @@ package server.model.flights;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class FlightJourney {
 
     private List<Flight> flights;
     private List<Location> locations;
-
     private Location origin;
 
     public FlightJourney() {
@@ -94,6 +94,13 @@ public class FlightJourney {
             locations.add(flight.getEndLocation());
         }
         return true;
+    }
+
+    public Flight cancelRandomFlight() {
+        Random r = new Random();
+        int index = r.nextInt(this.flights.size());
+        this.flights.get(index).setCancelled(true);
+        return this.flights.remove(index);
     }
 
     public List<Flight> fetchReturningFlights(String date) {
