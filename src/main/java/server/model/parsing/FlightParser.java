@@ -20,6 +20,14 @@ import server.utility.KeyReader;
 //TODO DO NOT EXECUTE MAIN METHOD, WE GOTTA SAFE THEM API REQUESTS
 public class FlightParser {
 
+    /**
+     * parseFlightJson() parses the flights contained in a given api response into a list of "Flight" objects
+     *
+     * @param jsonText The get request response of the Flightlabs API (Real-time flights) containing an array of flights from "fromName" to "toName" with their respective attributes
+     * @param fromName The name of the departure location
+     * @param toName the name of the arrival location
+     * @return A list of all found flights from "fromName" to "toName"
+     */
     public static List<Flight> parseFlightJson(String jsonText, String fromName, String toName) {
         try {
             //JSONObject jsonObject = new JSONObject(jsonText);

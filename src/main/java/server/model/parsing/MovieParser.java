@@ -5,6 +5,12 @@ import org.json.JSONObject;
 import server.model.entertainment.movies.Movie;
 
 public class MovieParser {
+
+    /**
+     *
+     * @param json
+     * @return
+     */
     public static Movie parseMovieJson(String json) {
         try {
             JSONObject response = new JSONObject(json);
