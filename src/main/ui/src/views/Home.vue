@@ -54,14 +54,11 @@ export default {
 				<div class="top-wrapper">
 					<WelcomeMessage />
 				</div>
-
 				<div class="xs4">
 					<h1>Welcome to Garching Airlines</h1>
 					<h3><em>Flights of Excellence</em></h3>
-
 					<FlightInfo />
 				</div>
-
 				<w-dialog
 					v-model="showRegisterDialog"
 					:width="550"
@@ -69,11 +66,9 @@ export default {
 				>
 					<Register />
 				</w-dialog>
-
 				<w-dialog v-model="showLoginDialog" :width="550" title="Login">
 					<Login />
 				</w-dialog>
-
 				<w-dialog
 					v-model="showSurveyDialog"
 					:width="550"
@@ -81,9 +76,7 @@ export default {
 				>
 					<Survey />
 				</w-dialog>
-
 				<div class="spacer"></div>
-
 				<div class="align-self-end">
 					<w-button
 						v-if="this.store.username"
@@ -118,6 +111,8 @@ export default {
 .w-app {
 	background-size: cover !important;
 	text-align: center;
+	height: 100%;
+
 }
 
 .w-toolbar {
