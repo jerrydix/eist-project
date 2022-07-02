@@ -95,8 +95,8 @@ public class Flight {
 
         List<Flight> flights = fetchFlightsFromToAt("Amsterdam (MUC)", "New York City (CDG)", "28/06/2022");
         System.out.println(flights);
-        System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
-        System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
+        //System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
+        //System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
 
     }
 

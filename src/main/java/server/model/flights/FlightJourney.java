@@ -96,6 +96,11 @@ public class FlightJourney {
         return true;
     }
 
+    public Flight removeLastFlight() {
+        this.locations.remove(locations.size() - 1);
+        return this.flights.remove(flights.size() - 1);
+    }
+
     public Flight cancelRandomFlight() {
         Random r = new Random();
         int index = r.nextInt(this.flights.size());
