@@ -20,10 +20,12 @@ export default {
 		<RouterLink to="/catering">
 			<w-button class="ma1" color="primary" text lg>Catering</w-button>
 		</RouterLink>
+		<RouterLink to="/movies">
+			<w-button class="ma1" color="primary" text lg>Movies</w-button>
+		</RouterLink>
 		<RouterLink to="/poi">
 			<w-button class="ma1" color="primary" text lg
-				>About my destination</w-button
-			>
+				>About my destination</w-button>
 		</RouterLink>
 
 		<div class="spacer"></div>

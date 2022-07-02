@@ -16,7 +16,7 @@ public class MovieRest {
         this.movieService = movieService;
     }
 
-    @GetMapping("movies")
+    @GetMapping("api/movies")
     public ResponseEntity<MovieCatalogue> getCatalogue() {
         return ResponseEntity.ok(movieService.getCatalogue());
     }

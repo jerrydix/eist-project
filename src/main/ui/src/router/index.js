@@ -7,6 +7,7 @@ import POI from "../views/POI.vue";
 import Survey from "../views/Survey.vue";
 import Register from "../views/User/Register.vue";
 import Login from "../views/User/Login.vue";
+import Movies from "../views/Movies.vue"
 
 const router = createRouter({
 	history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,11 @@ const router = createRouter({
 			path: "/login",
 			name: "login",
 			component: Login,
+		},
+		{
+			path: "/movies",
+			name: "movies",
+			component: Movies
 		},
 	],
 });
