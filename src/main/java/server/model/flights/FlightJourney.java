@@ -1,5 +1,7 @@
 package server.model.flights;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -96,6 +98,22 @@ public class FlightJourney {
         return true;
     }
 
+    public Flight replaceCancelledFlight(String number) {
+        for (int i = 0; i < this.flights.size(); i++) {
+            if (flights.get(i).isCancelled() && flights.get(i).getNumber().equals(number)) {
+                Flight cancelledFlight = flights.get(i);
+
+                Flight newFlight = FlightFactory.generateFlight(cancelledFlight.getStartLocation().getName(), cancelledFlight.getEndLocation().getName(), "12/12/1001");
+                newFlight.setStartTime(cancelledFlight.getStartTime());
+                newFlight.setEndTime(cancelledFlight.getEndTime());
+
+                flights.set(i, newFlight);
+                return newFlight;
+            }
+        }
+        return null;
+    }
+
     public Flight removeLastFlight() {
         this.locations.remove(locations.size() - 1);
         return this.flights.remove(flights.size() - 1);
@@ -105,7 +123,7 @@ public class FlightJourney {
         Random r = new Random();
         int index = r.nextInt(this.flights.size());
         this.flights.get(index).setCancelled(true);
-        return this.flights.remove(index);
+        return this.flights.get(index);
     }
 
     public List<Flight> fetchReturningFlights(String date) {

@@ -112,11 +112,8 @@ public class FlightParser {
                     airline = FlightFactory.pickAirline();
                 }
 
-                boolean cancelled = true;
+                boolean cancelled = false;
                 boolean delayed = false;
-                if (current.getString("flight_status").equals("scheduled") || current.getString("flight_status").equals("active")) {
-                    cancelled = false;
-                }
 
                 String delayedDate = current.getJSONObject("departure").getString("estimated");
 
@@ -188,6 +185,15 @@ public class FlightParser {
             case 12 -> {return Month.DECEMBER;}
             default -> throw new NoSuchElementException("No such month");
         }
+    }
+
+    public String localDateTimeToDate(LocalDateTime localDateTime) {
+        String date = localDateTime.toString();
+        String year = date.substring(0,4);
+        String month = date.substring(5,7);
+        String day = date.substring(8,10);
+
+        return day + "/" + month + "/" + year;
     }
 
     public static void main(String[] args) throws JSONException {
