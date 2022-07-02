@@ -24,6 +24,8 @@ public class CatalogueFactory {
             case BLADERUNNER -> "Blade+Runner";
             case MORBIUS -> "Morbius";
             case STARWARS -> "Star+Wars";
+            case SPEED -> "Speed";
+            case PENGUIN -> "Penguin";
         };
         String[] urlParameters = {
                 "?apikey=b0c08011",
