@@ -22,7 +22,7 @@ public class UserService {
 
     public boolean registerUser(String username, String password) {
         User user = getUser(username);
-        if (user != null) {
+        if (user != null || password == null || password.isBlank()) {
             return false;
         }
         user = new User(username, password);
