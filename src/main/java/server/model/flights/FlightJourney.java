@@ -81,6 +81,12 @@ public class FlightJourney {
         return flights.remove(flight);
     }
 
+    /**
+     * Used to add a flight (+its locations) to the current flight journey.
+     *
+     * @param flight The flight that is to be added to the flight journey
+     * @return true, if the flight was successfully added and false if it hasn't been added
+     */
     public boolean pickFlight(Flight flight) {
         if (flight == null) {
             return false;
@@ -96,6 +102,13 @@ public class FlightJourney {
         return true;
     }
 
+    /**
+     * Creates a flight journey out of a list of flights.
+     *
+     * @param flights A list of flights
+     * @return true, if the journey was built successfully, false if it hasn't
+     */
+
     public boolean buildJourney(List<Flight> flights) {
         for (Flight flight : flights) {
             if (!pickFlight(flight)) {
@@ -106,6 +119,12 @@ public class FlightJourney {
         return true;
     }
 
+    /**
+     * Method to automatically replace a cancelled flight in a flight journey with a new subsidiary flight.
+     *
+     * @param number The flight number of the flight that is to be replaced
+     * @return The subsidiary flight that has been added to the journey
+     */
     public Flight replaceCancelledFlight(String number) {
         for (int i = 0; i < this.flights.size(); i++) {
             if (flights.get(i).isCancelled() && flights.get(i).getNumber().equals(number)) {
@@ -127,6 +146,11 @@ public class FlightJourney {
         return this.flights.remove(flights.size() - 1);
     }
 
+    /**
+     * Cancels a random flight in the flight journey
+     *
+     * @return The cancelled flight
+     */
     public Flight cancelRandomFlight() {
         Random r = new Random();
         int index = r.nextInt(this.flights.size());
@@ -134,6 +158,7 @@ public class FlightJourney {
         return this.flights.get(index);
     }
 
+    //todo delete?
     public List<Flight> fetchReturningFlights(String date) {
         return Flight.fetchFlightsFromToAt(this.getFlights().get(this.getFlights().size() - 1).getEndLocation().getName(), origin.getName(), date);
     }

@@ -10,6 +10,12 @@ import java.util.Random;
 
 public class WeatherParser {
 
+    /**
+     * A parser method to parse an OpenWeather API json response into a Weather object.
+     *
+     * @param jsonText The API response containing weather data, formatted in json
+     * @return A Weather object with the provided weather data
+     */
     public static Weather parseWeatherJson(String jsonText) {
         try {
             JSONObject jsonObject = new JSONObject(jsonText.toString());
