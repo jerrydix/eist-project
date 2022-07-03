@@ -4,10 +4,11 @@ import server.model.parsing.FlightParser;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class FlightFactory {
-
     public static Flight generateFlight(String from, String to, String date) {
         Random r = new Random();
         int fromHour;
@@ -17,8 +18,8 @@ public class FlightFactory {
             fromHour = r.nextInt(0, 5);
             toHour = r.nextInt(6, 11);
         } else {
-            fromHour = r.nextInt(12, 18);
-            toHour = r.nextInt(19, 23);
+            fromHour = r.nextInt(7, 14);
+            toHour = r.nextInt(15, 23);
         }
         int fromMinute = r.nextInt(0, 31);
         int toMinute = r.nextInt(0, 59);
@@ -45,9 +46,9 @@ public class FlightFactory {
             delayMinutes = minutes % 60;
         }
 
-        String gate = String.valueOf(r.nextInt(1,80));
-        String terminal = String.valueOf(r.nextInt(1,5));
-        int seat = r.nextInt(1,288);
+        String gate = String.valueOf(r.nextInt(1, 80));
+        String terminal = String.valueOf(r.nextInt(1, 5));
+        int seat = r.nextInt(1, 288);
 
         String id = String.format("%04d", r.nextInt(10000));
 
@@ -121,25 +122,33 @@ public class FlightFactory {
         return loc;
     }
 
+    public static FlightJourney generateRandomJourney() {
+        List<Flight> flights = new ArrayList<>();
+        flights.add(FlightFactory.generateRandomFlight());
+        FlightJourney journey = new FlightJourney();
+        journey.buildJourney(flights);
+        return journey;
+    }
+
     private static Flight generateRandomFlight() {
         Random r = new Random();
-        int first = r.nextInt(0,12);
+        int first = r.nextInt(0, 12);
         int second;
         do {
-            second = r.nextInt(0,12);
+            second = r.nextInt(0, 12);
         } while (first == second);
         LocalDateTime now = LocalDateTime.now();
         String date = now.toString();
         String day = date.substring(8, 10);
         String month = date.substring(5, 7);
-        String year = date.substring(0,4);
+        String year = date.substring(0, 4);
         String finDate = day + "/" + month + "/" + year;
         return generateFlight(pickLocationString(first), pickLocationString(second), finDate);
     }
 
     public static String generateRandomAirplane() {
         Random r = new Random();
-        return pickAirplane(r.nextInt(0,10));
+        return pickAirplane(r.nextInt(0, 10));
     }
 
     private static String pickAirplane(int index) {
@@ -165,6 +174,7 @@ public class FlightFactory {
         int index = r.nextInt(0, 13);
         return new String[]{"TUMAir", "PinguPinguWings", "Excellence Airways", "Krusche Airlines", "Lasser Schafways", "Air Hams", "Claudian Air", "Schosair", "Cremers", "OCamlFly", "OnlyFlights", "Garching Airlines", "Pretschnerwings"}[index];
     }
+
     public static void main(String[] args) {
         System.out.println(generateRandomFlight());
     }

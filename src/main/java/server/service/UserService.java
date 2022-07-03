@@ -2,6 +2,7 @@ package server.service;
 
 import org.springframework.stereotype.Service;
 import server.model.User;
+import server.model.flights.FlightFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,9 @@ public class UserService {
             return false;
         }
         user = new User(username, password);
+
+        user.addJourney(FlightFactory.generateRandomJourney());
+
         systemUsers.add(user);
         return true;
     }
