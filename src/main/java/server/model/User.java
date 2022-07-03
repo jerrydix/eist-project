@@ -1,5 +1,6 @@
 package server.model;
 
+import server.model.flights.Flight;
 import server.model.flights.FlightJourney;
 import server.model.surveys.Reward;
 
@@ -16,6 +17,8 @@ public class User {
     private List<Reward> rewards = new ArrayList<>();
 
     private List<FlightJourney> bookedFlightJourneys;
+
+    private Flight currentFlight;
 
 
     public User(String username, String password) {
@@ -57,6 +60,14 @@ public class User {
 
     public boolean isAuthenticated() {
         return authenticated;
+    }
+
+    public Flight getCurrentFlight() {
+        return currentFlight;
+    }
+
+    public void setCurrentFlight(Flight currentFlight) {
+        this.currentFlight = currentFlight;
     }
 
     public void addJourney(FlightJourney flightJourney) {

@@ -29,3 +29,28 @@ export async function getFlights(from, to, date) {
     );
     return await response.json();
 }
+
+export async function constructJourney(username, flights) {
+    const response = await fetch(
+        `api/journey` +
+        "?" + username,
+        {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: flights
+        }
+    );
+    return await response.json();
+}
+
+export async function getCurrentFlight(username) {
+    const response = await fetch(
+        `api/currentFlight` +
+        "?" + username,
+        {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+        }
+    );
+    return await response.json();
+}
