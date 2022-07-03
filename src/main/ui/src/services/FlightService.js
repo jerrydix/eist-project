@@ -33,7 +33,9 @@ export async function getFlights(from, to, date) {
 export async function constructJourney(username, flights) {
     const response = await fetch(
         `api/journey` +
-        "?" + username,
+        "?" + new URLSearchParams({
+            username: username,
+        }),
         {
             method: "POST",
             headers: {"Content-Type": "application/json"},
