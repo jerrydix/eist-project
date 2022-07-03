@@ -1,7 +1,5 @@
 package server.model.flights;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -94,6 +92,16 @@ public class FlightJourney {
             locations.add(flight.getStartLocation());
             this.origin = flight.getStartLocation();
             locations.add(flight.getEndLocation());
+        }
+        return true;
+    }
+
+    public boolean buildJourney(List<Flight> flights) {
+        for (Flight flight : flights) {
+            if (!pickFlight(flight)) {
+                flights.clear();
+                return false;
+            }
         }
         return true;
     }

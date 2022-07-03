@@ -26,7 +26,7 @@ public class Flight {
     private String airplane;
 
     public Flight(String number, LocalDateTime startTime, LocalDateTime endTime, String gate, String terminal, int seat,
-            String airline, Location startLocation, Location endLocation, String airplane) {
+                  String airline, Location startLocation, Location endLocation, String airplane) {
         this.number = number;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -59,9 +59,9 @@ public class Flight {
         System.out.println(toIATA);
 
         List<Flight> list = FlightParser.parseFlightJson(
-                HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[] {
+                HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
                         "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM1ZjFjNDVmZGExNDNlODcwNDhkOGRmNzcyOTZhMThhNTMyNTNjNWUzYjIxMWUzNTA3OTAyMzlmMDVkYzk3ODAxNDQ5ZGM1MzI0MmY0N2QiLCJpYXQiOjE2NTYyMzY1MTIsIm5iZiI6MTY1NjIzNjUxMiwiZXhwIjoxNjg3NzcyNTEyLCJzdWIiOiI3MDg0Iiwic2NvcGVzIjpbXX0.jr7CLxzMAJETsHmt2YfH6OBb53pJvEcXNqDuTArRGCNX2AHxGPocVyax2RcaC0zL3u61qZe2g1NzEM0typORcQ",
-                        "&arr_scheduled_time_dep=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA }),
+                        "&arr_scheduled_time_dep=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}),
                 fromName, toName);
 
         Random r = new Random();

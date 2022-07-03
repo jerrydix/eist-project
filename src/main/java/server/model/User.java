@@ -58,4 +58,8 @@ public class User {
     public boolean isAuthenticated() {
         return authenticated;
     }
+
+    public void addJourney(FlightJourney flightJourney) {
+        bookedFlightJourneys.add(flightJourney);
+    }
 }
