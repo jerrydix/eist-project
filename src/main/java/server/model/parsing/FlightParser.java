@@ -117,7 +117,7 @@ public class FlightParser {
                 String airline = current.getJSONObject("airline").getString("name");
                 if (airline.equals("empty")) {
                     //filler
-                    airline = FlightFactory.pickAirline();
+                    airline = FlightFactory.pickAirline(r.nextInt(0, 13));
                 }
 
                 boolean cancelled = false;

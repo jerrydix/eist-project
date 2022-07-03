@@ -10,15 +10,15 @@ import java.util.List;
 import java.util.Random;
 
 public class FlightFactory {
-    private static final List<String> IATAcodes = Arrays.asList("TU", "PP", "XA", "KR", "LS", "AH", "CA", "SC", "CR", "OC", "OF", "GA", "PW");
-    private static final List<String> airlines = Arrays.asList("TUMAir", "PinguPinguWings", "Excellence Airways", "Krusche Airlines", "Lasser Schafways", "Air Hams", "Claudian Air",
-            "Schosair", "Cremers", "OCamlFly", "OnlyFlights", "Garching Airlines", "Pretschnerwings");
+    private static final String[] IATAcodes = new String[]{"TU", "PP", "XA", "KR", "LS", "AH", "CA", "SC", "CR", "OC", "OF", "GA", "PW"};
+    private static final String[] airlines = new String[]{"TUMAir", "PinguPinguWings", "Excellence Airways", "Krusche Airlines", "Lasser Schafways", "Air Hams", "Claudian Air",
+            "Schosair", "Cremers", "OCamlFly", "OnlyFlights", "Garching Airlines", "Pretschnerwings"};
 
-    private static final List<String> cities = Arrays.asList("Berlin", "Rome", "Dubai", "Paris", "London", "Los Angeles",
-            "Frankfurt", "Budapest", "Tehran", "Sydney", "Warsaw", "Vienna", "Madrid", "Mumbai");
+    private static final String[] cities = new String[]{"Berlin", "Rome", "Dubai", "Paris", "London", "Los Angeles",
+            "Frankfurt", "Budapest", "Tehran", "Sydney", "Warsaw", "Vienna", "Madrid", "Mumbai"};
 
-    private static final List<String> planes = Arrays.asList("Boeing 737-800", "Boeing 737-700", "Airbus A320", "Airbus A321", "Bombardier CRJ200",
-            "Boeing 757-200", "Embraer E175", "Airbus A319", "Boeing 737-900ER", "Bombardier CRJ900", "Boeing 737-800");
+    private static final String[] planes = new String[]{"Boeing 737-800", "Boeing 737-700", "Airbus A320", "Airbus A321", "Bombardier CRJ200",
+            "Boeing 757-200", "Embraer E175", "Airbus A319", "Boeing 737-900ER", "Bombardier CRJ900", "Boeing 737-800"};
 
     public static Flight generateFlight(String from, String to, String date) {
         Random r = new Random();
@@ -92,11 +92,11 @@ public class FlightFactory {
     }
 
     private static String pickIATA(int index) {
-        return IATAcodes.get(index);
+        return IATAcodes[index];
     }
 
     private static String pickLocationString(int index) {
-        return cities.get(index);
+        return cities[index];
     }
 
     public static FlightJourney generateRandomJourney(String flightNum) {
@@ -127,11 +127,11 @@ public class FlightFactory {
 
     public static String generateRandomAirplane() {
         Random r = new Random();
-        return planes.get(r.nextInt(0, 10));
+        return planes[r.nextInt(0, 10)];
     }
 
     public static String pickAirline(int index) {
-        return airlines.get(index);
+        return airlines[index];
     }
 
     public static void main(String[] args) {
