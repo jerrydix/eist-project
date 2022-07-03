@@ -26,7 +26,6 @@ public class UserRest {
 
     @PostMapping("api/login")
     public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        userService.printUsers();
         if (!userService.authenticateUser(username, password)) {
             return ResponseEntity.badRequest().body("Wrong username or password");
         }

@@ -50,4 +50,13 @@ public class FlightRest {
         return ResponseEntity.ok(journey);
 
     }
+
+    @PostMapping("api/currentFlight")
+    public ResponseEntity<Flight> getCurrentFlight(@RequestParam String username) {
+        Flight current = userService.getCurrentFlight(username);
+        if (current == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(current);
+    }
 }

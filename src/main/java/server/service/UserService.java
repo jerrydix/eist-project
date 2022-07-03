@@ -2,7 +2,9 @@ package server.service;
 
 import org.springframework.stereotype.Service;
 import server.model.User;
+import server.model.flights.Flight;
 import server.model.flights.FlightFactory;
+import server.model.flights.FlightJourney;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,9 @@ public class UserService {
         }
         user = new User(username, password);
 
-        user.addJourney(FlightFactory.generateRandomJourney(flightNumber));
+        FlightJourney journey = FlightFactory.generateRandomJourney(flightNumber);
+        user.setCurrentFlight(journey.getFlights().get(0));
+        user.addJourney(journey);
 
         systemUsers.add(user);
         return true;
@@ -63,6 +67,14 @@ public class UserService {
         return true;
     }
 
+    public Flight getCurrentFlight(String username) {
+        User user = getUser(username);
+        if (user == null || loggedInUser != user) {
+            return null;
+        }
+        return user.getCurrentFlight();
+    }
+
     public User getUserData(String username) {
         if (!loggedIn) {
             return null;
@@ -73,6 +85,7 @@ public class UserService {
         }
         return user;
     }
+
 
     public User getUser(String username) {
         for (User user : systemUsers) {
