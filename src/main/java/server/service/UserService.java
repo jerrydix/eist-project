@@ -21,14 +21,14 @@ public class UserService {
         loggedInUser = null;
     }
 
-    public boolean registerUser(String username, String password) {
+    public boolean registerUser(String username, String password, String flightNumber) {
         User user = getUser(username);
         if (user != null || password == null || password.isBlank()) {
             return false;
         }
         user = new User(username, password);
 
-        user.addJourney(FlightFactory.generateRandomJourney());
+        user.addJourney(FlightFactory.generateRandomJourney(flightNumber));
 
         systemUsers.add(user);
         return true;

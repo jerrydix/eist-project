@@ -5,10 +5,21 @@ import server.model.parsing.FlightParser;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class FlightFactory {
+    private static final List<String> IATAcodes = Arrays.asList("TU", "PP", "XA", "KR", "LS", "AH", "CA", "SC", "CR", "OC", "OF", "GA", "PW");
+    private static final List<String> airlines = Arrays.asList("TUMAir", "PinguPinguWings", "Excellence Airways", "Krusche Airlines", "Lasser Schafways", "Air Hams", "Claudian Air",
+            "Schosair", "Cremers", "OCamlFly", "OnlyFlights", "Garching Airlines", "Pretschnerwings");
+
+    private static final List<String> cities = Arrays.asList("Berlin", "Rome", "Dubai", "Paris", "London", "Los Angeles",
+            "Frankfurt", "Budapest", "Tehran", "Sydney", "Warsaw", "Vienna", "Madrid", "Mumbai");
+
+    private static final List<String> planes = Arrays.asList("Boeing 737-800", "Boeing 737-700", "Airbus A320", "Airbus A321", "Bombardier CRJ200",
+            "Boeing 757-200", "Embraer E175", "Airbus A319", "Boeing 737-900ER", "Bombardier CRJ900", "Boeing 737-800");
+
     public static Flight generateFlight(String from, String to, String date) {
         Random r = new Random();
         int fromHour;
@@ -53,7 +64,7 @@ public class FlightFactory {
         String id = String.format("%04d", r.nextInt(10000));
 
         int number = r.nextInt(0, 13);
-        String airline = pickAirline();
+        String airline = pickAirline(number);
 
         String flightID = pickIATA(number) + id;
 
@@ -81,50 +92,18 @@ public class FlightFactory {
     }
 
     private static String pickIATA(int index) {
-        String prefix;
-        switch (index) {
-            case 0 -> prefix = "TU";
-            case 1 -> prefix = "PP";
-            case 2 -> prefix = "XA";
-            case 3 -> prefix = "KR";
-            case 4 -> prefix = "LS";
-            case 5 -> prefix = "AH";
-            case 6 -> prefix = "CA";
-            case 7 -> prefix = "SC";
-            case 8 -> prefix = "CR";
-            case 9 -> prefix = "OC";
-            case 10 -> prefix = "OF";
-            case 11 -> prefix = "GA";
-            case 12 -> prefix = "PW";
-            default -> prefix = "GA";
-        }
-        return prefix;
+        return IATAcodes.get(index);
     }
 
     private static String pickLocationString(int index) {
-        String loc;
-        switch (index) {
-            case 0 -> loc = "Berlin";
-            case 1 -> loc = "Rome";
-            case 2 -> loc = "Dubai";
-            case 3 -> loc = "Paris";
-            case 4 -> loc = "London";
-            case 5 -> loc = "Los Angeles";
-            case 6 -> loc = "Frankfurt";
-            case 7 -> loc = "Budapest";
-            case 8 -> loc = "Tehran";
-            case 9 -> loc = "Sydney";
-            case 10 -> loc = "Warsaw";
-            case 11 -> loc = "Vienna";
-            case 12 -> loc = "Madrid";
-            default -> loc = "Mumbai";
-        }
-        return loc;
+        return cities.get(index);
     }
 
-    public static FlightJourney generateRandomJourney() {
+    public static FlightJourney generateRandomJourney(String flightNum) {
         List<Flight> flights = new ArrayList<>();
-        flights.add(FlightFactory.generateRandomFlight());
+        Flight flight = FlightFactory.generateRandomFlight();
+        flights.add(flight);
+        flight.setNumber(flightNum);
         FlightJourney journey = new FlightJourney();
         journey.buildJourney(flights);
         return journey;
@@ -148,31 +127,11 @@ public class FlightFactory {
 
     public static String generateRandomAirplane() {
         Random r = new Random();
-        return pickAirplane(r.nextInt(0, 10));
+        return planes.get(r.nextInt(0, 10));
     }
 
-    private static String pickAirplane(int index) {
-        String airline;
-        switch (index) {
-            case 0 -> airline = "Boeing 737-800";
-            case 1 -> airline = "Boeing 737-700";
-            case 2 -> airline = "Airbus A320";
-            case 3 -> airline = "Airbus A321";
-            case 4 -> airline = "Bombardier CRJ200";
-            case 5 -> airline = "Boeing 757-200";
-            case 6 -> airline = "Embraer E175";
-            case 7 -> airline = "Airbus A319";
-            case 8 -> airline = "Boeing 737-900ER";
-            case 9 -> airline = "Bombardier CRJ900";
-            default -> airline = "Boeing 737-800";
-        }
-        return airline;
-    }
-
-    public static String pickAirline() {
-        Random r = new Random();
-        int index = r.nextInt(0, 13);
-        return new String[]{"TUMAir", "PinguPinguWings", "Excellence Airways", "Krusche Airlines", "Lasser Schafways", "Air Hams", "Claudian Air", "Schosair", "Cremers", "OCamlFly", "OnlyFlights", "Garching Airlines", "Pretschnerwings"}[index];
+    public static String pickAirline(int index) {
+        return airlines.get(index);
     }
 
     public static void main(String[] args) {

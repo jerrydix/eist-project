@@ -17,8 +17,8 @@ public class UserRest {
     }
 
     @PostMapping("api/register")
-    public ResponseEntity<String> register(@RequestParam String username, @RequestParam String password) {
-        if (!userService.registerUser(username, password)) {
+    public ResponseEntity<String> register(@RequestParam String username, @RequestParam String password, @RequestParam String flightNumber) {
+        if (!userService.registerUser(username, password, flightNumber)) {
             return ResponseEntity.badRequest().body("Username taken or password too short");
         }
         return ResponseEntity.ok("Registered successfully");
