@@ -26,7 +26,12 @@ public class User {
         this.password = password;
     }
 
-
+    /**
+     * Checks if user typed in the correct password and authenticates him if it is correct
+     *
+     * @param password The password the user types in
+     * @return A boolean which states whether the user is authenticated or not
+     */
     public boolean authenticateUser(String password) {
         if (this.password.equals(password)) {
             this.authenticated = true;
@@ -38,6 +43,9 @@ public class User {
         this.authenticated = false;
     }
 
+    /**
+     * Adds a new reward to the user's rewards list
+     */
     public void reward() {
         rewards.add(new Reward());
     }

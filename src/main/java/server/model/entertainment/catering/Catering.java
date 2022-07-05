@@ -18,6 +18,11 @@ public class Catering {
         return id;
     }
 
+    /**
+     * Adds a given consumable to the menu if it is in stock
+     *
+     * @param consumable The consumable that is to be added to the menu
+     */
     public void addConsumableToMenu(Consumable consumable) {
         if (consumable.getAmountInStock() <= 0) {
             return;
@@ -31,6 +36,12 @@ public class Catering {
         consumables.add(consumable);
     }
 
+    /**
+     * "Sells" a food / drink item to a user, depending on its name and whether it is in stock
+     *
+     * @param name The name of the consumable that is to be sold
+     * @return A boolean which states whether the consumable has been sold successfully or not
+     */
     public boolean sellConsumable(ConsumableTag name) {
         for (Consumable item : consumables) {
             if (item.getTag() == name) {

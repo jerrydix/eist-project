@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CateringFactory {
+
+    /**
+     * Method to generate consumables and add them to the Catering list
+     *
+     * @param amountApples The amount of apples to add to the Catering
+     * @param amountWater The amount of water to add to the Catering
+     * @param amountCola The amount of coke to add to the Catering
+     * @return A Catering object with the consumables list which was just created
+     */
     public static Catering createCatering(int amountApples, int amountWater, int amountCola) {
         List<Consumable> consumables = new ArrayList<>();
         consumables.add(getConsumable(ConsumableTag.APPLE, amountApples));
