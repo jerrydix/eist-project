@@ -42,8 +42,8 @@ public class FlightRest {
     }
 
     @PostMapping("api/journey")
-    public ResponseEntity<FlightJourney> constructJourney(@RequestParam String username, @RequestBody Flight[] flights) {
-        FlightJourney journey = flightService.constructJourney(flights, username, userService);
+    public ResponseEntity<FlightJourney> constructJourney(@RequestBody Flight[] flights) {
+        FlightJourney journey = flightService.constructJourney(flights, userService);
         if (journey == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -52,8 +52,8 @@ public class FlightRest {
     }
 
     @PostMapping("api/currentFlight")
-    public ResponseEntity<Flight> getCurrentFlight(@RequestParam String username) {
-        Flight current = userService.getCurrentFlight(username);
+    public ResponseEntity<Flight> getCurrentFlight() {
+        Flight current = flightService.getCurrentFlight();
         if (current == null) {
             return ResponseEntity.badRequest().build();
         }

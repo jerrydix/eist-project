@@ -2,7 +2,6 @@ package server.service;
 
 import org.springframework.stereotype.Service;
 import server.model.User;
-import server.model.flights.Flight;
 import server.model.flights.FlightFactory;
 import server.model.flights.FlightJourney;
 
@@ -53,12 +52,12 @@ public class UserService {
         return loggedIn;
     }
 
-    public boolean logout(String username) {
+    public boolean logout() {
         if (!loggedIn) {
             return false;
         }
-        User user = getUser(username);
-        if (user == null || !user.isAuthenticated()) {
+        User user = loggedInUser;
+        if (user == null) {
             return false;
         }
         user.logout();
@@ -67,13 +66,6 @@ public class UserService {
         return true;
     }
 
-    public Flight getCurrentFlight(String username) {
-        User user = getUser(username);
-        if (user == null || loggedInUser != user) {
-            return null;
-        }
-        return user.getCurrentFlight();
-    }
 
     public User getUserData(String username) {
         if (!loggedIn) {

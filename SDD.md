@@ -18,7 +18,9 @@
 
 ### Overview:
 
-The following system design document will provide an overview over the system design of the Garching Airlines Flight Infotainment System. This SDD will describe the design goals, the system design, the software control and other components of the software, while also providing boundary conditions and models of the system architecture.
+The following system design document will provide an overview over the system design of the Garching Airlines Flight
+Infotainment System. This SDD will describe the design goals, the system design, the software control and other
+components of the software, while also providing boundary conditions and models of the system architecture.
 
 ### Definitions:
 
@@ -30,16 +32,18 @@ The following system design document will provide an overview over the system de
 * Readme
 * Source code
 
-
 ## 2. Design Goals
 
 ### Non-functional Requirements:
 
-* **NFR1: Usability:** The system should be intuitive to use, and the user interface should be easy to understand. All interactions should be completed in less than three clicks.
+* **NFR1: Usability:** The system should be intuitive to use, and the user interface should be easy to understand. All
+  interactions should be completed in less than three clicks.
 
-* **NFR2: Conformance to guidelines:** The design of the system should conform to the typical usability guidelines such as Nielsen’s usability heuristics.
+* **NFR2: Conformance to guidelines:** The design of the system should conform to the typical usability guidelines such
+  as Nielsen’s usability heuristics.
 
-* **NFR3: Serversystem:** A server subsystem with a couple of services must be used in the system. However,  additional  services  like  destination  information  for  weather and POIs should be obtained from external services.
+* **NFR3: Serversystem:** A server subsystem with a couple of services must be used in the system. However, additional
+  services like destination information for weather and POIs should be obtained from external services.
 
 ### Additional design goals:
 
@@ -49,12 +53,14 @@ The following system design document will provide an overview over the system de
 * Fault tolerance, especially in search bars for city names
 
 ## 3. Subsytem Decomposition
+
 <br/>
 TODO
 <br/>
 <br/>
 
 ## 4. Hardware / Software mapping
+
 <br/>
 TODO
 <br/>
@@ -62,33 +68,60 @@ TODO
 
 ## 5. Data management
 
-There is no persistent data management present in GAFIS. All data is instantiated during runtime and lost after shutdown. The data is stored in beans, which are created by Spring Boot upon startup. Until shutdown the data is stored in the beans.  
-The beans are represented by the service classes in the source code.
+There is no persistent data management present in GAFIS. All data is instantiated during runtime and lost after
+shutdown. The data is stored in Spring beans (objects of service classes) or in static Lists that save all created
+objects of a class.
 
-`UserService` maintains a list of users (`List<User> systemUsers`) to which a new user is added upon registration. Every user also has a `Survey` list of all completed surveys, a `FlightJourney` list of all saved flight journeys and the current `Flight`, the user is on.
+`UserService` maintains a list of all registered users (`List<User> systemUsers`), as well as if any
+user is logged in (`boolean loggedIn`) and which user that is (`User loggedInUser`).
 
-Apart from that, there is a `static List<Location> locationList` (a static list of Locations), which stores already fetched locations during runtime.
+Every user also has a `List<FlightJourney>` of all the booked journeys of the user,
+a `Flight currentFlight` that is the current flight of the user given to the system upon registration and
+a `List<Reward>` of all received rewards for completing Surveys, as well as the unique username and password.
+
+Additionally, there is a `static List<Location> locationList` in the Location class, which stores already
+fetched locations during runtime.
+
+Apart from that, the frontend uses `localStorage` of the page as well as a reactive global store from the
+<a href="https://pinia.vuejs.org/">Pinia</a> library to have access to the logged-in user's username in order to adapt
+the Home page as well as other views according to if a user is logged in or not and what is their username. This data
+is fetched from the backend on startup or page refresh.
 
 In summary, the following data is stored:
-* User data
-    * Username
-    * Password
-    * current `Flight`
+
+* General User data
+    * `systemUsers`
+    * `loggedInUser`
+
+* Each user's data
+    * `username`
+    * `password`
+    * `Flight currentFlight`
     * `FlightJourney` list
-    * `Survey` list
+
 * Locations that have already been fetched (`static List<Location> locationList`)
+
+* Frontend
+    * username of currently logged-in user
 
 ## 6. Access control and security
 
-The only authentication mechanism used in GAFIS is a simple username and password login system. At startup, the user chooses between _**Register**_ and _**Login**_ to either perform a login or make an account. When registering, the user is promted to choose an username and a password, which is later used to log in. The user data is then stored without encryption. When the user logs in, he has to provide his username and password, which both have to be spelled correctly in order for the user to successfully log in. The user has the ability to log out by using the _**Logout**_ button.
+The only authentication mechanism used in GAFIS is a simple username and password login system. At startup, the user
+chooses between _**Register**_ and _**Login**_ to either perform a login or make an account. When registering, the user
+is prompted to choose a username and a password (the password cannot be empty), which is later used to log in. The user
+data is then stored without
+encryption. When the user logs in, he has to provide his username and password, which both have to be spelled correctly
+in order for the user to successfully log in. The user has the ability to log out by using the _**Logout**_ button.
 
 ## 7. Global software control
+
 <br/>
 TODO
 <br/>
 <br/>
 
 ## 8. Boundary conditions
+
 <br/>
 TODO
 <br/>

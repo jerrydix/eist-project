@@ -31,13 +31,9 @@ export async function login(user, pass) {
     return await response.text();
 }
 
-export async function logout(user) {
+export async function logout() {
     const response = await fetch(
-        `api/logout` +
-        "?" +
-        new URLSearchParams({
-            username: user,
-        }),
+        `api/logout`,
         {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -54,8 +50,8 @@ export async function getLoggedInUser() {
     return await response.text();
 }
 
-export async function getUserData(user) {
-    const response = await fetch(`api/users` + "/" + user, {
+export async function getUserData() {
+    const response = await fetch(`api/users`, {
         method: "GET",
         headers: {"Content-Type": "application/json"},
     });

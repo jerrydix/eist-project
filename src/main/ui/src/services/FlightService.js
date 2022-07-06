@@ -30,12 +30,9 @@ export async function getFlights(from, to, date) {
     return await response.json();
 }
 
-export async function constructJourney(username, flights) {
+export async function constructJourney(flights) {
     const response = await fetch(
-        `api/journey` +
-        "?" + new URLSearchParams({
-            username: username,
-        }),
+        `api/journey`,
         {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -45,10 +42,9 @@ export async function constructJourney(username, flights) {
     return await response.json();
 }
 
-export async function getCurrentFlight(username) {
+export async function getCurrentFlight() {
     const response = await fetch(
-        `api/currentFlight` +
-        "?" + username,
+        `api/currentFlight`,
         {
             method: "POST",
             headers: {"Content-Type": "application/json"},

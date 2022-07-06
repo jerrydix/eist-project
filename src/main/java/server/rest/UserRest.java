@@ -33,8 +33,8 @@ public class UserRest {
     }
 
     @PostMapping("api/logout")
-    public ResponseEntity<String> logout(@RequestParam String username) {
-        if (!userService.logout(username)) {
+    public ResponseEntity<String> logout() {
+        if (!userService.logout()) {
             return ResponseEntity.badRequest().body("Error");
         }
         return ResponseEntity.ok("Logged out");
@@ -49,9 +49,9 @@ public class UserRest {
         return ResponseEntity.ok(user.getUsername());
     }
 
-    @GetMapping("api/users/{username}")
-    public ResponseEntity<User> getUser(@PathVariable String username) {
-        User user = userService.getUserData(username);
+    @GetMapping("api/users")
+    public ResponseEntity<User> getUser() {
+        User user = userService.getLoggedInUser();
         if (user == null) {
             return ResponseEntity.badRequest().build();
         }
