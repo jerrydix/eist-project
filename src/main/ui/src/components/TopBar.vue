@@ -24,8 +24,12 @@ export default {
 			<w-button class="ma1" color="primary" text lg>Movies</w-button>
 		</RouterLink>
 		<RouterLink to="/poi">
+<<<<<<< HEAD
 			<w-button class="ma1" color="primary" text lg
 				>About my destination</w-button>
+=======
+			<w-button class="ma1" color="primary" text lg>About my destination</w-button>
+>>>>>>> 8241202 (added item list to catering view)
 		</RouterLink>
 
 		<div class="spacer"></div>

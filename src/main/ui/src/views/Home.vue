@@ -77,15 +77,28 @@ export default {
 					<Survey />
 				</w-dialog>
 				<div class="spacer"></div>
-				<div class="align-self-end">
-					<w-button
-						v-if="this.store.username"
-						class="survey-button"
-						@click="showSurveyDialog = true"
-					>
-						We value your opinion
-					</w-button>
-				</div>
+
+				<w-flex>
+					<div class="justify-self-end">
+						<w-button
+							v-if="this.store.username"
+							class="bottom-button"
+							@click="showSurveyDialog = true"
+						>
+							We value your opinion
+						</w-button>
+					</div>
+					<div class="spacer"></div>
+					<div class="justify-self-start">
+						<w-button
+							class="bottom-button"
+							bg-color="error"
+							@click="showSurveyDialog = true"
+						>
+							We value your opinion
+						</w-button>
+					</div>
+				</w-flex>
 			</w-flex>
 		</w-flex>
 	</w-app>
@@ -145,4 +158,10 @@ h1 {
 	line-height: 3rem;
 	padding-bottom: 1.5rem;
 }
+
+.bottom-button {
+    margin: 24px;
+    padding: 24px;
+}
+
 </style>
