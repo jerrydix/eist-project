@@ -13,6 +13,10 @@ const menuItems = [
   {text: "Kräuterspekulatius", price: 5.60},
   {text: "Fountain Pew", price: 2.80},
   {text: "Caco Calo", price: 4.20}
+  {text: "Gösser Naturradler", price: 3.50},
+    {text: "Pferdeleberkäs", price: 4.50},
+    {text: "Coke", price: 7.30},
+
 ]
 
 
