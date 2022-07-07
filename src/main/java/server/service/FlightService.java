@@ -23,7 +23,7 @@ public class FlightService {
         return Flight.fetchFlightsFromToAt(from, to, date);
     }
 
-    public FlightJourney constructJourney(Flight[] flights, UserService userService) {
+    public FlightJourney constructJourney(Flight[] flights) {
         User user = userService.getLoggedInUser();
         if (user == null) {
             return null;

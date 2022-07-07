@@ -1,13 +1,11 @@
 package server.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.model.flights.Flight;
 import server.model.flights.FlightJourney;
 import server.service.FlightService;
-import server.service.UserService;
 
 import java.util.List;
 
@@ -16,10 +14,6 @@ import java.util.List;
 @RequestMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 public class FlightRest {
     private FlightService flightService;
-
-    @Autowired
-    private UserService userService;
-
 
     public FlightRest(FlightService flightService) {
         this.flightService = flightService;
@@ -43,7 +37,7 @@ public class FlightRest {
 
     @PostMapping("api/journey")
     public ResponseEntity<FlightJourney> constructJourney(@RequestBody Flight[] flights) {
-        FlightJourney journey = flightService.constructJourney(flights, userService);
+        FlightJourney journey = flightService.constructJourney(flights);
         if (journey == null) {
             return ResponseEntity.badRequest().build();
         }
