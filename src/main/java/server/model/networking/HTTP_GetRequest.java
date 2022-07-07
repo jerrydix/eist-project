@@ -8,6 +8,15 @@ import java.net.URL;
 
 public class HTTP_GetRequest {
 
+    /**
+     * Send a GET request to the passed URL. Each parameter in the parameters array
+     * gets appended as is to the host. Note that no trailing slash gets added to the host
+     * before appending the parameters!
+     * Return the server's response as a {@link String}.
+     * @param baseUrl The host subcomponent of the complete URL (i.e. http://omdb.com)
+     * @param parameters A path, quuery and/or fragment component following the host
+     * @return The server's response as a {@link String}
+     */
     public static String httpRequest(String baseUrl, String[] parameters) {
 
         StringBuilder urlBuilder = new StringBuilder(baseUrl);
