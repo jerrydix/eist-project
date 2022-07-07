@@ -29,9 +29,9 @@ public class SurveyService {
     }
 
 
-    public Survey saveSurvey(String username, Survey survey) {
-        User current = userService.getUser(username);
-        if (current == null || !current.isAuthenticated()) {
+    public Survey saveSurvey(Survey survey) {
+        User current = userService.getLoggedInUser();
+        if (current == null) {
             return null;
         }
         surveys.add(survey);

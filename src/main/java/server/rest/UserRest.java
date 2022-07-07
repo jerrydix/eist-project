@@ -17,16 +17,15 @@ public class UserRest {
     }
 
     @PostMapping("api/register")
-    public ResponseEntity<String> register(@RequestParam String username, @RequestParam String password) {
-        if (!userService.registerUser(username, password)) {
-            return ResponseEntity.badRequest().body("Username taken");
+    public ResponseEntity<String> register(@RequestParam String username, @RequestParam String password, @RequestParam String flightNumber) {
+        if (!userService.registerUser(username, password, flightNumber)) {
+            return ResponseEntity.badRequest().body("Username taken or password too short");
         }
         return ResponseEntity.ok("Registered successfully");
     }
 
     @PostMapping("api/login")
     public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        userService.printUsers();
         if (!userService.authenticateUser(username, password)) {
             return ResponseEntity.badRequest().body("Wrong username or password");
         }
@@ -34,8 +33,8 @@ public class UserRest {
     }
 
     @PostMapping("api/logout")
-    public ResponseEntity<String> logout(@RequestParam String username) {
-        if (!userService.logout(username)) {
+    public ResponseEntity<String> logout() {
+        if (!userService.logout()) {
             return ResponseEntity.badRequest().body("Error");
         }
         return ResponseEntity.ok("Logged out");
@@ -50,9 +49,9 @@ public class UserRest {
         return ResponseEntity.ok(user.getUsername());
     }
 
-    @GetMapping("api/users/{username}")
-    public ResponseEntity<User> getUser(@PathVariable String username) {
-        User user = userService.getUserData(username);
+    @GetMapping("api/users")
+    public ResponseEntity<User> getUser() {
+        User user = userService.getLoggedInUser();
         if (user == null) {
             return ResponseEntity.badRequest().build();
         }

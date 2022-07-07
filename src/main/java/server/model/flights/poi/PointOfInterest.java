@@ -30,6 +30,15 @@ public class PointOfInterest {
         this.latitude = latitude;
     }
 
+    /**
+     * A wrapper method for fetching POIs for a specific location.
+     *
+     * @param longitude The longitude of the location whose POIs are fetched
+     * @param latitude The latitude of the location whose POIs are fetched
+     * @param location The location of which the POIs are fetched
+     * @return A list of POIs of "location"
+     */
+
     public static List<PointOfInterest> fetchPOIs(double longitude, double latitude, Location location) {
         return PointOfInterestParser.parsePOIJson(
                 HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",

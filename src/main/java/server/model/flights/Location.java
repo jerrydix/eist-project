@@ -89,6 +89,9 @@ public class Location {
         this.airports = airports;
     }
 
+    /**
+     * Wrapper method to fetch the current location IATA
+     */
     private void fetchCurrentCityIATACode() {
         try {
             this.iata = CityParser.parseCityJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/suggest", new String[]{"?q=" + this.name, "&api_key=18d0b081-fd7f-4c9e-a723-a05e8ff627cf",}))[1];
@@ -97,6 +100,12 @@ public class Location {
         }
     }
 
+    /**
+     * Wrapper method to fetch the IATA code and (autocompleted) name of a location
+     *
+     * @param name The (not necessarily complete) name of the location
+     * @return A string array that has the location name on index 0 and the IATA on index 1
+     */
     public static String[] fetchCityIATACode(String name) {
         return CityParser.parseCityJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/suggest", new String[]{"?q=" + name, "&api_key=18d0b081-fd7f-4c9e-a723-a05e8ff627cf",}));
     }
@@ -106,6 +115,14 @@ public class Location {
         this.fetchCurrentCityIATACode();
         this.airports = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports", new String[]{}));
     }
+
+    /**
+     * Returns ten flights from the current location to "to" at "date"
+     *
+     * @param to Arrival location
+     * @param date The date at which the ten flights are supposed to depart
+     * @return A list of ten flights
+     */
 
     public List<Flight> find10Flights(String to, String date) {
         return Flight.fetchFlightsFromToAt(this.name, to, date);

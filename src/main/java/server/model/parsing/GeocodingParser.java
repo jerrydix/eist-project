@@ -8,7 +8,12 @@ import java.util.List;
 
 public class GeocodingParser {
 
-    //index 0: latitude, index 1: longitude
+    /**
+     * parseGeocodingJson() parses the longitude and latitude of a location and returns them in an array of doubles
+     *
+     * @param json The API response of the Google Maps Geocoding API, formatted in json
+     * @return An array of doubles (length: 2), whereby index 0 is the longitude and index 1 ist the latitude of the city coordinates
+     */
     public static double[] parseGeocodingJson(String json) {
         try {
             JSONObject jsonObject = new JSONObject(json);

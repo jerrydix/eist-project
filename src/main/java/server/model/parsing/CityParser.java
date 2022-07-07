@@ -8,7 +8,12 @@ import java.util.List;
 
 public class CityParser {
 
-    //index 0: city name, index 1: IATA code
+    /**
+     * parseCityJson() parses the name and IATA of a given city into an array of strings
+     *
+     * @param jsonText The get request response of the Airlabs API (cities DB) containing city information and formatted in json
+     * @return A string array (length: 2) containing the city name and its IATA code, whereby index 0 is the city name and index 1 is the IATA code
+     */
     public static String[] parseCityJson(String jsonText) {
         try {
             String[] data = new String[3];

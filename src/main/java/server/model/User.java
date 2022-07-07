@@ -1,5 +1,6 @@
 package server.model;
 
+import server.model.flights.Flight;
 import server.model.flights.FlightJourney;
 import server.model.surveys.Reward;
 
@@ -17,13 +18,20 @@ public class User {
 
     private List<FlightJourney> bookedFlightJourneys;
 
+    private Flight currentFlight;
+
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-
+    /**
+     * Checks if user typed in the correct password and authenticates him if it is correct
+     *
+     * @param password The password the user types in
+     * @return A boolean which states whether the user is authenticated or not
+     */
     public boolean authenticateUser(String password) {
         if (this.password.equals(password)) {
             this.authenticated = true;
@@ -35,6 +43,9 @@ public class User {
         this.authenticated = false;
     }
 
+    /**
+     * Adds a new reward to the user's rewards list
+     */
     public void reward() {
         rewards.add(new Reward());
     }
@@ -57,5 +68,17 @@ public class User {
 
     public boolean isAuthenticated() {
         return authenticated;
+    }
+
+    public Flight getCurrentFlight() {
+        return currentFlight;
+    }
+
+    public void setCurrentFlight(Flight currentFlight) {
+        this.currentFlight = currentFlight;
+    }
+
+    public void addJourney(FlightJourney flightJourney) {
+        bookedFlightJourneys.add(flightJourney);
     }
 }

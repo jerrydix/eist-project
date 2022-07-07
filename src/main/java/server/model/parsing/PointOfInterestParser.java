@@ -11,6 +11,13 @@ import java.util.List;
 
 public class PointOfInterestParser {
 
+    /**
+     * parsePOIJson parses the api response of the Google Maps PLaces API and returns a list of POI objects (top 50 POIs)
+     *
+     * @param jsonText The get request api response of the Google Maps Places API, formatted in json
+     * @param location The location whose points of interest are parsed
+     * @return A list of the top 50 POIs sorted by relevance at the given location
+     */
     public static List<PointOfInterest> parsePOIJson(String jsonText, Location location) {
         try {
             JSONObject jsonObject = new JSONObject(jsonText.toString());

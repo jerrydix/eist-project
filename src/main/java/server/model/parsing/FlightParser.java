@@ -20,6 +20,14 @@ import server.utility.KeyReader;
 //TODO DO NOT EXECUTE MAIN METHOD, WE GOTTA SAFE THEM API REQUESTS
 public class FlightParser {
 
+    /**
+     * parseFlightJson() parses the flights contained in a given api response into a list of "Flight" objects
+     *
+     * @param jsonText The get request response of the Flightlabs API (Real-time flights) containing an array of flights from "fromName" to "toName" with their respective attributes
+     * @param fromName The name of the departure location
+     * @param toName the name of the arrival location
+     * @return A list of all found flights from "fromName" to "toName"
+     */
     public static List<Flight> parseFlightJson(String jsonText, String fromName, String toName) {
         try {
             //JSONObject jsonObject = new JSONObject(jsonText);
@@ -109,14 +117,11 @@ public class FlightParser {
                 String airline = current.getJSONObject("airline").getString("name");
                 if (airline.equals("empty")) {
                     //filler
-                    airline = FlightFactory.pickAirline();
+                    airline = FlightFactory.pickAirline(r.nextInt(0, 13));
                 }
 
-                boolean cancelled = true;
+                boolean cancelled = false;
                 boolean delayed = false;
-                if (current.getString("flight_status").equals("scheduled") || current.getString("flight_status").equals("active")) {
-                    cancelled = false;
-                }
 
                 String delayedDate = current.getJSONObject("departure").getString("estimated");
 
@@ -188,6 +193,15 @@ public class FlightParser {
             case 12 -> {return Month.DECEMBER;}
             default -> throw new NoSuchElementException("No such month");
         }
+    }
+
+    public String localDateTimeToDate(LocalDateTime localDateTime) {
+        String date = localDateTime.toString();
+        String year = date.substring(0,4);
+        String month = date.substring(5,7);
+        String day = date.substring(8,10);
+
+        return day + "/" + month + "/" + year;
     }
 
     public static void main(String[] args) throws JSONException {

@@ -13,6 +13,13 @@ public class Weather {
         this.degrees = degrees;
     }
 
+    /**
+     * A wrapper method to retrieve the current weather data at specific coordinates (Locations).
+     *
+     * @param latitude The latitude of the Location of which the weather is fetched
+     * @param longitude The longitude of the Location of which the weather is fetched
+     * @return A weather object containing data about the current weather at the specified coordinates
+     */
     public static Weather fetchWeather(double latitude, double longitude) {
         if (latitude == -1 || longitude == -1) {
             return new Weather("cloudy", 20);

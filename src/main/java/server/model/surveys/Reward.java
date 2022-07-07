@@ -34,6 +34,13 @@ public class Reward {
         };
     }
 
+    /**
+     * Generates a random number for the mileage reward type.
+     *
+     * @param min The minimum amount of miles that can be rewarded
+     * @param max The maximum amount of miles that can be rewarded
+     * @return A random number equally big or greater than min and smaller than max - min
+     */
     private int generateRandom(int min, int max) {
         Random rand = new Random();
         return rand.nextInt(max - min) + min;

@@ -26,7 +26,7 @@ public class Flight {
     private String airplane;
 
     public Flight(String number, LocalDateTime startTime, LocalDateTime endTime, String gate, String terminal, int seat,
-            String airline, Location startLocation, Location endLocation, String airplane) {
+                  String airline, Location startLocation, Location endLocation, String airplane) {
         this.number = number;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -41,27 +41,33 @@ public class Flight {
         this.airplane = airplane;
     }
 
+    /**
+     * A wrapper method used to retrieve flights from one location to another at a specific date.
+     *
+     * @param from The name of the departure location formatted in "name (IATA)"
+     * @param to The name of the arrival location formatted in "name (IATA)"
+     * @param date The date at which the flights are to be retrieved
+     * @return A list of 5 or more flights from "from" to "to" at "date", which (if the API does not find any real flights) are stocked up by dummy flights
+     */
     public static List<Flight> fetchFlightsFromToAt(String from, String to, String date) {
         String dayStr = date.substring(0, 2);
         String monthStr = date.substring(3, 5);
         String year = date.substring(6);
         String flightDate = year + "-" + monthStr + "-" + dayStr;
 
-        // todo replace with parser for name and iata
-
         String fromIATA = from.substring(from.indexOf("(") + 1, from.indexOf(")"));
         String toIATA = to.substring(to.indexOf("(") + 1, to.indexOf(")"));
         String fromName = from.substring(0, from.indexOf("(") - 1);
         String toName = to.substring(0, to.indexOf("(") - 1);
-        System.out.println(fromName);
-        System.out.println(toName);
-        System.out.println(fromIATA);
-        System.out.println(toIATA);
+        //System.out.println(fromName);
+        //System.out.println(toName);
+        //System.out.println(fromIATA);
+        //System.out.println(toIATA);
 
         List<Flight> list = FlightParser.parseFlightJson(
-                HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[] {
+                HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
                         "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM1ZjFjNDVmZGExNDNlODcwNDhkOGRmNzcyOTZhMThhNTMyNTNjNWUzYjIxMWUzNTA3OTAyMzlmMDVkYzk3ODAxNDQ5ZGM1MzI0MmY0N2QiLCJpYXQiOjE2NTYyMzY1MTIsIm5iZiI6MTY1NjIzNjUxMiwiZXhwIjoxNjg3NzcyNTEyLCJzdWIiOiI3MDg0Iiwic2NvcGVzIjpbXX0.jr7CLxzMAJETsHmt2YfH6OBb53pJvEcXNqDuTArRGCNX2AHxGPocVyax2RcaC0zL3u61qZe2g1NzEM0typORcQ",
-                        "&arr_scheduled_time_dep=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA }),
+                        "&arr_scheduled_time_dep=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}),
                 fromName, toName);
 
         Random r = new Random();
@@ -80,6 +86,12 @@ public class Flight {
         return list;
     }
 
+    /**
+     * A method used for autocompletion of city names in the client
+     *
+     * @param city The name of a city (typed in by the user)
+     * @return A string array of city suggestions (retrieved by the Airlabs API)
+     */
     public static String[] getSuggestions(String city) {
         return Location.fetchCityIATACode(city);
     }
@@ -95,8 +107,8 @@ public class Flight {
 
         List<Flight> flights = fetchFlightsFromToAt("Amsterdam (MUC)", "New York City (CDG)", "28/06/2022");
         System.out.println(flights);
-        System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
-        System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
+        //System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
+        //System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
 
     }
 

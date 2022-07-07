@@ -5,6 +5,13 @@ import org.json.JSONObject;
 import server.model.entertainment.movies.Movie;
 
 public class MovieParser {
+
+    /**
+     * A parser method to parse the API response by the OMDb into a Movie object
+     *
+     * @param json The API response containing the Movie data, formatted in json
+     * @return A Movie object containing the movie data
+     */
     public static Movie parseMovieJson(String json) {
         try {
             JSONObject response = new JSONObject(json);
