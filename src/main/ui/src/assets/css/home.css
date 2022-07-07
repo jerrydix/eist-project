@@ -1,19 +1,20 @@
 :root {
     --background-transparency: 0.5;
+    --color-background-mute-transparent: rgba(242, 242, 242, var(--background-transparency));
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
     :root {
         --color-background-mute-transparent: rgba(242, 242, 242, var(--background-transparency));
     }
 
     
-}
+} */
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
     :root {
         --color-background-mute-transparent: rgba(40, 40, 40, var(--background-transparency));
     }
 
     
-}
+} */

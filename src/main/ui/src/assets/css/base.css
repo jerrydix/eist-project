@@ -38,7 +38,7 @@
   --color-background-mute-transparent: rgba(242, 242, 242, 0.5);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--vt-c-black);
     --color-background-soft: var(--vt-c-black-soft);
@@ -52,7 +52,7 @@
     --color-background-mute-transparent: rgba(40, 40, 40, 0.90);
   }
 }
-
+ */
 *,
 *::before,
 *::after {
