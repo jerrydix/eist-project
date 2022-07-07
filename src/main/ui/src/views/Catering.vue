@@ -2,7 +2,8 @@
 import CateringItem from '../components/CateringItem.vue';
 const menuItems = [
 	{text: "NicNacs", price: 5.50},
-	{text: "Playboy Magazine", price: 6.90},
+	{text: "Champagne 0.2L", price: 7.50},
+	{text: "Playboy Magazine Kids Edition", price: 6.90},
 ]
 
 
@@ -10,8 +11,12 @@ const menuItems = [
 </script>
 
 <template>
-	<h1>catering</h1>
+	<h1>Menu</h1>
 
 	<CateringItem v-for="menuItem in menuItems" :text="menuItem.text" :price="menuItem.price" />
 
 </template>
+
+<style>
+
+</style>

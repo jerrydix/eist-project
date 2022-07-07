@@ -9,6 +9,7 @@ import TopBar from "../components/TopBar.vue";
 import Survey from "./Survey.vue";
 import { getLoggedInUser } from "../services/UserService.js";
 import { userStore } from "../userStore";
+import { getCurrentFlight } from "../services/FlightService";
 
 export default {
 	components: {
@@ -25,6 +26,7 @@ export default {
 		showLoginDialog: false,
 		showRegisterDialog: false,
 		showSurveyDialog: false,
+		flight: null,
 	}),
 	setup() {
 		const store = userStore();
@@ -42,6 +44,12 @@ export default {
 				window.localStorage.setItem("user", response);
 			}
 		});
+		if (this.store.username != null) {
+			getCurrentFlight().then((response) => {
+				this.flight = response;
+				console.log(response);
+			});
+		}
 	},
 };
 </script>
@@ -57,7 +65,7 @@ export default {
 				<div class="xs4">
 					<h1>Welcome to Garching Airlines</h1>
 					<h3><em>Flights of Excellence</em></h3>
-					<FlightInfo />
+					<FlightInfo v-if="this.store.username" :flight="this.flight"/>
 				</div>
 				<w-dialog
 					v-model="showRegisterDialog"
@@ -125,7 +133,6 @@ export default {
 	background-size: cover !important;
 	text-align: center;
 	height: 100%;
-
 }
 
 .w-toolbar {
@@ -160,8 +167,7 @@ h1 {
 }
 
 .bottom-button {
-    margin: 24px;
-    padding: 24px;
+	margin: 24px;
+	padding: 24px;
 }
-
 </style>

@@ -15,8 +15,7 @@ const props = defineProps({
 				<w-flex class="xs6">
 					<p>{{ price.toFixed(2) + " €" || "It's free!" }}</p>
 				</w-flex>
-				<w-flex class="xs6">
-					<w-button @click="showDialog = true"> Order </w-button>
+				<w-flex class="xs6" style="align-items: flex-end">
 					<w-button
 						@click="$waveui.notify('Order placed: ' + text)"
 						bg-color="info"

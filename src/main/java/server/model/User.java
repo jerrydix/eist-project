@@ -16,7 +16,7 @@ public class User {
 
     private List<Reward> rewards = new ArrayList<>();
 
-    private List<FlightJourney> bookedFlightJourneys;
+    private List<FlightJourney> bookedFlightJourneys = new ArrayList<>();
 
     private Flight currentFlight;
 

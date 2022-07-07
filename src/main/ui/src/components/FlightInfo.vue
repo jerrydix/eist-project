@@ -1,7 +1,11 @@
 <script setup>
-let date = new Date();
+/* let date = new Date(); */
 
-let flight = {
+const props = defineProps({
+	flight: Object
+});
+
+/* let flight = {
 	from: "Berlin",
 	to: "Garching",
 	startTime: "20:00",
@@ -13,7 +17,7 @@ let flight = {
 	gate: "A4",
 	plane: "Airbus A320",
 	date: date.toISOString().split("T")[0],
-};
+}; */
 </script>
 
 <template>
@@ -21,7 +25,8 @@ let flight = {
 		<w-flex>
 			<div class="xs8 data-wrapper">
 				<p class="from-to-location">
-					{{ flight.from }}
+					<!-- {{ flight.from }} -->
+					{{ flight.airline }}
 					<font-awesome-icon icon="fa-solid fa-right-long" />
 					{{ flight.to }}
 				</p>
@@ -33,7 +38,7 @@ let flight = {
 				<p class="id">Flight No: {{ flight.id }}</p>
 				<p class="terminal">Terminal: {{ flight.terminal }}</p>
 				<p class="gate">Gate: {{ flight.gate }}</p>
-				<p class="plane">Plane: {{ flight.plane }}</p>
+				<p class="plane">Plane: {{ flight.airplane }}</p>
 			</div>
 			<div class="xs4 icon-wrapper">
 				<p class="temperature">+26°C</p>
@@ -57,7 +62,7 @@ let flight = {
 	height: 300px;
 	width: 100%;
 	margin-top: 50px;
-	min-width: 300px;
+	min-width: 550px;
 	border-radius: 15px;
 	background-color: var(--color-background-mute-transparent);
 	box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);
