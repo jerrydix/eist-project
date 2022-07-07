@@ -90,19 +90,18 @@ is fetched from the backend on startup or page refresh.
 In summary, the following data is stored:
 
 * General User data
-    * `systemUsers`
-    * `loggedInUser`
+  * `systemUsers`
+  * `loggedInUser`
 
 * Each user's data
-    * `username`
-    * `password`
-    * `Flight currentFlight`
-    * `FlightJourney` list
+  * `username`
+  * `password`
+  * `Flight currentFlight`
+  * `FlightJourney` list
 
 * Locations that have already been fetched (`static List<Location> locationList`)
 
-* Frontend
-    * username of currently logged-in user
+* Username of currently logged-in user (client)
 
 ## 6. Access control and security
 
@@ -122,10 +121,58 @@ TODO
 
 ## 8. Boundary conditions
 
+There are two main compononents in GAFIS.  
+The server (backend), which mainly handels the functionality of the system, the storing of data and the management of external services, is the first component.  
+The client (frontend), which mainly provides a UI of the system, but is also responsible for wrapping and managing the functionality, is the second component.  
+
+There are several ways to start / manage those components from a terminal (for developers / server administrators etc.)
 <br/>
-TODO
+<br/>
+### Start the Front-End Development Server
+This has hot-reload capabilities but does not start the Spring Boot backend.
+
+```sh
+./gradlew npm_run_dev
+```
+
+open a web browser and visit `localhost:3000`
+
+### Lint JavaScript with [ESLint](https://eslint.org/)
+
+```sh
+./gradlew npm_run_lint
+```
+
+### View the Production Build
+
+This starts both the server and client applications but does not have hot-reload capabilities.
+
+```sh
+./gradlew bootRun
+```
+
+open a web browser and visit `localhost:8080`
+
+### Compile the JAR file
+
+```sh
+./gradlew clean build
+```
+
+### Terminate execution
+```sh
+^C
+```
+
+When the execution is terminated, the server shuts down and all user and location data is erased.
 <br/>
 <br/>
+![Use case diagram](UseCaseDiagram.PNG)
+A use case diagram of a server admin managing the servers
+<br/>
+<br/>
+### System failures
+System failures are handled by shutting down the system.
 
 <!--$$
 \left[\begin{array}{cc} 
