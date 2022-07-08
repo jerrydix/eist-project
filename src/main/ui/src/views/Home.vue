@@ -26,6 +26,7 @@ export default {
 		showLoginDialog: false,
 		showRegisterDialog: false,
 		showSurveyDialog: false,
+		showSafetyVideo: false,
 		flight: null,
 	}),
 	setup() {
@@ -65,7 +66,10 @@ export default {
 				<div class="xs4">
 					<h1>Welcome to Garching Airlines</h1>
 					<h3><em>Flights of Excellence</em></h3>
-					<FlightInfo v-if="this.store.username" :flight="this.flight"/>
+					<FlightInfo
+						v-if="this.store.username"
+						:flight="this.flight"
+					/>
 				</div>
 				<w-dialog
 					v-model="showRegisterDialog"
@@ -77,6 +81,7 @@ export default {
 				<w-dialog v-model="showLoginDialog" :width="550" title="Login">
 					<Login />
 				</w-dialog>
+
 				<w-dialog
 					v-model="showSurveyDialog"
 					:width="550"
@@ -84,6 +89,19 @@ export default {
 				>
 					<Survey />
 				</w-dialog>
+
+				<w-dialog v-model="showSafetyVideo" :width="980">
+					<iframe
+						width="950"
+						height="534"
+						src="https://www.youtube-nocookie.com/embed/YCoQwZ9BQ9Q?start=40"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+					></iframe>
+				</w-dialog>
+
 				<div class="spacer"></div>
 
 				<w-flex>
@@ -101,9 +119,9 @@ export default {
 						<w-button
 							class="bottom-button"
 							bg-color="error"
-							@click="showSurveyDialog = true"
+							@click="showSafetyVideo = true"
 						>
-							We value your opinion
+							Watch safety video
 						</w-button>
 					</div>
 				</w-flex>
@@ -115,21 +133,9 @@ export default {
 <style scoped>
 @import "../assets/css/home.css";
 
-@media (prefers-color-scheme: light) {
-	.w-app {
-		background: url("../assets/img/above_clouds.jpg") center center fixed
-			no-repeat !important;
-	}
-}
-
-@media (prefers-color-scheme: dark) {
-	.w-app {
-		background: url("../assets/img/above_clouds_dark.jpg") center center
-			fixed no-repeat !important;
-	}
-}
-
 .w-app {
+	background: url("../assets/img/above_clouds.jpg") center center fixed
+		no-repeat !important;
 	background-size: cover !important;
 	text-align: center;
 	height: 100%;
