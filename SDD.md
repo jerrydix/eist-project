@@ -60,11 +60,8 @@ TODO
 <br/>
 
 ## 4. Hardware / Software mapping
-
-<br/>
-TODO
-<br/>
-<br/>
+TODO complete after subsystem decomposition is done
+https://apollon.ase.in.tum.de/dBSm5MNXRDFoXYdLaDdO?view=EDIT
 
 ## 5. Data management
 
