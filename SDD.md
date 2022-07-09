@@ -107,14 +107,49 @@ chooses between _**Register**_ and _**Login**_ to either perform a login or make
 is prompted to choose a username and a password (the password cannot be empty), which is later used to log in. The user
 data is then stored without
 encryption. When the user logs in, he has to provide his username and password, which both have to be spelled correctly
-in order for the user to successfully log in. The user has the ability to log out by using the _**Logout**_ button.
+in order for the user to successfully log in. The user has the ability to log out by using the _**Logout**_ button.  
+
+The access rights change depending on whether a user is logged in or not. While the user is not logged in, he is only able to access some of the features of the system.  
+Those features are:
+
+* Watch the flight safety video
+* Order food / drinks
+* Watch movies
+
+If the user is logged in into his account, he can use the follwing features:
+
+* View current flight
+* Participate in surveys
+* Create flight journeys and add / remove flights to it.
+* View location data, including a map with POIs
+* Create POI favorites list and add / remove POIs to it.
+* Watch the flight safety video
+* Order food / drinks
+* Watch movies
+
+### Access matrix
+
+|   |Flights |  Surveys | Locations  | Safety video  | Catering  | Entertainment  |
+|---|---|---|---|---|---|---|
+|User (logged in) | viewCurrentFlight() createFlightJourney() addFlight() removeFlight()  | participate()  | viewLocationData() createPOIList() addPOI() removePOI()  | viewSafetyVideo()  | orderFoodItem()  | watchMovie()  |
+|User (logged out)  | --  | --  | --  | viewSafetyVideo()  | orderFoodItem()  | watchMovie()  |
+
 
 ## 7. Global software control
 
-<br/>
-TODO
-<br/>
-<br/>
+GAFIS uses a monolithic design and a centralized architecture. The backend server is the only master node in GAFIS and all the data is contained there. Thus, if the backend fails, the system wholly shuts down. All users have their data stored on this server.  
+
+Futhermore, GAFIS uses the RESTful API for communicating with the server. Here, a polling-based design is used. This guarantees high performance on the client side, as the server is always accessible.  
+The functionality is as follows:
+
+1. The client needs certain data or functionality from the server.
+2. The client makes a request to the server.
+3. The request is processed by the server and the required processes are executed.
+4. The server sends a response to the client with the resulting data.
+5. The client receives the response and processes it accordingly.
+
+
+
 
 ## 8. Boundary conditions
 
@@ -171,16 +206,6 @@ A use case diagram of a server admin managing the servers
 ### System failures
 System failures are handled by shutting down the system.
 
-<!--$$
-\left[\begin{array}{cc} 
-0.8944272 & 0.4472136\\
--0.4472136 & -0.8944272
-\end{array}\right]
-\left[\begin{array}{cc} 
-10 & 0\\ 
-0 & 5
-\end{array}\right]
-$$ -->
 
 <br/>
 <br/>
