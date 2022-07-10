@@ -61,6 +61,7 @@ public class FlightFactory {
 
         if (delayed) {
             delayedTime = LocalDateTime.of(year, FlightParser.parseToMonth(month), day, fromHour, delayMinute);
+            System.out.println(delayedTime);
             int minutes = (int) ChronoUnit.MINUTES.between(startTime, delayedTime);
             delayHours = minutes / 60;
             delayMinutes = minutes % 60;
@@ -68,7 +69,7 @@ public class FlightFactory {
 
         String gate = String.valueOf(r.nextInt(1, 80));
         String terminal = String.valueOf(r.nextInt(1, 5));
-        int seat = r.nextInt(1, 288);
+        String seat = generateSeat();
 
         String id = String.format("%04d", r.nextInt(10000));
 
@@ -90,14 +91,32 @@ public class FlightFactory {
         if (endCoords != null) {
             endLocation = new Location(to, endCoords[1], endCoords[0]);
         } else {
-            endLocation = new Location(from, -1, -1);
+            endLocation = new Location(to, -1, -1);
         }
         Flight flight = new Flight(flightID, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation, generateRandomAirplane());
         flight.setDelayed(delayed);
+        flight.setDelayTime(delayedTime);
         flight.setDelayHours(delayHours);
         flight.setDelayMinutes(delayMinutes);
         flight.setCancelled(false);
         return flight;
+    }
+
+    public static String generateSeat() {
+        Random r = new Random();
+        int seatNum = r.nextInt(1, 34);
+        int letterNum = r.nextInt(0,6);
+        String letter;
+        switch (letterNum) {
+            case 0 -> letter = "A";
+            case 1 -> letter = "B";
+            case 2 -> letter = "C";
+            case 3 -> letter = "D";
+            case 4 -> letter = "E";
+            case 5 -> letter = "F";
+            default -> letter = "C";
+        }
+        return seatNum + letter;
     }
 
     /**
@@ -148,6 +167,7 @@ public class FlightFactory {
         do {
             second = r.nextInt(0, 12);
         } while (first == second);
+
         LocalDateTime now = LocalDateTime.now();
         String date = now.toString();
         String day = date.substring(8, 10);
@@ -187,6 +207,9 @@ public class FlightFactory {
     }
 
     public static void main(String[] args) {
-        System.out.println(generateRandomFlight("PW1234"));
+        Flight flight = generateRandomFlight("PW1234");
+        System.out.println(flight);
+        System.out.println(flight.getStartLocation().getPoiList());
+        System.out.println(flight.getEndLocation().getPoiList());
     }
 }

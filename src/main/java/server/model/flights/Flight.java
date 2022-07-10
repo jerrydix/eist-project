@@ -14,7 +14,7 @@ public class Flight {
     private LocalDateTime endTime;
     private String gate;
     private String terminal;
-    private int seat;
+    private String seat;
     private String airline;
     private boolean isCancelled;
     private boolean isDelayed;
@@ -25,7 +25,7 @@ public class Flight {
     private Location endLocation;
     private String airplane;
 
-    public Flight(String number, LocalDateTime startTime, LocalDateTime endTime, String gate, String terminal, int seat,
+    public Flight(String number, LocalDateTime startTime, LocalDateTime endTime, String gate, String terminal, String seat,
                   String airline, Location startLocation, Location endLocation, String airplane) {
         this.number = number;
         this.startTime = startTime;
@@ -176,11 +176,11 @@ public class Flight {
         this.terminal = terminal;
     }
 
-    public int getSeat() {
+    public String getSeat() {
         return seat;
     }
 
-    public void setSeat(int seat) {
+    public void setSeat(String seat) {
         this.seat = seat;
     }
 
@@ -233,7 +233,7 @@ public class Flight {
     }
 
     public String toString() {
-        return "\n\nAirline: " + airline + "\nNumber: " + number + "\nTerminal: " + terminal + "\nGate: " + gate
-                + "\nDeparture time: " + startTime + "\nArrival time: " + endTime;
+        return "\n\nAirline: " + airline + "\nNumber: " + number + "\nDeparture Location: " + startLocation + "\nArrival Location: " + endLocation + "\nTerminal: " + terminal + "\nGate: " + gate
+                + "\nDeparture time: " + startTime + "\nArrival time: " + endTime + "\nSeat: " + seat + "\nDelay time: " + delayTime + "\nDelay hours: " + delayHours + "\nDelay minutes: " + delayMinutes + "\nAirplane: " + airline + "\nis delayed: " + isDelayed + "\nis cancelled: " + isCancelled;
     }
 }

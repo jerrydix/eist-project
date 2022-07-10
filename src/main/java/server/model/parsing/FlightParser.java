@@ -113,7 +113,7 @@ public class FlightParser {
                     //filler
                     terminal = String.valueOf(r.nextInt(1,5));;
                 }
-                int seat = ThreadLocalRandom.current().nextInt(1, 288);
+                String seat = FlightFactory.generateSeat();
                 String airline = current.getJSONObject("airline").getString("name");
                 if (airline.equals("empty")) {
                     //filler
