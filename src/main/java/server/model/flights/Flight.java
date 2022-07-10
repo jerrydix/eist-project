@@ -31,7 +31,6 @@ public class Flight {
     private LocalDateTime delayedArrivalTime;
 
 
-
     public Flight(String number, LocalDateTime startTime, LocalDateTime endTime, String gate, String terminal, String seat,
                   String airline, Location startLocation, Location endLocation, String airplane) {
         this.number = number;
@@ -56,7 +55,7 @@ public class Flight {
      * A wrapper method used to retrieve flights from one location to another at a specific date.
      *
      * @param from The name of the departure location formatted in "name (IATA)"
-     * @param to The name of the arrival location formatted in "name (IATA)"
+     * @param to   The name of the arrival location formatted in "name (IATA)"
      * @param date The date at which the flights are to be retrieved
      * @return A list of 5 or more flights from "from" to "to" at "date", which (if the API does not find any real flights) are stocked up by dummy flights
      */
@@ -100,7 +99,17 @@ public class Flight {
      * @return A string array of city suggestions (retrieved by the Airlabs API)
      */
     public static String[] getSuggestions(String city) {
-        return Location.fetchCityIATACode(city);
+        String[] suggestions = Location.fetchCityIATACode(city);
+        int newSize = 3;
+        if (suggestions[2].equals(suggestions[1])) {
+            newSize = 2;
+        }
+        if (suggestions[1].equals(suggestions[0])) {
+            newSize = 1;
+        }
+        String[] newSug = new String[newSize];
+        System.arraycopy(suggestions, 0, newSug, 0, newSize);
+        return newSug;
     }
 
     public static void main(String[] args) {

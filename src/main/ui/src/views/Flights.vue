@@ -1,40 +1,92 @@
 <template>
   <h1>flights</h1>
 
+  <w-textarea v-model="this.departureCity" placeholder="Departure City" @input="searchDep"></w-textarea>
 
-  <Autocomplete :debounce-time="500" :search="search" auto-select placeholder="Departure City"
-                @submit="saveDep"></Autocomplete>
+  <w-list
+      v-model="selectedDeparture"
+      :items="departureSuggestions"
+      :multiple=false
+      :no-unselect=true
+      class="mt6 mr4 grow"
+      color="deep-purple"
+      @item-click="depClicked = $event">
+  </w-list>
 
+  <w-button @click="saveDep">Enter Departure Selection</w-button>
 
-  <w-textarea placeholder="Arrival City"></w-textarea>
   <br/>
 
+  <w-textarea v-model="this.arrivalCity" placeholder="Arrival City" @input="searchArr"></w-textarea>
 
-  <p>{{ this.departureCity }}</p>
+  <w-list
+      v-model="selectedArrival"
+      :items="arrivalSuggestions"
+      :multiple=false
+      :no-unselect=true
+      class="mt6 mr4 grow"
+      color="deep-purple"
+      @item-click="arrClicked = $event">
+  </w-list>
+  <w-button @click="saveArr">Enter Destination Selection</w-button>
+
+
+  <w-button @click="getFlights">Show Flights</w-button>
+
+
+  <FlightInfo v-if="this.flights"
+              :flight="flights.firstChild"
+  />
+
 </template>
 
 <script>
-import Autocomplete from "@trevoreyre/autocomplete-vue";
-import {getSuggestions} from "../services/FlightService.js";
+import {getFlights, getSuggestions} from "../services/FlightService.js";
+import FlightInfo from "../components/FlightInfo.vue";
 
 export default {
-  components: {
-    Autocomplete
-  },
+  components: {FlightInfo},
   data() {
     return {
+      departureSuggestions: null,
+      selectedDeparture: null,
       departureCity: null,
-      destinationCity: null
+      arrivalSuggestions: null,
+      selectedArrival: null,
+      arrivalCity: null,
+      depClicked: null,
+      arrClicked: null,
+      date: "10.07.2022",
+      flights: null
     }
   },
   methods: {
-    search(city) {
-      getSuggestions(city).then((response) => {
-        return response;
-      });
+    searchDep(city) {
+      if (city.length > 2) {
+        getSuggestions(city).then((response) => {
+          this.departureSuggestions = response
+        });
+      }
     },
-    saveDep(city) {
-      this.departureCity = city;
+    searchArr(city) {
+      if (city.length > 2) {
+        getSuggestions(city).then((response) => {
+          this.arrivalSuggestions = response
+        });
+      }
+    },
+    saveDep() {
+      this.departureCity = this.selectedDeparture;
+      this.departureSuggestions = null
+    },
+    saveArr() {
+      this.arrivalCity = this.selectedArrival;
+      this.arrivalSuggestions = null
+    },
+    getFlights() {
+      getFlights(this.departureCity, this.arrivalCity, this.date).then((response) => {
+        this.flights = response
+      });
     }
   }
 }</script>

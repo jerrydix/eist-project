@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.model.flights.Flight;
 import server.model.flights.FlightJourney;
+import server.model.flights.Suggestion;
 import server.service.FlightService;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class FlightRest {
     }
 
     @PostMapping("api/citySuggestion")
-    public ResponseEntity<String[]> getSuggestions(@RequestParam String city) {
+    public ResponseEntity<Suggestion[]> getSuggestions(@RequestParam String city) {
         if (city == null) {
             return ResponseEntity.badRequest().build();
         }
