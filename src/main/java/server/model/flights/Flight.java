@@ -22,8 +22,15 @@ public class Flight {
     private int delayHours;
     private int delayMinutes;
     private Location startLocation;
+    private String startName;
+    private String endName;
     private Location endLocation;
     private String airplane;
+    private String weatherType;
+    private String weatherDegrees;
+    private LocalDateTime delayedArrivalTime;
+
+
 
     public Flight(String number, LocalDateTime startTime, LocalDateTime endTime, String gate, String terminal, String seat,
                   String airline, Location startLocation, Location endLocation, String airplane) {
@@ -39,6 +46,10 @@ public class Flight {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.airplane = airplane;
+        this.startName = startLocation.getName();
+        this.endName = endLocation.getName();
+        this.weatherDegrees = String.valueOf(endLocation.getWeather().getDegrees());
+        this.weatherType = endLocation.getWeather().getWeatherType();
     }
 
     /**
@@ -59,10 +70,6 @@ public class Flight {
         String toIATA = to.substring(to.indexOf("(") + 1, to.indexOf(")"));
         String fromName = from.substring(0, from.indexOf("(") - 1);
         String toName = to.substring(0, to.indexOf("(") - 1);
-        //System.out.println(fromName);
-        //System.out.println(toName);
-        //System.out.println(fromIATA);
-        //System.out.println(toIATA);
 
         List<Flight> list = FlightParser.parseFlightJson(
                 HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
@@ -230,6 +237,46 @@ public class Flight {
 
     public void setEndLocation(Location endLocation) {
         this.endLocation = endLocation;
+    }
+
+    public String getStartName() {
+        return startName;
+    }
+
+    public void setStartName(String startName) {
+        this.startName = startName;
+    }
+
+    public String getEndName() {
+        return endName;
+    }
+
+    public void setEndName(String endName) {
+        this.endName = endName;
+    }
+
+    public String getWeatherType() {
+        return weatherType;
+    }
+
+    public void setWeatherType(String weatherType) {
+        this.weatherType = weatherType;
+    }
+
+    public String getWeatherDegrees() {
+        return weatherDegrees;
+    }
+
+    public void setWeatherDegrees(String weatherDegrees) {
+        this.weatherDegrees = weatherDegrees;
+    }
+
+    public LocalDateTime getDelayedArrivalTime() {
+        return delayedArrivalTime;
+    }
+
+    public void setDelayedArrivalTime(LocalDateTime delayedArrivalTime) {
+        this.delayedArrivalTime = delayedArrivalTime;
     }
 
     public String toString() {

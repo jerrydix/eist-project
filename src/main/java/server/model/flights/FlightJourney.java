@@ -1,5 +1,6 @@
 package server.model.flights;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -129,6 +130,10 @@ public class FlightJourney {
         for (int i = 0; i < this.flights.size(); i++) {
             if (flights.get(i).isCancelled() && flights.get(i).getNumber().equals(number)) {
                 Flight cancelledFlight = flights.get(i);
+                String cancelledflightTime = cancelledFlight.getStartTime().toString();
+
+
+               // LocalDateTime.of()
 
                 Flight newFlight = FlightFactory.generateFlight(cancelledFlight.getStartLocation().getName(), cancelledFlight.getEndLocation().getName(), "12/12/1001");
                 newFlight.setStartTime(cancelledFlight.getStartTime());

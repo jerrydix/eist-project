@@ -98,6 +98,10 @@ public class FlightFactory {
         flight.setDelayTime(delayedTime);
         flight.setDelayHours(delayHours);
         flight.setDelayMinutes(delayMinutes);
+        flight.setDelayedArrivalTime(LocalDateTime.of(endTime.getYear(), endTime.getMonth(), endTime.getDayOfMonth(), endTime.getHour() + delayHours, endTime.getMinute() + delayMinutes));
+        System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");
+        System.out.println(flight.getDelayedArrivalTime());
+        System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");
         flight.setCancelled(false);
         return flight;
     }

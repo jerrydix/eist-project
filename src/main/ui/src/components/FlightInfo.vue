@@ -26,28 +26,26 @@ const props = defineProps({
 			<div class="xs8 data-wrapper">
 				<p class="from-to-location">
 					<!-- {{ flight.from }} -->
-					{{ flight.airline }}
+					{{ flight.startName }}
 					<font-awesome-icon icon="fa-solid fa-right-long" />
-					{{ flight.to }}
+					{{ flight.endName }}
 				</p>
 				<p class="from-to-time">
-					{{ flight.startTime }} - {{ flight.endTime }}
+					{{ flight.startTime.substring(11, 16) }} - {{ flight.endTime.substring(11, 16) }}
 				</p>
-				<p class="delay">{{ flight.delay }}</p>
+				<p class="delay">{{ flight.delayTime.substring(11, 16) + " - " + flight.delayedArrivalTime.substring(11, 16) + " (+" + flight.delayHours + ":" + flight.delayMinutes + ")" }}</p>
 				<p class="seat">Seat: {{ flight.seat }}</p>
-				<p class="id">Flight No: {{ flight.id }}</p>
+				<p class="id">Flight No: {{ flight.number }}</p>
 				<p class="terminal">Terminal: {{ flight.terminal }}</p>
 				<p class="gate">Gate: {{ flight.gate }}</p>
 				<p class="plane">Plane: {{ flight.airplane }}</p>
 			</div>
 			<div class="xs4 icon-wrapper">
-				<p class="temperature">+26°C</p>
+				<p class="temperature">{{ flight.weatherDegrees + "°C" }}</p>
 				<font-awesome-icon icon="fa-solid fa-cloud" />
-				<p class="weather-text">
-					Wolkig mit Aussicht auf Fleischbällchen
-				</p>
+				<p class="weather-text">{{ flight.weatherType }}</p>
 				<div class="spacer"></div>
-				<p class="date">{{ flight.date }}</p>
+				<p class="date">{{ flight.startTime.substring(8,10) + "/" + flight.startTime.substring(5,7) + "/" + flight.startTime.substring(0,4) }}</p>
 			</div>
 		</w-flex>
 	</w-card>
