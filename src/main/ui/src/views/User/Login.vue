@@ -30,8 +30,10 @@ export default {
 					console.log(response);
 					window.localStorage.setItem("user", response);
 					this.store.username = response;
+					history.go(0);
 					this.ans = "Successfully logged in";
 				}
+				this.$waveui.notify(this.ans);
 			});
 		},
 	},
@@ -59,7 +61,6 @@ export default {
 	></w-input>
 	<w-button @click="loginUser">Login</w-button>
 	<br />
-	<p>{{ ans }}</p>
 </template>
 
 <style scoped></style>
