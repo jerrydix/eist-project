@@ -35,7 +35,7 @@
 
 
   <FlightInfo v-if="this.flights"
-              :flight="flights.firstChild"
+              :flight="flights[0]"
   />
 
 </template>
@@ -56,7 +56,7 @@ export default {
       arrivalCity: null,
       depClicked: null,
       arrClicked: null,
-      date: "10.07.2022",
+      date: "12.07.2022",
       flights: null
     }
   },
@@ -86,6 +86,7 @@ export default {
     getFlights() {
       getFlights(this.departureCity, this.arrivalCity, this.date).then((response) => {
         this.flights = response
+        console.log(response)
       });
     }
   }
