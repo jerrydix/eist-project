@@ -72,7 +72,8 @@ switch (flight["weather"]["weatherType"]) {
 				<p class="from-to-time">
 					{{ flight.startTime.substring(11, 16) }} - {{ flight.endTime.substring(11, 16) }}
 				</p>
-				<p class="delay">{{ flight.delayTime.substring(11, 16) + " - " + flight.delayedArrivalTime.substring(11, 16) + " (+" + flight.delayHours + ":" + flight.delayMinutes + ")" }}</p>
+        <!--TODO fix delay-->
+				<p v-if="delay">{{ flight.delayTime.substring(11, 16) + " - " + flight.delayedArrivalTime.substring(11, 16) + " (+" + flight.delayHours + ":" + flight.delayMinutes + ")" }}</p>
 				<p class="seat">Seat: {{ flight.seat }}</p>
 				<p class="id">Flight No: {{ flight.number }}</p>
 				<p class="terminal">Terminal: {{ flight.terminal }}</p>
