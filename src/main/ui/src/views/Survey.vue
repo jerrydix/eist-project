@@ -1,8 +1,12 @@
 <script>
 import SurveyBody from "../components/SurveyBody.vue";
 import {submitSurvey} from "../services/SurveyService.js";
+import {getLatestReward} from "../services/UserService.js";
 
 export default {
+  props: {
+    flightNumber: String
+  },
   components: {
     SurveyBody,
   },
@@ -13,8 +17,12 @@ export default {
   },
   methods: {
     submit(survey) {
-      submitSurvey(survey).then((response) => {
-        this.ans = response;
+      function getReward() {
+        return getLatestReward()
+      }
+
+      submitSurvey(survey).then(() => {
+        this.ans = "Thanks for your submission! Your reward is " + getReward();
       });
     },
   },
@@ -22,7 +30,7 @@ export default {
 </script>
 
 <template>
-  <SurveyBody @submitted="submit"/>
+  <SurveyBody :flight-num="flightNumber" @submitted="submit"/>
 
   <br/>
   <br/>

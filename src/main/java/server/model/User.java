@@ -16,6 +16,7 @@ public class User {
 
     private List<Reward> rewards = new ArrayList<>();
 
+    private Reward latestReward;
     private List<FlightJourney> bookedFlightJourneys = new ArrayList<>();
 
     private Flight currentFlight;
@@ -47,7 +48,9 @@ public class User {
      * Adds a new reward to the user's rewards list
      */
     public void reward() {
-        rewards.add(new Reward());
+        Reward reward = new Reward();
+        this.latestReward = reward;
+        rewards.add(reward);
     }
 
     public String getPassword() {
@@ -80,5 +83,13 @@ public class User {
 
     public void addJourney(FlightJourney flightJourney) {
         bookedFlightJourneys.add(flightJourney);
+    }
+
+    public Reward getLatestReward() {
+        return latestReward;
+    }
+
+    public void setLatestReward(Reward latestReward) {
+        this.latestReward = latestReward;
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.model.User;
+import server.model.surveys.Reward;
 import server.service.UserService;
 
 @RestController
@@ -56,5 +57,14 @@ public class UserRest {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("api/reward")
+    public ResponseEntity<Reward> getLatestReward() {
+        Reward reward = userService.getLatestReward();
+        if (reward == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(reward);
     }
 }
