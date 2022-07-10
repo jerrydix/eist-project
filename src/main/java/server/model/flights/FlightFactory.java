@@ -41,14 +41,14 @@ public class FlightFactory {
             fromHour = r.nextInt(7, 14);
             toHour = r.nextInt(15, 23);
         }
-        int fromMinute = r.nextInt(0, 31);
-        int toMinute = r.nextInt(0, 59);
+        int fromMinute = r.nextInt(0, 30);
+        int toMinute = r.nextInt(0, 30);
 
         int day = Integer.parseInt(date.substring(0, 2));
         int month = Integer.parseInt(date.substring(3, 5));
         int year = Integer.parseInt(date.substring(6));
 
-        int delayMinute = r.nextInt(32, 59);
+        int delayMinute = r.nextInt(30, 55);
 
         LocalDateTime startTime = LocalDateTime.of(year, FlightParser.parseToMonth(month), day, fromHour, fromMinute);
         LocalDateTime endTime = LocalDateTime.of(year, FlightParser.parseToMonth(month), day, toHour, toMinute);
@@ -99,9 +99,6 @@ public class FlightFactory {
         flight.setDelayHours(delayHours);
         flight.setDelayMinutes(delayMinutes);
         flight.setDelayedArrivalTime(LocalDateTime.of(endTime.getYear(), endTime.getMonth(), endTime.getDayOfMonth(), endTime.getHour() + delayHours, endTime.getMinute() + delayMinutes));
-        System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");
-        System.out.println(flight.getDelayedArrivalTime());
-        System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");System.out.println("TEST");
         flight.setCancelled(false);
         return flight;
     }
