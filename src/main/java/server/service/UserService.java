@@ -23,8 +23,11 @@ public class UserService {
     }
 
     public boolean registerUser(String username, String password, String flightNumber) {
+        if (password == null || password.isBlank() || username == null || username.isBlank() || flightNumber == null || flightNumber.isBlank()) {
+            return false;
+        }
         User user = getUser(username);
-        if (user != null || password == null || password.isBlank()) {
+        if (user != null) {
             return false;
         }
         user = new User(username, password);
