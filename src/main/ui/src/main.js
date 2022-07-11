@@ -6,20 +6,16 @@ import WaveUI from "wave-ui";
 import "wave-ui/dist/wave-ui.css";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {
-	faClouds,
-	faCloudShowers,
+	faCloud,
+	faCloudShowersHeavy,
 	faCloudBolt,
-	faCloudDrizzle,
-	faCloudSnow,
-	faCloudFog,
-	faSmoke,
+	faCloudRain,
+	faSnowflake,
 	faSmog,
-	faSunDust,
-	faCloudMeatball,
+	faCloudSun,
 	faWind,
 	faTornado,
-	faSun,
-	faCloud
+	faSun
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import "./assets/css/base.css";
@@ -29,20 +25,16 @@ dotenv.config()
  */
 
 library.add(
-	faClouds,
-	faCloudShowers,
+	faCloud,
+	faCloudShowersHeavy,
 	faCloudBolt,
-	faCloudDrizzle,
-	faCloudSnow,
-	faCloudFog,
-	faSmoke,
+	faCloudRain,
+	faSnowflake,
 	faSmog,
-	faSunDust,
-	faCloudMeatball,
+	faCloudSun,
 	faWind,
 	faTornado,
-	faSun,
-	faCloud
+	faSun
 );
 
 const pinia = createPinia();
