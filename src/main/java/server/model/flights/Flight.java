@@ -19,8 +19,8 @@ public class Flight {
     private boolean isCancelled;
     private boolean isDelayed;
     private LocalDateTime delayTime;
-    private int delayHours;
-    private int delayMinutes;
+    private String delayHours;
+    private String delayMinutes;
     private Location startLocation;
     private String startName;
     private String endName;
@@ -121,7 +121,7 @@ public class Flight {
          * System.out.println(flight);
          */
 
-        List<Flight> flights = fetchFlightsFromToAt("Amsterdam (MUC)", "New York City (CDG)", "28/06/2022");
+        List<Flight> flights = fetchFlightsFromToAt("Berlin (BER)", "New York City (CDG)", "28/06/2022");
         System.out.println(flights);
         //System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
         //System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
@@ -160,19 +160,19 @@ public class Flight {
         this.airline = airline;
     }
 
-    public int getDelayHours() {
+    public String getDelayHours() {
         return delayHours;
     }
 
-    public void setDelayHours(int delayHours) {
+    public void setDelayHours(String delayHours) {
         this.delayHours = delayHours;
     }
 
-    public int getDelayMinutes() {
+    public String getDelayMinutes() {
         return delayMinutes;
     }
 
-    public void setDelayMinutes(int delayMinutes) {
+    public void setDelayMinutes(String delayMinutes) {
         this.delayMinutes = delayMinutes;
     }
 

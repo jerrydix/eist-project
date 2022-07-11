@@ -60,7 +60,7 @@ switch (flight["weather"]["weatherType"]) {
 					{{ flight.endTime.substring(11, 16) }}
 				</p>
 				<!--TODO fix delay-->
-				<p v-if="flight.delayTime">
+				<p class="delay" v-if="flight.delayTime">
 					{{
 						flight.delayTime.substring(11, 16) +
 						" - " +

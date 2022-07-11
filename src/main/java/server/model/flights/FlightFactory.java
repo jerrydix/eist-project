@@ -48,23 +48,35 @@ public class FlightFactory {
         int month = Integer.parseInt(date.substring(3, 5));
         int year = Integer.parseInt(date.substring(6));
 
-        int delayMinute = r.nextInt(30, 55);
-
         LocalDateTime startTime = LocalDateTime.of(year, FlightParser.parseToMonth(month), day, fromHour, fromMinute);
         LocalDateTime endTime = LocalDateTime.of(year, FlightParser.parseToMonth(month), day, toHour, toMinute);
         LocalDateTime delayedTime = null;
-
-        int delayHours = 0;
-        int delayMinutes = 0;
+        LocalDateTime delayedArrivalTime = null;
 
         boolean delayed = r.nextBoolean();
+        int dHours = 0;
+        int dMinutes = 0;
+        String delayHours = "";
+        String delayMinutes = "";
 
         if (delayed) {
-            delayedTime = LocalDateTime.of(year, FlightParser.parseToMonth(month), day, fromHour, delayMinute);
-            System.out.println(delayedTime);
+            dHours = r.nextInt(0,3);
+            dMinutes = r.nextInt(0,59);
+            delayedTime = startTime.plusHours(dHours);
+            delayedTime = delayedTime.plusMinutes(dMinutes);
+            delayedArrivalTime = endTime.plusHours(dHours);
+            delayedArrivalTime = delayedArrivalTime.plusMinutes(dMinutes);
             int minutes = (int) ChronoUnit.MINUTES.between(startTime, delayedTime);
-            delayHours = minutes / 60;
-            delayMinutes = minutes % 60;
+            dHours = minutes / 60;
+            delayHours = String.valueOf(dHours);
+            dMinutes = minutes % 60;
+            delayMinutes = String.valueOf(dMinutes);
+            if (dHours < 10) {
+                delayHours = "0" + delayHours;
+            }
+            if (dMinutes < 10) {
+                delayMinutes = "0" + delayMinutes;
+            }
             System.out.println(delayMinutes);
         }
 
@@ -97,9 +109,9 @@ public class FlightFactory {
         Flight flight = new Flight(flightID, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation, generateRandomAirplane());
         flight.setDelayed(delayed);
         flight.setDelayTime(delayedTime);
-        flight.setDelayHours(delayHours);
+        flight.setDelayedArrivalTime(delayedArrivalTime);
         flight.setDelayMinutes(delayMinutes);
-        flight.setDelayedArrivalTime(LocalDateTime.of(endTime.getYear(), endTime.getMonth(), endTime.getDayOfMonth(), endTime.getHour() + delayHours, /*endTime.getMinute() + */delayMinutes));
+        flight.setDelayHours(delayHours);
         flight.setCancelled(false);
         return flight;
     }

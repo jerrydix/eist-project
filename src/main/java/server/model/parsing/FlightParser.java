@@ -144,15 +144,22 @@ public class FlightParser {
 
                 int delayHours = minutes / 60;
                 int delayMinutes = minutes % 60;
-
+                String dHours = String.valueOf(delayHours);
+                String dMinutes = String.valueOf(delayMinutes);
+                if (delayHours < 10) {
+                    dHours = "0" + dHours;
+                }
+                if (delayMinutes < 10) {
+                    dMinutes = "0" + dMinutes;
+                }
                 //todo add airport info to flight?
 
                 Flight currentFlight = new Flight(number, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation, FlightFactory.generateRandomAirplane());
                 currentFlight.setDelayed(delayed);
                 currentFlight.setCancelled(cancelled);
                 currentFlight.setDelayTime(delayedTime);
-                currentFlight.setDelayMinutes(delayMinutes);
-                currentFlight.setDelayHours(delayHours);
+                currentFlight.setDelayMinutes(dMinutes);
+                currentFlight.setDelayHours(dHours);
                 flights.add(currentFlight);
             }
             return flights;
