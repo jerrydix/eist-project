@@ -1,40 +1,43 @@
 package server.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import server.model.flights.poi.PointOfInterest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import server.model.User;
+import server.model.flights.Location;
+import server.model.flights.poi.PointOfInterest;
+
+import java.util.List;
 
 @Service
 public class POIService {
 
-    private List<PointOfInterest> pois;
 
-    public POIService(){
-        this.pois = new ArrayList<PointOfInterest>();
-    }
+    @Autowired
+    private UserService userService;
 
-    private PointOfInterest getPointOfInterestWithID(int poiID){
-        for(PointOfInterest poi : pois){
-            if(poi.getID().equals(poiID)){ // todo fix
-                return poi;
-            }
+    public PointOfInterest saveFavourite(PointOfInterest pointOfInterest) {
+        User user = userService.getLoggedInUser();
+        if (user == null) {
+            return null;
         }
-        return null;
+
+        if (!Location.getLocationList().contains(pointOfInterest.getLocation())) {
+            return null;
+        }
+        PointOfInterest poi = Location.getPOIWithId(pointOfInterest.getID());
+        if (poi == null) {
+            return null;
+        }
+        user.addPOI(pointOfInterest);
+
+        return poi;
     }
 
-    public PointOfInterest savePointOfInterest(PointOfInterest poi) {
-        //TODO: //used in updating an existing and adding new surveys
-        return null;
+    public List<PointOfInterest> getFavourites() {
+        User user = userService.getLoggedInUser();
+        if (user == null) {
+            return null;
+        }
+        return user.getFavouritePOIs();
     }
-
-    public PointOfInterest getPointOfInterest(Integer poiID) {
-        return getPointOfInterestWithID(poiID);
-    }
-
-    public void removePointOfInterest(Integer poiID) {
-        this.pois.removeIf(poi -> poi.getID().equals(poiID)); // todo fix
-    }
-    
 }

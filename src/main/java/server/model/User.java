@@ -2,6 +2,7 @@ package server.model;
 
 import server.model.flights.Flight;
 import server.model.flights.FlightJourney;
+import server.model.flights.poi.PointOfInterest;
 import server.model.surveys.Reward;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public class User {
     private String password;
 
     private boolean authenticated = false;
+
+    private List<PointOfInterest> favouritePOIs = new ArrayList<>();
 
     private List<Reward> rewards = new ArrayList<>();
 
@@ -91,5 +94,13 @@ public class User {
 
     public void setLatestReward(Reward latestReward) {
         this.latestReward = latestReward;
+    }
+
+    public void addPOI(PointOfInterest poi) {
+        this.favouritePOIs.add(poi);
+    }
+
+    public List<PointOfInterest> getFavouritePOIs() {
+        return favouritePOIs;
     }
 }

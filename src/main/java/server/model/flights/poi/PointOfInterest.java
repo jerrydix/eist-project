@@ -19,7 +19,7 @@ public class PointOfInterest {
     private double latitude;
 
     public PointOfInterest(String id, String name, String address, String pointOfInterestType, Location location,
-            double rating, double longitude, double latitude) {
+                           double rating, double longitude, double latitude) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -34,15 +34,15 @@ public class PointOfInterest {
      * A wrapper method for fetching POIs for a specific location.
      *
      * @param longitude The longitude of the location whose POIs are fetched
-     * @param latitude The latitude of the location whose POIs are fetched
-     * @param location The location of which the POIs are fetched
+     * @param latitude  The latitude of the location whose POIs are fetched
+     * @param location  The location of which the POIs are fetched
      * @return A list of POIs of "location"
      */
 
     public static List<PointOfInterest> fetchPOIs(double longitude, double latitude, Location location) {
         return PointOfInterestParser.parsePOIJson(
                 HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-                        new String[] {"?location=" + longitude + "%2C" + latitude, "&radius=30000",
+                        new String[]{"?location=" + longitude + "%2C" + latitude, "&radius=30000",
                                 "&rankby=prominence", "&type=tourist_attraction",
                                 "&key=" + KeyReader.getAPIkey()}),
                 location);
@@ -68,12 +68,12 @@ public class PointOfInterest {
         this.pointOfInterestType = pointOfInterestType;
     }
 
-    public String getLocation() {
-        return this.address;
+    public Location getLocation() {
+        return this.location;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public void setId(String id) {
@@ -84,8 +84,8 @@ public class PointOfInterest {
         return address;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public double getRating() {
@@ -116,5 +116,17 @@ public class PointOfInterest {
     public String toString() {
         return "ID: " + id + "\nName: " + name + "\nAddress: " + address + "\nPOI Type: " + pointOfInterestType
                 + "\nLocation: " + location + "\nRating: " + rating;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof PointOfInterest)) {
+            return false;
+        }
+        PointOfInterest other = (PointOfInterest) obj;
+        if (!this.id.equals(other.id)) {
+            return false;
+        }
+        return true;
     }
 }
