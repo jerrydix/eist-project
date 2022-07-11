@@ -37,7 +37,12 @@ library.add(
 
 const pinia = createPinia();
 const app = createApp(App);
-new WaveUI(app, {});
+new WaveUI(app, {
+    notificationManager: {
+        align: 'left',
+        transition: 'default'
+      }
+});
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.use(router);
 app.use(pinia);
