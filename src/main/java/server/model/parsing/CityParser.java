@@ -24,7 +24,7 @@ public class CityParser {
             }
             JSONArray array = jsonObject.getJSONObject("response").getJSONArray("cities");
             for (int i = 0; i < array.length() && i < 3; i++) {
-                data[i] = array.getJSONObject(0).getString("name") + " (" + array.getJSONObject(0).getString("city_code") + ")";
+                data[i] = array.getJSONObject(i).getString("name") + " (" + array.getJSONObject(i).getString("city_code") + ")";
             }
             return data;
         } catch (JSONException e) {

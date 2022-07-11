@@ -65,6 +65,7 @@ public class FlightFactory {
             int minutes = (int) ChronoUnit.MINUTES.between(startTime, delayedTime);
             delayHours = minutes / 60;
             delayMinutes = minutes % 60;
+            System.out.println(delayMinutes);
         }
 
         String gate = String.valueOf(r.nextInt(1, 80));
@@ -98,7 +99,7 @@ public class FlightFactory {
         flight.setDelayTime(delayedTime);
         flight.setDelayHours(delayHours);
         flight.setDelayMinutes(delayMinutes);
-        flight.setDelayedArrivalTime(LocalDateTime.of(endTime.getYear(), endTime.getMonth(), endTime.getDayOfMonth(), endTime.getHour() + delayHours, endTime.getMinute() + delayMinutes));
+        flight.setDelayedArrivalTime(LocalDateTime.of(endTime.getYear(), endTime.getMonth(), endTime.getDayOfMonth(), endTime.getHour() + delayHours, /*endTime.getMinute() + */delayMinutes));
         flight.setCancelled(false);
         return flight;
     }
