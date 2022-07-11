@@ -30,7 +30,7 @@ const props = defineProps({
 
 <style scoped>
 .w-card {
-  background-color: navajowhite;
+  background-color: #ffedda;
   width: 100%;
   max-width: 40vw;
   min-width: 400px;
