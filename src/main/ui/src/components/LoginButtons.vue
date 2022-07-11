@@ -43,7 +43,7 @@ export default {
     </w-button>
   </div>
   <div v-if="!this.store.username" class="ml2">
-    <w-button class="px4" @click="showLoginDialog = true"> Login</w-button>
+    <w-button class="px4" @click="showLoginDialog = true"> Login </w-button>
   </div>
   <w-dialog v-model="showRegisterDialog" :width="550" title="Register">
     <Register/>
@@ -53,6 +53,6 @@ export default {
   </w-dialog>
 
   <div v-if="this.store.username" align-self-end class="xs1 pa1">
-    <w-button class="nav-button" @click="logoutUser"> Logout</w-button>
+    <w-button class="nav-button" @click="logoutUser"> Logout </w-button>
   </div>
 </template>
