@@ -1,42 +1,40 @@
 <template>
-  <h1>flights</h1>
+  <w-flex class="xs6">
+    <h1>flights</h1>
+    <w-textarea v-model="this.departureCity" placeholder="Departure City" @input="searchDep"></w-textarea>
+    <w-list
+        v-model="selectedDeparture"
+        :items="departureSuggestions"
+        :multiple=false
+        :no-unselect=true
+        class="mt6 mr4 grow"
+        color="deep-purple"
+        @item-click="depClicked = $event">
+    </w-list>
+    <w-button @click="saveDep">Enter Departure Selection</w-button>
+    <br/>
+    <w-textarea v-model="this.arrivalCity" placeholder="Arrival City" @input="searchArr"></w-textarea>
+    <w-list
+        v-model="selectedArrival"
+        :items="arrivalSuggestions"
+        :multiple=false
+        :no-unselect=true
+        class="mt6 mr4 grow"
+        color="deep-purple"
+        @item-click="arrClicked = $event">
+    </w-list>
+    <w-button @click="saveArr">Enter Destination Selection</w-button>
+    <w-button @click="getFlights">Show Flights</w-button>
+    <FlightInfo v-if="this.flights"
+                :flight="flights[0]"
+    />
+  </w-flex>
 
-  <w-textarea v-model="this.departureCity" placeholder="Departure City" @input="searchDep"></w-textarea>
+  <w-flex class="xs6">
 
-  <w-list
-      v-model="selectedDeparture"
-      :items="departureSuggestions"
-      :multiple=false
-      :no-unselect=true
-      class="mt6 mr4 grow"
-      color="deep-purple"
-      @item-click="depClicked = $event">
-  </w-list>
+    <!-- <FlightMap></FlightMap> -->
 
-  <w-button @click="saveDep">Enter Departure Selection</w-button>
-
-  <br/>
-
-  <w-textarea v-model="this.arrivalCity" placeholder="Arrival City" @input="searchArr"></w-textarea>
-
-  <w-list
-      v-model="selectedArrival"
-      :items="arrivalSuggestions"
-      :multiple=false
-      :no-unselect=true
-      class="mt6 mr4 grow"
-      color="deep-purple"
-      @item-click="arrClicked = $event">
-  </w-list>
-  <w-button @click="saveArr">Enter Destination Selection</w-button>
-
-
-  <w-button @click="getFlights">Show Flights</w-button>
-
-
-  <FlightInfo v-if="this.flights"
-              :flight="flights[0]"
-  />
+  </w-flex>
 
 </template>
 
@@ -45,7 +43,7 @@ import {getFlights, getSuggestions} from "../services/FlightService.js";
 import FlightInfo from "../components/FlightInfo.vue";
 
 export default {
-  components: {FlightInfo},
+  components: { FlightInfo, FlightMap },
   data() {
     return {
       departureSuggestions: null,

@@ -10,7 +10,6 @@ import Survey from "./Survey.vue";
 import { getLoggedInUser } from "../services/UserService.js";
 import { userStore } from "../userStore";
 import { getCurrentFlight } from "../services/FlightService";
-import FlightMap from "../components/FlightMap.vue";
 
 export default {
 	components: {
@@ -22,7 +21,6 @@ export default {
 		WelcomeMessage,
 		Register,
 		TopBar,
-		FlightMap,
 	},
 	data: () => ({
 		showLoginDialog: false,
