@@ -47,6 +47,6 @@ public class Reward {
     }
 
     public String toString() {
-        return amount + " " + rewardType.toString() + "(S). " + description + "!";
+        return amount + " " + rewardType.toString() + "(s). " + description + "!";
     }
 }

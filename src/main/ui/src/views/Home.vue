@@ -7,51 +7,52 @@ import WelcomeMessage from "../components/WelcomeMessage.vue";
 import Register from "./User/Register.vue";
 import TopBar from "../components/TopBar.vue";
 import Survey from "./Survey.vue";
-import { getLoggedInUser } from "../services/UserService.js";
-import { userStore } from "../userStore";
-import { getCurrentFlight } from "../services/FlightService";
+import {getLoggedInUser} from "../services/UserService.js";
+import {userStore} from "../userStore";
+import {getCurrentFlight} from "../services/FlightService";
 
 export default {
-	components: {
-		Survey,
-		HomeNav,
-		HomeLoginButton,
-		FlightInfo,
-		Login,
-		WelcomeMessage,
-		Register,
-		TopBar,
-	},
-	data: () => ({
-		showLoginDialog: false,
-		showRegisterDialog: false,
-		showSurveyDialog: false,
-		showSafetyVideo: false,
-		flight: null,
-	}),
-	setup() {
-		const store = userStore();
-		return {
-			store,
-		};
-	},
-	mounted() {
-		getLoggedInUser().then((response) => {
-			if (response === "null") {
-				this.store.username = null;
-				window.localStorage.removeItem("user");
-			} else {
-				this.store.username = response;
-				window.localStorage.setItem("user", response);
-			}
-		});
-		if (this.store.username != null) {
-			getCurrentFlight().then((response) => {
-				this.flight = response;
-				console.log(response);
-			});
-		}
-	},
+  components: {
+    Survey,
+    HomeNav,
+    HomeLoginButton,
+    FlightInfo,
+    Login,
+    WelcomeMessage,
+    Register,
+    TopBar,
+  },
+  data: () => ({
+    takenSurvey: false,
+    showLoginDialog: false,
+    showRegisterDialog: false,
+    showSurveyDialog: false,
+    showSafetyVideo: false,
+    flight: null,
+  }),
+  setup() {
+    const store = userStore();
+    return {
+      store,
+    };
+  },
+  mounted() {
+    getLoggedInUser().then((response) => {
+      if (response === "null") {
+        this.store.username = null;
+        window.localStorage.removeItem("user");
+      } else {
+        this.store.username = response;
+        window.localStorage.setItem("user", response);
+      }
+    });
+    if (this.store.username != null) {
+      getCurrentFlight().then((response) => {
+        this.flight = response;
+        console.log(response);
+      });
+    }
+  },
 };
 </script>
 
@@ -89,7 +90,7 @@ export default {
             :width="550"
             title="Survey"
         >
-          <Survey :flight-number="this.flight.number"/>
+          <Survey :flight-number="this.flight.number" @haveSubmitted="this.takenSurvey = true"/>
         </w-dialog>
 
         <w-dialog v-model="showSafetyVideo" :width="980">
@@ -123,7 +124,7 @@ export default {
 
             <div class="justify-self-end" style="margin-top: auto;">
               <w-button
-                  v-if="this.store.username"
+                  v-if="this.store.username && !this.takenSurvey"
                   class="bottom-button"
                   @click="showSurveyDialog = true"
               >

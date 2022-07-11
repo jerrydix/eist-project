@@ -6,6 +6,7 @@ export default {
   props: {
     flightNumber: String
   },
+  emits: ["haveSubmitted"],
   components: {
     SurveyBody,
   },
@@ -19,7 +20,7 @@ export default {
     submit(survey) {
       submitSurvey(survey).then((response) => {
         this.ans = response
-        if (!this.ans === "Something went wrong") {
+        if (!(this.ans === "Something went wrong")) {
           this.$emit("haveSubmitted");
         }
       });
