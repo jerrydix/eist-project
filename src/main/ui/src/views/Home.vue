@@ -29,6 +29,7 @@ export default {
     showSurveyDialog: false,
     showSafetyVideo: false,
     flight: null,
+    weatherImage: null
   }),
   setup() {
     const store = userStore();
@@ -49,6 +50,40 @@ export default {
     if (this.store.username != null) {
       getCurrentFlight().then((response) => {
         this.flight = response;
+        switch (this.flight["endLocation"]["weather"]["weatherType"]) {
+          case "Clouds": this.weatherImage = "fa-solid fa-cloud";
+            break;
+          case "Rain": this.weatherImage = "fa-solid fa-cloud-showers-heavy";
+            break;
+          case "Thunderstorm": this.weatherImage = "fa-solid fa-cloud-bolt";
+            break;
+          case "Drizzle": this.weatherImage = "fa-solid fa-cloud-rain";
+            break;
+          case "Snow": this.weatherImage = "fa-solid fa-snowflake";
+            break;
+          case "Mist": this.weatherImage = "fa-solid fa-smog";
+            break;
+          case "Smoke": this.weatherImage = "fa-solid fa-smog";
+            break;
+          case "Haze": this.weatherImage = "fa-solid fa-smog";
+            break;
+          case "Dust": this.weatherImage = "fa-solid fa-smog";
+            break;
+          case "Fog": this.weatherImage = "fa-solid fa-smog";
+            break;
+          case "Sand": this.weatherImage = "fa-solid fa-wind";
+            break;
+          case "Ash": this.weatherImage = "fa-solid fa-smog";
+            break;
+          case "Squall": this.weatherImage = "fa-solid fa-wind";
+            break;
+          case "Tornado": this.weatherImage = "fa-solid fa-tornado";
+            break;
+          case "Clear": this.weatherImage = "fa-solid fa-sun";
+            break;
+          default: this.weatherImage = "fa-solid fa-cloud";
+            break;
+        }
         console.log(response);
       });
     }
@@ -70,6 +105,7 @@ export default {
           <FlightInfo
               v-if="this.store.username"
               :flight="this.flight"
+              :weather-image="this.weatherImage"
           />
 
           <!-- <FlightMap v-if="this.store.username" :flight="this.flight" /> -->
