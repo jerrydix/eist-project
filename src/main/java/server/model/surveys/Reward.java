@@ -19,19 +19,31 @@ public class Reward {
         };
 
         this.description = switch (rewardType) {
-            case MILE -> "Applicable in the Lufthansa online shop";
+            case MILE -> "Applicable in the Lufthansa online shop.";
             case SOUVENIR -> switch (generateRandom(0, 3)) {
-                case 0 -> "Flag of your destination country";
-                case 1 -> "Free neck pillow";
-                default -> "Lufthansa shirt";
+                case 0 -> "Flag of your destination country!";
+                case 1 -> "Free neck pillow!";
+                default -> "Lufthansa shirt!";
             };
             case COUPON -> switch (generateRandom(0, 3)) {
-                case 0 -> "Free drink at BurgerKing";
-                case 1 -> "Free coffee at Starbucks";
-                default -> "Free ice-cream at Starbucks";
+                case 0 -> "Free drink at BurgerKing!";
+                case 1 -> "Free coffee at Starbucks!";
+                default -> "Free ice-cream at Starbucks!";
             };
-            default -> "Ticket for the Lufthansa customer lottery";
+            default -> "Ticket for the Lufthansa customer lottery!";
         };
+    }
+
+    public RewardType getRewardType() {
+        return rewardType;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -47,6 +59,6 @@ public class Reward {
     }
 
     public String toString() {
-        return amount + " " + rewardType.toString() + "(s). " + description + "!";
+        return amount + " " + rewardType.toString() + "(s)! " + description;
     }
 }
