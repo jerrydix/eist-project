@@ -53,8 +53,12 @@ components of the software, while also providing boundary conditions and models 
 * Fault tolerance, especially in search bars for city names
 
 ## 3. Subsytem Decomposition
-<!--to be completed!-->
-https://apollon.ase.in.tum.de/M5o9geaNfO8kn9aDYoBm?view=EDIT
+simple:
+https://apollon.ase.in.tum.de/jTKGpY0gJIPCLfxDl6aB?view=EDIT
+
+detailed:
+<!--WIP-->
+https://apollon.ase.in.tum.de/rflO0G57ddtoxpLvSGpv?view=EDIT
 
 ## 4. Hardware / Software mapping
 TODO complete after subsystem decomposition is done
