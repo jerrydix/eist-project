@@ -7,7 +7,7 @@ const props = defineProps({
 	flight: Object,
 	//weatherImage: String
 });
-/*console.log(flight);
+console.log(flight);
 switch (flight["weather"]["weatherType"]) {
   case "Clouds": weatherImage = "fa-clouds";
   break;
@@ -41,7 +41,7 @@ switch (flight["weather"]["weatherType"]) {
   break;
   default: weatherImage = "fa-cloud";
   break;
-}*/
+}
 
 </script>
 
