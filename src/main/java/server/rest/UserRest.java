@@ -57,4 +57,10 @@ public class UserRest {
         }
         return ResponseEntity.ok(user);
     }
+
+    @GetMapping("api/completedSurvey")
+    public ResponseEntity<Boolean> completedSurvey() {
+        boolean ans = userService.completedSurvey();
+        return ResponseEntity.ok(ans);
+    }
 }

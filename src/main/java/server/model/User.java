@@ -19,7 +19,9 @@ public class User {
 
     private List<Reward> rewards = new ArrayList<>();
 
-    private Reward latestReward;
+    private Reward latestReward = null;
+
+    private boolean completedSurvey = false;
     private List<FlightJourney> bookedFlightJourneys = new ArrayList<>();
 
     private Flight currentFlight;
@@ -52,6 +54,7 @@ public class User {
      */
     public void reward() {
         Reward reward = new Reward();
+        this.completedSurvey = true;
         this.latestReward = reward;
         rewards.add(reward);
     }
@@ -102,5 +105,9 @@ public class User {
 
     public List<PointOfInterest> getFavouritePOIs() {
         return favouritePOIs;
+    }
+
+    public boolean hasCompletedSurvey() {
+        return completedSurvey;
     }
 }

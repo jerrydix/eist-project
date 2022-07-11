@@ -42,6 +42,18 @@ export async function logout() {
     return await response.text();
 }
 
+
+export async function hasCompletedSurvey() {
+    const response = await fetch(
+        `api/completedSurvey`,
+        {
+            method: "GET",
+            headers: {"Content-Type": "application/json"},
+        }
+    );
+    return await response.json();
+}
+
 export async function getLoggedInUser() {
     const response = await fetch(`api/loggedInUser`, {
         method: "GET",

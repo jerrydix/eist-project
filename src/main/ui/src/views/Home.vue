@@ -7,7 +7,7 @@ import WelcomeMessage from "../components/WelcomeMessage.vue";
 import Register from "./User/Register.vue";
 import TopBar from "../components/TopBar.vue";
 import Survey from "./Survey.vue";
-import {getLoggedInUser} from "../services/UserService.js";
+import {getLoggedInUser, hasCompletedSurvey} from "../services/UserService.js";
 import {userStore} from "../userStore";
 import {getCurrentFlight} from "../services/FlightService";
 
@@ -23,7 +23,6 @@ export default {
     TopBar,
   },
   data: () => ({
-    takenSurvey: false,
     showLoginDialog: false,
     showRegisterDialog: false,
     showSurveyDialog: false,
@@ -47,41 +46,60 @@ export default {
         window.localStorage.setItem("user", response);
       }
     });
+    hasCompletedSurvey().then((response) => {
+      this.store.completedSurvey = response
+    });
     if (this.store.username != null) {
       getCurrentFlight().then((response) => {
         this.flight = response;
         switch (this.flight["endLocation"]["weather"]["weatherType"]) {
-          case "Clouds": this.weatherImage = "fa-solid fa-cloud";
+          case "Clouds":
+            this.weatherImage = "fa-solid fa-cloud";
             break;
-          case "Rain": this.weatherImage = "fa-solid fa-cloud-showers-heavy";
+          case "Rain":
+            this.weatherImage = "fa-solid fa-cloud-showers-heavy";
             break;
-          case "Thunderstorm": this.weatherImage = "fa-solid fa-cloud-bolt";
+          case "Thunderstorm":
+            this.weatherImage = "fa-solid fa-cloud-bolt";
             break;
-          case "Drizzle": this.weatherImage = "fa-solid fa-cloud-rain";
+          case "Drizzle":
+            this.weatherImage = "fa-solid fa-cloud-rain";
             break;
-          case "Snow": this.weatherImage = "fa-solid fa-snowflake";
+          case "Snow":
+            this.weatherImage = "fa-solid fa-snowflake";
             break;
-          case "Mist": this.weatherImage = "fa-solid fa-smog";
+          case "Mist":
+            this.weatherImage = "fa-solid fa-smog";
             break;
-          case "Smoke": this.weatherImage = "fa-solid fa-smog";
+          case "Smoke":
+            this.weatherImage = "fa-solid fa-smog";
             break;
-          case "Haze": this.weatherImage = "fa-solid fa-smog";
+          case "Haze":
+            this.weatherImage = "fa-solid fa-smog";
             break;
-          case "Dust": this.weatherImage = "fa-solid fa-smog";
+          case "Dust":
+            this.weatherImage = "fa-solid fa-smog";
             break;
-          case "Fog": this.weatherImage = "fa-solid fa-smog";
+          case "Fog":
+            this.weatherImage = "fa-solid fa-smog";
             break;
-          case "Sand": this.weatherImage = "fa-solid fa-wind";
+          case "Sand":
+            this.weatherImage = "fa-solid fa-wind";
             break;
-          case "Ash": this.weatherImage = "fa-solid fa-smog";
+          case "Ash":
+            this.weatherImage = "fa-solid fa-smog";
             break;
-          case "Squall": this.weatherImage = "fa-solid fa-wind";
+          case "Squall":
+            this.weatherImage = "fa-solid fa-wind";
             break;
-          case "Tornado": this.weatherImage = "fa-solid fa-tornado";
+          case "Tornado":
+            this.weatherImage = "fa-solid fa-tornado";
             break;
-          case "Clear": this.weatherImage = "fa-solid fa-sun";
+          case "Clear":
+            this.weatherImage = "fa-solid fa-sun";
             break;
-          default: this.weatherImage = "fa-solid fa-cloud";
+          default:
+            this.weatherImage = "fa-solid fa-cloud";
             break;
         }
         console.log(response);
@@ -126,7 +144,7 @@ export default {
             :width="550"
             title="Survey"
         >
-          <Survey :flight-number="this.flight.number" @haveSubmitted="this.takenSurvey = true"/>
+          <Survey :flight-number="this.flight.number"/>
         </w-dialog>
 
         <w-dialog v-model="showSafetyVideo" :width="980">
@@ -160,7 +178,7 @@ export default {
 
             <div class="justify-self-end" style="margin-top: auto;">
               <w-button
-                  v-if="this.store.username && !this.takenSurvey"
+                  v-if="this.store.username && !this.store.completedSurvey"
                   class="bottom-button"
                   @click="showSurveyDialog = true"
               >

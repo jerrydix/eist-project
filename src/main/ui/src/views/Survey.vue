@@ -1,12 +1,18 @@
 <script>
 import SurveyBody from "../components/SurveyBody.vue";
 import {submitSurvey} from "../services/SurveyService.js";
+import {userStore} from "../userStore";
 
 export default {
   props: {
     flightNumber: String
   },
-  emits: ["haveSubmitted"],
+  setup() {
+    const store = userStore();
+    return {
+      store,
+    };
+  },
   components: {
     SurveyBody,
   },
@@ -21,7 +27,7 @@ export default {
       submitSurvey(survey).then((response) => {
         this.ans = response
         if (!(this.ans === "Something went wrong")) {
-          this.$emit("haveSubmitted");
+          this.store.completedSurvey = true
         }
       });
     },

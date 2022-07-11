@@ -91,6 +91,14 @@ public class UserService {
         return null;
     }
 
+    public boolean completedSurvey() {
+        User user = getLoggedInUser();
+        if (user == null) {
+            return false;
+        }
+        return user.hasCompletedSurvey();
+    }
+
     public List<User> getSystemUsers() {
         return systemUsers;
     }
