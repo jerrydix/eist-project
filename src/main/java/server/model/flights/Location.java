@@ -31,7 +31,7 @@ public class Location {
         this.airports = new ArrayList<>();
         locationID = currentID;
         currentID++;
-        this.poiList = PointOfInterest.fetchPOIs(longitude, latitude, this);
+        this.poiList = PointOfInterest.fetchPOIs(longitude, latitude);
         if (poiList != null) {
             for (PointOfInterest pointOfInterest : poiList) {
                 pointOfInterest.setLocation(this);

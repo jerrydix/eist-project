@@ -1,6 +1,5 @@
 package server.model.parsing;
 
-import server.model.flights.Location;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,10 +14,9 @@ public class PointOfInterestParser {
      * parsePOIJson parses the api response of the Google Maps PLaces API and returns a list of POI objects (top 50 POIs)
      *
      * @param jsonText The get request api response of the Google Maps Places API, formatted in json
-     * @param location The location whose points of interest are parsed
      * @return A list of the top 50 POIs sorted by relevance at the given location
      */
-    public static List<PointOfInterest> parsePOIJson(String jsonText, Location location) {
+    public static List<PointOfInterest> parsePOIJson(String jsonText) {
         try {
             JSONObject jsonObject = new JSONObject(jsonText.toString());
             JSONArray resultsArray = jsonObject.getJSONArray("results");
@@ -29,17 +27,17 @@ public class PointOfInterestParser {
                 String name = resultsArray.getJSONObject(i).getString("name");
                 String address = resultsArray.getJSONObject(i).getString("vicinity");
                 String type = resultsArray.getJSONObject(i).getJSONArray("types").getString(0);
-                if(type.equals("lodging")){
+                if (type.equals("lodging")) {
                     continue;
                 }
                 double rating = -1;
-                if(!resultsArray.getJSONObject(i).isNull("rating")){
-                    rating = resultsArray.getJSONObject(i).getDouble("rating") ;
+                if (!resultsArray.getJSONObject(i).isNull("rating")) {
+                    rating = resultsArray.getJSONObject(i).getDouble("rating");
                 }
                 double latitude = resultsArray.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat");
                 double longitude = resultsArray.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng");
 
-                poiList.add(new PointOfInterest(id, name, address, type, location, rating, longitude, latitude));
+                poiList.add(new PointOfInterest(id, name, address, type, rating, longitude, latitude));
             }
             return poiList;
         } catch (JSONException exception) {
@@ -58,10 +56,8 @@ public class PointOfInterestParser {
     }
 
     public static void main(String[] args) {
-        System.out.println((PointOfInterest.fetchPOIs(-15.960259,-5.691079, null)));
+        System.out.println((PointOfInterest.fetchPOIs(-15.960259, -5.691079)));
     }
-
-
 
 
 }

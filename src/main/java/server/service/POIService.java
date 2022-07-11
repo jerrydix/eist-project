@@ -20,10 +20,6 @@ public class POIService {
         if (user == null) {
             return null;
         }
-
-        if (!Location.getLocationList().contains(pointOfInterest.getLocation())) {
-            return null;
-        }
         PointOfInterest poi = Location.getPOIWithId(pointOfInterest.getID());
         if (poi == null) {
             return null;

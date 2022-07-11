@@ -18,13 +18,13 @@ public class PointOfInterest {
     private double longitude;
     private double latitude;
 
-    public PointOfInterest(String id, String name, String address, String pointOfInterestType, Location location,
+    public PointOfInterest(String id, String name, String address, String pointOfInterestType,
                            double rating, double longitude, double latitude) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.pointOfInterestType = pointOfInterestType;
-        this.location = location;
+
         this.rating = rating;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -35,17 +35,15 @@ public class PointOfInterest {
      *
      * @param longitude The longitude of the location whose POIs are fetched
      * @param latitude  The latitude of the location whose POIs are fetched
-     * @param location  The location of which the POIs are fetched
      * @return A list of POIs of "location"
      */
 
-    public static List<PointOfInterest> fetchPOIs(double longitude, double latitude, Location location) {
+    public static List<PointOfInterest> fetchPOIs(double longitude, double latitude) {
         return PointOfInterestParser.parsePOIJson(
                 HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
                         new String[]{"?location=" + longitude + "%2C" + latitude, "&radius=30000",
                                 "&rankby=prominence", "&type=tourist_attraction",
-                                "&key=" + KeyReader.getAPIkey()}),
-                location);
+                                "&key=" + KeyReader.getAPIkey()}));
     }
 
     public String getName() {
