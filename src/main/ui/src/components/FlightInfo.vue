@@ -1,47 +1,10 @@
 <script setup>
 
-let weather
-
 //var weatherImage;
 const props = defineProps({
 	flight: Object,
-	//weatherImage: String
+	weatherImage: String
 });
-console.log(flight);
-switch (flight["weather"]["weatherType"]) {
-  case "Clouds": weatherImage = "fa-clouds";
-  break;
-  case "Rain": weatherImage = "fa-cloud-showers";
-  break;
-  case "Thunderstorm": weatherImage = "fa-cloud-bolt";
-  break;
-  case "Drizzle": weatherImage = "fa-cloud-drizzle";
-  break;
-  case "Snow": weatherImage = "fa-cloud-snow";
-  break;
-  case "Mist": weatherImage = "fa-cloud-fog";
-  break;
-  case "Smoke": weatherImage = "fa-smoke";
-  break;
-  case "Haze": weatherImage = "fa-smog";
-  break;
-  case "Dust": weatherImage = "fa-sun-dust";
-  break;
-  case "Fog": weatherImage = "fa-cloud-fog";
-  break;
-  case "Sand": weatherImage = "fa-sun-dust";
-  break;
-  case "Ash": weatherImage = "fa-cloud-meatball";
-  break;
-  case "Squall": weatherImage = "fa-wind";
-  break;
-  case "Tornado": weatherImage = "fa-tornado";
-  break;
-  case "Clear": weatherImage = "fa-sun";
-  break;
-  default: weatherImage = "fa-cloud";
-  break;
-}
 
 </script>
 
@@ -49,7 +12,8 @@ switch (flight["weather"]["weatherType"]) {
 	<w-card class="flight-info-card">
 		<w-flex>
 			<div class="xs8 data-wrapper">
-				<p class="from-to-location">
+        <p class="airline">{{ flight.airline }}</p>
+        <p class="from-to-location">
 					<!-- {{ flight.from }} -->
 					{{ flight.startLocation.name }}
 					<font-awesome-icon icon="fa-solid fa-right-long" />
@@ -72,8 +36,8 @@ switch (flight["weather"]["weatherType"]) {
 						")"
 					}}
 				</p>
+        <p class="id">Flight No: {{ flight.number }}</p>
 				<p class="seat">Seat: {{ flight.seat }}</p>
-				<p class="id">Flight No: {{ flight.number }}</p>
 				<p class="terminal">Terminal: {{ flight.terminal }}</p>
 				<p class="gate">Gate: {{ flight.gate }}</p>
 				<p class="plane">Plane: {{ flight.airplane }}</p>
@@ -82,7 +46,7 @@ switch (flight["weather"]["weatherType"]) {
 				<p class="temperature">
 					{{ flight["endLocation"]["weather"]["degrees"] + "°C" }}
 				</p>
-				<font-awesome-icon icon="fa-solid fa-cloud" />
+				<font-awesome-icon :icon="weatherImage" />
 				<!--{{ weatherImage }}-->
 				<p class="weather-text">
 					{{ flight["endLocation"]["weather"]["weatherType"] }}
@@ -108,7 +72,7 @@ switch (flight["weather"]["weatherType"]) {
 }
 
 .flight-info-card {
-	height: 300px;
+	height: 320px;
 	width: 100%;
 	margin-top: 50px;
 	min-width: 550px;

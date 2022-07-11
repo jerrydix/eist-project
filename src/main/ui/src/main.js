@@ -15,7 +15,8 @@ import {
 	faCloudSun,
 	faWind,
 	faTornado,
-	faSun
+	faSun,
+	faRightLong
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import "./assets/css/base.css";
@@ -34,7 +35,8 @@ library.add(
 	faCloudSun,
 	faWind,
 	faTornado,
-	faSun
+	faSun,
+	faRightLong
 );
 
 const pinia = createPinia();
