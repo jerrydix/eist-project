@@ -17,30 +17,17 @@ public class LocationService {
 
     private Location getLocationWithID(int locationID) {
         for (Location location : locations) {
-            if (location.getID() == locationID) {
+            if (location.getLocationID() == locationID) {
                 return location;
             }
         }
         return null;
     }
 
-    public Location getLocationByName(String name) {
-        for (Location location : locations) {
-            if (location.getName().equals(name)) {
-                return location;
-            }
-        }
-
-        //TODO: if location not in list of already created locations, use outgoing API to fetch new location
-        return null;
-    }
 
     public Location getLocation(Integer locationID) {
         return getLocationWithID(locationID);
     }
 
-    public void removeLocation(Integer locationID) {
-        this.locations.removeIf(location -> location.getID() == locationID);
-    }
 
 }
