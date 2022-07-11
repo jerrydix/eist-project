@@ -20,11 +20,11 @@ public class SurveyRest {
     }
 
     @PostMapping("api/surveys")
-    public ResponseEntity<Survey> createSurvey(@RequestBody Survey survey) {
+    public ResponseEntity<String> createSurvey(@RequestBody Survey survey) {
         Survey newSurvey = surveyService.saveSurvey(survey);
         if (newSurvey == null) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Something went wrong");
         }
-        return ResponseEntity.ok(newSurvey);
+        return ResponseEntity.ok("Congrats, your reward is: " + survey.getReward().toString());
     }
 }

@@ -1,7 +1,6 @@
 <script>
 import SurveyBody from "../components/SurveyBody.vue";
 import {submitSurvey} from "../services/SurveyService.js";
-import {getLatestReward} from "../services/UserService.js";
 
 export default {
   props: {
@@ -13,16 +12,16 @@ export default {
   data() {
     return {
       ans: null,
+      reward: null
     };
   },
   methods: {
     submit(survey) {
-      function getReward() {
-        return getLatestReward()
-      }
-
-      submitSurvey(survey).then(() => {
-        this.ans = "Thanks for your submission! Your reward is " + getReward();
+      submitSurvey(survey).then((response) => {
+        this.ans = response
+        if (!this.ans === "Something went wrong") {
+          this.$emit("haveSubmitted");
+        }
       });
     },
   },

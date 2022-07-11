@@ -37,6 +37,7 @@ public class SurveyService {
         surveys.add(survey);
         survey.setUser(current);
         current.reward();
+        survey.setReward(current.getLatestReward());
         return survey;
     }
 

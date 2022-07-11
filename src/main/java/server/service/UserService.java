@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import server.model.User;
 import server.model.flights.FlightFactory;
 import server.model.flights.FlightJourney;
-import server.model.surveys.Reward;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,14 +86,6 @@ public class UserService {
             }
         }
         return null;
-    }
-
-    public Reward getLatestReward() {
-        User user = getLoggedInUser();
-        if (user == null) {
-            return null;
-        }
-        return user.getLatestReward();
     }
 
     public List<User> getSystemUsers() {

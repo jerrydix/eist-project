@@ -50,13 +50,6 @@ export async function getLoggedInUser() {
     return await response.text();
 }
 
-export async function getLatestReward() {
-    const response = await fetch(`api/reward`, {
-        method: "GET",
-        headers: {"Content-Type": "application/json"},
-    });
-    return await response.json();
-}
 
 export async function getUserData() {
     const response = await fetch(`api/users`, {

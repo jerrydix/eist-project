@@ -13,14 +13,14 @@ public class Reward {
         this.rewardType = REWARD_TYPES[generateRandom(0, REWARD_TYPES.length)];
 
         this.amount = switch (rewardType) {
-            case MILES -> generateRandom(10000, 60000);
-            case SOUVENIRS, COUPON -> 1;
+            case MILE -> generateRandom(10000, 60000);
+            case SOUVENIR, COUPON -> 1;
             default -> generateRandom(1, 5);
         };
 
         this.description = switch (rewardType) {
-            case MILES -> "Applicable in the Lufthansa online shop";
-            case SOUVENIRS -> switch (generateRandom(0, 3)) {
+            case MILE -> "Applicable in the Lufthansa online shop";
+            case SOUVENIR -> switch (generateRandom(0, 3)) {
                 case 0 -> "Flag of your destination country";
                 case 1 -> "Free neck pillow";
                 default -> "Lufthansa shirt";
@@ -44,5 +44,9 @@ public class Reward {
     private int generateRandom(int min, int max) {
         Random rand = new Random();
         return rand.nextInt(max - min) + min;
+    }
+
+    public String toString() {
+        return amount + " " + rewardType.toString() + "(S). " + description + "!";
     }
 }

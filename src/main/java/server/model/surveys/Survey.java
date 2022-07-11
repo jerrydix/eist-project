@@ -18,9 +18,11 @@ public class Survey {
 
     private String comment;
 
+    private Reward reward;
 
     public Survey(String flightNumber, int flightRating, int cateringRating, int entertainmentRating, int comfortRating,
-                  int serviceRating, String comment) {
+                  int serviceRating, String comment, Reward reward) {
+        this.reward = reward;
         this.surveyID = currentID++;
         this.flightNumber = flightNumber;
         this.cateringRating = cateringRating;
@@ -69,5 +71,13 @@ public class Survey {
 
     public int getServiceRating() {
         return serviceRating;
+    }
+
+    public Reward getReward() {
+        return reward;
+    }
+
+    public void setReward(Reward reward) {
+        this.reward = reward;
     }
 }
