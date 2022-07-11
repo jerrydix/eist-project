@@ -1,6 +1,5 @@
 package server.model.flights.poi;
 
-import server.model.flights.Location;
 import server.model.networking.HTTP_GetRequest;
 import server.model.parsing.PointOfInterestParser;
 import server.utility.KeyReader;
@@ -13,7 +12,6 @@ public class PointOfInterest {
     private String name;
     private String address;
     private String pointOfInterestType;
-    private Location location;
     private double rating;
     private double longitude;
     private double latitude;
@@ -66,13 +64,6 @@ public class PointOfInterest {
         this.pointOfInterestType = pointOfInterestType;
     }
 
-    public Location getLocation() {
-        return this.location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
 
     public void setId(String id) {
         this.id = id;
@@ -113,7 +104,7 @@ public class PointOfInterest {
     @Override
     public String toString() {
         return "ID: " + id + "\nName: " + name + "\nAddress: " + address + "\nPOI Type: " + pointOfInterestType
-                + "\nLocation: " + location + "\nRating: " + rating;
+                + "\nRating: " + rating;
     }
 
     @Override

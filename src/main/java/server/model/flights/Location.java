@@ -32,11 +32,6 @@ public class Location {
         locationID = currentID;
         currentID++;
         this.poiList = PointOfInterest.fetchPOIs(longitude, latitude);
-        if (poiList != null) {
-            for (PointOfInterest pointOfInterest : poiList) {
-                pointOfInterest.setLocation(this);
-            }
-        }
         locationList.add(this);
     }
 
