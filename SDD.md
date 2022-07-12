@@ -7,7 +7,7 @@
     * Definitions, acronyms and abbreviations
     * References
 2. Design Goals
-3. Subsytem Decomposition
+3. Subsystem Decomposition
 4. Hardware / Software mapping
 5. Data management
 6. Access control and security
@@ -52,17 +52,12 @@ components of the software, while also providing boundary conditions and models 
 * No cost (usage of free webservices and APIs)
 * Fault tolerance, especially in search bars for city names
 
-## 3. Subsytem Decomposition
-simple:
-https://apollon.ase.in.tum.de/u6UUT1vlnk0yutv3KRFG?view=EDIT
+## 3. Subsystem Decomposition
 
-detailed:
-<!--WIP-->
-https://apollon.ase.in.tum.de/rflO0G57ddtoxpLvSGpv?view=EDIT
+![Subsystem Decomposition](SubsystemDecomposition.PNG)
 
 ## 4. Hardware / Software mapping
-TODO complete after subsystem decomposition is done
-https://apollon.ase.in.tum.de/dBSm5MNXRDFoXYdLaDdO?view=EDIT
+![Hardware / Software mapping](HardwareSoftwareMapping.PNG)
 
 ## 5. Data management
 
