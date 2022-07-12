@@ -29,8 +29,8 @@ components of the software, while also providing boundary conditions and models 
 ### References:
 
 * Requirements Analysis Document (RAD) <!-- link later here -->
-* Readme
-* Source code
+* [Readme](README.md)
+* [Source code](src/main/)
 
 ## 2. Design Goals
 
@@ -54,7 +54,7 @@ components of the software, while also providing boundary conditions and models 
 
 ## 3. Subsytem Decomposition
 simple:
-https://apollon.ase.in.tum.de/jTKGpY0gJIPCLfxDl6aB?view=EDIT
+https://apollon.ase.in.tum.de/u6UUT1vlnk0yutv3KRFG?view=EDIT
 
 detailed:
 <!--WIP-->
