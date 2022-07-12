@@ -1,4 +1,4 @@
-package server.model.surveys;
+package server.model.flights.surveys;
 
 public enum RewardType {
     MILE, SOUVENIR, COUPON, PRICE_DRAWING;

@@ -1,7 +1,7 @@
 package server.model.flights.poi;
 
-import server.model.networking.HTTP_GetRequest;
-import server.model.parsing.PointOfInterestParser;
+import server.networking.HTTP_GetRequest;
+import server.parsing.PointOfInterestParser;
 import server.utility.KeyReader;
 
 import java.util.List;

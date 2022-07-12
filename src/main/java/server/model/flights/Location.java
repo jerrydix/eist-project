@@ -2,10 +2,10 @@ package server.model.flights;
 
 import server.model.flights.poi.PointOfInterest;
 import server.model.flights.weather.Weather;
-import server.model.networking.HTTP_GetRequest;
-import server.model.parsing.AirportParser;
-import server.model.parsing.CityParser;
-import server.model.parsing.PointOfInterestParser;
+import server.networking.HTTP_GetRequest;
+import server.parsing.AirportParser;
+import server.parsing.CityParser;
+import server.parsing.PointOfInterestParser;
 
 import java.util.ArrayList;
 import java.util.List;

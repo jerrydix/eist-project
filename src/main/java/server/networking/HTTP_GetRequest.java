@@ -1,4 +1,4 @@
-package server.model.networking;
+package server.networking;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,8 @@ public class HTTP_GetRequest {
      * gets appended as is to the host. Note that no trailing slash gets added to the host
      * before appending the parameters!
      * Return the server's response as a {@link String}.
-     * @param baseUrl The host subcomponent of the complete URL (i.e. http://omdb.com)
+     *
+     * @param baseUrl    The host subcomponent of the complete URL (i.e. http://omdb.com)
      * @param parameters A path, quuery and/or fragment component following the host
      * @return The server's response as a {@link String}
      */

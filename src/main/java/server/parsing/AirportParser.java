@@ -1,6 +1,5 @@
-package server.model.parsing;
+package server.parsing;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

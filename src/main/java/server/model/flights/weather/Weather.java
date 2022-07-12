@@ -1,7 +1,7 @@
 package server.model.flights.weather;
 
-import server.model.networking.HTTP_GetRequest;
-import server.model.parsing.WeatherParser;
+import server.networking.HTTP_GetRequest;
+import server.parsing.WeatherParser;
 
 public class Weather {
 
@@ -16,7 +16,7 @@ public class Weather {
     /**
      * A wrapper method to retrieve the current weather data at specific coordinates (Locations).
      *
-     * @param latitude The latitude of the Location of which the weather is fetched
+     * @param latitude  The latitude of the Location of which the weather is fetched
      * @param longitude The longitude of the Location of which the weather is fetched
      * @return A weather object containing data about the current weather at the specified coordinates
      */

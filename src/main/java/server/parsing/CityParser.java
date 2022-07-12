@@ -1,10 +1,8 @@
-package server.model.parsing;
+package server.parsing;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.List;
 
 public class CityParser {
 

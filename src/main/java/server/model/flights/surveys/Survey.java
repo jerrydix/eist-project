@@ -1,4 +1,4 @@
-package server.model.surveys;
+package server.model.flights.surveys;
 
 import server.model.User;
 

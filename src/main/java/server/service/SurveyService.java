@@ -3,7 +3,7 @@ package server.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.model.User;
-import server.model.surveys.Survey;
+import server.model.flights.surveys.Survey;
 
 import java.util.ArrayList;
 import java.util.List;

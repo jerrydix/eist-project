@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import server.model.surveys.Survey;
+import server.model.flights.surveys.Survey;
 import server.service.SurveyService;
 
 @RestController

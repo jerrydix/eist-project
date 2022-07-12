@@ -3,7 +3,7 @@ package server.model;
 import server.model.flights.Flight;
 import server.model.flights.FlightJourney;
 import server.model.flights.poi.PointOfInterest;
-import server.model.surveys.Reward;
+import server.model.flights.surveys.Reward;
 
 import java.util.ArrayList;
 import java.util.List;

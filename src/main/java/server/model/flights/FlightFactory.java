@@ -1,11 +1,10 @@
 package server.model.flights;
 
-import server.model.parsing.FlightParser;
+import server.parsing.FlightParser;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -25,7 +24,7 @@ public class FlightFactory {
      * A method to generate a random dummy flight (used to top up the real flights, if there aren't enough) from a location to another at a specific date.
      *
      * @param from The name of the departure location
-     * @param to The name of the arrival location
+     * @param to   The name of the arrival location
      * @param date The date at which the dummy flight is to have its departure and arrival
      * @return A dummy flight from "from" to "to" at "date"
      */
@@ -60,8 +59,8 @@ public class FlightFactory {
         String delayMinutes = "";
 
         if (delayed) {
-            dHours = r.nextInt(0,3);
-            dMinutes = r.nextInt(0,59);
+            dHours = r.nextInt(0, 3);
+            dMinutes = r.nextInt(0, 59);
             delayedTime = startTime.plusHours(dHours);
             delayedTime = delayedTime.plusMinutes(dMinutes);
             delayedArrivalTime = endTime.plusHours(dHours);
@@ -119,7 +118,7 @@ public class FlightFactory {
     public static String generateSeat() {
         Random r = new Random();
         int seatNum = r.nextInt(1, 34);
-        int letterNum = r.nextInt(0,6);
+        int letterNum = r.nextInt(0, 6);
         String letter;
         switch (letterNum) {
             case 0 -> letter = "A";
@@ -192,7 +191,7 @@ public class FlightFactory {
         flight.setNumber(flightNum);
         String airline = pickAirline(0);
         for (int i = 0; i < IATAcodes.length; i++) {
-            if (flightNum.substring(0,2).equals(IATAcodes[i])) {
+            if (flightNum.substring(0, 2).equals(IATAcodes[i])) {
                 airline = pickAirline(i);
             }
         }

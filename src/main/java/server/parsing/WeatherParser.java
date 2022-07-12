@@ -1,10 +1,10 @@
-package server.model.parsing;
+package server.parsing;
 
-import server.model.flights.weather.Weather;
-import server.model.networking.HTTP_GetRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import server.model.flights.weather.Weather;
+import server.networking.HTTP_GetRequest;
 
 import java.util.Random;
 
@@ -21,7 +21,7 @@ public class WeatherParser {
             JSONObject jsonObject = new JSONObject(jsonText.toString());
             if (!jsonObject.has("weather")) {
                 Random r = new Random();
-                return new Weather("Clouds", r.nextInt(-5,30));
+                return new Weather("Clouds", r.nextInt(-5, 30));
             }
             JSONArray weatherArray = jsonObject.getJSONArray("weather");
 

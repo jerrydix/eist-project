@@ -1,7 +1,7 @@
 package server.model.flights;
 
-import server.model.networking.HTTP_GetRequest;
-import server.model.parsing.FlightParser;
+import server.networking.HTTP_GetRequest;
+import server.parsing.FlightParser;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
