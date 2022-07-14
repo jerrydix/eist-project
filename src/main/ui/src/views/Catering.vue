@@ -16,7 +16,6 @@ const menuItems = [
   {text: "Caco Calo", price: 4.20},
   {text: "Gösser Naturradler", price: 3.50},
   {text: "Pferdeleberkäs", price: 4.50},
-  {text: "Coke", price: 7.30},
   {text: "Loukoumas", price: 2.30},
   {text: "Baklava", price: 1.50},
   {text: "Souvlaki", price: 5.50},
