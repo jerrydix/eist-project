@@ -20,3 +20,14 @@ export async function getPOIFavourites() {
     );
     return await response.json();
 }
+
+export async function getDestinationPOI() {
+    const response = await fetch(
+        `api/destinationPOI`,
+        {
+            method: "GET",
+            headers: {"Content-Type": "application/json"},
+        }
+    );
+    return await response.json();
+}

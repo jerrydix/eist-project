@@ -37,4 +37,13 @@ public class PoiRest {
         return ResponseEntity.ok(poiList);
     }
 
+
+    @GetMapping("api/destinationPOI")
+    public ResponseEntity<List<PointOfInterest>> getDestinationPOI() {
+        List<PointOfInterest> poiList = poiService.getDestionationPOIs();
+        if (poiList == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(poiList);
+    }
 }

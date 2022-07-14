@@ -36,4 +36,12 @@ public class POIService {
         }
         return user.getFavouritePOIs();
     }
+
+    public List<PointOfInterest> getDestionationPOIs() {
+        User user = userService.getLoggedInUser();
+        if (user == null || user.getCurrentFlight() == null) {
+            return null;
+        }
+        return user.getCurrentFlight().getEndLocation().getPoiList();
+    }
 }
