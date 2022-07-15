@@ -19,7 +19,7 @@
         <div class="xs4">
           <w-table
               :headers="journeyTable.headers"
-              :items="this.user.bookedFlightJourneys[0].flights[0].number"
+              :items="this.user.bookedFlightJourneys.map(e => e.origin.name)"
               no-data="no-data"
               style="height: 96vh">
           </w-table>
