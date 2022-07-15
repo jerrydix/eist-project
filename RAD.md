@@ -2,6 +2,32 @@
 
 ## Table of Contents
 
+1. Introduction
+    * Purpose of the system
+    * Scope of the system
+    * Definitions, acronyms, and abbreviations
+    * References
+    * Overview
+2. Proposed system
+    * Overview
+    * Functional Requirements
+    * Nonfunctional requirements
+        * Usability
+        * Reliability
+        * Performance
+        * Supportability
+        * Implementation Requirements
+        * Interface Requirements
+        * Packaging Requirements
+        * Legal Requirements
+    * System models
+        * Scenarios 
+        * Use case model
+        * Object model 
+        * Dynamic model 
+        * User interface 
+3. Glossary ??
+
 
 ## 1. Introduction
 
@@ -42,8 +68,8 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 
 #### Usability
 
-* •	The system should be intuitive to use, and the user interface should be easy to understand. All interactions should be completed in less than three clicks.
-* •	The design of the system should conform to the typical usability guidelines such as Nielsen’s usability heuristics.
+* The system should be intuitive to use, and the user interface should be easy to understand. All interactions should be completed in less than three clicks.
+* The design of the system should conform to the typical usability guidelines such as Nielsen’s usability heuristics.
 
 #### Reliability
 
@@ -51,7 +77,7 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 
 #### Performance
 
-* Loading times of over o.25 seconds should never occur when switching views.
+* Loading times of over 0.25 seconds should never occur when switching views.
 
 #### Supportability
 
@@ -81,7 +107,7 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 
 #### Use case model
 
-![Use cas model]UseCaseModelSystem.PNG
+![Use cas model](UseCaseModelSystem.PNG)
 
 #### Object model
 
@@ -92,3 +118,5 @@ TODO: Insert updated object model
 TODO: insert updated dynamic model
 
 #### User interface
+
+## 3. Glossary??
