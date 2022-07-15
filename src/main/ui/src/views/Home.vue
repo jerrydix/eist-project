@@ -176,6 +176,18 @@ export default {
 
             <div class="spacer"></div>
 
+            <div class="justify-self-center" style="margin-top: auto;">
+              <w-button
+                  bg-color="info"
+                  class="bottom-button"
+                  @click="$waveui.notify('The flight crew has been notified. Please stay put.')"
+              >
+              Call flight assistant
+              </w-button>
+            </div>
+
+            <div class="spacer"></div>
+
             <div class="justify-self-end" style="margin-top: auto;">
               <w-button
                   v-if="this.store.username && !this.store.completedSurvey"
