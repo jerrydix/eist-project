@@ -107,7 +107,7 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 
 #### Use case model
 
-![Use cas model](UseCaseModelSystem.PNG)
+![Use case model](UseCaseDiagramSystem.PNG)
 
 #### Object model
 
