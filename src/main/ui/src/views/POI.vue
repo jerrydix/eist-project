@@ -1,5 +1,8 @@
 <template>
   <w-app id="app">
+    <header>
+      <h2> About your location</h2>
+    </header>
     <w-flex grow>
       <aside>
         <w-table
@@ -17,7 +20,7 @@
                    :api-key="key"
                    :center="current"
                    :zoom="16"
-                   style="width: 100%; height: 95%"
+                   style="width: 100%; height: 100%"
         >
           <MarkerCluster>
             <Marker v-for="(option,i) in this.table.items" :key="i" :options="option">
@@ -26,8 +29,8 @@
                 <div>{{ option.description }}</div>
                 <w-rating v-model="option.favourited" color="yellow" max="1" md readonly></w-rating>
                 <br>
-                <w-button v-if="!option.favourited" @click="save($event,option.id)">Save to Fav</w-button>
-                <w-button v-if="option.favourited" @click="unsave($event,option.id)">Delete from Fav</w-button>
+                <w-button v-if="!option.favourited" @click="save($event,option.id)">Save to Favourites</w-button>
+                <w-button v-if="option.favourited" @click="unsave($event,option.id)">Delete from Favourites</w-button>
 
               </InfoWindow>
             </Marker>
