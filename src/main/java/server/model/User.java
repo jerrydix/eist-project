@@ -131,4 +131,36 @@ public class User {
     public boolean hasCompletedSurvey() {
         return completedSurvey;
     }
+
+    public void setAuthenticated(boolean authenticated) {
+        this.authenticated = authenticated;
+    }
+
+    public void setFavouritePOIs(List<PointOfInterest> favouritePOIs) {
+        this.favouritePOIs = favouritePOIs;
+    }
+
+    public List<Reward> getRewards() {
+        return rewards;
+    }
+
+    public void setRewards(List<Reward> rewards) {
+        this.rewards = rewards;
+    }
+
+    public boolean isCompletedSurvey() {
+        return completedSurvey;
+    }
+
+    public void setCompletedSurvey(boolean completedSurvey) {
+        this.completedSurvey = completedSurvey;
+    }
+
+    public List<FlightJourney> getBookedFlightJourneys() {
+        return bookedFlightJourneys;
+    }
+
+    public void setBookedFlightJourneys(List<FlightJourney> bookedFlightJourneys) {
+        this.bookedFlightJourneys = bookedFlightJourneys;
+    }
 }

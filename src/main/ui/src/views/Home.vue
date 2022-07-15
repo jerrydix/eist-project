@@ -2,6 +2,7 @@
 import HomeNav from "../components/HomeNav.vue";
 import HomeLoginButton from "../components/HomeLoginButton.vue";
 import FlightInfo from "../components/FlightInfo.vue";
+import FlightMap from "../components/FlightMap.vue";
 import Login from "./User/Login.vue";
 import WelcomeMessage from "../components/WelcomeMessage.vue";
 import Register from "./User/Register.vue";
@@ -171,6 +172,18 @@ export default {
                   @click="showSafetyVideo = true"
               >
                 Watch safety video
+              </w-button>
+            </div>
+
+            <div class="spacer"></div>
+
+            <div class="justify-self-center" style="margin-top: auto;">
+              <w-button
+                  bg-color="info"
+                  class="bottom-button"
+                  @click="$waveui.notify('The flight crew has been notified. Please stay put.')"
+              >
+              Call flight assistant
               </w-button>
             </div>
 

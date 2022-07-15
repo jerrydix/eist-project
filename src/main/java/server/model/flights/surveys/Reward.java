@@ -19,18 +19,18 @@ public class Reward {
         };
 
         this.description = switch (rewardType) {
-            case MILE -> "Applicable in the Lufthansa online shop.";
+            case MILE -> "Applicable in the Garching Airlines online shop.";
             case SOUVENIR -> switch (generateRandom(0, 3)) {
                 case 0 -> "Flag of your destination country!";
                 case 1 -> "Free neck pillow!";
-                default -> "Lufthansa shirt!";
+                default -> "Garching Airlines shirt!";
             };
             case COUPON -> switch (generateRandom(0, 3)) {
                 case 0 -> "Free drink at BurgerKing!";
                 case 1 -> "Free coffee at Starbucks!";
                 default -> "Free ice-cream at Starbucks!";
             };
-            default -> "Ticket for the Lufthansa customer lottery!";
+            default -> "Ticket for the Garching Airlines customer lottery!";
         };
     }
 

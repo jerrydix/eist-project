@@ -1,5 +1,7 @@
 <script setup>
 import CateringItem from '../components/CateringItem.vue';
+import FlightMap from '../components/FlightMap.vue';
+import POI from './POI.vue';
 
 const menuItems = [
   {text: "NicNacs", price: 5.50},
@@ -15,6 +17,7 @@ const menuItems = [
   {text: "Fountain Pew", price: 2.80},
   {text: "Caco Calo", price: 4.20},
   {text: "Gösser Naturradler", price: 3.50},
+  {text: "Turbobier", price: 2.50},
   {text: "Pferdeleberkäs", price: 4.50},
   {text: "Loukoumas", price: 2.30},
   {text: "Baklava", price: 1.50},
@@ -29,6 +32,7 @@ const menuItems = [
     <h1>Drinks and Snacks</h1>
 
     <CateringItem v-for="menuItem in menuItems" :price="menuItem.price" :text="menuItem.text"/>
+
   </w-app>
 </template>
 
@@ -39,5 +43,4 @@ const menuItems = [
   text-align: center;
   height: 100%;
 }
-
 </style>

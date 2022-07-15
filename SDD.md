@@ -28,9 +28,9 @@ components of the software, while also providing boundary conditions and models 
 
 ### References:
 
-* Requirements Analysis Document (RAD) <!-- link later here -->
+* [Requirements Analysis Document (RAD)](RAD.md)
 * [Readme](README.md)
-* [Source code](src/main/)
+* [Source code](src/main)
 
 ## 2. Design Goals
 
