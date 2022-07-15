@@ -2,6 +2,7 @@
 import HomeNav from "../components/HomeNav.vue";
 import HomeLoginButton from "../components/HomeLoginButton.vue";
 import FlightInfo from "../components/FlightInfo.vue";
+import FlightMap from "../components/FlightMap.vue";
 import Login from "./User/Login.vue";
 import WelcomeMessage from "../components/WelcomeMessage.vue";
 import Register from "./User/Register.vue";
