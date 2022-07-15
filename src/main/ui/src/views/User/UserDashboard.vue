@@ -1,16 +1,29 @@
 <template>
   <div id="app">
     <w-app>
-      <header>Dashboard</header>
-      <p>{{ this.user.username }}</p>
-      <p>{{ this.user.favouritePOIs }}</p>
-      <p>{{ this.user.rewards }}</p>
-      <p>{{ this.user.bookedFlightJourneys }}</p>
-
-      <w-flex grow>
-        <main class="grow">
+      <header>
+        <h2> Dashboard</h2>
+      </header>
+      <w-flex wrap class="text-center">
+        <div class="xs4">
           <p class="reward">Reward: {{ this.user["latestReward"]["description"] }}</p>
-        </main>
+        </div>
+        <div class="xs4">
+          <w-table
+              :headers="poiTable.headers"
+              :items="this.user.favouritePOIs"
+              no-data="no-data"
+              style="height: 96vh">
+          </w-table>
+        </div>
+        <div class="xs4">
+          <w-table
+              :headers="journeyTable.headers"
+              :items="this.user.bookedFlightJourneys[0].flights[0].number"
+              no-data="no-data"
+              style="height: 96vh">
+          </w-table>
+        </div>
       </w-flex>
     </w-app>
   </div>
@@ -34,15 +47,22 @@ export default {
       favouritepositions: [],
       current: {lat: 0, lng: 0},
       curr: 0,
-      rewardTable: {
+      poiTable: {
         headers: [
-          {label: 'Reward', key: 'rewardType'},
-          {label: 'Reward', key: 'description'},
+          {label: 'Name', key: 'name'},
+          {label: 'Address', key: 'address'},
+          {label: 'Type', key: 'pointOfInterestType'},
+          {label: 'Rating', key: 'rating'}
         ],
-        items: [
-
+        items: [],
+        forceSelection: false,
+        selectableRowsOption: {label: '<code class="mr2">:selectable-row="false"</code> (default)', value: false},
+      },
+      journeyTable: {
+        headers: [
+          {label: 'Origin', key: 'name'}
         ],
-        selectableRows: 1,
+        items:  [],
         forceSelection: false,
         selectableRowsOption: {label: '<code class="mr2">:selectable-row="false"</code> (default)', value: false},
       },
