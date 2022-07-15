@@ -20,27 +20,26 @@ public class PoiRest {
     }
 
     @PostMapping("api/favourite")
-    public ResponseEntity<String> addToFavourites(@RequestBody PointOfInterest pointOfInterest) {
-        PointOfInterest poi = poiService.saveFavourite(pointOfInterest);
-        if (poi == null) {
-            return ResponseEntity.badRequest().body("Something went wrong");
-        }
-        return ResponseEntity.ok("Added point of interest to favourites");
-    }
-
-    @GetMapping("api/favourites")
-    public ResponseEntity<List<PointOfInterest>> getFavourites() {
-        List<PointOfInterest> poiList = poiService.getFavourites();
-        if (poiList == null) {
+    public ResponseEntity<List<PointOfInterest>> addToFavourites(@RequestParam String id) {
+        List<PointOfInterest> pois = poiService.saveFavourite(id);
+        if (pois == null) {
             return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(poiList);
+        return ResponseEntity.ok(pois);
     }
 
+    @PostMapping("api/unfavourite")
+    public ResponseEntity<List<PointOfInterest>> removeFromFavourites(@RequestParam String id) {
+        List<PointOfInterest> pois = poiService.unsaveFavourite(id);
+        if (pois == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(pois);
+    }
 
-    @GetMapping("api/destinationPOI")
-    public ResponseEntity<List<PointOfInterest>> getDestinationPOI() {
-        List<PointOfInterest> poiList = poiService.getDestionationPOIs();
+    @GetMapping("api/poi")
+    public ResponseEntity<List<PointOfInterest>> getPointsOfInterest() {
+        List<PointOfInterest> poiList = poiService.getPointsOfInterest();
         if (poiList == null) {
             return ResponseEntity.badRequest().build();
         }

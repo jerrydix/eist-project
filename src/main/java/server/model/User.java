@@ -41,13 +41,28 @@ public class User {
     public boolean authenticateUser(String password) {
         if (this.password.equals(password)) {
             this.authenticated = true;
+            this.setFavourites();
         }
         return this.isAuthenticated();
     }
 
+    private void setFavourites() {
+        for (PointOfInterest pointOfInterest : favouritePOIs) {
+            pointOfInterest.favourite();
+        }
+    }
+
     public void logout() {
         this.authenticated = false;
+        this.unsetFavourites();
     }
+
+    private void unsetFavourites() {
+        for (PointOfInterest pointOfInterest : favouritePOIs) {
+            pointOfInterest.unFavourite();
+        }
+    }
+
 
     /**
      * Adds a new reward to the user's rewards list
@@ -100,7 +115,13 @@ public class User {
     }
 
     public void addPOI(PointOfInterest poi) {
-        this.favouritePOIs.add(poi);
+        if (!this.favouritePOIs.contains(poi)) {
+            this.favouritePOIs.add(poi);
+        }
+    }
+
+    public void removePOI(PointOfInterest poi) {
+        this.favouritePOIs.remove(poi);
     }
 
     public List<PointOfInterest> getFavouritePOIs() {

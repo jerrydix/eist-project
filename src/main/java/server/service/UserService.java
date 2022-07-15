@@ -52,6 +52,7 @@ public class UserService {
         if (loggedIn) {
             loggedInUser = user;
         }
+
         return loggedIn;
     }
 

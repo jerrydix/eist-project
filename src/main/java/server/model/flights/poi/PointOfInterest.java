@@ -9,23 +9,30 @@ import java.util.List;
 public class PointOfInterest {
 
     private String id;
-    private String name;
+    private String title;
     private String address;
     private String pointOfInterestType;
-    private double rating;
-    private double longitude;
-    private double latitude;
 
-    public PointOfInterest(String id, String name, String address, String pointOfInterestType,
+    private String description;
+
+    private String label;
+    private double rating;
+
+    private Position position;
+
+    private int favourited;
+
+    public PointOfInterest(String id, String title, String address, String pointOfInterestType,
                            double rating, double longitude, double latitude) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.address = address;
         this.pointOfInterestType = pointOfInterestType;
-
+        this.label = "T";
         this.rating = rating;
-        this.longitude = longitude;
-        this.latitude = latitude;
+        this.favourited = 0;
+        this.position = new Position(latitude, longitude);
+        this.description = toString();
     }
 
     /**
@@ -44,12 +51,23 @@ public class PointOfInterest {
                                 "&key=" + KeyReader.getAPIkey()}));
     }
 
-    public String getName() {
-        return name;
+    public void favourite() {
+        this.favourited = 1;
+        this.label = "F";
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+    public void unFavourite() {
+        this.favourited = 0;
+        this.label = "T";
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getID() {
@@ -85,26 +103,57 @@ public class PointOfInterest {
         this.rating = rating;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public String getDescription() {
+        return description;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getFavourited() {
+        return favourited;
+    }
+
+    public void setFavourited(int favourited) {
+        this.favourited = favourited;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    private String typeToString(String type) {
+        int wordSep = type.indexOf('_');
+        String ans = "";
+        ans += type.charAt(0);
+        ans = ans.toUpperCase();
+        if (wordSep == -1) {
+            return ans + type.substring(1);
+        }
+        ans += type.substring(1, wordSep);
+        String newAns = " ";
+        newAns += type.charAt(wordSep + 1);
+        newAns = newAns.toUpperCase();
+        return ans + newAns + type.substring(wordSep + 2);
     }
 
     @Override
     public String toString() {
-        return "ID: " + id + "\nName: " + name + "\nAddress: " + address + "\nPOI Type: " + pointOfInterestType
-                + "\nRating: " + rating;
+        return "Address: " + address + " | " + typeToString(pointOfInterestType)
+                + " | Rating: " + rating;
     }
 
     @Override

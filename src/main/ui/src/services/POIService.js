@@ -1,29 +1,36 @@
-export async function addPOIToFavourites(poi) {
+export async function addPOIToFavourites(id) {
     const response = await fetch(
-        `api/favourite`,
+        `api/favourite` +
+        "?" +
+        new URLSearchParams({
+            id: id,
+        }),
         {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: poi,
         }
     );
     return await response.json();
 }
 
-export async function getPOIFavourites() {
+export async function removePOIFromFavourites(id) {
     const response = await fetch(
-        `api/favourites`,
+        `api/unfavourite` +
+        "?" +
+        new URLSearchParams({
+            id: id,
+        }),
         {
-            method: "GET",
+            method: "POST",
             headers: {"Content-Type": "application/json"},
         }
     );
     return await response.json();
 }
 
-export async function getDestinationPOI() {
+export async function getPointsOfInterest() {
     const response = await fetch(
-        `api/destinationPOI`,
+        `api/poi`,
         {
             method: "GET",
             headers: {"Content-Type": "application/json"},
