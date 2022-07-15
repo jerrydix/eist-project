@@ -5,10 +5,10 @@ public enum RewardType {
 
     public String toString() {
         return switch (this) {
-            case MILE -> "mile";
-            case COUPON -> "coupon";
-            case SOUVENIR -> "souvenir";
-            case PRICE_DRAWING -> "price drawing";
+            case MILE -> "Miles";
+            case COUPON -> "Coupon";
+            case SOUVENIR -> "Souvenir";
+            case PRICE_DRAWING -> "Price drawing";
             default -> "lol";
         };
     }
