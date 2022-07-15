@@ -1,6 +1,9 @@
 <template>
   <w-app id="app">
-    <header>Your Favourite Points of Interest</header>
+    <header>
+      <h2> Your Favourite Points of Interest</h2>
+      <w-button @click="goNext">GoToNextPois</w-button>
+    </header>
      <w-flex grow>
        <aside>
          <w-table
@@ -10,18 +13,20 @@
              :selectable-rows="table.selectableRows"
              :force-selection="table.forceSelection"
              @row-select="selectionInfo = $event"
-             style="height: 95vh">
+             style="height: 96vh">
          </w-table>
        </aside>
        <main class="grow">
-         <GoogleMap
+         <GoogleMap v-if="map"
            :api-key="key"
-           style="width: 100vw; height: 95vh"
-           :center="center"
+           style="width: 100vw; height: 96vh"
+           :center="current"
            :zoom="15"
          >
-         <Marker :options="{ position: center }" />
-         <Marker :options="{ position: excellence }" />
+           <MarkerCluster>
+             <Marker v-for="(position,i) in positions" :key="i" :options="{ position: position }"/>
+           </MarkerCluster>
+           <Marker v-for="(favouritepos,i) in favouritepositions" :key="i" :options="{ position: favouritepos }"/>
         </GoogleMap>
        </main>
      </w-flex>
@@ -30,7 +35,8 @@
 
 <script>
 import { defineComponent } from "vue";
-import { GoogleMap, Marker } from "vue3-google-map";
+import { GoogleMap, Marker, MarkerCluster } from "vue3-google-map";
+import {getDestinationPOI, getPOIFavourites} from "../services/POIService.js";
 
 export default defineComponent({
 	components: { GoogleMap, Marker },
@@ -44,6 +50,14 @@ export default defineComponent({
 	},
   data() {
     return {
+      key: import.meta.env.VITE_GOOGLE_API_KEY,
+      map: true,
+      pois: [],
+      positions: [],
+      favourites: [],
+      favouritepositions: [],
+      current: {lat: 0, lng: 0},
+      curr: 0,
       table: {
         headers: [
           {label: 'Name', key: 'name'},
@@ -99,8 +113,46 @@ export default defineComponent({
       selectionInfo: {}
     }
   },
+  mounted() {
+    getPOIFavourites().then((list) => {
+      for (let i = 0; i < list.length; i++) {
+        this.favourites.push(list[i]);
+      }
+      for (let i = 0; i < list.length; i++) {
+        this.favouritepositions.push({lat: this.favourites[i].latitude, lng: this.favourites[i].longitude});
+      }
+      this.reRender();
+    });
+    getDestinationPOI().then((list) => {
+      for (let i = 0; i < list.length; i++) {
+        this.pois.push(list[i]);
+        console.log(this.pois[i]);
+      }
+      for (let i = 0; i < list.length; i++) {
+        this.positions.push({lat: this.pois[i].latitude, lng: this.pois[i].longitude});
+      }
+      if (this.pois.length > 0) {
+        this.current = this.positions[0];
+      }
+      this.reRender();
+    });
+  },
+  methods: {
+    reRender() {
+      this.map = false;
+      this.$nextTick().then(() => {
+        this.map = true;
+      });
+    }, goNext() {
+      this.curr++;
+      if (this.curr == this.positions.length) {
+        this.curr = 0;
+      }
+      this.current = this.positions.at(this.curr);
+      this.reRender();
+    },
+  }
 });
-
 </script>
 
 <style>
@@ -119,7 +171,7 @@ header, footer, aside, main {
   color: #000000;
   border: 0px solid rgba(0, 0, 0, 0.1);
 }
-header, footer {background-color: #ffffff; min-height: 5vh;}
+header, footer {background-color: #ffffff; min-height: 4vh;}
 aside {background-color: #ffffff}
 main {background-color: #ffffff;}
 
