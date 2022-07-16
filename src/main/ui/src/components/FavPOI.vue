@@ -3,7 +3,7 @@
       :api-key="key"
       :center="current"
       :zoom="this.table.items.length === 0 ? 2 : 16"
-      style="width: 100%; height: 100%"
+      style="width: 100%; height: 42vh"
   >
     <Marker v-for="(option,i) in this.table.items" :key="i" :options="option">
       <InfoWindow>

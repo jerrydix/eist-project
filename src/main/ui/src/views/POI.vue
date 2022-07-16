@@ -5,18 +5,11 @@
     </header>
     <w-flex grow>
       <aside>
-        <w-button :outline="table.activeFilter !== 0"
-                  round
-                  @click="table.activeFilter = 0">No filter
-        </w-button>
-
-        <w-button :outline="table.activeFilter !== 1"
-                  round
-                  @click="table.activeFilter = 1">Favourites
-        </w-button>
-
-        <w-button :outline="!this.isTopTen" round @click="topTen">Top 10</w-button>
-
+        <w-flex grow justify-center align-center>
+          <w-checkbox @input="table.activeFilter == 0 ? table.activeFilter = 1 : table.activeFilter = 0">Favourites </w-checkbox>
+          <div class="xs1"></div>
+          <w-checkbox @input="topTen" color="orange">Top 10</w-checkbox>
+        </w-flex>
         <w-table
             v-model:sort="table.sort"
             :filter="table.filters[table.activeFilter]"
