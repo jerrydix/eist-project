@@ -106,6 +106,9 @@ export default {
         for (let i = 0; i < list.length; i++) {
           this.poiTable.items.push(list[i]);
         }
+        if (this.poiTable.items.length == 0) {
+          this.current = {lat: 0, lng: 0}
+        }
         this.reRender();
       });
     },

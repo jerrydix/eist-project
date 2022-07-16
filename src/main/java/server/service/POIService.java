@@ -85,4 +85,12 @@ public class POIService {
 
         return newList;
     }
+
+    public List<PointOfInterest> getTopPointsOfInterest(int locationID) {
+        Location location = Location.getLocationWithId(locationID);
+        if (location == null) {
+            return null;
+        }
+        return location.getPointsOfInterest().stream().limit(10).toList();
+    }
 }

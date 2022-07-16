@@ -44,3 +44,18 @@ export async function getPointsOfInterest(locationID) {
     );
     return await response.json();
 }
+
+export async function getTopPointsOfInterest(locationID) {
+    const response = await fetch(
+        `api/poitop` +
+        "?" +
+        new URLSearchParams({
+            locationID: locationID
+        }),
+        {
+            method: "GET",
+            headers: {"Content-Type": "application/json"},
+        }
+    );
+    return await response.json();
+}

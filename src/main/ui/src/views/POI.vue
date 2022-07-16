@@ -9,10 +9,14 @@
                   round
                   @click="table.activeFilter = 0">No filter
         </w-button>
+
         <w-button :outline="table.activeFilter !== 1"
                   round
                   @click="table.activeFilter = 1">Favourites
         </w-button>
+
+        <w-button :outline="!this.isTopTen" round @click="topTen">Top 10</w-button>
+
         <w-table
             v-model:sort="table.sort"
             :filter="table.filters[table.activeFilter]"
@@ -54,7 +58,12 @@
 <script>
 import {defineComponent} from "vue";
 import {GoogleMap, InfoWindow, Marker} from "vue3-google-map";
-import {addPOIToFavourites, getPointsOfInterest, removePOIFromFavourites} from "../services/POIService.js";
+import {
+  addPOIToFavourites,
+  getPointsOfInterest,
+  getTopPointsOfInterest,
+  removePOIFromFavourites
+} from "../services/POIService.js";
 import {userStore} from "../userStore";
 
 export default defineComponent({
@@ -87,6 +96,7 @@ export default defineComponent({
         sort: "-rating",
       },
       selectionInfo: {},
+      isTopTen: false,
     }
   },
   mounted() {
@@ -101,20 +111,42 @@ export default defineComponent({
   methods: {
     save(event, id) {
       addPOIToFavourites(id, this.store.endLocationId).then((list) => {
-        this.table.items = []
-        for (let i = 0; i < list.length; i++) {
-          this.table.items.push(list[i]);
+
+        if (this.isTopTen) {
+          getTopPointsOfInterest(this.store.endLocationId).then((list) => {
+            this.table.items = []
+            for (let i = 0; i < list.length; i++) {
+              this.table.items.push(list[i]);
+            }
+            this.reRender();
+          });
+        } else {
+          this.table.items = []
+          for (let i = 0; i < list.length; i++) {
+            this.table.items.push(list[i]);
+          }
+          this.reRender();
         }
-        this.reRender();
       });
     },
     unsave(event, id) {
       removePOIFromFavourites(id, this.store.endLocationId).then((list) => {
-        this.table.items = []
-        for (let i = 0; i < list.length; i++) {
-          this.table.items.push(list[i]);
+        if (this.isTopTen) {
+          getTopPointsOfInterest(this.store.endLocationId).then((list) => {
+            this.table.items = []
+            for (let i = 0; i < list.length; i++) {
+              this.table.items.push(list[i]);
+            }
+            this.reRender();
+          });
+        } else {
+          this.table.items = []
+          for (let i = 0; i < list.length; i++) {
+            this.table.items.push(list[i]);
+          }
+          this.reRender();
         }
-        this.reRender();
+
       });
     },
     reRender() {
@@ -128,6 +160,27 @@ export default defineComponent({
       this.current = this.selectionInfo.item.position;
       this.reRender();
     },
+    topTen() {
+      if (!this.isTopTen) {
+        getTopPointsOfInterest(this.store.endLocationId).then((list) => {
+          this.table.items = []
+          for (let i = 0; i < list.length; i++) {
+            this.table.items.push(list[i]);
+          }
+          this.reRender();
+        });
+      } else {
+        getPointsOfInterest(this.store.endLocationId).then((list) => {
+          this.table.items = []
+          for (let i = 0; i < list.length; i++) {
+            this.table.items.push(list[i]);
+          }
+          this.current = this.table.items[0].position;
+          this.reRender();
+        });
+      }
+      this.isTopTen = !this.isTopTen
+    }
   }
 });
 </script>
