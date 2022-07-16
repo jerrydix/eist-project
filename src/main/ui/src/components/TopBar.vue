@@ -14,20 +14,20 @@ export default {
 </script>
 <template>
   <w-toolbar>
-    <RouterLink to="/flights">
-      <w-button class="ma1" color="primary" lg text>Flights</w-button>
+    <RouterLink v-if="this.store.username" to="/flights">
+      <w-button class="ma1" color="primary" lg text>Book flights</w-button>
+    </RouterLink>
+    <RouterLink v-if="this.store.username" to="/dashboard">
+      <w-button class="ma1" color="primary" lg text>Dashboard</w-button>
+    </RouterLink>
+    <RouterLink v-if="this.store.username" to="/poi">
+      <w-button class="ma1" color="primary" lg text>About my destination</w-button>
     </RouterLink>
     <RouterLink to="/catering">
       <w-button class="ma1" color="primary" lg text>Catering</w-button>
     </RouterLink>
     <RouterLink to="/movies">
       <w-button class="ma1" color="primary" lg text>Movies</w-button>
-    </RouterLink>
-    <RouterLink to="/poi">
-      <w-button class="ma1" color="primary" lg text>About my destination</w-button>
-    </RouterLink>
-    <RouterLink v-if="this.store.username" to="/dashboard">
-      <w-button class="ma1" color="primary" lg text>Dashboard</w-button>
     </RouterLink>
 
     <div class="spacer"></div>
