@@ -47,7 +47,13 @@ The scope of the system is the development of a flight entertainment system. Thi
 
 ### References
 
+* [Software Design Document (SDD)](SDD.md)
+* [Readme](README.md)
+* [Source code](src/main)
+
 ### Overview
+
+The following RAD will give the reader an overview over the (non-)functional requirements of the system, a rough understanding of the design of GAFIS and a preview of the UI.
 
 ## 2. Proposed system
 
@@ -89,10 +95,6 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 * A server subsystem with a couple of services must be used in the system. However, additional services like destination information for weather and POIs should be obtained from external services.
 * Only the use of free webservices and APIs is allowed for the implementation of GAFIS.
 
-#### Interface Requirements
-
-#### Packaging Requirements
-
 #### Legal Requirements
 
 * Media included in the entertainment system of GAFIS may not breach any copyright regulations.
@@ -107,7 +109,7 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 
 #### Use case model
 
-![Use case model](UseCaseDiagramSystem.PNG)
+![Use case model](UseCaseDiagramSystem.png)
 
 #### Object model
 

@@ -29,6 +29,9 @@ public class Flight {
     private String weatherType;
     private String weatherDegrees;
     private LocalDateTime delayedArrivalTime;
+    private String departureDate;
+    private String departureTime;
+    private String arrivalTime;
 
 
     public Flight(String number, LocalDateTime startTime, LocalDateTime endTime, String gate, String terminal, String seat,
@@ -49,6 +52,9 @@ public class Flight {
         this.endName = endLocation.getName();
         this.weatherDegrees = String.valueOf(endLocation.getWeather().getDegrees());
         this.weatherType = endLocation.getWeather().getWeatherType();
+        this.departureDate = this.startTime.toString().substring(8,10) + "/" + this.startTime.toString().substring(5,7) + "/" + this.startTime.toString().substring(0,4);
+        this.departureTime = this.startTime.toString().substring(11,16);
+        this.arrivalTime = this.endTime.toString().substring(11,16);
     }
 
     /**
@@ -282,6 +288,30 @@ public class Flight {
 
     public LocalDateTime getDelayedArrivalTime() {
         return delayedArrivalTime;
+    }
+
+    public String getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(String departureDate) {
+        this.departureDate = departureDate;
+    }
+
+    public String getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(String departureTime) {
+        this.departureTime = departureTime;
+    }
+
+    public String getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(String arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 
     public void setDelayedArrivalTime(LocalDateTime delayedArrivalTime) {

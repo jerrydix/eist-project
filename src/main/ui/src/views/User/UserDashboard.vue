@@ -5,28 +5,30 @@
         <h2 class="text-center">Dashboard</h2>
       </header>
       <w-flex wrap class="text-center">
-        <div class="xs4">
-          <p class="reward">Reward: {{ this.user["latestReward"]["description"] }}</p>
-        </div>
-        <div class="xs4">
-          <h3 class="text-center">Your Favoured Points of Interest</h3>
+        <div class="xs2"></div>
+        <div class="xs5">
+          <h3 class="text-center">Your Favourite Points of Interest</h3>
           <w-table
               :headers="poiTable.headers"
               :items="this.user.favouritePOIs.filter(e => e.favourited == 1)"
               no-data="no-data"
-              style="height: 80vh">
+              style="height: 41vh">
           </w-table>
         </div>
-        <div class="xs4">
+        <div class="xs3">
           <h3 class="text-center">Your Planned Journeys</h3>
           <w-table
               :headers="journeyTable.headers"
-              :items="this.user.bookedFlightJourneys.map(e => e.origin.name)"
+              :items="this.user.bookedFlightJourneys"
               no-data="no-data"
-              style="height: 80vh">
+              style="height: 83vh">
           </w-table>
         </div>
+        <div class="xs2"></div>
       </w-flex>
+      <footer>
+        <h3 class="text-center" v-if="this.user.latestReward != null">Reward: {{ this.user["latestReward"]["description"] }}</h3>
+      </footer>
     </w-app>
   </div>
 </template>
@@ -51,10 +53,10 @@ export default {
       curr: 0,
       poiTable: {
         headers: [
-          {label: 'Name', key: 'title'},
-          {label: 'Address', key: 'address'},
-          {label: 'Type', key: 'formattedType'},
-          {label: 'Rating', key: 'rating'}
+          {label: 'Name', key: 'title', align: 'center'},
+          {label: 'Address', key: 'address', align: 'center'},
+          {label: 'Type', key: 'formattedType', align: 'center'},
+          {label: 'Rating', key: 'rating', align: 'center'}
         ],
         items: [],
         forceSelection: false,
@@ -62,7 +64,8 @@ export default {
       },
       journeyTable: {
         headers: [
-          {label: 'Origin', key: 'name'}
+          {label: 'Origin', key: 'originName', align: 'center'},
+          {label: 'Starting on', key: 'startDate', align: 'center'},
         ],
         items:  [],
         forceSelection: false,
@@ -95,7 +98,8 @@ header, footer, aside, main {
   color: #000000;
   border: 0px solid rgba(0, 0, 0, 0.1);
 }
-header, footer {background-color: #ffffff; min-height: 4vh; align-content: center}
+header {background-color: #ffffff; min-height: 4vh; align-content: center}
+footer {background-color: #ffffff; min-height: 8vh; align-content: center}
 aside {background-color: #ffffff}
 main {background-color: #ffffff;}
 
