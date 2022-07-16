@@ -30,7 +30,7 @@ public class PointOfInterestParser {
                 if (type.equals("lodging")) {
                     continue;
                 }
-                double rating = -1;
+                double rating = 3;
                 if (!resultsArray.getJSONObject(i).isNull("rating")) {
                     rating = resultsArray.getJSONObject(i).getDouble("rating");
                 }

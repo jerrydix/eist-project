@@ -12,15 +12,12 @@ public class PointOfInterest {
     private String title;
     private String address;
     private String pointOfInterestType;
-
     private String description;
-
     private String label;
     private double rating;
-
     private Position position;
-
     private int favourited;
+    private String formattedType;
 
     public PointOfInterest(String id, String title, String address, String pointOfInterestType,
                            double rating, double longitude, double latitude) {
@@ -33,6 +30,7 @@ public class PointOfInterest {
         this.favourited = 0;
         this.position = new Position(latitude, longitude);
         this.description = toString();
+        this.formattedType = this.typeToString(pointOfInterestType);
     }
 
     /**
@@ -46,7 +44,7 @@ public class PointOfInterest {
     public static List<PointOfInterest> fetchPOIs(double longitude, double latitude) {
         return PointOfInterestParser.parsePOIJson(
                 HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-                        new String[]{"?location=" + longitude + "%2C" + latitude, "&radius=30000",
+                        new String[]{"?location=" + longitude + "%2C" + latitude, "&radius=100000",
                                 "&rankby=prominence", "&type=tourist_attraction",
                                 "&key=" + KeyReader.getAPIkey()}));
     }
@@ -133,6 +131,14 @@ public class PointOfInterest {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getFormattedType() {
+        return formattedType;
+    }
+
+    public void setFormattedType(String formattedType) {
+        this.formattedType = formattedType;
     }
 
     private String typeToString(String type) {

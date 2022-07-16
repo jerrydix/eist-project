@@ -1,7 +1,7 @@
 <template>
   <w-app id="app">
     <header>
-      <h2> About your location</h2>
+      <h2 class="text-center">About your location</h2>
     </header>
     <w-flex grow>
       <aside>

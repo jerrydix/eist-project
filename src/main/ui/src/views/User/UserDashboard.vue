@@ -2,26 +2,28 @@
   <div id="app">
     <w-app>
       <header>
-        <h2> Dashboard</h2>
+        <h2 class="text-center">Dashboard</h2>
       </header>
       <w-flex wrap class="text-center">
         <div class="xs4">
           <p class="reward">Reward: {{ this.user["latestReward"]["description"] }}</p>
         </div>
         <div class="xs4">
+          <h3 class="text-center">Your Favoured Points of Interest</h3>
           <w-table
               :headers="poiTable.headers"
-              :items="this.user.favouritePOIs"
+              :items="this.user.favouritePOIs.filter(e => e.favourited == 1)"
               no-data="no-data"
-              style="height: 96vh">
+              style="height: 80vh">
           </w-table>
         </div>
         <div class="xs4">
+          <h3 class="text-center">Your Planned Journeys</h3>
           <w-table
               :headers="journeyTable.headers"
               :items="this.user.bookedFlightJourneys.map(e => e.origin.name)"
               no-data="no-data"
-              style="height: 96vh">
+              style="height: 80vh">
           </w-table>
         </div>
       </w-flex>
@@ -49,9 +51,9 @@ export default {
       curr: 0,
       poiTable: {
         headers: [
-          {label: 'Name', key: 'name'},
+          {label: 'Name', key: 'title'},
           {label: 'Address', key: 'address'},
-          {label: 'Type', key: 'pointOfInterestType'},
+          {label: 'Type', key: 'formattedType'},
           {label: 'Rating', key: 'rating'}
         ],
         items: [],
