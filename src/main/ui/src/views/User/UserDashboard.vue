@@ -7,7 +7,7 @@
       <w-flex wrap class="text-center">
         <div class="xs2"></div>
         <div class="xs5">
-          <h3 class="text-center">Your Favoured Points of Interest</h3>
+          <h3 class="text-center">Your Favourite Points of Interest</h3>
           <w-table
               :headers="poiTable.headers"
               :items="this.user.favouritePOIs.filter(e => e.favourited == 1)"
@@ -27,7 +27,7 @@
         <div class="xs2"></div>
       </w-flex>
       <footer>
-        <h3 class="text-center">Reward: {{ this.user["latestReward"]["description"] }}</h3>
+        <h3 class="text-center" v-if="this.user.latestReward != null">Reward: {{ this.user["latestReward"]["description"] }}</h3>
       </footer>
     </w-app>
   </div>
