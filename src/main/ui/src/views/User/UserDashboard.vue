@@ -65,6 +65,7 @@ export default {
       journeyTable: {
         headers: [
           {label: 'Origin', key: 'originName', align: 'center'},
+          {label: 'Destination', key: 'endName', align: 'center'},
           {label: 'Starting on', key: 'startDate', align: 'center'},
         ],
         items:  [],

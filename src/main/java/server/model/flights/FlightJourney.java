@@ -10,7 +10,9 @@ public class FlightJourney {
     private List<Flight> flights;
     private List<Location> locations;
     private Location origin;
+    private Location endLocation;
     private String originName;
+    private String endName;
     private String startDate;
 
     public FlightJourney() {
@@ -70,6 +72,22 @@ public class FlightJourney {
         return startDate;
     }
 
+    public Location getEndLocation() {
+        return endLocation;
+    }
+
+    public void setEndLocation(Location endLocation) {
+        this.endLocation = endLocation;
+    }
+
+    public String getEndName() {
+        return endName;
+    }
+
+    public void setEndName(String endName) {
+        this.endName = endName;
+    }
+
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
@@ -111,6 +129,8 @@ public class FlightJourney {
             return false;
         }
         flights.add(flight);
+        this.endLocation = flight.getEndLocation();
+        this.endName = flight.getEndName();
         if (flights.size() >= 2 && flights.get(flights.size() - 2).getEndLocation().equals(flights.get(flights.size() - 1).getStartLocation())) {
             locations.add(flight.getEndLocation());
         } else {
