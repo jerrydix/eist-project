@@ -5,7 +5,17 @@
     </header>
     <w-flex grow>
       <aside>
+        <w-button :outline="table.activeFilter !== 0"
+                  round
+                  @click="table.activeFilter = 0">No filter
+        </w-button>
+        <w-button :outline="table.activeFilter !== 1"
+                  round
+                  @click="table.activeFilter = 1">Favourites
+        </w-button>
         <w-table
+            v-model:sort="table.sort"
+            :filter="table.filters[table.activeFilter]"
             :force-selection="table.forceSelection"
             :headers="table.headers"
             :items="table.items"
@@ -62,8 +72,14 @@ export default defineComponent({
         selectableRows: 1,
         forceSelection: false,
         selectableRowsOption: {label: '<code class="mr2">:selectable-row="false"</code> (default)', value: false},
+        filters: [
+          null,
+          item => item.favourited === 1,
+        ],
+        activeFilter: 0,
+        sort: "-rating",
       },
-      selectionInfo: {}
+      selectionInfo: {},
     }
   },
   mounted() {
