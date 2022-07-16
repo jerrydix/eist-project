@@ -10,6 +10,8 @@ public class FlightJourney {
     private List<Flight> flights;
     private List<Location> locations;
     private Location origin;
+    private String originName;
+    private String startDate;
 
     public FlightJourney() {
         this.flights = new ArrayList<>();
@@ -56,6 +58,22 @@ public class FlightJourney {
         return locations.remove(location);
     }
 
+    public String getOriginName() {
+        return originName;
+    }
+
+    public void setOriginName(String originName) {
+        this.originName = originName;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
     public int findToDestinationIndex(Flight flight) {
         for (int i = 0; i < locations.size(); i++) {
             if (locations.get(i).equals(flight.getEndLocation())) {
@@ -98,6 +116,8 @@ public class FlightJourney {
         } else {
             locations.add(flight.getStartLocation());
             this.origin = flight.getStartLocation();
+            this.originName = origin.getName();
+            this.startDate = flight.getDepartureDate();
             locations.add(flight.getEndLocation());
         }
         return true;
