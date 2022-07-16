@@ -4,6 +4,7 @@ import server.networking.HTTP_GetRequest;
 import server.parsing.PointOfInterestParser;
 import server.utility.KeyReader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PointOfInterest {
@@ -42,11 +43,32 @@ public class PointOfInterest {
      */
 
     public static List<PointOfInterest> fetchPOIs(double longitude, double latitude) {
-        return PointOfInterestParser.parsePOIJson(
+        var completeList = new ArrayList<PointOfInterest>();
+        var pagetoken1 = PointOfInterestParser.parsePOIJson(
                 HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
                         new String[]{"?location=" + longitude + "%2C" + latitude, "&radius=100000",
-                                "&rankby=prominence", "&type=tourist_attraction",
-                                "&key=" + KeyReader.getAPIkey()}));
+                                "&rankby=prominence", "&type=tourist_attraction", "&pagetoken",
+                                "&key=" + KeyReader.getAPIkey()}), completeList);
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        var pagetoken2 = PointOfInterestParser.parsePOIJson(
+                HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+                        new String[]{"?pagetoken=" + pagetoken1,
+                                "&key=" + KeyReader.getAPIkey()}), completeList);
+        try {
+            Thread.sleep(2000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        var dada = PointOfInterestParser.parsePOIJson(
+                HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
+                        new String[]{"?pagetoken=" + pagetoken2,
+                                "&key=" + KeyReader.getAPIkey()}), completeList);
+        System.out.println(completeList.size());
+        return completeList;
     }
 
     public void favourite() {

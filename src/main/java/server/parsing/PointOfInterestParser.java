@@ -16,12 +16,15 @@ public class PointOfInterestParser {
      * @param jsonText The get request api response of the Google Maps Places API, formatted in json
      * @return A list of the top 50 POIs sorted by relevance at the given location
      */
-    public static List<PointOfInterest> parsePOIJson(String jsonText) {
+    public static String parsePOIJson(String jsonText, List<PointOfInterest> list) {
         try {
             JSONObject jsonObject = new JSONObject(jsonText.toString());
             JSONArray resultsArray = jsonObject.getJSONArray("results");
-            List<PointOfInterest> poiList = new ArrayList<>();
-
+            String pageToken = "";
+            try {
+                pageToken = jsonObject.getString("next_page_token");
+            } catch (JSONException ignored) {
+            }
             for (int i = 0; i < resultsArray.length() && i < 50; i++) {
                 String id = resultsArray.getJSONObject(i).getString("place_id");
                 String name = resultsArray.getJSONObject(i).getString("name");
@@ -37,9 +40,9 @@ public class PointOfInterestParser {
                 double latitude = resultsArray.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat");
                 double longitude = resultsArray.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng");
 
-                poiList.add(new PointOfInterest(id, name, address, type, rating, longitude, latitude));
+                list.add(new PointOfInterest(id, name, address, type, rating, longitude, latitude));
             }
-            return poiList;
+            return pageToken;
         } catch (JSONException exception) {
             System.out.println("Couldn't parse POI JSON " + exception.toString());
         }
