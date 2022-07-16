@@ -164,13 +164,9 @@ public class PointOfInterest {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof PointOfInterest)) {
+        if (!(obj instanceof PointOfInterest other)) {
             return false;
         }
-        PointOfInterest other = (PointOfInterest) obj;
-        if (!this.id.equals(other.id)) {
-            return false;
-        }
-        return true;
+        return this.id.equals(other.id);
     }
 }

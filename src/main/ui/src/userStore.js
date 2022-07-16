@@ -5,6 +5,7 @@ export const userStore = defineStore("userStore", {
         return {
             // all these properties will have their type inferred automatically
             username: window.localStorage.getItem("user"),
+            endLocationId: -1,
             completedSurvey: false
         };
     },

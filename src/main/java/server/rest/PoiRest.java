@@ -20,8 +20,8 @@ public class PoiRest {
     }
 
     @PostMapping("api/favourite")
-    public ResponseEntity<List<PointOfInterest>> addToFavourites(@RequestParam String id) {
-        List<PointOfInterest> pois = poiService.saveFavourite(id);
+    public ResponseEntity<List<PointOfInterest>> addToFavourites(@RequestParam String id, @RequestParam int locationID) {
+        List<PointOfInterest> pois = poiService.saveFavourite(id, locationID);
         if (pois == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -29,8 +29,8 @@ public class PoiRest {
     }
 
     @PostMapping("api/unfavourite")
-    public ResponseEntity<List<PointOfInterest>> removeFromFavourites(@RequestParam String id) {
-        List<PointOfInterest> pois = poiService.unsaveFavourite(id);
+    public ResponseEntity<List<PointOfInterest>> removeFromFavourites(@RequestParam String id, @RequestParam int locationID) {
+        List<PointOfInterest> pois = poiService.unsaveFavourite(id, locationID);
         if (pois == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -38,8 +38,8 @@ public class PoiRest {
     }
 
     @GetMapping("api/poi")
-    public ResponseEntity<List<PointOfInterest>> getPointsOfInterest() {
-        List<PointOfInterest> poiList = poiService.getPointsOfInterest();
+    public ResponseEntity<List<PointOfInterest>> getPointsOfInterest(@RequestParam int locationID) {
+        List<PointOfInterest> poiList = poiService.getPointsOfInterest(locationID);
         if (poiList == null) {
             return ResponseEntity.badRequest().build();
         }

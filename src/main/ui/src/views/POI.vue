@@ -55,9 +55,16 @@
 import {defineComponent} from "vue";
 import {GoogleMap, InfoWindow, Marker} from "vue3-google-map";
 import {addPOIToFavourites, getPointsOfInterest, removePOIFromFavourites} from "../services/POIService.js";
+import {userStore} from "../userStore";
 
 export default defineComponent({
   components: {GoogleMap, Marker, InfoWindow},
+  setup() {
+    const store = userStore();
+    return {
+      store,
+    };
+  },
   data() {
     return {
       key: import.meta.env.VITE_GOOGLE_API_KEY,
@@ -65,8 +72,8 @@ export default defineComponent({
       current: {lat: 0, lng: 0},
       table: {
         headers: [
-          {label: 'Name', key: 'title'},
-          {label: 'Rating', key: 'rating'},
+          {label: 'Name', key: 'title', align: 'center'},
+          {label: 'Rating', key: 'rating', align: 'center'},
         ],
         items: [],
         selectableRows: 1,
@@ -83,7 +90,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    getPointsOfInterest().then((list) => {
+    getPointsOfInterest(this.store.endLocationId).then((list) => {
       for (let i = 0; i < list.length; i++) {
         this.table.items.push(list[i]);
       }
@@ -93,7 +100,7 @@ export default defineComponent({
   },
   methods: {
     save(event, id) {
-      addPOIToFavourites(id).then((list) => {
+      addPOIToFavourites(id, this.store.endLocationId).then((list) => {
         this.table.items = []
         for (let i = 0; i < list.length; i++) {
           this.table.items.push(list[i]);
@@ -102,7 +109,7 @@ export default defineComponent({
       });
     },
     unsave(event, id) {
-      removePOIFromFavourites(id).then((list) => {
+      removePOIFromFavourites(id, this.store.endLocationId).then((list) => {
         this.table.items = []
         for (let i = 0; i < list.length; i++) {
           this.table.items.push(list[i]);

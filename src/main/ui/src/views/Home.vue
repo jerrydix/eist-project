@@ -2,7 +2,6 @@
 import HomeNav from "../components/HomeNav.vue";
 import HomeLoginButton from "../components/HomeLoginButton.vue";
 import FlightInfo from "../components/FlightInfo.vue";
-import FlightMap from "../components/FlightMap.vue";
 import Login from "./User/Login.vue";
 import WelcomeMessage from "../components/WelcomeMessage.vue";
 import Register from "./User/Register.vue";
@@ -53,6 +52,7 @@ export default {
     if (this.store.username != null) {
       getCurrentFlight().then((response) => {
         this.flight = response;
+        this.store.endLocationId = this.flight["endLocation"]["locationID"]
         switch (this.flight["endLocation"]["weather"]["weatherType"]) {
           case "Clouds":
             this.weatherImage = "fa-solid fa-cloud";
@@ -183,7 +183,7 @@ export default {
                   class="bottom-button"
                   @click="$waveui.notify('The flight crew has been notified. Please stay put.')"
               >
-              Call flight assistant
+                Call flight assistant
               </w-button>
             </div>
 
