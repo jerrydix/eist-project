@@ -1,8 +1,9 @@
 <script>
 
 export default {
+
   props: ["flight"],
-}
+
 </script>
 
 
