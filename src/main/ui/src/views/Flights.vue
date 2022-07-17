@@ -63,78 +63,55 @@ function getFlights() {
 </script>
 
 <template>
-  <w-flex row>
-
-
-    <w-flex basis-zero class="xs6" column>
-
-      <w-flex basis-zero class="xs3" row>
-
-        <h1>My trips</h1>
-
-        <w-flex class="xs6" column>
-          <w-textarea v-model="departureCity"
-                      placeholder="Departure City"
-                      @input="searchDep"
-          ></w-textarea>
-
-          <w-list v-model="selectedDeparture"
-                  :items="departureSuggestions"
-                  :multiple="false"
-                  :no-unselect="true"
-                  class="mt6 mr4 grow"
-                  color="deep-purple"
-                  @item-click="depClicked = $event"
-          >
-          </w-list>
-          <w-button @click="saveDep">Enter Departure Selection</w-button>
-          <br/>
-        </w-flex>
-
-
-        <w-flex class="xs6" column>
-          <w-textarea
-              v-model="arrivalCity"
-              placeholder="Arrival City"
-              @input="searchArr"
-          ></w-textarea>
-          <w-list
-              v-model="selectedArrival"
-              :items="arrivalSuggestions"
-              :multiple="false"
-              :no-unselect="true"
-              class="mt6 mr4 grow"
-              color="deep-purple"
-              @item-click="arrClicked = $event"
-          >
-          </w-list>
-          <w-button @click="saveArr">Enter Destination Selection</w-button>
-        </w-flex>
-
-        <w-button @click="getFlights">Show Flights</w-button>
-        <!-- <FlightInfo v-if="flights" :flight="flights[0]"/> -->
+  <w-app id="app">
+    <header>
+      <h2 class="text-center">Flights</h2>
+    </header>
+    <main grow>
+      <w-flex grow>
+        <div class="xs6">
+          <div class="xs6">
+            <w-textarea v-model="departureCity"
+                        placeholder="Departure City"
+                        @input="searchDep"
+            ></w-textarea>
+            <w-list v-model="selectedDeparture"
+                    :items="departureSuggestions"
+                    :multiple="false"
+                    :no-unselect="true"
+                    class="mt6 mr4 grow"
+                    color="deep-purple"
+                    @item-click="depClicked = $event"
+            >
+            </w-list>
+            <w-button @click="saveDep">Enter Departure Selection</w-button>
+          </div>
+          <div class="xs6">
+            <w-textarea
+                v-model="arrivalCity"
+                placeholder="Arrival City"
+                @input="searchArr"
+            ></w-textarea>
+            <w-list
+                v-model="selectedArrival"
+                :items="arrivalSuggestions"
+                :multiple="false"
+                :no-unselect="true"
+                class="mt6 mr4 grow"
+                color="deep-purple"
+                @item-click="arrClicked = $event"
+            >
+            </w-list>
+            <w-button @click="saveArr">Enter Destination Selection</w-button>
+          </div>
+          <FlightSuggestionCard/>
+        </div>
+        <div class="xs6">
+          <w-table :headers="table.headers" :items="table.flights" no-data="no-data">
+          </w-table>
+          <FlightMap/>
+        </div>
       </w-flex>
-
-      <div class="xs9">
-        <h1>hello</h1>
-        <FlightSuggestionCard/>
-      </div>
-    </w-flex>
-
-
-    <w-flex basis-zero class="xs6" column>
-      <div class="xs12">
-        <w-table :headers="table.headers" :items="table.flights" no-data="no-data">
-
-        </w-table>
-      </div>
-
-      <div class="xs12">
-        <FlightMap/>
-      </div>
-
-    </w-flex>
-
-
-  </w-flex>
+    </main>
+  </w-app>
 </template>

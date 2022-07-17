@@ -109,6 +109,7 @@ The access rights change depending on whether a user is logged in or not. While 
 Those features are:
 
 * Watch the flight safety video
+* Call flight assistant
 * Order food / drinks
 * Watch movies
 
@@ -120,15 +121,16 @@ If the user is logged in into his account, he can use the follwing features:
 * View location data, including a map with POIs
 * Create POI favorites list and add / remove POIs to it.
 * Watch the flight safety video
+* Call flight assistant
 * Order food / drinks
 * Watch movies
 
 ### Access matrix
 
-|   |Flights |  Surveys | Locations  | Safety video  | Catering  | Entertainment  |
-|---|---|---|---|---|---|---|
-|User (logged in) | viewCurrentFlight() createFlightJourney() addFlight() removeFlight()  | participate()  | viewLocationData() createPOIList() addPOI() removePOI()  | viewSafetyVideo()  | orderFoodItem()  | watchMovie()  |
-|User (logged out)  | --  | --  | --  | viewSafetyVideo()  | orderFoodItem()  | watchMovie()  |
+|   |Flights |  Surveys | Locations  | Safety video  | Catering                              | Entertainment  |
+|---|---|---|---|---|---------------------------------------|---|
+|User (logged in) | viewCurrentFlight() createFlightJourney() addFlight() removeFlight()  | participate()  | viewLocationData() createPOIList() addPOI() removePOI()  | viewSafetyVideo()  | orderFoodItem() callFlightAssistant() | watchMovie()  |
+|User (logged out)  | --  | --  | --  | viewSafetyVideo()  | orderFoodItem() callFlightAssistant() | watchMovie()  |
 
 
 ## 7. Global software control

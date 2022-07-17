@@ -29,10 +29,8 @@ const menuItems = [
 
 <template>
   <w-app>
-    <h1>Drinks and Snacks</h1>
-
+    <h2 class="text-center">Food and Drinks</h2>
     <CateringItem v-for="menuItem in menuItems" :price="menuItem.price" :text="menuItem.text"/>
-
   </w-app>
 </template>
 

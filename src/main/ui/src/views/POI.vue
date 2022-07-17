@@ -179,7 +179,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 
 .box {
   background-color: #e2ecfc;
