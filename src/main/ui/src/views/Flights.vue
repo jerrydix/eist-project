@@ -15,10 +15,14 @@ export default {
       arrivalSuggestions: null,
       selectedArrival: null,
       arrivalCity: null,
+
+      requestedFlights: false,
+
       depClicked: null,
       arrClicked: null,
       date: "12.07.2022",
       center: null,
+
 
       card: {
         flights: []
@@ -60,10 +64,17 @@ export default {
       this.arrivalSuggestions = null;
     },
     getFlights() {
+      this.requestedFlights = true;
       getFlights(this.departureCity, this.arrivalCity, this.date).then((response) => {
         this.card.flights = response;
         this.reRender();
       });
+    },
+    addToJourney(flight) {
+      this.requestedFlights = false;
+      this.table.flights.push(flight);
+      this.card.flights = [];
+      this.reRender();
     },
     reRender() {
       this.map = false;
@@ -118,9 +129,9 @@ export default {
             </w-list>
             <w-button @click="saveArr">Enter Destination Selection</w-button>
           </div>
-          <w-button @click="getFlights">Show Flights</w-button>
+          <w-button :disabled="this.requestedFlights" @click="getFlights">Show Flights</w-button>
           <FlightSuggestionCard v-for="(option,i) in this.card.flights" :key="i"
-                                :flight="option"/>
+                                :flight="option" @select="addToJourney"/>
         </div>
         <div class="xs6">
           <w-table :headers="this.table.headers" :items="this.table.flights" no-data="no-data">

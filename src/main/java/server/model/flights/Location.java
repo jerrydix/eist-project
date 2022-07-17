@@ -32,7 +32,7 @@ public class Location {
         currentID++;
         this.poiList = PointOfInterest.fetchPOIs(longitude, latitude);
         locationList.add(this);
-        this.position = new Position(latitude, longitude);
+        this.position = new Position(longitude, latitude);
     }
 
     public static List<Location> getLocationList() {
