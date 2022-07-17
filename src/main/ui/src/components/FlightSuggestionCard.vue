@@ -11,9 +11,6 @@ export default {
         arrivalTime : "14:00",
         departureDate : "12/12/2012"
       },
-      items : {
-        {
-      }
     }
   }
 }
