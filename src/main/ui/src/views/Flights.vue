@@ -1,63 +1,62 @@
-<script setup>
-import FlightSuggestionCard from "../components/FlightSuggestionCard.vue";
-import FlightMap from "../components/FlightMap.vue";
-import {getSuggestions} from "../services/FlightService";
+<script>
+import {getFlights, getSuggestions} from "../services/FlightService.js";
 
-let departureSuggestions = null;
-let selectedDeparture = null;
-let departureCity = null;
-let arrivalSuggestions = null;
-let selectedArrival = null;
-let arrivalCity = null;
-let depClicked = null;
-let arrClicked = null;
-let date = "12.07.2022";
-//let flights = null;
-let key = null;
-let center = null;
+export default {
+  data() {
+    return {
+      key: import.meta.env.VITE_GOOGLE_API_KEY,
+      departureSuggestions: null,
+      selectedDeparture: null,
+      departureCity: null,
+      arrivalSuggestions: null,
+      selectedArrival: null,
+      arrivalCity: null,
+      depClicked: null,
+      arrClicked: null,
+      date: "12.07.2022",
+      center: null,
 
-let table = {
-  headers: [
-    {label: 'Number', key: 'number', align: 'center'},
-    {label: 'Start', key: 'startName', align: 'center'},
-    {label: 'End', key: 'endName', align: 'center'},
-    {label: 'Departure', key: 'departureDate', align: 'center'},
-  ],
-  flights: [{number: "ala", startName: "lel", endName: "lol", departureDate: "10/10/10"}],
-}
-
-function searchDep(city) {
-  if (city.length > 2) {
-    getSuggestions(city).then((response) => {
-      departureSuggestions = response;
-    });
+      table: {
+        headers: [
+          {label: 'Number', key: 'number', align: 'center'},
+          {label: 'Start', key: 'startName', align: 'center'},
+          {label: 'End', key: 'endName', align: 'center'},
+          {label: 'Departure', key: 'departureDate', align: 'center'},
+        ],
+        flights: [{number: "ala", startName: "lel", endName: "lol", departureDate: "10/10/10"}],
+      },
+    }
+  },
+  methods: {
+    searchDep(city) {
+      if (city.length > 2) {
+        getSuggestions(city).then((response) => {
+          this.departureSuggestions = response;
+        });
+      }
+    },
+    searchArr(city) {
+      if (city.length > 2) {
+        getSuggestions(city).then((response) => {
+          this.arrivalSuggestions = response;
+        });
+      }
+    },
+    saveDep() {
+      this.departureCity = this.selectedDeparture;
+      this.departureSuggestions = null;
+    },
+    saveArr() {
+      this.arrivalCity = this.selectedArrival;
+      this.arrivalSuggestions = null;
+    },
+    getFlights() {
+      getFlights(this.departureCity, this.arrivalCity, this.date).then((response) => {
+        this.table.flights = response;
+        console.log(response);
+      });
+    }
   }
-}
-
-function searchArr(city) {
-  if (city.length > 2) {
-    getSuggestions(city).then((response) => {
-      arrivalSuggestions = response;
-      console.log(arrivalSuggestions);
-    });
-  }
-}
-
-function saveDep() {
-  departureCity = selectedDeparture;
-  departureSuggestions = null;
-}
-
-function saveArr() {
-  arrivalCity = selectedArrival;
-  arrivalSuggestions = null;
-}
-
-function getFlights() {
-  getFlights(departureCity, arrivalCity, date).then((response) => {
-    this.table.flights = response;
-    console.log(response);
-  });
 }
 
 </script>
@@ -71,43 +70,44 @@ function getFlights() {
       <w-flex grow>
         <div class="xs6">
           <div class="xs6">
-            <w-textarea v-model="departureCity"
+            <w-textarea v-model="this.departureCity"
                         placeholder="Departure City"
                         @input="searchDep"
             ></w-textarea>
-            <w-list v-model="selectedDeparture"
-                    :items="departureSuggestions"
+            <w-list v-model="this.selectedDeparture"
+                    :items="this.departureSuggestions"
                     :multiple="false"
                     :no-unselect="true"
                     class="mt6 mr4 grow"
                     color="deep-purple"
-                    @item-click="depClicked = $event"
+                    @item-click="this.depClicked = $event"
             >
             </w-list>
             <w-button @click="saveDep">Enter Departure Selection</w-button>
           </div>
           <div class="xs6">
             <w-textarea
-                v-model="arrivalCity"
+                v-model="this.arrivalCity"
                 placeholder="Arrival City"
                 @input="searchArr"
             ></w-textarea>
             <w-list
-                v-model="selectedArrival"
-                :items="arrivalSuggestions"
+                v-model="this.selectedArrival"
+                :items="this.arrivalSuggestions"
                 :multiple="false"
                 :no-unselect="true"
                 class="mt6 mr4 grow"
                 color="deep-purple"
-                @item-click="arrClicked = $event"
+                @item-click="this.arrClicked = $event"
             >
             </w-list>
             <w-button @click="saveArr">Enter Destination Selection</w-button>
           </div>
+          <w-button @click="getFlights">Show Flights</w-button>
           <FlightSuggestionCard/>
         </div>
         <div class="xs6">
-          <w-table :headers="table.headers" :items="table.flights" no-data="no-data">
+          <w-table :headers="this.table.headers" :items="this.table.flights" no-data="no-data">
           </w-table>
           <FlightMap/>
         </div>
