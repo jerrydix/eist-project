@@ -32,7 +32,7 @@ export default {
           {label: 'End', key: 'endName', align: 'center'},
           {label: 'Departure', key: 'departureDate', align: 'center'},
         ],
-        flights: [{number: "ala", startName: "lel", endName: "lol", departureDate: "10/10/10"}],
+        flights: [],
       },
     }
   },
@@ -61,8 +61,7 @@ export default {
     },
     getFlights() {
       getFlights(this.departureCity, this.arrivalCity, this.date).then((response) => {
-        this.table.flights.push(response);
-        console.log(response);
+        this.card.flights = response;
         this.reRender();
       });
     },
@@ -120,7 +119,8 @@ export default {
             <w-button @click="saveArr">Enter Destination Selection</w-button>
           </div>
           <w-button @click="getFlights">Show Flights</w-button>
-          <FlightSuggestionCard/>
+          <FlightSuggestionCard v-for="(option,i) in this.card.flights" :key="i"
+                                :flight="option"/>
         </div>
         <div class="xs6">
           <w-table :headers="this.table.headers" :items="this.table.flights" no-data="no-data">
