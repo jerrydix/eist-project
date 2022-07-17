@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div v-if="this.store.username" id="app">
     <w-app>
       <header>
         <h2 class="text-center">Dashboard</h2>
@@ -41,6 +41,17 @@
       </footer>
     </w-app>
   </div>
+
+  <w-app v-if="!this.store.username">
+    <w-flex align-center column justify-center>
+      <h2>Please login to see your dashboard</h2>
+
+      <RouterLink to="/">
+        <w-button>Back to Home</w-button>
+      </RouterLink>
+
+    </w-flex>
+  </w-app>
 </template>
 
 <script>

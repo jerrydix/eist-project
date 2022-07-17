@@ -2,9 +2,16 @@
 import {getFlights, getSuggestions} from "../services/FlightService.js";
 import FlightMap from "../components/FlightMap.vue";
 import FlightSuggestionCard from "../components/FlightSuggestionCard.vue";
+import {userStore} from "../userStore";
 
 export default {
   components: {FlightMap, FlightSuggestionCard},
+  setup() {
+    const store = userStore();
+    return {
+      store,
+    };
+  },
   data() {
     return {
       key: import.meta.env.VITE_GOOGLE_API_KEY,
@@ -88,7 +95,7 @@ export default {
 </script>
 
 <template>
-  <w-app id="app">
+  <w-app v-if="this.store.username" id="app">
     <header>
       <h2 class="text-center">Flights</h2>
     </header>
@@ -140,5 +147,17 @@ export default {
         </div>
       </w-flex>
     </main>
+  </w-app>
+
+
+  <w-app v-if="!this.store.username">
+    <w-flex align-center column justify-center>
+      <h2>Please login to able to book flights</h2>
+
+      <RouterLink to="/">
+        <w-button>Back to Home</w-button>
+      </RouterLink>
+
+    </w-flex>
   </w-app>
 </template>

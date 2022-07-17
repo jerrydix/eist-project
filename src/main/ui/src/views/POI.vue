@@ -1,5 +1,5 @@
 <template>
-  <w-app id="app">
+  <w-app v-if="this.store.username" id="app">
     <header>
       <h2 class="text-center">About your location</h2>
     </header>
@@ -45,6 +45,18 @@
           </MarkerCluster>
         </GoogleMap>
       </main>
+    </w-flex>
+  </w-app>
+
+
+  <w-app v-if="!this.store.username">
+    <w-flex align-center column justify-center>
+      <h2>Please login to see details about your destination</h2>
+
+      <RouterLink to="/">
+        <w-button>Back to Home</w-button>
+      </RouterLink>
+
     </w-flex>
   </w-app>
 </template>
