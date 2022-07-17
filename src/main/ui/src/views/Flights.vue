@@ -1,10 +1,14 @@
 <script>
 import {getFlights, getSuggestions} from "../services/FlightService.js";
+import FlightMap from "../components/FlightMap.vue";
+import FlightSuggestionCard from "../components/FlightSuggestionCard.vue";
 
 export default {
+  components: {FlightMap, FlightSuggestionCard},
   data() {
     return {
       key: import.meta.env.VITE_GOOGLE_API_KEY,
+      map: true,
       departureSuggestions: null,
       selectedDeparture: null,
       departureCity: null,
@@ -15,6 +19,11 @@ export default {
       arrClicked: null,
       date: "12.07.2022",
       center: null,
+
+      card: {
+        flights: []
+      },
+
 
       table: {
         headers: [
@@ -52,10 +61,17 @@ export default {
     },
     getFlights() {
       getFlights(this.departureCity, this.arrivalCity, this.date).then((response) => {
-        this.table.flights = response;
+        this.table.flights.push(response);
         console.log(response);
+        this.reRender();
       });
-    }
+    },
+    reRender() {
+      this.map = false;
+      this.$nextTick().then(() => {
+        this.map = true;
+      });
+    },
   }
 }
 
@@ -109,7 +125,7 @@ export default {
         <div class="xs6">
           <w-table :headers="this.table.headers" :items="this.table.flights" no-data="no-data">
           </w-table>
-          <FlightMap/>
+          <FlightMap v-if="this.map" :flightList="this.table.flights"/>
         </div>
       </w-flex>
     </main>

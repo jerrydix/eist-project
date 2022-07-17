@@ -1,6 +1,7 @@
 package server.model.flights;
 
 import server.model.flights.poi.PointOfInterest;
+import server.model.flights.poi.Position;
 import server.model.flights.weather.Weather;
 import server.networking.HTTP_GetRequest;
 import server.parsing.AirportParser;
@@ -18,21 +19,20 @@ public class Location {
     private int locationID = -1; //defaults to -1 if nonexistent
     private String name;
     private Weather weather;
-    private double longitude;
-    private double latitude;
+
+    private Position position;
     private List<String> airports;
     private String iata;
 
     public Location(String name, double longitude, double latitude) {
         this.name = name;
         this.weather = Weather.fetchWeather(longitude, latitude);
-        this.longitude = longitude;
-        this.latitude = latitude;
         this.airports = new ArrayList<>();
         locationID = currentID;
         currentID++;
         this.poiList = PointOfInterest.fetchPOIs(longitude, latitude);
         locationList.add(this);
+        this.position = new Position(latitude, longitude);
     }
 
     public static List<Location> getLocationList() {
@@ -148,19 +148,11 @@ public class Location {
     }
 
     public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+        return position.getLng();
     }
 
     public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+        return position.getLat();
     }
 
     public String getName() {
@@ -189,5 +181,13 @@ public class Location {
             return false;
         }
         return this.getLocationID() == ((Location) obj).getLocationID();
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }
