@@ -3,6 +3,7 @@ import POI from "./POI.vue";
 import FlightSuggestionCard from "../components/FlightSuggestionCard.vue";
 import FlightInfo from "../components/FlightInfo.vue";
 import FlightMap from "../components/FlightMap.vue";
+import {getSuggestions} from "../services/FlightService";
 let departureSuggestions = null;
 let selectedDeparture = null;
 let departureCity = null;
