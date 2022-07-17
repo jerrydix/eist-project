@@ -5,10 +5,11 @@
     </header>
     <w-flex grow>
       <aside>
-        <w-flex grow justify-center align-center>
-          <w-checkbox @input="table.activeFilter == 0 ? table.activeFilter = 1 : table.activeFilter = 0">Favourites </w-checkbox>
+        <w-flex align-center grow justify-center>
+          <w-checkbox color="orange" @input="topTen">Top 10</w-checkbox>
           <div class="xs1"></div>
-          <w-checkbox @input="topTen" color="orange">Top 10</w-checkbox>
+          <w-checkbox @input="table.activeFilter == 0 ? table.activeFilter = 1 : table.activeFilter = 0">Favourites
+          </w-checkbox>
         </w-flex>
         <w-table
             v-model:sort="table.sort"

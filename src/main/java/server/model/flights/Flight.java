@@ -52,9 +52,9 @@ public class Flight {
         this.endName = endLocation.getName();
         this.weatherDegrees = String.valueOf(endLocation.getWeather().getDegrees());
         this.weatherType = endLocation.getWeather().getWeatherType();
-        this.departureDate = this.startTime.toString().substring(8,10) + "/" + this.startTime.toString().substring(5,7) + "/" + this.startTime.toString().substring(0,4);
-        this.departureTime = this.startTime.toString().substring(11,16);
-        this.arrivalTime = this.endTime.toString().substring(11,16);
+        this.departureDate = this.startTime.toString().substring(8, 10) + "/" + this.startTime.toString().substring(5, 7) + "/" + this.startTime.toString().substring(0, 4);
+        this.departureTime = this.startTime.toString().substring(11, 16);
+        this.arrivalTime = this.endTime.toString().substring(11, 16);
     }
 
     /**
@@ -107,10 +107,10 @@ public class Flight {
     public static String[] getSuggestions(String city) {
         String[] suggestions = Location.fetchCityIATACode(city);
         int newSize = 3;
-        if (suggestions[2].equals(suggestions[1])) {
+        if (suggestions[2] != null && suggestions[2].equals(suggestions[1])) {
             newSize = 2;
         }
-        if (suggestions[1].equals(suggestions[0])) {
+        if (suggestions[1] != null && suggestions[1].equals(suggestions[0])) {
             newSize = 1;
         }
         String[] newSug = new String[newSize];
@@ -290,6 +290,10 @@ public class Flight {
         return delayedArrivalTime;
     }
 
+    public void setDelayedArrivalTime(LocalDateTime delayedArrivalTime) {
+        this.delayedArrivalTime = delayedArrivalTime;
+    }
+
     public String getDepartureDate() {
         return departureDate;
     }
@@ -312,10 +316,6 @@ public class Flight {
 
     public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
-    }
-
-    public void setDelayedArrivalTime(LocalDateTime delayedArrivalTime) {
-        this.delayedArrivalTime = delayedArrivalTime;
     }
 
     public String toString() {
