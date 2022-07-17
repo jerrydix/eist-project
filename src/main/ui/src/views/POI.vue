@@ -6,9 +6,9 @@
     <w-flex grow>
       <aside>
         <w-flex align-center grow justify-center>
-          <w-checkbox color="orange" @input="topTen">Top 10</w-checkbox>
+          <w-checkbox color="orange" @input="topTen">Show Top 10</w-checkbox>
           <div class="xs1"></div>
-          <w-checkbox @input="table.activeFilter == 0 ? table.activeFilter = 1 : table.activeFilter = 0">Favourites
+          <w-checkbox @input="table.activeFilter == 0 ? table.activeFilter = 1 : table.activeFilter = 0">Show Favourites
           </w-checkbox>
         </w-flex>
         <w-table
@@ -19,7 +19,7 @@
             :items="table.items"
             :selectable-rows="table.selectableRows"
             no-data="no-data"
-            style="height: 96vh"
+            style="height: 93.5vh"
             @row-select="select">
         </w-table>
       </aside>

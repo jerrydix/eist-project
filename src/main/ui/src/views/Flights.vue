@@ -102,41 +102,57 @@ export default {
     <main grow>
       <w-flex grow>
         <div class="xs6">
-          <div class="xs6">
-            <w-textarea v-model="this.departureCity"
-                        placeholder="Departure City"
-                        @input="searchDep"
-            ></w-textarea>
-            <w-list v-model="this.selectedDeparture"
-                    :items="this.departureSuggestions"
-                    :multiple="false"
-                    :no-unselect="true"
-                    class="mt6 mr4 grow"
-                    color="deep-purple"
-                    @item-click="this.depClicked = $event"
-            >
-            </w-list>
-            <w-button @click="saveDep">Enter Departure Selection</w-button>
-          </div>
-          <div class="xs6">
-            <w-textarea
-                v-model="this.arrivalCity"
-                placeholder="Arrival City"
-                @input="searchArr"
-            ></w-textarea>
-            <w-list
-                v-model="this.selectedArrival"
-                :items="this.arrivalSuggestions"
-                :multiple="false"
-                :no-unselect="true"
-                class="mt6 mr4 grow"
-                color="deep-purple"
-                @item-click="this.arrClicked = $event"
-            >
-            </w-list>
-            <w-button @click="saveArr">Enter Destination Selection</w-button>
-          </div>
-          <w-button :disabled="this.requestedFlights" @click="getFlights">Show Flights</w-button>
+          <w-flex grow>
+            <div class="xs1"></div>
+            <div class="xs3">
+              <w-input
+                  v-model="this.departureCity"
+                  @input="searchDep"
+                  outline
+                  placeholder="Enter a city"
+              >From</w-input>
+              <w-list v-model="this.selectedDeparture"
+                      :items="this.departureSuggestions"
+                      :multiple="false"
+                      :no-unselect="true"
+                      class="mt6 mr4 grow"
+                      color="deep-purple"
+                      @item-click="this.depClicked = $event"
+              >
+              </w-list>
+              <w-button @click="saveDep">Enter Departure Selection</w-button>
+            </div>
+            <div class="xs1"></div>
+            <div class="x3">
+              <w-input
+                  v-model="this.arrivalCity"
+                  @input="searchArr"
+                  outline
+                  placeholder="Enter a city"
+              >To</w-input>
+              <w-list
+                  v-model="this.selectedArrival"
+                  :items="this.arrivalSuggestions"
+                  :multiple="false"
+                  :no-unselect="true"
+                  class="mt6 mr4 grow"
+                  color="deep-purple"
+                  @item-click="this.arrClicked = $event"
+              >
+              </w-list>
+              <w-button @click="saveArr">Enter Destination Selection</w-button>
+            </div>
+            <div class="xs1"></div>
+            <div class="xs3">
+              <input type="date" id="startDate" name="start">
+            </div>
+          </w-flex>
+          <w-flex grow>
+            <div class="xs1"></div>
+            <div class="xs11">
+              <w-button :disabled="this.requestedFlights" @click="getFlights">Show Flights</w-button>
+            </div>
+          </w-flex>
           <FlightSuggestionCard v-for="(option,i) in this.card.flights" :key="i"
                                 :flight="option" @select="addToJourney"/>
         </div>

@@ -189,7 +189,7 @@ public class FlightFactory {
         String finDate = day + "/" + month + "/" + year;
         Flight flight = generateFlight(pickLocationString(first), pickLocationString(second), finDate);
         flight.setNumber(flightNum);
-        String airline = pickAirline(0);
+        String airline = pickAirline(11);
         for (int i = 0; i < IATAcodes.length; i++) {
             if (flightNum.substring(0, 2).equals(IATAcodes[i])) {
                 airline = pickAirline(i);
