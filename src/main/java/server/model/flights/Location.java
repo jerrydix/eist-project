@@ -24,15 +24,15 @@ public class Location {
     private List<String> airports;
     private String iata;
 
-    public Location(String name, double longitude, double latitude) {
+    public Location(String name, double latitude, double longitude) {
         this.name = name;
-        this.weather = Weather.fetchWeather(longitude, latitude);
+        this.weather = Weather.fetchWeather(latitude, longitude);
         this.airports = new ArrayList<>();
         locationID = currentID;
         currentID++;
-        this.poiList = PointOfInterest.fetchPOIs(longitude, latitude);
+        this.poiList = PointOfInterest.fetchPOIs(latitude, longitude);
         locationList.add(this);
-        this.position = new Position(longitude, latitude);
+        this.position = new Position(latitude, longitude);
     }
 
     public static List<Location> getLocationList() {
