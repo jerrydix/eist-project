@@ -105,6 +105,18 @@ export default {
           <w-flex grow>
             <div class="xs1"></div>
             <div class="xs3">
+              <label>Date</label>
+              <br/>
+              <input type="date" id="startDate" name="start">
+            </div>
+            <div class="xs1"></div>
+            <div class="xs4">
+              Watch out for overlapping departure and arrival times when booking your flights!
+            </div>
+          </w-flex>
+          <w-flex grow>
+            <div class="xs1"></div>
+            <div class="xs3">
               <label>From</label>
               <w-input
                   v-model="this.departureCity"
@@ -146,9 +158,11 @@ export default {
             </div>
             <div class="xs1"></div>
             <div class="xs3">
-              <label>Date</label>
+              <label>Additional settings</label>
+              <w-checkbox>Book returning flight</w-checkbox>
               <br/>
-              <input type="date" id="startDate" name="start">
+              <br/>
+              <w-button @click="">Save Journey</w-button>
             </div>
           </w-flex>
           <w-flex grow>
@@ -161,7 +175,7 @@ export default {
                                 :flight="option" @select="addToJourney"/>
         </div>
         <div class="xs6">
-          <w-table :headers="this.table.headers" :items="this.table.flights" no-data="no-data">
+          <w-table :headers="this.table.headers" :items="this.table.flights" no-data="no-data" style="height: 41vh">
           </w-table>
           <FlightMap v-if="this.map" :flightList="this.table.flights"/>
         </div>

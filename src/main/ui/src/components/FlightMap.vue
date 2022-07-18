@@ -3,7 +3,7 @@
       :api-key="key"
       :center="center"
       :zoom="3"
-      style="width: 50vw; height: 100vh"
+      style="width: 50vw; height: 50vh"
   >
     <Marker v-for="(option,i) in this.locations" :key="i" :options="option"></Marker>
     <Polyline :options="flightPath"/>
