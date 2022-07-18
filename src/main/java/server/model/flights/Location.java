@@ -50,7 +50,7 @@ public class Location {
      * @return A string array that has the location name on index 0 and the IATA on index 1
      */
     public static String[] fetchCityIATACode(String name) {
-        return CityParser.parseCityJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/suggest", new String[]{"?q=" + name, "&api_key=18d0b081-fd7f-4c9e-a723-a05e8ff627cf",}));
+        return CityParser.parseCityJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/suggest", new String[]{"?q=" + name, "&api_key=b6077f08-5b0d-42c4-abb9-4d2b68eb8efa",}));
     }
 
     public static void main(String[] args) {

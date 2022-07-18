@@ -105,12 +105,13 @@ export default {
           <w-flex grow>
             <div class="xs1"></div>
             <div class="xs3">
+              <label>From</label>
               <w-input
                   v-model="this.departureCity"
                   @input="searchDep"
                   outline
                   placeholder="Enter a city"
-              >From</w-input>
+              ></w-input>
               <w-list v-model="this.selectedDeparture"
                       :items="this.departureSuggestions"
                       :multiple="false"
@@ -124,12 +125,13 @@ export default {
             </div>
             <div class="xs1"></div>
             <div class="x3">
+              <label>To</label>
               <w-input
                   v-model="this.arrivalCity"
                   @input="searchArr"
                   outline
                   placeholder="Enter a city"
-              >To</w-input>
+              ></w-input>
               <w-list
                   v-model="this.selectedArrival"
                   :items="this.arrivalSuggestions"
@@ -144,6 +146,8 @@ export default {
             </div>
             <div class="xs1"></div>
             <div class="xs3">
+              <label>Date</label>
+              <br/>
               <input type="date" id="startDate" name="start">
             </div>
           </w-flex>
