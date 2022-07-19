@@ -48,8 +48,8 @@ The scope of the system is the development of a flight entertainment system. Thi
 ### References
 
 * [Software Design Document (SDD)](SDD.md)
-* [Readme](README.md)
-* [Source code](src/main)
+* [Readme](../README.md)
+* [Source code](../src/main)
 
 ### Overview
 
@@ -109,7 +109,7 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 
 #### Use case model
 
-![Use case model](UseCaseDiagramSystem.png)
+![Use case model](images/UseCaseDiagramSystem.png)
 
 #### Object model
 

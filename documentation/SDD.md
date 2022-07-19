@@ -29,8 +29,8 @@ components of the software, while also providing boundary conditions and models 
 ### References:
 
 * [Requirements Analysis Document (RAD)](RAD.md)
-* [Readme](README.md)
-* [Source code](src/main)
+* [Readme](../README.md)
+* [Source code](../src/main)
 
 ## 2. Design Goals
 
@@ -54,10 +54,10 @@ components of the software, while also providing boundary conditions and models 
 
 ## 3. Subsystem Decomposition
 
-![Subsystem Decomposition](SubsystemDecomposition.PNG)
+![Subsystem Decomposition](images/SubsystemDecomposition.PNG)
 
 ## 4. Hardware / Software mapping
-![Hardware / Software mapping](HardwareSoftwareMapping.PNG)
+![Hardware / Software mapping](images/HardwareSoftwareMapping.PNG)
 
 ## 5. Data management
 
@@ -197,7 +197,8 @@ open a web browser and visit `localhost:8080`
 When the execution is terminated, the server shuts down and all user and location data is erased.
 <br/>
 <br/>
-![Use case diagram](UseCaseDiagram.PNG)
+![Use case diagram](images/UseCaseDiagram.PNG)
+
 A use case diagram of a server admin managing the servers
 <br/>
 <br/>

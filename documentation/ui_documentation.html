@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-07-19 Tue 04:04 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Documentation of the Flight System's Front-End</title>
+<meta name="author" content="Lucio Sauer" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Documentation of the Flight System&rsquo;s Front-End</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orga0349da">1. Overview</a>
+<ul>
+<li><a href="#deps">1.1. Dependencies</a>
+<ul>
+<li><a href="#org5074aa5">1.1.1. wave ui</a></li>
+</ul>
+</li>
+<li><a href="#org1bb8f48">1.2. Getting started</a></li>
+</ul>
+</li>
+<li><a href="#orge58ba8c">2. src/</a>
+<ul>
+<li><a href="#orge1d426c">2.1. main.js</a></li>
+<li><a href="#appvue">2.2. App.vue</a></li>
+<li><a href="#userstore">2.3. userStore.js</a></li>
+<li><a href="#org56b1d8a">2.4. components/</a>
+<ul>
+<li><a href="#flightsuggestion">2.4.1. FlightSuggestionCard.vue</a></li>
+</ul>
+</li>
+<li><a href="#org2815f31">2.5. views/</a>
+<ul>
+<li><a href="#orgcc6e142">2.5.1. Catering.vue</a></li>
+<li><a href="#orgab9af45">2.5.2. Flights.vue</a></li>
+<li><a href="#homevue">2.5.3. Home.vue</a></li>
+<li><a href="#orgcd40be0">2.5.4. Movies.vue</a></li>
+</ul>
+</li>
+<li><a href="#orgad58489">2.6. router/</a>
+<ul>
+<li><a href="#routerindex">2.6.1. index.js</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga0349da" class="outline-2">
+<h2 id="orga0349da"><span class="section-number-2">1.</span> Overview</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+The front-end of our flight system is built using the JavaScript framework <a href="https://vuejs.org/">Vue.js</a> and the Vue.js UI framework <a href="https://antoniandre.github.io/wave-ui/">wave ui</a>.
+For more in depth information, please visit &ldquo;<a href="#deps">Dependencies</a>&rdquo;.
+</p>
+</div>
+<div id="outline-container-deps" class="outline-3">
+<h3 id="deps"><span class="section-number-3">1.1.</span> Dependencies</h3>
+<div class="outline-text-3" id="text-deps">
+<p>
+The front-end dependency management is done using the <a href="https://www.npmjs.com/">npm</a> package manager. Subsequently, the necessary dependencies
+are documented in <a href="../src/main/ui/package.json">package.json</a>. Developers do not have to worry about the installation of dependencies. This is handled
+automatically upon building the project using one of the methods described in the <a href="../README.md">README</a>.
+</p>
+</div>
+
+<div id="outline-container-org5074aa5" class="outline-4">
+<h4 id="org5074aa5"><span class="section-number-4">1.1.1.</span> wave ui</h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+wave ui custom tags can be identified by the leading <code>w</code> in the tag. An example would be:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #87cefa;">w-app</span>&gt;
+  &lt;<span style="color: #87cefa;">w-flex</span> <span style="color: #eedd82;">class</span>=<span style="color: #ffa07a;">"grow column align-center justify-center"</span>&gt;
+    This is content inside a grid system.
+  &lt;/<span style="color: #87cefa;">w-flex</span>&gt;
+&lt;/<span style="color: #87cefa;">w-app</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1bb8f48" class="outline-3">
+<h3 id="org1bb8f48"><span class="section-number-3">1.2.</span> Getting started</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+We assume that you are a developer. The following instructions will start our front-end development server <a href="https://vitejs.dev/">Vite</a> and our
+backend.
+</p>
+
+<p>
+Open a terminal and start Vite:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">./gradlew npm_run_dev
+</pre>
+</div>
+<p>
+Open another terminal and start the backend:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">./gradlew bootRun
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge58ba8c" class="outline-2">
+<h2 id="orge58ba8c"><span class="section-number-2">2.</span> src/</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orge1d426c" class="outline-3">
+<h3 id="orge1d426c"><span class="section-number-3">2.1.</span> main.js</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Source the root component from <a href="#appvue">App.vue</a> to create and ultimately mount our app. Set up wave ui&rsquo;s configuration.
+Enables <a href="https://pinia.vuejs.org/">Pinia</a> which enables global states across the app. Currently, this is used in <a href="#userstore">src/userStore.js</a> to keep track
+of whether the user has filled out the survey.
+Enables the <a href="https://router.vuejs.org/">router</a> to access internal Vue URLs within our app. Mount the app.
+</p>
+</div>
+</div>
+
+<div id="outline-container-appvue" class="outline-3">
+<h3 id="appvue"><span class="section-number-3">2.2.</span> App.vue</h3>
+<div class="outline-text-3" id="text-appvue">
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #87cefa;">w-app</span>&gt;&lt;/<span style="color: #87cefa;">w-app</span>&gt;
+</pre>
+</div>
+<p>
+Custom tag of wave ui that is necessary for the proper behaviour of several wave ui elements.
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #87cefa;">RouterView</span> /&gt;
+</pre>
+</div>
+<p>
+Displays the components corresponding to the current URL. As we start on <code>./</code>, <a href="#homevue">Home</a> gets displayed. Sources <a href="#routerindex">src/router/index.js</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-userstore" class="outline-3">
+<h3 id="userstore"><span class="section-number-3">2.3.</span> userStore.js</h3>
+<div class="outline-text-3" id="text-userstore">
+<p>
+Global Pinia store to keep track of whether the user has logged in and filled out the survey.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org56b1d8a" class="outline-3">
+<h3 id="org56b1d8a"><span class="section-number-3">2.4.</span> components/</h3>
+<div class="outline-text-3" id="text-2-4">
+</div>
+<div id="outline-container-flightsuggestion" class="outline-4">
+<h4 id="flightsuggestion"><span class="section-number-4">2.4.1.</span> FlightSuggestionCard.vue</h4>
+<div class="outline-text-4" id="text-flightsuggestion">
+<p>
+TODO
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org2815f31" class="outline-3">
+<h3 id="org2815f31"><span class="section-number-3">2.5.</span> views/</h3>
+<div class="outline-text-3" id="text-2-5">
+</div>
+<div id="outline-container-orgcc6e142" class="outline-4">
+<h4 id="orgcc6e142"><span class="section-number-4">2.5.1.</span> Catering.vue</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #87cefa;">CateringItem</span> <span style="color: #eedd82;">v-for</span>=<span style="color: #ffa07a;">"menuItem in menuItems"</span> :price=<span style="color: #ffa07a;">"menuItem.price"</span> :text=<span style="color: #ffa07a;">"menuItem.text"</span>/&gt;
+</pre>
+</div>
+<p>
+Display multiple <code>CateringItems</code> by looping through the <code>menuItems</code> array.
+</p>
+</div>
+</div>
+<div id="outline-container-orgab9af45" class="outline-4">
+<h4 id="orgab9af45"><span class="section-number-4">2.5.2.</span> Flights.vue</h4>
+<div class="outline-text-4" id="text-2-5-2">
+<div class="org-src-container">
+<pre class="src src-js">searchDep(city) {...}
+searchArr(city) {...}
+</pre>
+</div>
+<p>
+Fetch suggestions for a city code and update <code>departureSuggestions</code> and <code>arrivalSuggestions</code>
+respectively.
+</p>
+<div class="org-src-container">
+<pre class="src src-js">getFlights() {...}
+</pre>
+</div>
+<p>
+Set <code>requestedFlights</code> to <code>true</code>. Fetch suitable flights for a user-given departure-, arrival city and date
+from the backend and re-render the page. This method indirectly disables the <code>Show Flights</code> button
+via <code>requestedFlights</code> and shows all priorly fetched flights using the <a href="#flightsuggestion">FlightSuggestionCard</a>.
+</p>
+<div class="org-src-container">
+<pre class="src src-js">addToJourney(flight) {...}
+</pre>
+</div>
+<p>
+Add <code>flight</code> to the end of the <code>Flights</code> table. Reset <code>requestedFlights</code> to re-enable the <code>Show Flights</code> button.
+Empty the <a href="#flightsuggestion">FlightSuggestionCard</a> and re-render the page.
+</p>
+</div>
+</div>
+<div id="outline-container-homevue" class="outline-4">
+<h4 id="homevue"><span class="section-number-4">2.5.3.</span> Home.vue</h4>
+<div class="outline-text-4" id="text-homevue">
+<div class="org-src-container">
+<pre class="src src-js">data: () =&gt; ({
+    show*
+        )};
+</pre>
+</div>
+<p>
+These variables are used to toggle the visibility of UI elements such as the registration dialog depending
+on if the user is logged in or not.
+An example of their usage can be found later on:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span style="color: #87cefa;">w-dialog</span>
+  <span style="color: #eedd82;">v-model</span>=<span style="color: #ffa07a;">"showRegisterDialog"</span>
+  :width=<span style="color: #ffa07a;">"550"</span>
+  <span style="color: #eedd82;">title</span>=<span style="color: #ffa07a;">"Register"</span>
+  &gt;
+</pre>
+</div>
+<div class="org-src-container">
+<pre class="src src-js">mounted() {
+    getLoggedInUser().then(...);
+</pre>
+</div>
+<p>
+Ask the backend whether the user is currently logged in and update the <a href="#userstore">user store</a> accordingly.
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #00ffff;">if</span> (<span style="color: #7fffd4;">this</span>.store.username != <span style="color: #7fffd4;">null</span>) {...};
+</pre>
+</div>
+<p>
+If the user is logged in, fetch their flight from the backend, update the component&rsquo;s data accordingly.
+</p>
+</div>
+</div>
+<div id="outline-container-orgcd40be0" class="outline-4">
+<h4 id="orgcd40be0"><span class="section-number-4">2.5.4.</span> Movies.vue</h4>
+<div class="outline-text-4" id="text-2-5-4">
+<p>
+Display a selection of previously fetched movies in a grid pattern. Depending on screen size, thumbnails
+and videos get displayed at different sizes, if at all.
+</p>
+<div class="org-src-container">
+<pre class="src src-js">beforeMount() {
+    <span style="color: #7fffd4;">this</span>.setMovies()
+    }
+</pre>
+</div>
+<p>
+Fetch a selection of movies from the backend.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgad58489" class="outline-3">
+<h3 id="orgad58489"><span class="section-number-3">2.6.</span> router/</h3>
+<div class="outline-text-3" id="text-2-6">
+</div>
+<div id="outline-container-routerindex" class="outline-4">
+<h4 id="routerindex"><span class="section-number-4">2.6.1.</span> index.js</h4>
+<div class="outline-text-4" id="text-routerindex">
+<div class="org-src-container">
+<pre class="src src-js">history: createWebHashHistory(<span style="color: #00ffff;">import</span>.meta.env.BASE_URL)
+</pre>
+</div>
+<p>
+All parts of the URL after the <code>/#/</code> are to be interpreted as internal. These get handled by the router.
+All parts of the URL before the <code>/#/</code> are to be interpreted as static resources. These get handled by the web server.
+</p>
+
+<p>
+The <code>routes</code> array contains mappings of all imported components to different URLs.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Lucio Sauer</p>
+<p class="date">Created: 2022-07-19 Tue 04:04</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
