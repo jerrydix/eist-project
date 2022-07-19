@@ -5,17 +5,23 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class KeyReader {
+
+    /**
+     * getAPIkey() reads the Google API key from the .env file in src/main/ui/
+     * 
+     * @return The first key in the .env file         
+     */
     public static String getAPIkey() {
         String key = "";
         try {
-            File myObj = new File("src/main/ui/.env");
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
+            File file = new File("src/main/ui/.env");
+            Scanner scanner = new Scanner(file);
+            if (scanner.hasNextLine()) {
+                String data = scanner.nextLine();
                 key = data.split("=")[1];
                 System.out.println(key);
             }
-            myReader.close();
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();

@@ -1,4 +1,4 @@
-<script setup>
+<script default>
 import { RouterView } from "vue-router";
 </script>
 
