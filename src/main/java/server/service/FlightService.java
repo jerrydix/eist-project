@@ -7,7 +7,6 @@ import server.model.flights.Flight;
 import server.model.flights.FlightJourney;
 import server.model.flights.Suggestion;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -30,7 +29,7 @@ public class FlightService {
         return Flight.fetchFlightsFromToAt(from, to, date);
     }
 
-    public FlightJourney constructJourney(Flight[] flights) {
+    public FlightJourney constructJourney(List<Flight> flights) {
         User user = userService.getLoggedInUser();
         if (user == null) {
             return null;
@@ -42,8 +41,7 @@ public class FlightService {
         return journey;
     }
 
-    private FlightJourney buildJourney(Flight[] arr) {
-        List<Flight> flights = Arrays.asList(arr);
+    private FlightJourney buildJourney(List<Flight> flights) {
         if (flights.isEmpty()) {
             return null;
         }

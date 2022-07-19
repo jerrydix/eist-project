@@ -1,6 +1,5 @@
 package server.model.flights;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,7 +7,6 @@ import java.util.Random;
 public class FlightJourney {
 
     private List<Flight> flights;
-    private List<Location> locations;
     private Location origin;
     private Location endLocation;
     private String originName;
@@ -17,7 +15,6 @@ public class FlightJourney {
 
     public FlightJourney() {
         this.flights = new ArrayList<>();
-        this.locations = new ArrayList<>();
     }
 
     public List<Flight> getFlights() {
@@ -36,29 +33,6 @@ public class FlightJourney {
         this.origin = origin;
     }
 
-    public List<Location> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(List<Location> locations) {
-        this.locations = locations;
-    }
-
-    public List<Location> getDestinations() {
-        return locations;
-    }
-
-    public void setDestinations(List<Location> locations) {
-        this.locations = locations;
-    }
-
-    public boolean addDestination(Location location) {
-        return locations.add(location);
-    }
-
-    public boolean removeDestination(Location location) {
-        return locations.remove(location);
-    }
 
     public String getOriginName() {
         return originName;
@@ -70,6 +44,10 @@ public class FlightJourney {
 
     public String getStartDate() {
         return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
     public Location getEndLocation() {
@@ -88,38 +66,9 @@ public class FlightJourney {
         this.endName = endName;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-
-    public int findToDestinationIndex(Flight flight) {
-        for (int i = 0; i < locations.size(); i++) {
-            if (locations.get(i).equals(flight.getEndLocation())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public int findFromDestinationIndex(Flight flight) {
-        for (int i = 0; i < locations.size(); i++) {
-            if (locations.get(i).equals(flight.getStartLocation())) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public boolean addFlight(Flight flight) {
-        return this.flights.add(flight);
-    }
-
-    public boolean removeFlight(Flight flight) {
-        return flights.remove(flight);
-    }
 
     /**
-     * Used to add a flight (+its locations) to the current flight journey.
+     * Used to add a flight to the current flight journey.
      *
      * @param flight The flight that is to be added to the flight journey
      * @return true, if the flight was successfully added and false if it hasn't been added
@@ -128,18 +77,13 @@ public class FlightJourney {
         if (flight == null) {
             return false;
         }
+        if (flights.size() > 0 && !flight.getStartLocation().equals(flights.get(flights.size() - 1).getEndLocation())) {
+            return false;
+        }
         flights.add(flight);
         this.endLocation = flight.getEndLocation();
         this.endName = flight.getEndName();
-        if (flights.size() >= 2 && flights.get(flights.size() - 2).getEndLocation().equals(flights.get(flights.size() - 1).getStartLocation())) {
-            locations.add(flight.getEndLocation());
-        } else {
-            locations.add(flight.getStartLocation());
-            this.origin = flight.getStartLocation();
-            this.originName = origin.getName();
-            this.startDate = flight.getDepartureDate();
-            locations.add(flight.getEndLocation());
-        }
+
         return true;
     }
 
@@ -151,12 +95,18 @@ public class FlightJourney {
      */
 
     public boolean buildJourney(List<Flight> flights) {
+        if (flights == null || flights.size() == 0) {
+            return false;
+        }
         for (Flight flight : flights) {
             if (!pickFlight(flight)) {
                 flights.clear();
                 return false;
             }
         }
+        this.origin = flights.get(0).getStartLocation();
+        this.originName = flights.get(0).getStartName();
+        this.startDate = flights.get(0).getDepartureDate();
         return true;
     }
 
@@ -173,9 +123,9 @@ public class FlightJourney {
                 String cancelledflightTime = cancelledFlight.getStartTime().toString();
 
 
-               // LocalDateTime.of()
+                // LocalDateTime.of()
 
-                Flight newFlight = FlightFactory.generateFlight(cancelledFlight.getStartLocation().getName(), cancelledFlight.getEndLocation().getName(), "12/12/1001");
+                Flight newFlight = FlightFactory.generateFlight(cancelledFlight.getStartLocation().getName(), cancelledFlight.getEndLocation().getName(), "1001-12-12");
                 newFlight.setStartTime(cancelledFlight.getStartTime());
                 newFlight.setEndTime(cancelledFlight.getEndTime());
 
@@ -187,7 +137,6 @@ public class FlightJourney {
     }
 
     public Flight removeLastFlight() {
-        this.locations.remove(locations.size() - 1);
         return this.flights.remove(flights.size() - 1);
     }
 
@@ -201,10 +150,5 @@ public class FlightJourney {
         int index = r.nextInt(this.flights.size());
         this.flights.get(index).setCancelled(true);
         return this.flights.get(index);
-    }
-
-    //todo delete?
-    public List<Flight> fetchReturningFlights(String date) {
-        return Flight.fetchFlightsFromToAt(this.getFlights().get(this.getFlights().size() - 1).getEndLocation().getName(), origin.getName(), date);
     }
 }

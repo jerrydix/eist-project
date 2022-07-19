@@ -37,7 +37,8 @@ public class FlightRest {
     }
 
     @PostMapping("api/journey")
-    public ResponseEntity<FlightJourney> constructJourney(@RequestBody Flight[] flights) {
+    public ResponseEntity<FlightJourney> constructJourney(@RequestBody List<Flight> flights) {
+
         FlightJourney journey = flightService.constructJourney(flights);
         if (journey == null) {
             return ResponseEntity.badRequest().build();

@@ -1,5 +1,5 @@
 <script>
-import {getFlights, getSuggestions} from "../services/FlightService.js";
+import {constructJourney, getFlights, getSuggestions} from "../services/FlightService.js";
 import FlightMap from "../components/FlightMap.vue";
 import FlightSuggestionCard from "../components/FlightSuggestionCard.vue";
 import {userStore} from "../userStore";
@@ -27,10 +27,10 @@ export default {
 
       depClicked: null,
       arrClicked: null,
-      date: "12.07.2022",
+      date: "2022-08-01",
       center: null,
 
-
+      flight: null,
       card: {
         flights: []
       },
@@ -46,6 +46,10 @@ export default {
         flights: [],
       },
     }
+  },
+  mounted() {
+    const formatted_date = new Date().toJSON().slice(0, 10);
+    this.date = formatted_date
   },
   methods: {
     searchDep(city) {
@@ -73,6 +77,7 @@ export default {
     getFlights() {
       this.requestedFlights = true;
       getFlights(this.departureCity, this.arrivalCity, this.date).then((response) => {
+        console.log(response);
         this.card.flights = response;
         this.reRender();
       });
@@ -81,7 +86,20 @@ export default {
       this.requestedFlights = false;
       this.table.flights.push(flight);
       this.card.flights = [];
+      this.departureCity = this.arrivalCity;
+      this.arrivalCity = "";
       this.reRender();
+    },
+    saveJourney() {
+      constructJourney(JSON.stringify(this.table.flights)).then(() => {
+        this.$waveui.notify("Saved journey");
+        this.table.flights = [];
+        this.card.flights = [];
+        this.departureCity = "";
+        this.arrivalCity = "";
+        this.selectedArrival = "";
+        this.selectedDeparture = "";
+      });
     },
     reRender() {
       this.map = false;
@@ -107,7 +125,7 @@ export default {
             <div class="xs3">
               <label>Date</label>
               <br/>
-              <input type="date" id="startDate" name="start">
+              <w-input v-model="this.date" type="date"></w-input>
             </div>
             <div class="xs1"></div>
             <div class="xs4">
@@ -120,9 +138,10 @@ export default {
               <label>From</label>
               <w-input
                   v-model="this.departureCity"
-                  @input="searchDep"
+                  :readonly="this.table.flights.length>0"
                   outline
                   placeholder="Enter a city"
+                  @input="searchDep"
               ></w-input>
               <w-list v-model="this.selectedDeparture"
                       :items="this.departureSuggestions"
@@ -133,16 +152,16 @@ export default {
                       @item-click="this.depClicked = $event"
               >
               </w-list>
-              <w-button @click="saveDep">Enter Departure Selection</w-button>
+              <w-button :disabled="this.table.flights.length>0" @click="saveDep">Enter Departure Selection</w-button>
             </div>
             <div class="xs1"></div>
             <div class="x3">
               <label>To</label>
               <w-input
                   v-model="this.arrivalCity"
-                  @input="searchArr"
                   outline
                   placeholder="Enter a city"
+                  @input="searchArr"
               ></w-input>
               <w-list
                   v-model="this.selectedArrival"
@@ -158,11 +177,7 @@ export default {
             </div>
             <div class="xs1"></div>
             <div class="xs3">
-              <label>Additional settings</label>
-              <w-checkbox>Book returning flight</w-checkbox>
-              <br/>
-              <br/>
-              <w-button @click="">Save Journey</w-button>
+              <w-button :disabled="this.table.flights.length===0" @click="saveJourney">Save Journey</w-button>
             </div>
           </w-flex>
           <w-flex grow>

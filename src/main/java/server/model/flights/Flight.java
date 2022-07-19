@@ -33,6 +33,7 @@ public class Flight {
     private String departureTime;
     private String arrivalTime;
 
+    private int _uid;
 
     public Flight(String number, LocalDateTime startTime, LocalDateTime endTime, String gate, String terminal, String seat,
                   String airline, Location startLocation, Location endLocation, String airplane) {
@@ -66,11 +67,6 @@ public class Flight {
      * @return A list of 5 or more flights from "from" to "to" at "date", which (if the API does not find any real flights) are stocked up by dummy flights
      */
     public static List<Flight> fetchFlightsFromToAt(String from, String to, String date) {
-        String dayStr = date.substring(0, 2);
-        String monthStr = date.substring(3, 5);
-        String year = date.substring(6);
-        String flightDate = year + "-" + monthStr + "-" + dayStr;
-
         String fromIATA = from.substring(from.indexOf("(") + 1, from.indexOf(")"));
         String toIATA = to.substring(to.indexOf("(") + 1, to.indexOf(")"));
         String fromName = from.substring(0, from.indexOf("(") - 1);
@@ -79,7 +75,7 @@ public class Flight {
         List<Flight> list = FlightParser.parseFlightJson(
                 HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
                         "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM1ZjFjNDVmZGExNDNlODcwNDhkOGRmNzcyOTZhMThhNTMyNTNjNWUzYjIxMWUzNTA3OTAyMzlmMDVkYzk3ODAxNDQ5ZGM1MzI0MmY0N2QiLCJpYXQiOjE2NTYyMzY1MTIsIm5iZiI6MTY1NjIzNjUxMiwiZXhwIjoxNjg3NzcyNTEyLCJzdWIiOiI3MDg0Iiwic2NvcGVzIjpbXX0.jr7CLxzMAJETsHmt2YfH6OBb53pJvEcXNqDuTArRGCNX2AHxGPocVyax2RcaC0zL3u61qZe2g1NzEM0typORcQ",
-                        "&arr_scheduled_time_dep=" + flightDate, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}),
+                        "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}),
                 fromName, toName);
 
         Random r = new Random();
@@ -132,6 +128,14 @@ public class Flight {
         //System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
         //System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
 
+    }
+
+    public int get_uid() {
+        return _uid;
+    }
+
+    public void set_uid(int _uid) {
+        this._uid = _uid;
     }
 
     public String getNumber() {

@@ -42,10 +42,10 @@ public class FlightFactory {
         }
         int fromMinute = r.nextInt(0, 30);
         int toMinute = r.nextInt(0, 30);
-
-        int day = Integer.parseInt(date.substring(0, 2));
-        int month = Integer.parseInt(date.substring(3, 5));
-        int year = Integer.parseInt(date.substring(6));
+        System.out.println(date);
+        int day = date.length() > 10 ? Integer.parseInt(date.substring(8, 10)) : Integer.parseInt(date.substring(8));
+        int month = Integer.parseInt(date.substring(5, 7));
+        int year = Integer.parseInt(date.substring(0, 4));
 
         LocalDateTime startTime = LocalDateTime.of(year, FlightParser.parseToMonth(month), day, fromHour, fromMinute);
         LocalDateTime endTime = LocalDateTime.of(year, FlightParser.parseToMonth(month), day, toHour, toMinute);
@@ -115,6 +115,7 @@ public class FlightFactory {
         return flight;
     }
 
+
     public static String generateSeat() {
         Random r = new Random();
         int seatNum = r.nextInt(1, 34);
@@ -183,11 +184,7 @@ public class FlightFactory {
 
         LocalDateTime now = LocalDateTime.now();
         String date = now.toString();
-        String day = date.substring(8, 10);
-        String month = date.substring(5, 7);
-        String year = date.substring(0, 4);
-        String finDate = day + "/" + month + "/" + year;
-        Flight flight = generateFlight(pickLocationString(first), pickLocationString(second), finDate);
+        Flight flight = generateFlight(pickLocationString(first), pickLocationString(second), date);
         flight.setNumber(flightNum);
         String airline = pickAirline(11);
         for (int i = 0; i < IATAcodes.length; i++) {
@@ -222,7 +219,7 @@ public class FlightFactory {
     public static void main(String[] args) {
         Flight flight = generateRandomFlight("PW1234");
         System.out.println(flight);
-        System.out.println(flight.getStartLocation().getPoiList());
-        System.out.println(flight.getEndLocation().getPoiList());
+        System.out.println(flight.getStartLocation().getPointsOfInterest());
+        System.out.println(flight.getEndLocation().getPointsOfInterest());
     }
 }

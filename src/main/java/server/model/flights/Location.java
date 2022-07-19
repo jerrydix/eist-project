@@ -15,7 +15,7 @@ public class Location {
 
     static int currentID = 0;
     private static List<Location> locationList = new ArrayList<>();
-    List<PointOfInterest> poiList;
+    List<PointOfInterest> pointsOfInterest;
     private int locationID = -1; //defaults to -1 if nonexistent
     private String name;
     private Weather weather;
@@ -30,7 +30,7 @@ public class Location {
         this.airports = new ArrayList<>();
         locationID = currentID;
         currentID++;
-        this.poiList = PointOfInterest.fetchPOIs(latitude, longitude);
+        this.pointsOfInterest = PointOfInterest.fetchPOIs(latitude, longitude);
         locationList.add(this);
         this.position = new Position(latitude, longitude);
     }
@@ -59,7 +59,7 @@ public class Location {
         System.out.println("\n\n");
         System.out.println(location.getWeather());
         System.out.println("\n\n");
-        System.out.println(PointOfInterestParser.toString(location.poiList));
+        System.out.println(PointOfInterestParser.toString(location.pointsOfInterest));
     }
 
     public static Location getLocationWithId(int id) {
@@ -70,6 +70,7 @@ public class Location {
         }
         return null;
     }
+
 
     public static PointOfInterest getPOIWithId(String id) {
         for (Location location : locationList) {
@@ -90,13 +91,6 @@ public class Location {
         this.iata = iata;
     }
 
-    public List<PointOfInterest> getPoiList() {
-        return poiList;
-    }
-
-    public void setPoiList(List<PointOfInterest> poiList) {
-        this.poiList = poiList;
-    }
 
     public int getLocationID() {
         return locationID;
@@ -144,7 +138,11 @@ public class Location {
     }
 
     public List<PointOfInterest> getPointsOfInterest() {
-        return this.poiList;
+        return this.pointsOfInterest;
+    }
+
+    public void setPointsOfInterest(List<PointOfInterest> pointsOfInterest) {
+        this.pointsOfInterest = pointsOfInterest;
     }
 
     public double getLongitude() {
