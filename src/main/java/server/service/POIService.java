@@ -83,6 +83,11 @@ public class POIService {
             }
         }
 
+        for (PointOfInterest pointOfInterest : list2) {
+            newList.remove(pointOfInterest);
+            newList.add(pointOfInterest);
+        }
+
         return newList;
     }
 

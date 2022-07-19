@@ -1,64 +1,47 @@
 <template>
-  <w-app v-if="this.store.username" id="app">
-    <header>
-      <h2 class="text-center">About your location</h2>
-    </header>
-    <w-flex grow>
-      <aside>
-        <w-flex align-center grow justify-center>
-          <w-checkbox color="orange" @input="topTen">Show Top 10</w-checkbox>
-          <div class="xs1"></div>
-          <w-checkbox @input="table.activeFilter == 0 ? table.activeFilter = 1 : table.activeFilter = 0">Show Favourites
-          </w-checkbox>
-        </w-flex>
-        <w-table
-            v-model:sort="table.sort"
-            :filter="table.filters[table.activeFilter]"
-            :force-selection="table.forceSelection"
-            :headers="table.headers"
-            :items="table.items"
-            :selectable-rows="table.selectableRows"
-            no-data="no-data"
-            style="height: 93.5vh"
-            @row-select="select">
-        </w-table>
-      </aside>
-      <main class="grow">
-        <GoogleMap v-if="map"
-                   :api-key="key"
-                   :center="current"
-                   :zoom="16"
-                   style="width: 100%; height: 100%"
-        >
-          <MarkerCluster>
-            <Marker v-for="(option,i) in this.table.items" :key="i" :options="option">
-              <InfoWindow>
-                <h4>{{ option.title }}</h4>
-                <div>{{ option.description }}</div>
-                <w-rating v-model="option.favourited" color="yellow" max="1" md readonly></w-rating>
-                <br>
-                <w-button v-if="!option.favourited" @click="save($event,option)">Save to Favourites</w-button>
-                <w-button v-if="option.favourited" @click="unsave($event,option)">Delete from Favourites</w-button>
+  <w-flex grow>
+    <aside>
+      <w-flex align-center grow justify-center>
+        <w-checkbox color="orange" @input="topTen">Show Top 10</w-checkbox>
+        <div class="xs1"></div>
+        <w-checkbox @input="table.activeFilter == 0 ? table.activeFilter = 1 : table.activeFilter = 0">Show Favourites
+        </w-checkbox>
+      </w-flex>
+      <w-table
+          v-model:sort="table.sort"
+          :filter="table.filters[table.activeFilter]"
+          :force-selection="table.forceSelection"
+          :headers="table.headers"
+          :items="table.items"
+          :selectable-rows="table.selectableRows"
+          no-data="no-data"
+          style="height: 93.5vh"
+          @row-select="select">
+      </w-table>
+    </aside>
+    <main class="grow">
+      <GoogleMap v-if="map"
+                 :api-key="key"
+                 :center="current"
+                 :zoom="16"
+                 style="width: 100%; height: 100%"
+      >
+        <MarkerCluster>
+          <Marker v-for="(option,i) in this.table.items" :key="i" :options="option">
+            <InfoWindow>
+              <h4>{{ option.title }}</h4>
+              <div>{{ option.description }}</div>
+              <w-rating v-model="option.favourited" color="yellow" max="1" md readonly></w-rating>
+              <br>
+              <w-button v-if="!option.favourited" @click="save($event,option)">Save to Favourites</w-button>
+              <w-button v-if="option.favourited" @click="unsave($event,option)">Delete from Favourites</w-button>
 
-              </InfoWindow>
-            </Marker>
-          </MarkerCluster>
-        </GoogleMap>
-      </main>
-    </w-flex>
-  </w-app>
-
-
-  <w-app v-if="!this.store.username">
-    <w-flex align-center column justify-center>
-      <h2>Please login to see details about your destination</h2>
-
-      <RouterLink to="/">
-        <w-button>Back to Home</w-button>
-      </RouterLink>
-
-    </w-flex>
-  </w-app>
+            </InfoWindow>
+          </Marker>
+        </MarkerCluster>
+      </GoogleMap>
+    </main>
+  </w-flex>
 </template>
 
 <script>
@@ -70,16 +53,10 @@ import {
   getTopPointsOfInterest,
   removePOIFromFavourites
 } from "../services/POIService.js";
-import {userStore} from "../userStore";
 
 export default defineComponent({
+  props: ['locationID'],
   components: {GoogleMap, Marker, InfoWindow},
-  setup() {
-    const store = userStore();
-    return {
-      store,
-    };
-  },
   data() {
     return {
       key: import.meta.env.VITE_GOOGLE_API_KEY,
@@ -106,7 +83,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    getPointsOfInterest(this.store.endLocationId).then((list) => {
+    getPointsOfInterest(this.locationID).then((list) => {
       for (let i = 0; i < list.length; i++) {
         this.table.items.push(list[i]);
       }
@@ -116,10 +93,10 @@ export default defineComponent({
   },
   methods: {
     save(event, option) {
-      addPOIToFavourites(option.id, this.store.endLocationId).then((list) => {
+      addPOIToFavourites(option.id, this.locationID).then((list) => {
         this.current = option.position;
         if (this.isTopTen) {
-          getTopPointsOfInterest(this.store.endLocationId).then((list) => {
+          getTopPointsOfInterest(this.locationID).then((list) => {
             this.table.items = []
             for (let i = 0; i < list.length; i++) {
               this.table.items.push(list[i]);
@@ -136,9 +113,9 @@ export default defineComponent({
       });
     },
     unsave(event, option) {
-      removePOIFromFavourites(option.id, this.store.endLocationId).then((list) => {
+      removePOIFromFavourites(option.id, this.locationID).then((list) => {
         if (this.isTopTen) {
-          getTopPointsOfInterest(this.store.endLocationId).then((list) => {
+          getTopPointsOfInterest(this.locationID).then((list) => {
             this.current = list[0].position;
             this.table.items = []
             for (let i = 0; i < list.length; i++) {
@@ -170,7 +147,7 @@ export default defineComponent({
     },
     topTen() {
       if (!this.isTopTen) {
-        getTopPointsOfInterest(this.store.endLocationId).then((list) => {
+        getTopPointsOfInterest(this.locationID).then((list) => {
           this.current = list[0].position;
           this.table.items = []
           for (let i = 0; i < list.length; i++) {
@@ -179,7 +156,7 @@ export default defineComponent({
           this.reRender();
         });
       } else {
-        getPointsOfInterest(this.store.endLocationId).then((list) => {
+        getPointsOfInterest(this.locationID).then((list) => {
           this.current = list[0].position;
           this.table.items = []
           for (let i = 0; i < list.length; i++) {

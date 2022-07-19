@@ -2,10 +2,11 @@
 import {constructJourney, getFlights, getSuggestions} from "../services/FlightService.js";
 import FlightMap from "../components/FlightMap.vue";
 import FlightSuggestionCard from "../components/FlightSuggestionCard.vue";
+import FlightsPOI from "../components/FlightsPOI.vue";
 import {userStore} from "../userStore";
 
 export default {
-  components: {FlightMap, FlightSuggestionCard},
+  components: {FlightMap, FlightSuggestionCard, FlightsPOI},
   setup() {
     const store = userStore();
     return {
@@ -35,6 +36,8 @@ export default {
         flights: []
       },
 
+      showPOI: false,
+      locationID: -1,
 
       table: {
         headers: [
@@ -90,6 +93,10 @@ export default {
       this.arrivalCity = "";
       this.reRender();
     },
+    show(locationID) {
+      this.showPOI = true;
+      this.locationID = locationID;
+    },
     saveJourney() {
       constructJourney(JSON.stringify(this.table.flights)).then(() => {
         this.$waveui.notify("Saved journey");
@@ -125,7 +132,7 @@ export default {
             <div class="xs3">
               <label>Date</label>
               <br/>
-              <w-input v-model="this.date" type="date" outline></w-input>
+              <w-input v-model="this.date" outline type="date"></w-input>
             </div>
             <div class="xs1"></div>
             <div class="xs4">
@@ -192,7 +199,10 @@ export default {
         <div class="xs6">
           <w-table :headers="this.table.headers" :items="this.table.flights" no-data="no-data" style="height: 41vh">
           </w-table>
-          <FlightMap v-if="this.map" :flightList="this.table.flights"/>
+          <FlightMap v-if="this.map" :flightList="this.table.flights" @show="show"/>
+          <w-dialog v-model="this.showPOI" :width="1000">
+            <FlightsPOI :location-i-d="this.locationID"/>
+          </w-dialog>
         </div>
       </w-flex>
     </main>

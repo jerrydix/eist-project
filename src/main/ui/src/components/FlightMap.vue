@@ -5,17 +5,25 @@
       :zoom="3"
       style="width: 50vw; height: 50vh"
   >
-    <Marker v-for="(option,i) in this.locations" :key="i" :options="option"></Marker>
+    <Marker v-for="(option,i) in this.locations" :key="i" :options="option">
+      <InfoWindow>
+        <w-flex align-center column justify-center>
+          <h2>{{ option.name }}</h2>
+
+          <w-button @click="show(option.locationID)">Show points of interest</w-button>
+        </w-flex>
+      </InfoWindow>
+    </Marker>
     <Polyline :options="flightPath"/>
   </GoogleMap>
 </template>
 
 <script>
 import {defineComponent} from "vue";
-import {GoogleMap, Marker, Polyline} from "vue3-google-map";
+import {GoogleMap, InfoWindow, Marker, Polyline} from "vue3-google-map";
 
 export default defineComponent({
-  components: {GoogleMap, Marker, Polyline},
+  components: {GoogleMap, Marker, Polyline, InfoWindow},
   props: ['flightList'],
   data() {
     return {
@@ -33,15 +41,19 @@ export default defineComponent({
       },
     }
   },
+  methods: {
+    show(locationID) {
+      this.$emit("show", locationID);
+    }
+  },
   mounted() {
     for (let i = 0; i < this.flightList.length; i++) {
       this.center = this.flightList[0].startLocation.position;
-      this.locations.push({position: this.flightList[i].startLocation.position, label: (i + 1).toString()});
+      this.locations.push(Object.assign({label: (i + 1).toString()}, this.flightList[i].startLocation));
     }
-    this.locations.push({
-      position: this.flightList[this.flightList.length - 1].endLocation.position,
-      label: (this.flightList.length + 1).toString()
-    })
+    this.locations.push(
+        Object.assign({label: (this.flightList.length + 1).toString()}, this.flightList[this.flightList.length - 1].endLocation)
+    )
 
     for (let i = 0; i < this.locations.length; i++) {
       this.flightPlan.push(this.locations[i].position);
