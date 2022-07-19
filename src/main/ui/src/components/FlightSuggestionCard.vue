@@ -28,7 +28,7 @@ export default {
 					color="primary"
 				>
 					<template #item="{ item }">
-						<w-tag class="white grey-light2--bg">
+						<w-tag class="white blue--bg">
 							{{ item.title }}
 						</w-tag>
 						<span class="mx2"> {{ item.content }} </span>
