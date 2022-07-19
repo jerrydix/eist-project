@@ -26,7 +26,7 @@
         * Object model 
         * Dynamic model 
         * User interface 
-3. Glossary ??
+3. Glossary
 
 
 ## 1. Introduction
@@ -113,12 +113,19 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 
 #### Object model
 
-TODO: Insert updated object model
+![Object model](images/ObjectDiagram.png)
 
 #### Dynamic model
 
-TODO: insert updated dynamic model
+![Communication model: Scenario 1](images/ScenarioOneCommunication.png)
+Scenario 1: Communication model
+
+![Communication model: Scenario 2](images/ScenarioTwoCommunication.png)
+Scenario 2: Communication model
+
+![Communication model: Scenario 3](images/ScenarioThreeCommunication.png)
+Scenario 3: Communication model
 
 #### User interface
 
-## 3. Glossary??
+## 3. Glossary
