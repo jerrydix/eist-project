@@ -125,7 +125,7 @@ export default {
             <div class="xs3">
               <label>Date</label>
               <br/>
-              <w-input v-model="this.date" type="date"></w-input>
+              <w-input v-model="this.date" type="date" outline></w-input>
             </div>
             <div class="xs1"></div>
             <div class="xs4">
