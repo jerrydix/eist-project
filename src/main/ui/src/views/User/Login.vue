@@ -46,7 +46,6 @@ export default {
   <w-textarea v-model="user.password" placeholder="Enter your password"></w-textarea>
   <w-button @click="loginUser">Login</w-button> -->
 
-<<<<<<< Updated upstream
   <label>Username:</label>
   <w-input
       v-model="user.username"
@@ -64,20 +63,3 @@ export default {
 </template>
 
 <style scoped></style>
-=======
-	<label>Username:</label>
-	<w-input
-		v-model="user.username"
-		class="mb4"
-		placeholder="Enter your username"
-	></w-input>
-	<label>Password:</label>
-	<w-input
-		v-model="user.password"
-		class="mb4"
-		placeholder="Enter your password"
-	></w-input>
-	<w-button @click="loginUser">Login</w-button>
-	<br />
-</template>
->>>>>>> Stashed changes

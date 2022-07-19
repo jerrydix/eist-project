@@ -15,103 +15,6 @@ import { userStore } from "../userStore";
 import { getCurrentFlight } from "../services/FlightService";
 
 export default {
-<<<<<<< Updated upstream
-  components: {
-    Survey,
-    HomeNav,
-    HomeLoginButton,
-    FlightInfo,
-    Login,
-    WelcomeMessage,
-    Register,
-    TopBar,
-  },
-  data: () => ({
-    showLoginDialog: false,
-    showRegisterDialog: false,
-    showSurveyDialog: false,
-    showSafetyVideo: false,
-    flight: null,
-    weatherImage: null
-  }),
-  setup() {
-    const store = userStore();
-    return {
-      store,
-    };
-  },
-  mounted() {
-    getLoggedInUser().then((response) => {
-      if (response === "null") {
-        this.store.username = null;
-        window.localStorage.removeItem("user");
-      } else {
-        this.store.username = response;
-        window.localStorage.setItem("user", response);
-      }
-    });
-    hasCompletedSurvey().then((response) => {
-      this.store.completedSurvey = response
-    });
-    if (this.store.username != null) {
-      getCurrentFlight().then((response) => {
-        this.flight = response;
-        this.store.endLocationId = this.flight["endLocation"]["locationID"]
-        switch (this.flight["endLocation"]["weather"]["weatherType"]) {
-          case "Clouds":
-            this.weatherImage = "fa-solid fa-cloud";
-            break;
-          case "Rain":
-            this.weatherImage = "fa-solid fa-cloud-showers-heavy";
-            break;
-          case "Thunderstorm":
-            this.weatherImage = "fa-solid fa-cloud-bolt";
-            break;
-          case "Drizzle":
-            this.weatherImage = "fa-solid fa-cloud-rain";
-            break;
-          case "Snow":
-            this.weatherImage = "fa-solid fa-snowflake";
-            break;
-          case "Mist":
-            this.weatherImage = "fa-solid fa-smog";
-            break;
-          case "Smoke":
-            this.weatherImage = "fa-solid fa-smog";
-            break;
-          case "Haze":
-            this.weatherImage = "fa-solid fa-smog";
-            break;
-          case "Dust":
-            this.weatherImage = "fa-solid fa-smog";
-            break;
-          case "Fog":
-            this.weatherImage = "fa-solid fa-smog";
-            break;
-          case "Sand":
-            this.weatherImage = "fa-solid fa-wind";
-            break;
-          case "Ash":
-            this.weatherImage = "fa-solid fa-smog";
-            break;
-          case "Squall":
-            this.weatherImage = "fa-solid fa-wind";
-            break;
-          case "Tornado":
-            this.weatherImage = "fa-solid fa-tornado";
-            break;
-          case "Clear":
-            this.weatherImage = "fa-solid fa-sun";
-            break;
-          default:
-            this.weatherImage = "fa-solid fa-cloud";
-            break;
-        }
-        console.log(response);
-      });
-    }
-  },
-=======
 	components: {
 		Survey,
 		HomeNav,
@@ -152,6 +55,8 @@ export default {
 		if (this.store.username != null) {
 			getCurrentFlight().then((response) => {
 				this.flight = response;
+				this.store.endLocationId =
+					this.flight["endLocation"]["locationID"];
 				switch (this.flight["endLocation"]["weather"]["weatherType"]) {
 					case "Clouds":
 						this.weatherImage = "fa-solid fa-cloud";
@@ -206,7 +111,6 @@ export default {
 			});
 		}
 	},
->>>>>>> Stashed changes
 };
 </script>
 
@@ -295,20 +199,6 @@ export default {
 								Call flight assistant
 							</w-button>
 						</div>
-
-<<<<<<< Updated upstream
-            <div class="justify-self-center" style="margin-top: auto;">
-              <w-button
-                  bg-color="info"
-                  class="bottom-button"
-                  @click="$waveui.notify('The flight crew has been notified. Please stay put.')"
-              >
-                Call flight assistant
-              </w-button>
-            </div>
-=======
-						<div class="spacer"></div>
->>>>>>> Stashed changes
 
 						<div class="justify-self-end" style="margin-top: auto">
 							<w-button

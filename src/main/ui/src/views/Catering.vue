@@ -1,9 +1,5 @@
 <script setup>
 import CateringItem from "../components/CateringItem.vue";
-import FlightMap from "../components/FlightMap.vue";
-import POI from "./POI.vue";
-/* import { testNote } from "../services/CancelService.js"; */
-import 
 
 const menuItems = [
 	{ text: "NicNacs", price: 5.5 },
@@ -36,23 +32,10 @@ let testNote = () => {
 </script>
 
 <template>
-<<<<<<< Updated upstream
   <w-app>
     <h2 class="text-center">Food and Drinks</h2>
     <CateringItem v-for="menuItem in menuItems" :price="menuItem.price" :text="menuItem.text"/>
   </w-app>
-=======
-	<w-app>
-		<h1>Drinks and Snacks</h1>
-
-		<CateringItem
-			v-for="menuItem in menuItems"
-			:price="menuItem.price"
-			:text="menuItem.text"
-      @click="testNote"
-		/>
-	</w-app>
->>>>>>> Stashed changes
 </template>
 
 <style scoped>
