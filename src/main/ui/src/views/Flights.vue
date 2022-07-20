@@ -93,6 +93,15 @@ export default {
       this.arrivalCity = "";
       this.reRender();
     },
+    deleteLast() {
+      this.table.flights.pop();
+      if (this.table.flights.length > 0) {
+        this.departureCity = this.table.flights[this.table.flights.length - 1].fullEndName;
+      } else {
+        this.departureCity = "";
+      }
+      this.reRender();
+    },
     show(locationID) {
       this.showPOI = true;
       this.locationID = locationID;
@@ -106,6 +115,7 @@ export default {
         this.arrivalCity = "";
         this.selectedArrival = "";
         this.selectedDeparture = "";
+        this.reRender();
       });
     },
     reRender() {
@@ -184,6 +194,9 @@ export default {
             </div>
             <div class="xs1"></div>
             <div class="xs3">
+              <w-button :disabled="this.table.flights.length === 0" @click="deleteLast">Delete last
+                flight
+              </w-button>
               <w-button :disabled="this.table.flights.length===0" @click="saveJourney">Save Journey</w-button>
             </div>
           </w-flex>

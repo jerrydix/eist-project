@@ -33,6 +33,10 @@ public class Flight {
     private String departureTime;
     private String arrivalTime;
 
+    private String fullEndName;
+
+    private String fullStartName;
+
     private int _uid;
 
     public Flight(String number, LocalDateTime startTime, LocalDateTime endTime, String gate, String terminal, String seat,
@@ -80,17 +84,19 @@ public class Flight {
 
         Random r = new Random();
         int amount = r.nextInt(5, 15);
-        if (list != null) {
-            while (list.size() < amount) {
-                list.add(FlightFactory.generateFlight(fromName, toName, date));
-            }
-        } else {
-            List<Flight> fakeFlights = new ArrayList<>();
-            for (int i = 0; i < amount; i++) {
-                fakeFlights.add(FlightFactory.generateFlight(fromName, toName, date));
-            }
-            return fakeFlights;
+        if (list == null) {
+            list = new ArrayList<>();
         }
+
+        while (list.size() < amount) {
+            list.add(FlightFactory.generateFlight(fromName, toName, date));
+        }
+
+        for (Flight flight : list) {
+            flight.fullEndName = to;
+            flight.fullStartName = from;
+        }
+
         return list;
     }
 
@@ -128,6 +134,22 @@ public class Flight {
         //System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
         //System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
 
+    }
+
+    public String getFullEndName() {
+        return fullEndName;
+    }
+
+    public void setFullEndName(String fullEndName) {
+        this.fullEndName = fullEndName;
+    }
+
+    public String getFullStartName() {
+        return fullStartName;
+    }
+
+    public void setFullStartName(String fullStartName) {
+        this.fullStartName = fullStartName;
     }
 
     public int get_uid() {
