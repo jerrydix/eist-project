@@ -119,11 +119,6 @@ public class Location {
         }
     }
 
-    //todo keep / remove?
-    public void fetchAirports() {
-        this.fetchCurrentCityIATACode();
-        this.airports = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports", new String[]{}));
-    }
 
     /**
      * Returns ten flights from the current location to "to" at "date"

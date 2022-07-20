@@ -76,6 +76,9 @@ public class FlightParser {
                 JSONObject current = array.getJSONObject(i);
 
                 String number = current.getJSONObject("flight").getString("iata");
+                if (number == null || number.equals("null")) {
+                    number = FlightFactory.generateRandomFlightNumber();
+                }
                 String startDate = current.getString("flight_date");
                 int startYear = Integer.parseInt(startDate.substring(0, 4));
                 int startMonth = Integer.parseInt(startDate.substring(5, 7));

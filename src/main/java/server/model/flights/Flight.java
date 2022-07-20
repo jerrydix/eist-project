@@ -1,6 +1,7 @@
 package server.model.flights;
 
 import server.networking.HTTP_GetRequest;
+import server.parsing.AirportParser;
 import server.parsing.FlightParser;
 
 import java.time.LocalDateTime;
@@ -75,6 +76,49 @@ public class Flight {
         String toIATA = to.substring(to.indexOf("(") + 1, to.indexOf(")"));
         String fromName = from.substring(0, from.indexOf("(") - 1);
         String toName = to.substring(0, to.indexOf("(") - 1);
+
+        String fromAirportIATA = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports?city_code=" + fromIATA + "&api_key=23c0135c-2b3c-4bc9-88f0-98aa15ac238c", new String[]{}));
+        String toAirportIATA = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports?city_code=" + toIATA + "&api_key=23c0135c-2b3c-4bc9-88f0-98aa15ac238c", new String[]{}));
+
+        if (fromAirportIATA != null) {
+            fromIATA = fromAirportIATA;
+        }
+        if (toAirportIATA != null) {
+            toIATA = toAirportIATA;
+        }
+        System.out.println("TEST");
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+
+        System.out.println(fromIATA);
+        System.out.println(toIATA);
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
 
         List<Flight> list = FlightParser.parseFlightJson(
                 HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{

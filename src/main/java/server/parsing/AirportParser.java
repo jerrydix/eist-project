@@ -7,11 +7,12 @@ import java.util.List;
 
 public class AirportParser {
 
-    //todo keep / remove?
 
-    public static List<String> parseAirportJson(String jsonText) {
+
+    public static String parseAirportJson(String jsonText) {
         try {
             JSONObject obj = new JSONObject(jsonText.toString());
+            return obj.getJSONArray("response").getJSONObject(0).getString("iata_code");
         } catch (JSONException exception) {
             System.out.println("Couldn't parse Airport IATA json");
         }

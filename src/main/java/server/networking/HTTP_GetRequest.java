@@ -48,7 +48,7 @@ public class HTTP_GetRequest {
             }
             in.close();
             //print in String
-            System.out.println(response.toString());
+           // System.out.println(response.toString());
 
             return response.toString();
             //Read JSON response and print
