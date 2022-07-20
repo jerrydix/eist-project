@@ -77,13 +77,17 @@ public class FlightJourney {
         if (flight == null) {
             return false;
         }
-        if (flights.size() > 0 && !flight.getStartLocation().equals(flights.get(flights.size() - 1).getEndLocation())) {
-            return false;
+        //if (flights.size() > 0 && !flight.getStartLocation().equals(flights.get(flights.size() - 1).getEndLocation())) {
+        //    return false;
+        //}
+        if (flights.isEmpty()) {
+            this.origin = flight.getStartLocation();
+            this.originName = origin.getName();
+            this.startDate = flight.getDepartureDate();
         }
         flights.add(flight);
         this.endLocation = flight.getEndLocation();
         this.endName = flight.getEndName();
-
         return true;
     }
 
@@ -104,9 +108,6 @@ public class FlightJourney {
                 return false;
             }
         }
-        this.origin = flights.get(0).getStartLocation();
-        this.originName = flights.get(0).getStartName();
-        this.startDate = flights.get(0).getDepartureDate();
         return true;
     }
 
