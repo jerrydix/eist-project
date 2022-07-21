@@ -153,10 +153,10 @@ public class Flight {
     public static String[] getSuggestions(String city) {
         String[] suggestions = Location.fetchCityIATACode(city);
         int newSize = 3;
-        if (suggestions[2] != null && suggestions[2].equals(suggestions[1])) {
+        if (suggestions[2] == null || (suggestions[2].equals(suggestions[1]) || suggestions[2].isBlank())) {
             newSize = 2;
         }
-        if (suggestions[1] != null && suggestions[1].equals(suggestions[0])) {
+        if (suggestions[1] == null || (suggestions[1].equals(suggestions[0]) || suggestions[1].isBlank())) {
             newSize = 1;
         }
         String[] newSug = new String[newSize];

@@ -26,8 +26,6 @@ export default {
 
       requestedFlights: false,
 
-      depClicked: null,
-      arrClicked: null,
       date: "2022-08-01",
       center: null,
 
@@ -166,10 +164,9 @@ export default {
                       :no-unselect="true"
                       class="mt6 mr4 grow"
                       color="deep-purple"
-                      @item-click="this.depClicked = $event"
+                      @item-click="saveDep"
               >
               </w-list>
-              <w-button :disabled="this.table.flights.length>0" @click="saveDep">Enter Departure Selection</w-button>
             </div>
             <div class="xs1"></div>
             <div class="x3">
@@ -187,10 +184,9 @@ export default {
                   :no-unselect="true"
                   class="mt6 mr4 grow"
                   color="deep-purple"
-                  @item-click="this.arrClicked = $event"
+                  @item-click="saveArr"
               >
               </w-list>
-              <w-button @click="saveArr">Enter Destination Selection</w-button>
             </div>
             <div class="xs1"></div>
             <div class="xs3">
