@@ -1,12 +1,11 @@
 <script>
 import {constructJourney, getFlights, getSuggestions} from "../services/FlightService.js";
-import FlightMap from "../components/FlightMap.vue";
 import FlightSuggestionCard from "../components/FlightSuggestionCard.vue";
-import FlightsPOI from "../components/FlightsPOI.vue";
+import Journey from "../components/Journey.vue";
 import {userStore} from "../userStore";
 
 export default {
-  components: {FlightMap, FlightSuggestionCard, FlightsPOI},
+  components: {FlightSuggestionCard, Journey},
   setup() {
     const store = userStore();
     return {
@@ -38,12 +37,6 @@ export default {
       locationID: -1,
 
       table: {
-        headers: [
-          {label: 'Number', key: 'number', align: 'center'},
-          {label: 'Start', key: 'startName', align: 'center'},
-          {label: 'End', key: 'endName', align: 'center'},
-          {label: 'Departure', key: 'departureDate', align: 'center'},
-        ],
         flights: [],
       },
     }
@@ -99,10 +92,6 @@ export default {
         this.departureCity = "";
       }
       this.reRender();
-    },
-    show(locationID) {
-      this.showPOI = true;
-      this.locationID = locationID;
     },
     saveJourney() {
       constructJourney(JSON.stringify(this.table.flights)).then(() => {
@@ -206,12 +195,7 @@ export default {
                                 :flight="option" @select="addToJourney"/>
         </div>
         <div class="xs6">
-          <w-table :headers="this.table.headers" :items="this.table.flights" no-data="no-data" style="height: 41vh">
-          </w-table>
-          <FlightMap v-if="this.map" :flightList="this.table.flights" @show="show"/>
-          <w-dialog v-model="this.showPOI" :width="1000">
-            <FlightsPOI :location-i-d="this.locationID"/>
-          </w-dialog>
+          <Journey :flights="this.table.flights" :map="this.map"/>
         </div>
       </w-flex>
     </main>
