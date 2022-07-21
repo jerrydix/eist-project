@@ -21,7 +21,7 @@ public class FlightFactory {
             "Embraer E175", "Airbus A319", "Boeing 737-900ER", "Bombardier CRJ900", "Boeing 737-800"};
 
     /**
-     * A method to generate a random dummy flight (used to top up the real flights, if there aren't enough) from a location to another at a specific date.
+     * A wrapper method to generate a random dummy flight (used to top up the real flights, if there aren't enough) from a location to another at a specific date.
      *
      * @param from The name of the departure location
      * @param to   The name of the arrival location
@@ -29,6 +29,30 @@ public class FlightFactory {
      * @return A dummy flight from "from" to "to" at "date"
      */
     public static Flight generateFlight(String from, String to, String date) {
+        Flight flight = generateFlightWithoutLocation(from, to, date);
+
+        double[] startCoords = FlightParser.fetchCoordsForGivenAddress(from);
+        double[] endCoords = FlightParser.fetchCoordsForGivenAddress(to);
+
+        Location startLocation;
+        Location endLocation;
+        if (startCoords != null) {
+            startLocation = new Location(from, startCoords[1], startCoords[0]);
+        } else {
+            startLocation = new Location(from, -1, -1);
+        }
+        if (endCoords != null) {
+            endLocation = new Location(to, endCoords[1], endCoords[0]);
+        } else {
+            endLocation = new Location(to, -1, -1);
+        }
+        flight.setStartLocation(startLocation);
+        flight.setEndLocation(endLocation);
+        return flight;
+    }
+
+
+    public static Flight generateFlightWithoutLocation(String from, String to, String date) {
         Random r = new Random();
         int fromHour;
         int toHour;
@@ -90,22 +114,7 @@ public class FlightFactory {
 
         String flightID = pickIATA(number) + id;
 
-        double[] startCoords = FlightParser.fetchCoordsForGivenAddress(from);
-        double[] endCoords = FlightParser.fetchCoordsForGivenAddress(to);
-
-        Location startLocation;
-        Location endLocation;
-        if (startCoords != null) {
-            startLocation = new Location(from, startCoords[1], startCoords[0]);
-        } else {
-            startLocation = new Location(from, -1, -1);
-        }
-        if (endCoords != null) {
-            endLocation = new Location(to, endCoords[1], endCoords[0]);
-        } else {
-            endLocation = new Location(to, -1, -1);
-        }
-        Flight flight = new Flight(flightID, startTime, endTime, gate, terminal, seat, airline, startLocation, endLocation, generateRandomAirplane());
+        Flight flight = new Flight(flightID, startTime, endTime, gate, terminal, seat, airline, null, null, generateRandomAirplane());
         flight.setDelayed(delayed);
         flight.setDelayTime(delayedTime);
         flight.setDelayedArrivalTime(delayedArrivalTime);

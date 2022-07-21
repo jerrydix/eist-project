@@ -54,10 +54,12 @@ public class Flight {
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.airplane = airplane;
-        this.startName = startLocation.getName();
-        this.endName = endLocation.getName();
-        this.weatherDegrees = String.valueOf(endLocation.getWeather().getDegrees());
-        this.weatherType = endLocation.getWeather().getWeatherType();
+        if (startLocation != null && endLocation != null) {
+            this.startName = startLocation.getName();
+            this.endName = endLocation.getName();
+            this.weatherDegrees = String.valueOf(endLocation.getWeather().getDegrees());
+            this.weatherType = endLocation.getWeather().getWeatherType();
+        }
         this.departureDate = this.startTime.toString().substring(8, 10) + "/" + this.startTime.toString().substring(5, 7) + "/" + this.startTime.toString().substring(0, 4);
         this.departureTime = this.startTime.toString().substring(11, 16);
         this.arrivalTime = this.endTime.toString().substring(11, 16);
@@ -86,39 +88,6 @@ public class Flight {
         if (toAirportIATA != null) {
             toIATA = toAirportIATA;
         }
-        System.out.println("TEST");
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-
-        System.out.println(fromIATA);
-        System.out.println(toIATA);
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
 
         List<Flight> list = FlightParser.parseFlightJson(
                 HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
@@ -133,12 +102,31 @@ public class Flight {
         }
 
         while (list.size() < amount) {
-            list.add(FlightFactory.generateFlight(fromName, toName, date));
+            list.add(FlightFactory.generateFlightWithoutLocation(fromName, toName, date));
         }
+
+        double[] startCoords = FlightParser.fetchCoordsForGivenAddress(fromName);
+        double[] endCoords = FlightParser.fetchCoordsForGivenAddress(toName);
+
+        Location startLocation;
+        Location endLocation;
+        if (startCoords != null) {
+            startLocation = new Location(fromName, startCoords[1], startCoords[0]);
+        } else {
+            startLocation = new Location(fromName, -1, -1);
+        }
+        if (endCoords != null) {
+            endLocation = new Location(toName, endCoords[1], endCoords[0]);
+        } else {
+            endLocation = new Location(toName, -1, -1);
+        }
+
 
         for (Flight flight : list) {
             flight.fullEndName = to;
             flight.fullStartName = from;
+            flight.setStartLocation(startLocation);
+            flight.setEndLocation(endLocation);
         }
 
         return list;
@@ -314,6 +302,7 @@ public class Flight {
 
     public void setStartLocation(Location startLocation) {
         this.startLocation = startLocation;
+        this.startName = this.startLocation.getName();
     }
 
     public Location getEndLocation() {
@@ -322,6 +311,9 @@ public class Flight {
 
     public void setEndLocation(Location endLocation) {
         this.endLocation = endLocation;
+        this.endName = endLocation.getName();
+        this.weatherDegrees = String.valueOf(this.endLocation.getWeather().getDegrees());
+        this.weatherType = this.endLocation.getWeather().getWeatherType();
     }
 
     public String getStartName() {
