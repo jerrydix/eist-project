@@ -42,7 +42,7 @@ public class FlightParser {
             Location startLocation = null;
             Location endLocation = null;
 
-            boolean startFound = false;
+            /*boolean startFound = false;
             boolean endFound = false;
 
             for (int i = 0; i < Location.getLocationList().size(); i++) {
@@ -69,7 +69,7 @@ public class FlightParser {
                 } else {
                     endLocation = new Location(fromName, -1, -1);
                 }
-            }
+            }*/
 
             for (int i = 0; i < array.length(); i++) {
 
