@@ -26,12 +26,13 @@
         </div>
         <div class="xs3">
           <h3 class="text-center">Your Planned Journeys</h3>
-          <w-table
-              :headers="journeyTable.headers"
-              :items="this.user.bookedFlightJourneys"
-              no-data="no-data"
-              style="height: 83vh">
-          </w-table>
+
+          <JourneyInflet v-for="(option,i) in this.user.bookedFlightJourneys"
+                         :key="i" :journey="option" @show="showJourneyDetails"/>
+          <w-dialog v-model="this.showJourney">
+            <Journey :flights="this.flightList" :map="true"/>
+          </w-dialog>
+          
         </div>
         <div class="xs2"></div>
       </w-flex>
@@ -60,9 +61,11 @@ import {getUserData} from "../../services/UserService.js";
 import FlightInfo from "../../components/FlightInfo.vue";
 import {removePOIFromFavourites} from "../../services/POIService.js";
 import FavPOI from "../../components/FavPOI.vue";
+import JourneyInflet from "../../components/JourneyInflet.vue";
+import Journey from "../../components/Journey.vue";
 
 export default {
-  components: {FavPOI, FlightInfo},
+  components: {Journey, JourneyInflet, FavPOI, FlightInfo},
   data() {
     return {
       user: null,
@@ -83,16 +86,8 @@ export default {
       },
       selectionInfo: {},
 
-      journeyTable: {
-        headers: [
-          {label: 'Origin', key: 'originName', align: 'center'},
-          {label: 'Destination', key: 'endName', align: 'center'},
-          {label: 'Starting on', key: 'startDate', align: 'center'},
-        ],
-        items: [],
-        forceSelection: false,
-        selectableRowsOption: {label: '<code class="mr2">:selectable-row="false"</code> (default)', value: false},
-      },
+      showJourney: false,
+      flightList: [],
     }
   },
   setup() {
@@ -133,6 +128,10 @@ export default {
       this.selectionInfo = event;
       this.current = this.selectionInfo.item.position;
       this.reRender();
+    },
+    showJourneyDetails(flights) {
+      this.showJourney = true;
+      this.flightList = flights;
     },
   },
 };
