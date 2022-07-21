@@ -24,6 +24,8 @@ public class Location {
     private List<String> airports;
     private String iata;
 
+    private final static String API_KEY = "&api_key=39d3c1f7-b08b-4f22-83b4-a92f4c19a365";
+
     public Location(String name, double latitude, double longitude) {
         this.name = name;
         this.weather = Weather.fetchWeather(latitude, longitude);
@@ -50,7 +52,7 @@ public class Location {
      * @return A string array that has the location name on index 0 and the IATA on index 1
      */
     public static String[] fetchCityIATACode(String name) {
-        return CityParser.parseCityJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/suggest", new String[]{"?q=" + name, "&api_key=b6077f08-5b0d-42c4-abb9-4d2b68eb8efa",}));
+        return CityParser.parseCityJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/suggest", new String[]{"?q=" + name, API_KEY,}));
     }
 
     public static void main(String[] args) {
@@ -113,7 +115,7 @@ public class Location {
      */
     private void fetchCurrentCityIATACode() {
         try {
-            this.iata = CityParser.parseCityJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/suggest", new String[]{"?q=" + this.name, "&api_key=18d0b081-fd7f-4c9e-a723-a05e8ff627cf",}))[1];
+            this.iata = CityParser.parseCityJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/suggest", new String[]{"?q=" + this.name, API_KEY,}))[1];
         } catch (NullPointerException e) {
             System.out.println("iata of " + this.name + " is null");
         }
