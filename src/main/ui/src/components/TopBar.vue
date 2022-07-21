@@ -20,7 +20,7 @@ export default {
     <RouterLink v-if="this.store.username" to="/dashboard">
       <w-button class="ma1" color="primary" lg text>Dashboard</w-button>
     </RouterLink>
-    <RouterLink v-if="this.store.username" to="/poi">
+    <RouterLink v-if="this.store.username" :to="{name:'poi', params:{locationID:this.store.endLocationId}}">
       <w-button class="ma1" color="primary" lg text>About my destination</w-button>
     </RouterLink>
     <RouterLink to="/catering">

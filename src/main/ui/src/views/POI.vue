@@ -74,6 +74,7 @@ import {userStore} from "../userStore";
 
 export default defineComponent({
   components: {GoogleMap, Marker, InfoWindow},
+  props: ['location'],
   setup() {
     const store = userStore();
     return {
@@ -103,10 +104,11 @@ export default defineComponent({
       },
       selectionInfo: {},
       isTopTen: false,
+      locationID: -1,
     }
   },
   mounted() {
-    getPointsOfInterest(this.store.endLocationId).then((list) => {
+    getPointsOfInterest(this.locationID).then((list) => {
       for (let i = 0; i < list.length; i++) {
         this.table.items.push(list[i]);
       }
@@ -114,12 +116,19 @@ export default defineComponent({
       this.reRender();
     });
   },
+  created() {
+    if (this.$route.fullPath === "/poi") {
+      this.locationID = this.$route.params.locationID;
+    } else {
+      this.locationID = this.location;
+    }
+  },
   methods: {
     save(event, option) {
-      addPOIToFavourites(option.id, this.store.endLocationId).then((list) => {
+      addPOIToFavourites(option.id, this.locationID).then((list) => {
         this.current = option.position;
         if (this.isTopTen) {
-          getTopPointsOfInterest(this.store.endLocationId).then((list) => {
+          getTopPointsOfInterest(this.locationID).then((list) => {
             this.table.items = []
             for (let i = 0; i < list.length; i++) {
               this.table.items.push(list[i]);
@@ -136,9 +145,9 @@ export default defineComponent({
       });
     },
     unsave(event, option) {
-      removePOIFromFavourites(option.id, this.store.endLocationId).then((list) => {
+      removePOIFromFavourites(option.id, this.locationID).then((list) => {
         if (this.isTopTen) {
-          getTopPointsOfInterest(this.store.endLocationId).then((list) => {
+          getTopPointsOfInterest(this.locationID).then((list) => {
             this.current = list[0].position;
             this.table.items = []
             for (let i = 0; i < list.length; i++) {
@@ -170,7 +179,7 @@ export default defineComponent({
     },
     topTen() {
       if (!this.isTopTen) {
-        getTopPointsOfInterest(this.store.endLocationId).then((list) => {
+        getTopPointsOfInterest(this.locationID).then((list) => {
           this.current = list[0].position;
           this.table.items = []
           for (let i = 0; i < list.length; i++) {
@@ -179,7 +188,7 @@ export default defineComponent({
           this.reRender();
         });
       } else {
-        getPointsOfInterest(this.store.endLocationId).then((list) => {
+        getPointsOfInterest(this.locationID).then((list) => {
           this.current = list[0].position;
           this.table.items = []
           for (let i = 0; i < list.length; i++) {

@@ -3,18 +3,18 @@
   </w-table>
   <FlightMap v-if="this.map" :flightList="this.flights" @show="show"/>
   <w-dialog v-model="this.showPOI" :width="1000">
-    <FlightsPOI :location-i-d="this.locationID"/>
+    <POI :location="this.locationID"/>
   </w-dialog>
 </template>
 
 <script>
 import FlightMap from "./FlightMap.vue";
-import FlightsPOI from "./FlightsPOI.vue";
+import POI from "../views/POI.vue";
 
 export default {
   name: "Journey",
   props: ['flights', 'map'],
-  components: {FlightMap, FlightsPOI},
+  components: {FlightMap, POI},
   data() {
     return {
       showPOI: false,

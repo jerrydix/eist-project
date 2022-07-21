@@ -62,10 +62,12 @@ export default {
     },
     saveDep() {
       this.departureCity = this.selectedDeparture;
+      this.selectedDeparture = null;
       this.departureSuggestions = null;
     },
     saveArr() {
       this.arrivalCity = this.selectedArrival;
+      this.selectedArrival = null;
       this.arrivalSuggestions = null;
     },
     getFlights() {
@@ -188,7 +190,10 @@ export default {
           <w-flex grow>
             <div class="xs1"></div>
             <div class="xs11">
-              <w-button :disabled="this.requestedFlights" @click="getFlights">Show Flights</w-button>
+              <w-button :disabled="this.requestedFlights || !this.arrivalCity  || !this.departureCity"
+                        @click="getFlights">
+                Show Flights
+              </w-button>
             </div>
           </w-flex>
           <FlightSuggestionCard v-for="(option,i) in this.card.flights" :key="i"
