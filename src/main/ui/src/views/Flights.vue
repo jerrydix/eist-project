@@ -149,8 +149,7 @@ export default {
 						</div>
 					</w-flex>
 					<w-flex grow>
-						<div class="xs1"></div>
-						<div class="xs3">
+						<div class="xs3" style="position: relative">
 							<label>From</label>
 							<w-input
 								v-model="this.departureCity"
@@ -170,7 +169,6 @@ export default {
 							>
 							</w-list>
 						</div>
-						<div class="xs1"></div>
 						<div class="xs3">
 							<label>To</label>
 							<w-input
@@ -216,16 +214,17 @@ export default {
 				<Journey :flights="this.table.flights" :map="this.map">
 					<w-button
 						:disabled="this.table.flights.length === 0"
-						@click="saveJourney"
-						style="margin-right: 10px"
-						>Save Journey</w-button
-					>
-					<w-button
-						:disabled="this.table.flights.length === 0"
 						@click="deleteLast"
 						>Delete last flight</w-button
 					>
 				</Journey>
+				<w-button
+					class="save"
+					:disabled="this.table.flights.length === 0"
+					@click="saveJourney"
+					style="margin-right: 10px"
+					>Save Journey</w-button
+				>
 			</div>
 		</w-flex>
 	</w-app>
@@ -253,7 +252,21 @@ export default {
 	height: 80vh;
 }
 
-.w-list {
+.w-button.save {
+	width: 100%;
+	height: 35px;
+	margin-top: 3px;
+}
+
+ul.w-list {
+	position: absolute;
 	z-index: 2;
+	background-color: #fff;
+	margin: 0;
+	width: 100%;
+}
+
+ul.w-list > li {
+	padding-left: 5px;
 }
 </style>

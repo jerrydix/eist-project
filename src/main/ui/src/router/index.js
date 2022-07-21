@@ -1,7 +1,6 @@
 import {createRouter, createWebHashHistory} from "vue-router";
 import Catering from "../views/Catering.vue";
 import Flights from "../views/Flights.vue";
-import Journey from "../views/Journey.vue";
 import Home from "../views/Home.vue";
 import POI from "../views/POI.vue";
 import Survey from "../views/Survey.vue";
@@ -27,11 +26,6 @@ const router = createRouter({
             path: "/flights",
             name: "flights",
             component: Flights,
-        },
-        {
-            path: "/journey",
-            name: "journey",
-            component: Journey,
         },
         {
             path: "/poi",
