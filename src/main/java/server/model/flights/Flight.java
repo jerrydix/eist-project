@@ -7,6 +7,7 @@ import server.parsing.FlightParser;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class Flight {
@@ -79,27 +80,80 @@ public class Flight {
         String fromName = from.substring(0, from.indexOf("(") - 1);
         String toName = to.substring(0, to.indexOf("(") - 1);
 
-        String fromAirportIATA = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports?city_code=" + fromIATA + "&api_key=23c0135c-2b3c-4bc9-88f0-98aa15ac238c", new String[]{}));
-        String toAirportIATA = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports?city_code=" + toIATA + "&api_key=23c0135c-2b3c-4bc9-88f0-98aa15ac238c", new String[]{}));
+        List<String> fromAirportIATAs = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports?city_code=" + fromIATA + "&api_key=23c0135c-2b3c-4bc9-88f0-98aa15ac238c", new String[]{}));
+        List<String> toAirportIATAs = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports?city_code=" + toIATA + "&api_key=23c0135c-2b3c-4bc9-88f0-98aa15ac238c", new String[]{}));
 
-        if (fromAirportIATA != null) {
-            fromIATA = fromAirportIATA;
+        if (fromAirportIATAs != null) {
+            fromIATA = fromAirportIATAs.get(0);
         }
-        if (toAirportIATA != null) {
-            toIATA = toAirportIATA;
+        if (toAirportIATAs != null) {
+            toIATA = toAirportIATAs.get(0);
         }
+        System.out.println("TEST");
+        System.out.println("TEST");
 
-        List<Flight> list = FlightParser.parseFlightJson(
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+
+        System.out.println(fromAirportIATAs.size());
+        System.out.println(toAirportIATAs.size());
+        List<Flight> list = new ArrayList<>();
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+        System.out.println("TEST");
+
+
+
+        var currentList = FlightParser.parseFlightJson(
                 HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
                         "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM1ZjFjNDVmZGExNDNlODcwNDhkOGRmNzcyOTZhMThhNTMyNTNjNWUzYjIxMWUzNTA3OTAyMzlmMDVkYzk3ODAxNDQ5ZGM1MzI0MmY0N2QiLCJpYXQiOjE2NTYyMzY1MTIsIm5iZiI6MTY1NjIzNjUxMiwiZXhwIjoxNjg3NzcyNTEyLCJzdWIiOiI3MDg0Iiwic2NvcGVzIjpbXX0.jr7CLxzMAJETsHmt2YfH6OBb53pJvEcXNqDuTArRGCNX2AHxGPocVyax2RcaC0zL3u61qZe2g1NzEM0typORcQ",
                         "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}),
                 fromName, toName);
 
+        if (currentList != null && !currentList.isEmpty()) {
+            list.addAll(currentList);
+        }
+
+        boolean first = true;
+        if (fromAirportIATAs != null && toAirportIATAs != null && !fromAirportIATAs.isEmpty() && !toAirportIATAs.isEmpty()) {
+            for (int i = 0; i < fromAirportIATAs.size(); i++) {
+                if (toAirportIATAs.size() >= 2 && first) {
+                    for (int j = 1; j < toAirportIATAs.size(); j++) {
+                        List<Flight> current = FlightParser.parseFlightJson(
+                                HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
+                                        "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM1ZjFjNDVmZGExNDNlODcwNDhkOGRmNzcyOTZhMThhNTMyNTNjNWUzYjIxMWUzNTA3OTAyMzlmMDVkYzk3ODAxNDQ5ZGM1MzI0MmY0N2QiLCJpYXQiOjE2NTYyMzY1MTIsIm5iZiI6MTY1NjIzNjUxMiwiZXhwIjoxNjg3NzcyNTEyLCJzdWIiOiI3MDg0Iiwic2NvcGVzIjpbXX0.jr7CLxzMAJETsHmt2YfH6OBb53pJvEcXNqDuTArRGCNX2AHxGPocVyax2RcaC0zL3u61qZe2g1NzEM0typORcQ",
+                                        "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromAirportIATAs.get(i), "&arr_iata=" + toAirportIATAs.get(j)}),
+                                fromName, toName);
+                        if (current != null && !current.isEmpty()) {
+                            list.addAll(current);
+                        }
+                    }
+                } else if (!first) {
+                    for (int j = 0; j < toAirportIATAs.size(); j++) {
+                        List<Flight> current = FlightParser.parseFlightJson(
+                                HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
+                                        "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNmM1ZjFjNDVmZGExNDNlODcwNDhkOGRmNzcyOTZhMThhNTMyNTNjNWUzYjIxMWUzNTA3OTAyMzlmMDVkYzk3ODAxNDQ5ZGM1MzI0MmY0N2QiLCJpYXQiOjE2NTYyMzY1MTIsIm5iZiI6MTY1NjIzNjUxMiwiZXhwIjoxNjg3NzcyNTEyLCJzdWIiOiI3MDg0Iiwic2NvcGVzIjpbXX0.jr7CLxzMAJETsHmt2YfH6OBb53pJvEcXNqDuTArRGCNX2AHxGPocVyax2RcaC0zL3u61qZe2g1NzEM0typORcQ",
+                                        "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromAirportIATAs.get(i), "&arr_iata=" + toAirportIATAs.get(j)}),
+                                fromName, toName);
+                        if (current != null && !current.isEmpty()) {
+                            list.addAll(current);
+                        }
+                    }
+                }
+                first = false;
+            }
+        }
+
         Random r = new Random();
         int amount = r.nextInt(5, 15);
-        if (list == null) {
-            list = new ArrayList<>();
-        }
 
         while (list.size() < amount) {
             list.add(FlightFactory.generateFlightWithoutLocation(fromName, toName, date));
