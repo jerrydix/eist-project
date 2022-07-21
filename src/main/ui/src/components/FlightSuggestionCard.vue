@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-	<w-card :title="this.flight.number">
+	<w-card :title="this.flight.number + ' | ' + this.flight.airline">
 		<w-flex>
 			<w-flex class="xs8">
 				<w-timeline

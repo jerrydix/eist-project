@@ -160,7 +160,7 @@ export default {
               </w-list>
             </div>
             <div class="xs1"></div>
-            <div class="x3">
+            <div class="xs3">
               <label>To</label>
               <w-input
                   v-model="this.arrivalCity"
@@ -179,22 +179,14 @@ export default {
               >
               </w-list>
             </div>
-            <div class="xs1"></div>
-            <div class="xs3">
-              <w-button :disabled="this.table.flights.length === 0" @click="deleteLast">Delete last
-                flight
-              </w-button>
-              <w-button :disabled="this.table.flights.length===0" @click="saveJourney">Save Journey</w-button>
-            </div>
           </w-flex>
           <w-flex grow>
             <div class="xs1"></div>
-            <div class="xs11">
-              <w-button :disabled="this.requestedFlights || !this.arrivalCity  || !this.departureCity"
-                        @click="getFlights">
-                Show Flights
-              </w-button>
-            </div>
+            <w-button :disabled="this.table.flights.length === 0" @click="deleteLast">Delete last flight</w-button>
+            <div class="xs1"></div>
+            <w-button :disabled="this.table.flights.length===0" @click="saveJourney">Save Journey</w-button>
+            <div class="xs1"></div>
+            <w-button :disabled="this.requestedFlights || !this.arrivalCity  || !this.departureCity" @click="getFlights">Show Flights</w-button>
           </w-flex>
           <FlightSuggestionCard v-for="(option,i) in this.card.flights" :key="i"
                                 :flight="option" @select="addToJourney"/>

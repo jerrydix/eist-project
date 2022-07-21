@@ -42,7 +42,10 @@ public class FlightParser {
 
                 String number = current.getJSONObject("flight").getString("iata");
                 if (number == null || number.equals("null")) {
-                    number = FlightFactory.generateRandomFlightNumber();
+                    Random r = new Random();
+                    String digits = String.format("%04d", r.nextInt(10000));
+
+                    number = "NUL" + digits;
                 }
                 String startDate = current.getString("flight_date");
                 int startYear = Integer.parseInt(startDate.substring(0, 4));
