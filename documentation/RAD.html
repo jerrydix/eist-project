@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-07-22 Fri 19:42 -->
+<!-- 2022-07-22 Fri 20:07 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Requirements Analysis Document</title>
@@ -201,37 +201,36 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orga5aaeee">1. Introduction</a>
+<li><a href="#orgbe94d2b">1. Introduction</a>
 <ul>
-<li><a href="#org1179b5a">1.1. Purpose of the system</a></li>
-<li><a href="#orgfadf112">1.2. Scope of the system</a></li>
-<li><a href="#orgd122b4a">1.3. Definitions, acronyms, and abbreviations</a></li>
-<li><a href="#org96047ad">1.4. References</a></li>
-<li><a href="#org7919226">1.5. Overview</a></li>
+<li><a href="#orgeb957dd">1.1. Purpose of the system</a></li>
+<li><a href="#org78078ca">1.2. Scope of the system</a></li>
+<li><a href="#org67f341c">1.3. Definitions, acronyms, and abbreviations</a></li>
+<li><a href="#org309279e">1.4. References</a></li>
+<li><a href="#org83ee836">1.5. Overview</a></li>
 </ul>
 </li>
-<li><a href="#orgdee9ffb">2. Proposed system</a>
+<li><a href="#org8d71578">2. Proposed system</a>
 <ul>
-<li><a href="#org4b32c00">2.1. Overview</a></li>
-<li><a href="#orgd8c3eca">2.2. Functional requirements</a></li>
-<li><a href="#org45c0bdd">2.3. Nonfunctional requirements</a>
+<li><a href="#orgf3e715a">2.1. Overview</a></li>
+<li><a href="#orge0b5ba3">2.2. Functional requirements</a></li>
+<li><a href="#org842d515">2.3. Nonfunctional requirements</a>
 <ul>
-<li><a href="#orgc6cf710">2.3.1. Usability</a></li>
-<li><a href="#orgf937c62">2.3.2. Reliability</a></li>
-<li><a href="#org4b05139">2.3.3. Performance</a></li>
-<li><a href="#org0e155e1">2.3.4. Supportability</a></li>
-<li><a href="#org1a3a5d1">2.3.5. Implementation Requirements</a></li>
-<li><a href="#org7cf3883">2.3.6. Legal Requirements</a></li>
+<li><a href="#orgf3aecf9">2.3.1. Usability</a></li>
+<li><a href="#org38bd4ce">2.3.2. Reliability</a></li>
+<li><a href="#org86cd817">2.3.3. Performance</a></li>
+<li><a href="#orgdcaf461">2.3.4. Supportability</a></li>
+<li><a href="#org144ccff">2.3.5. Implementation Requirements</a></li>
+<li><a href="#org4ea2563">2.3.6. Legal Requirements</a></li>
 </ul>
 </li>
-<li><a href="#orgc3eccad">2.4. System models</a>
+<li><a href="#orga4fe7c4">2.4. System models</a>
 <ul>
-<li><a href="#orgd89bdcb">2.4.1. Scenarios</a></li>
-<li><a href="#org08825ea">2.4.2. Use case model</a></li>
-<li><a href="#orga422cf1">2.4.3. Object model</a></li>
-<li><a href="#org6ae3f15">2.4.4. Dynamic model</a></li>
-<li><a href="#org4d74136">2.4.5. User interface</a></li>
-<li><a href="#orgb1d6b86">2.4.6. Glossary</a></li>
+<li><a href="#org7c6e385">2.4.1. Scenarios</a></li>
+<li><a href="#orgac6294d">2.4.2. Use case model</a></li>
+<li><a href="#org7243287">2.4.3. Object model</a></li>
+<li><a href="#org2860a6a">2.4.4. Dynamic model</a></li>
+<li><a href="#org49874ca">2.4.5. User interface</a></li>
 </ul>
 </li>
 </ul>
@@ -239,12 +238,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orga5aaeee" class="outline-2">
-<h2 id="orga5aaeee"><span class="section-number-2">1.</span> Introduction</h2>
+<div id="outline-container-orgbe94d2b" class="outline-2">
+<h2 id="orgbe94d2b"><span class="section-number-2">1.</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org1179b5a" class="outline-3">
-<h3 id="org1179b5a"><span class="section-number-3">1.1.</span> Purpose of the system</h3>
+<div id="outline-container-orgeb957dd" class="outline-3">
+<h3 id="orgeb957dd"><span class="section-number-3">1.1.</span> Purpose of the system</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 The purpose of the &ldquo;Garching Airlines Flight Infotainment System&rdquo; is to provide passengers on a flight with information about the destination and other flights and offer entertainment and service.
@@ -252,8 +251,8 @@ The purpose of the &ldquo;Garching Airlines Flight Infotainment System&rdquo; is
 </div>
 </div>
 
-<div id="outline-container-orgfadf112" class="outline-3">
-<h3 id="orgfadf112"><span class="section-number-3">1.2.</span> Scope of the system</h3>
+<div id="outline-container-org78078ca" class="outline-3">
+<h3 id="org78078ca"><span class="section-number-3">1.2.</span> Scope of the system</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 The scope of the system is the development of a flight entertainment system. This includes a backend where all data and input from the frontend is processed. This includes a catering service, surveys, searching and saving flights and obtaining information about the destination. The frontend takes care of the display of such information and the user input. What is not included in the scope and will be implemented via APIs are the weather information, flights and maps.
@@ -261,8 +260,8 @@ The scope of the system is the development of a flight entertainment system. Thi
 </div>
 </div>
 
-<div id="outline-container-orgd122b4a" class="outline-3">
-<h3 id="orgd122b4a"><span class="section-number-3">1.3.</span> Definitions, acronyms, and abbreviations</h3>
+<div id="outline-container-org67f341c" class="outline-3">
+<h3 id="org67f341c"><span class="section-number-3">1.3.</span> Definitions, acronyms, and abbreviations</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li><b>GAFIS</b>: Garching Airlines Flight Infotainment System</li>
@@ -272,8 +271,8 @@ The scope of the system is the development of a flight entertainment system. Thi
 </div>
 </div>
 
-<div id="outline-container-org96047ad" class="outline-3">
-<h3 id="org96047ad"><span class="section-number-3">1.4.</span> References</h3>
+<div id="outline-container-org309279e" class="outline-3">
+<h3 id="org309279e"><span class="section-number-3">1.4.</span> References</h3>
 <div class="outline-text-3" id="text-1-4">
 <ul class="org-ul">
 <li><a href="SDD.hmtl">Software Design Document (SDD)</a></li>
@@ -283,8 +282,8 @@ The scope of the system is the development of a flight entertainment system. Thi
 </div>
 </div>
 
-<div id="outline-container-org7919226" class="outline-3">
-<h3 id="org7919226"><span class="section-number-3">1.5.</span> Overview</h3>
+<div id="outline-container-org83ee836" class="outline-3">
+<h3 id="org83ee836"><span class="section-number-3">1.5.</span> Overview</h3>
 <div class="outline-text-3" id="text-1-5">
 <p>
 The following RAD will give the reader an overview over the (non-)functional requirements of the system, a rough understanding of the design of GAFIS and a preview of the UI.
@@ -293,12 +292,12 @@ The following RAD will give the reader an overview over the (non-)functional req
 </div>
 </div>
 
-<div id="outline-container-orgdee9ffb" class="outline-2">
-<h2 id="orgdee9ffb"><span class="section-number-2">2.</span> Proposed system</h2>
+<div id="outline-container-org8d71578" class="outline-2">
+<h2 id="org8d71578"><span class="section-number-2">2.</span> Proposed system</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org4b32c00" class="outline-3">
-<h3 id="org4b32c00"><span class="section-number-3">2.1.</span> Overview</h3>
+<div id="outline-container-orgf3e715a" class="outline-3">
+<h3 id="orgf3e715a"><span class="section-number-3">2.1.</span> Overview</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 The GAFIS is primarily a system where passengers in an airplane can search flights, obtain information about theri destination and stay entertained for the length of their journey. To achieve the goals specified via the (non-)functional requirements and scenarios we have included some models of our proposed system.
@@ -306,8 +305,8 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 </div>
 </div>
 
-<div id="outline-container-orgd8c3eca" class="outline-3">
-<h3 id="orgd8c3eca"><span class="section-number-3">2.2.</span> Functional requirements</h3>
+<div id="outline-container-orge0b5ba3" class="outline-3">
+<h3 id="orge0b5ba3"><span class="section-number-3">2.2.</span> Functional requirements</h3>
 <div class="outline-text-3" id="text-2-2">
 <ul class="org-ul">
 <li><b>Show flight infomation</b>: The system shows flight information (flight number, start time, end time, gate, terminal, seat, airplane type, airline, etc.) of all the user&rsquo;s flights and notifies the user if a flight is canceled or delayed.</li>
@@ -320,12 +319,12 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 </div>
 </div>
 
-<div id="outline-container-org45c0bdd" class="outline-3">
-<h3 id="org45c0bdd"><span class="section-number-3">2.3.</span> Nonfunctional requirements</h3>
+<div id="outline-container-org842d515" class="outline-3">
+<h3 id="org842d515"><span class="section-number-3">2.3.</span> Nonfunctional requirements</h3>
 <div class="outline-text-3" id="text-2-3">
 </div>
-<div id="outline-container-orgc6cf710" class="outline-4">
-<h4 id="orgc6cf710"><span class="section-number-4">2.3.1.</span> Usability</h4>
+<div id="outline-container-orgf3aecf9" class="outline-4">
+<h4 id="orgf3aecf9"><span class="section-number-4">2.3.1.</span> Usability</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <ul class="org-ul">
 <li>The system should be intuitive to use, and the user interface should be easy to understand. All interactions should be completed in less than three clicks.</li>
@@ -334,8 +333,8 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 </div>
 </div>
 
-<div id="outline-container-orgf937c62" class="outline-4">
-<h4 id="orgf937c62"><span class="section-number-4">2.3.2.</span> Reliability</h4>
+<div id="outline-container-org38bd4ce" class="outline-4">
+<h4 id="org38bd4ce"><span class="section-number-4">2.3.2.</span> Reliability</h4>
 <div class="outline-text-4" id="text-2-3-2">
 <ul class="org-ul">
 <li>The system has to be fault tolerant to an extent, especially when searching for city names.</li>
@@ -343,8 +342,8 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 </div>
 </div>
 
-<div id="outline-container-org4b05139" class="outline-4">
-<h4 id="org4b05139"><span class="section-number-4">2.3.3.</span> Performance</h4>
+<div id="outline-container-org86cd817" class="outline-4">
+<h4 id="org86cd817"><span class="section-number-4">2.3.3.</span> Performance</h4>
 <div class="outline-text-4" id="text-2-3-3">
 <ul class="org-ul">
 <li>Loading times of over 0.25 seconds should never occur when switching views.</li>
@@ -352,8 +351,8 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 </div>
 </div>
 
-<div id="outline-container-org0e155e1" class="outline-4">
-<h4 id="org0e155e1"><span class="section-number-4">2.3.4.</span> Supportability</h4>
+<div id="outline-container-orgdcaf461" class="outline-4">
+<h4 id="orgdcaf461"><span class="section-number-4">2.3.4.</span> Supportability</h4>
 <div class="outline-text-4" id="text-2-3-4">
 <ul class="org-ul">
 <li>It should be possible to add a new feature/service in approximately two weeks.</li>
@@ -362,8 +361,8 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 </div>
 </div>
 
-<div id="outline-container-org1a3a5d1" class="outline-4">
-<h4 id="org1a3a5d1"><span class="section-number-4">2.3.5.</span> Implementation Requirements</h4>
+<div id="outline-container-org144ccff" class="outline-4">
+<h4 id="org144ccff"><span class="section-number-4">2.3.5.</span> Implementation Requirements</h4>
 <div class="outline-text-4" id="text-2-3-5">
 <ul class="org-ul">
 <li>A server subsystem with a couple of services must be used in the system. However, additional services like destination information for weather and POIs should be obtained from external services.</li>
@@ -372,8 +371,8 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 </div>
 </div>
 
-<div id="outline-container-org7cf3883" class="outline-4">
-<h4 id="org7cf3883"><span class="section-number-4">2.3.6.</span> Legal Requirements</h4>
+<div id="outline-container-org4ea2563" class="outline-4">
+<h4 id="org4ea2563"><span class="section-number-4">2.3.6.</span> Legal Requirements</h4>
 <div class="outline-text-4" id="text-2-3-6">
 <ul class="org-ul">
 <li>Media included in the entertainment system of GAFIS may not breach any copyright regulations.</li>
@@ -382,12 +381,12 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 </div>
 </div>
 
-<div id="outline-container-orgc3eccad" class="outline-3">
-<h3 id="orgc3eccad"><span class="section-number-3">2.4.</span> System models</h3>
+<div id="outline-container-orga4fe7c4" class="outline-3">
+<h3 id="orga4fe7c4"><span class="section-number-3">2.4.</span> System models</h3>
 <div class="outline-text-3" id="text-2-4">
 </div>
-<div id="outline-container-orgd89bdcb" class="outline-4">
-<h4 id="orgd89bdcb"><span class="section-number-4">2.4.1.</span> Scenarios</h4>
+<div id="outline-container-org7c6e385" class="outline-4">
+<h4 id="org7c6e385"><span class="section-number-4">2.4.1.</span> Scenarios</h4>
 <div class="outline-text-4" id="text-2-4-1">
 <ul class="org-ul">
 <li>Julia bought a Lufthansa flight from Munich to Lisbon on June 5 via the Lufthansa website. She opens the system and searches all the available flights between Munich and Lisbon on June 5. She selects the flight and saves it to her flight list. When looking into the details, she recognizes that the sun is shining in Lisbon. When she clicks on Lisbon, she sees the city map with points of interest (POI) and uses a filter to see the 10 best attractions. Julia decides to visit the Belém Tower and saves it in her favorites POI list.</li>
@@ -397,11 +396,11 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 </div>
 </div>
 
-<div id="outline-container-org08825ea" class="outline-4">
-<h4 id="org08825ea"><span class="section-number-4">2.4.2.</span> Use case model</h4>
+<div id="outline-container-orgac6294d" class="outline-4">
+<h4 id="orgac6294d"><span class="section-number-4">2.4.2.</span> Use case model</h4>
 <div class="outline-text-4" id="text-2-4-2">
 
-<div id="org3d0622e" class="figure">
+<div id="orga645baa" class="figure">
 <p><img src="./images/UseCaseDiagramSystem.png" alt="UseCaseDiagramSystem.png" width="1280px" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Use Case Model</p>
@@ -410,11 +409,11 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 </div>
 
 
-<div id="outline-container-orga422cf1" class="outline-4">
-<h4 id="orga422cf1"><span class="section-number-4">2.4.3.</span> Object model</h4>
+<div id="outline-container-org7243287" class="outline-4">
+<h4 id="org7243287"><span class="section-number-4">2.4.3.</span> Object model</h4>
 <div class="outline-text-4" id="text-2-4-3">
 
-<div id="org4861660" class="figure">
+<div id="org7f4933c" class="figure">
 <p><img src="./images/ObjectDiagram.png" alt="ObjectDiagram.png" width="1280px" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Object model</p>
@@ -422,25 +421,25 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 </div>
 </div>
 
-<div id="outline-container-org6ae3f15" class="outline-4">
-<h4 id="org6ae3f15"><span class="section-number-4">2.4.4.</span> Dynamic model</h4>
+<div id="outline-container-org2860a6a" class="outline-4">
+<h4 id="org2860a6a"><span class="section-number-4">2.4.4.</span> Dynamic model</h4>
 <div class="outline-text-4" id="text-2-4-4">
 
-<div id="org82ecf7c" class="figure">
+<div id="org0e2fabc" class="figure">
 <p><img src="./images/ScenarioOneCommunication.png" alt="ScenarioOneCommunication.png" width="900px" />
 </p>
 <p><span class="figure-number">Figure 3: </span>Communication model: Scenario 1</p>
 </div>
 
 
-<div id="org140ac97" class="figure">
+<div id="org3c9438a" class="figure">
 <p><img src="./images/ScenarioTwoCommunication.png" alt="ScenarioTwoCommunication.png" width="900px" />
 </p>
 <p><span class="figure-number">Figure 4: </span>Communication model: Scenario 2</p>
 </div>
 
 
-<div id="orgf035b67" class="figure">
+<div id="orge93e438" class="figure">
 <p><img src="./images/ScenarioThreeCommunication.png" alt="ScenarioThreeCommunication.png" width="800px" />
 </p>
 <p><span class="figure-number">Figure 5: </span>Communication model: Scenario 3</p>
@@ -448,11 +447,60 @@ The GAFIS is primarily a system where passengers in an airplane can search fligh
 </div>
 </div>
 
-<div id="outline-container-org4d74136" class="outline-4">
-<h4 id="org4d74136"><span class="section-number-4">2.4.5.</span> User interface</h4>
+<div id="outline-container-org49874ca" class="outline-4">
+<h4 id="org49874ca"><span class="section-number-4">2.4.5.</span> User interface</h4>
+<div class="outline-text-4" id="text-2-4-5">
+
+<div id="orgf3736ea" class="figure">
+<p><img src="./images/SafetyVideo.png" alt="SafetyVideo.png" />
+</p>
+<p><span class="figure-number">Figure 6: </span>Safety video, playable by clicking the red button in the lower left corner on the homescreen.</p>
 </div>
-<div id="outline-container-orgb1d6b86" class="outline-4">
-<h4 id="orgb1d6b86"><span class="section-number-4">2.4.6.</span> Glossary</h4>
+
+
+
+<div id="org591977c" class="figure">
+<p><img src="./images/Survey.png" alt="Survey.png" />
+</p>
+<p><span class="figure-number">Figure 7: </span>The survey menu, only available after logging in. Can be opened when clicking the dark blue button on the bottom.</p>
+</div>
+
+
+<div id="orgcdf1de2" class="figure">
+<p><img src="./images/BookFlights.png" alt="BookFlights.png" />
+</p>
+<p><span class="figure-number">Figure 8: </span>Menu where one can search flights from point A to point B. The flights can then be added to a jounrey and will be displayed ont the world map as can be seen in this picture. This screen can be reached by clicking on the corresponding button in the top bar, as are all the following menus and screens.</p>
+</div>
+
+
+<div id="org80eb675" class="figure">
+<p><img src="./images/Dashboard.png" alt="Dashboard.png" />
+</p>
+<p><span class="figure-number">Figure 9: </span>The dashboard displays the favourites list of points of interest as well as planned journeys.</p>
+</div>
+
+
+<div id="org28f8596" class="figure">
+<p><img src="./images/AboutMyDestination.png" alt="AboutMyDestination.png" />
+</p>
+<p><span class="figure-number">Figure 10: </span>In this view the user can look up points of interest in his or her destination. These points of interest can then be saved to a favourites list.</p>
+</div>
+
+
+<div id="org3cbb310" class="figure">
+<p><img src="./images/Catering.png" alt="Catering.png" width="1008px" />
+</p>
+<p><span class="figure-number">Figure 11: </span>This is the catering menu. Here a passenger is able to order snacks and drinks.</p>
+</div>
+
+
+
+<div id="orgf1a64ba" class="figure">
+<p><img src="./images/Movies.png" alt="Movies.png" width="1008px" />
+</p>
+<p><span class="figure-number">Figure 12: </span>In this screen the passenger can select a movie from our vast collection of films in order to stay entertained for the length of the flight.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
