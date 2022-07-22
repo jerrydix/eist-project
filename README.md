@@ -6,10 +6,17 @@ A flight management software developed for a team project in EIST at TUM
 ### How to
 1. Enter `./gradlew bootRun` and head to `localhost:8080`
 2. Click on "Register"
-3. Enter the flight number: GA4200
-3. Register with an arbitrary username and a password: "user" and "pw"
-4. Login with these credentials
-5. Enjoy!
+3. Enter the flight number: GA4200 (or any other number with the following prefixes: *)
+4. Register with an arbitrary username and a password: "user" and "pw"
+5. Login with these credentials
+6. Enjoy!
+
+Note: When searching for flights, make sure to use following format for the city search:  
+```<city name> (<city iata>)```  
+When searching for cities, suggestions with this format should come up,   
+which one can use to autofill the city name.
+
+*```TU, PP, XA, KR, LS, AH, CA, SC, CR, OC, OF, GA, PW```
 
 ### Read the Docs
 You might want to open these in a web browser.
