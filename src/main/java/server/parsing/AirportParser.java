@@ -9,6 +9,14 @@ import java.util.List;
 
 public class AirportParser {
 
+    /**
+     * parseAirportJson() parses the IATA of the airports of a given into a list of strings
+     *
+     * @param jsonText The get request response of the Airlabs API (airports DB) containing airport IATA and formatted in json
+     * @return A list of aiport IATAs of the given city
+     *
+     */
+
     public static List<String> parseAirportJson(String jsonText) {
         try {
             JSONObject obj = new JSONObject(jsonText.toString());

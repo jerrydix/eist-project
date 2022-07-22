@@ -1,8 +1,6 @@
 <template>
   <p>
-    {{ journey.originName }}
-    {{ journey.endName }}
-    {{ journey.startDate }}
+    {{ journey.originName }} -> {{ journey.endName }} {{ journey.startDate }}
     <w-button @click="show">Show details</w-button>
   </p>
 

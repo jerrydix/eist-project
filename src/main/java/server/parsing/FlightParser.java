@@ -54,7 +54,6 @@ public class FlightParser {
 
                 int startHourTIndex = current.getJSONObject("departure").getString("scheduled").indexOf("T");
                 int startHour = Integer.parseInt(current.getJSONObject("departure").getString("scheduled").substring(startHourTIndex + 1, startHourTIndex + 3));
-                //System.out.println(current.getJSONObject("departure").getString("scheduled"));
                 int startMinute = Integer.parseInt(current.getJSONObject("departure").getString("scheduled").substring(startHourTIndex + 4, startHourTIndex + 6));
 
                 Month startM = parseToMonth(startMonth);
@@ -76,19 +75,15 @@ public class FlightParser {
 
                 Random r = new Random();
                 if (gate.equals("null")) {
-                    //filler
                     gate = String.valueOf(r.nextInt(1, 89));
                 }
                 String terminal = current.getJSONObject("departure").getString("terminal");
                 if (terminal.equals("null")) {
-                    //filler
                     terminal = String.valueOf(r.nextInt(1, 5));
-                    ;
                 }
                 String seat = FlightFactory.generateSeat();
                 String airline = current.getJSONObject("airline").getString("name");
                 if (airline.equals("empty")) {
-                    //filler
                     airline = FlightFactory.pickAirline(r.nextInt(0, 13));
                 }
 
@@ -112,7 +107,6 @@ public class FlightParser {
                 }
 
                 int minutes = (int) ChronoUnit.MINUTES.between(startTime, delayedTime);
-                int hours = (int) ChronoUnit.HOURS.between(startTime, delayedTime);
 
                 int delayHours = minutes / 60;
                 int delayMinutes = minutes % 60;
@@ -189,315 +183,6 @@ public class FlightParser {
     }
 
     public static void main(String[] args) throws JSONException {
-        System.out.println("test");
-        List<Flight> flightList = parseFlightJson("{\n" +
-                "   \"0\":{\n" +
-                "      \"flight_date\":\"2022-06-26\",\n" +
-                "      \"flight_status\":\"active\",\n" +
-                "      \"departure\":{\n" +
-                "         \"airport\":\"Franz Josef Strauss\",\n" +
-                "         \"timezone\":\"Europe\\/Berlin\",\n" +
-                "         \"iata\":\"MUC\",\n" +
-                "         \"icao\":\"EDDM\",\n" +
-                "         \"terminal\":null,\n" +
-                "         \"gate\":null,\n" +
-                "         \"delay\":10,\n" +
-                "         \"scheduled\":\"2022-06-26T18:25:00+00:00\",\n" +
-                "         \"estimated\":\"2022-06-26T18:25:00+00:00\",\n" +
-                "         \"actual\":null,\n" +
-                "         \"estimated_runway\":null,\n" +
-                "         \"actual_runway\":null\n" +
-                "      },\n" +
-                "      \"arrival\":{\n" +
-                "         \"airport\":\"Mc Carran International\",\n" +
-                "         \"timezone\":\"America\\/Los_Angeles\",\n" +
-                "         \"iata\":\"LAS\",\n" +
-                "         \"icao\":\"KLAS\",\n" +
-                "         \"terminal\":null,\n" +
-                "         \"gate\":null,\n" +
-                "         \"baggage\":null,\n" +
-                "         \"delay\":null,\n" +
-                "         \"scheduled\":\"2022-06-26T20:06:00+00:00\",\n" +
-                "         \"estimated\":\"2022-06-26T20:06:00+00:00\",\n" +
-                "         \"actual\":null,\n" +
-                "         \"estimated_runway\":null,\n" +
-                "         \"actual_runway\":null\n" +
-                "      },\n" +
-                "      \"airline\":{\n" +
-                "         \"name\":\"empty\",\n" +
-                "         \"iata\":null,\n" +
-                "         \"icao\":null\n" +
-                "      },\n" +
-                "      \"flight\":{\n" +
-                "         \"number\":null,\n" +
-                "         \"iata\":null,\n" +
-                "         \"icao\":null,\n" +
-                "         \"codeshared\":null\n" +
-                "      },\n" +
-                "      \"aircraft\":null,\n" +
-                "      \"live\":null\n" +
-                "   },\n" +
-                "   \"1\":{\n" +
-                "      \"flight_date\":\"2022-06-26\",\n" +
-                "      \"flight_status\":\"scheduled\",\n" +
-                "      \"departure\":{\n" +
-                "         \"airport\":\"Franz Josef Strauss\",\n" +
-                "         \"timezone\":\"Europe\\/Berlin\",\n" +
-                "         \"iata\":\"MUC\",\n" +
-                "         \"icao\":\"EDDM\",\n" +
-                "         \"terminal\":\"1\",\n" +
-                "         \"gate\":null,\n" +
-                "         \"delay\":null,\n" +
-                "         \"scheduled\":\"2022-06-26T18:25:00+00:00\",\n" +
-                "         \"estimated\":\"2022-06-26T18:25:00+00:00\",\n" +
-                "         \"actual\":null,\n" +
-                "         \"estimated_runway\":null,\n" +
-                "         \"actual_runway\":null\n" +
-                "      },\n" +
-                "      \"arrival\":{\n" +
-                "         \"airport\":\"Mc Carran International\",\n" +
-                "         \"timezone\":\"America\\/Los_Angeles\",\n" +
-                "         \"iata\":\"LAS\",\n" +
-                "         \"icao\":\"KLAS\",\n" +
-                "         \"terminal\":\"3\",\n" +
-                "         \"gate\":null,\n" +
-                "         \"baggage\":null,\n" +
-                "         \"delay\":null,\n" +
-                "         \"scheduled\":\"2022-06-26T21:05:00+00:00\",\n" +
-                "         \"estimated\":\"2022-06-26T21:05:00+00:00\",\n" +
-                "         \"actual\":null,\n" +
-                "         \"estimated_runway\":null,\n" +
-                "         \"actual_runway\":null\n" +
-                "      },\n" +
-                "      \"airline\":{\n" +
-                "         \"name\":\"Eurowings Discover\",\n" +
-                "         \"iata\":\"4Y\",\n" +
-                "         \"icao\":\"OCN\"\n" +
-                "      },\n" +
-                "      \"flight\":{\n" +
-                "         \"number\":\"56\",\n" +
-                "         \"iata\":\"4Y56\",\n" +
-                "         \"icao\":\"OCN56\",\n" +
-                "         \"codeshared\":null\n" +
-                "      },\n" +
-                "      \"aircraft\":null,\n" +
-                "      \"live\":null\n" +
-                "   },\n" +
-                "   \"2\":{\n" +
-                "      \"flight_date\":\"2022-06-26\",\n" +
-                "      \"flight_status\":\"active\",\n" +
-                "      \"departure\":{\n" +
-                "         \"airport\":\"Franz Josef Strauss\",\n" +
-                "         \"timezone\":\"Europe\\/Berlin\",\n" +
-                "         \"iata\":\"MUC\",\n" +
-                "         \"icao\":\"EDDM\",\n" +
-                "         \"terminal\":\"1\",\n" +
-                "         \"gate\":\"C26\",\n" +
-                "         \"delay\":15,\n" +
-                "         \"scheduled\":\"2022-06-26T18:25:00+00:00\",\n" +
-                "         \"estimated\":\"2022-06-26T18:25:00+00:00\",\n" +
-                "         \"actual\":null,\n" +
-                "         \"estimated_runway\":null,\n" +
-                "         \"actual_runway\":null\n" +
-                "      },\n" +
-                "      \"arrival\":{\n" +
-                "         \"airport\":\"Mc Carran International\",\n" +
-                "         \"timezone\":\"America\\/Los_Angeles\",\n" +
-                "         \"iata\":\"LAS\",\n" +
-                "         \"icao\":\"KLAS\",\n" +
-                "         \"terminal\":\"3\",\n" +
-                "         \"gate\":null,\n" +
-                "         \"baggage\":null,\n" +
-                "         \"delay\":null,\n" +
-                "         \"scheduled\":\"2022-06-26T21:05:00+00:00\",\n" +
-                "         \"estimated\":\"2022-06-26T21:05:00+00:00\",\n" +
-                "         \"actual\":null,\n" +
-                "         \"estimated_runway\":null,\n" +
-                "         \"actual_runway\":null\n" +
-                "      },\n" +
-                "      \"airline\":{\n" +
-                "         \"name\":\"Finnair\",\n" +
-                "         \"iata\":\"AY\",\n" +
-                "         \"icao\":\"FIN\"\n" +
-                "      },\n" +
-                "      \"flight\":{\n" +
-                "         \"number\":\"56\",\n" +
-                "         \"iata\":\"AY56\",\n" +
-                "         \"icao\":\"FIN56\",\n" +
-                "         \"codeshared\":null\n" +
-                "      },\n" +
-                "      \"aircraft\":null,\n" +
-                "      \"live\":null\n" +
-                "   },\n" +
-                "   \"3\":{\n" +
-                "      \"flight_date\":\"2022-06-26\",\n" +
-                "      \"flight_status\":\"active\",\n" +
-                "      \"departure\":{\n" +
-                "         \"airport\":\"Franz Josef Strauss\",\n" +
-                "         \"timezone\":\"Europe\\/Berlin\",\n" +
-                "         \"iata\":\"MUC\",\n" +
-                "         \"icao\":\"EDDM\",\n" +
-                "         \"terminal\":\"1\",\n" +
-                "         \"gate\":\"C26\",\n" +
-                "         \"delay\":15,\n" +
-                "         \"scheduled\":\"2022-06-26T18:25:00+00:00\",\n" +
-                "         \"estimated\":\"2022-06-26T18:25:00+00:00\",\n" +
-                "         \"actual\":null,\n" +
-                "         \"estimated_runway\":null,\n" +
-                "         \"actual_runway\":null\n" +
-                "      },\n" +
-                "      \"arrival\":{\n" +
-                "         \"airport\":\"Mc Carran International\",\n" +
-                "         \"timezone\":\"America\\/Los_Angeles\",\n" +
-                "         \"iata\":\"LAS\",\n" +
-                "         \"icao\":\"KLAS\",\n" +
-                "         \"terminal\":\"3\",\n" +
-                "         \"gate\":null,\n" +
-                "         \"baggage\":null,\n" +
-                "         \"delay\":null,\n" +
-                "         \"scheduled\":\"2022-06-26T21:05:00+00:00\",\n" +
-                "         \"estimated\":\"2022-06-26T21:05:00+00:00\",\n" +
-                "         \"actual\":null,\n" +
-                "         \"estimated_runway\":null,\n" +
-                "         \"actual_runway\":null\n" +
-                "      },\n" +
-                "      \"airline\":{\n" +
-                "         \"name\":\"Lufthansa\",\n" +
-                "         \"iata\":\"LH\",\n" +
-                "         \"icao\":\"DLH\"\n" +
-                "      },\n" +
-                "      \"flight\":{\n" +
-                "         \"number\":\"4388\",\n" +
-                "         \"iata\":\"LH4388\",\n" +
-                "         \"icao\":\"DLH4388\",\n" +
-                "         \"codeshared\":{\n" +
-                "            \"airline_name\":\"finnair\",\n" +
-                "            \"airline_iata\":\"ay\",\n" +
-                "            \"airline_icao\":\"fin\",\n" +
-                "            \"flight_number\":\"56\",\n" +
-                "            \"flight_iata\":\"ay56\",\n" +
-                "            \"flight_icao\":\"fin56\"\n" +
-                "         }\n" +
-                "      },\n" +
-                "      \"aircraft\":null,\n" +
-                "      \"live\":null\n" +
-                "   },\n" +
-                "   \"4\":{\n" +
-                "      \"flight_date\":\"2022-06-26\",\n" +
-                "      \"flight_status\":\"active\",\n" +
-                "      \"departure\":{\n" +
-                "         \"airport\":\"Franz Josef Strauss\",\n" +
-                "         \"timezone\":\"Europe\\/Berlin\",\n" +
-                "         \"iata\":\"MUC\",\n" +
-                "         \"icao\":\"EDDM\",\n" +
-                "         \"terminal\":\"1\",\n" +
-                "         \"gate\":\"C26\",\n" +
-                "         \"delay\":15,\n" +
-                "         \"scheduled\":\"2022-06-26T18:25:00+00:00\",\n" +
-                "         \"estimated\":\"2022-06-26T18:25:00+00:00\",\n" +
-                "         \"actual\":null,\n" +
-                "         \"estimated_runway\":null,\n" +
-                "         \"actual_runway\":null\n" +
-                "      },\n" +
-                "      \"arrival\":{\n" +
-                "         \"airport\":\"Mc Carran International\",\n" +
-                "         \"timezone\":\"America\\/Los_Angeles\",\n" +
-                "         \"iata\":\"LAS\",\n" +
-                "         \"icao\":\"KLAS\",\n" +
-                "         \"terminal\":\"3\",\n" +
-                "         \"gate\":null,\n" +
-                "         \"baggage\":null,\n" +
-                "         \"delay\":null,\n" +
-                "         \"scheduled\":\"2022-06-26T21:05:00+00:00\",\n" +
-                "         \"estimated\":\"2022-06-26T21:05:00+00:00\",\n" +
-                "         \"actual\":null,\n" +
-                "         \"estimated_runway\":null,\n" +
-                "         \"actual_runway\":null\n" +
-                "      },\n" +
-                "      \"airline\":{\n" +
-                "         \"name\":\"SWISS\",\n" +
-                "         \"iata\":\"LX\",\n" +
-                "         \"icao\":\"SWR\"\n" +
-                "      },\n" +
-                "      \"flight\":{\n" +
-                "         \"number\":\"9326\",\n" +
-                "         \"iata\":\"LX9326\",\n" +
-                "         \"icao\":\"SWR9326\",\n" +
-                "         \"codeshared\":{\n" +
-                "            \"airline_name\":\"finnair\",\n" +
-                "            \"airline_iata\":\"ay\",\n" +
-                "            \"airline_icao\":\"fin\",\n" +
-                "            \"flight_number\":\"56\",\n" +
-                "            \"flight_iata\":\"ay56\",\n" +
-                "            \"flight_icao\":\"fin56\"\n" +
-                "         }\n" +
-                "      },\n" +
-                "      \"aircraft\":null,\n" +
-                "      \"live\":null\n" +
-                "   },\n" +
-                "   \"5\":{\n" +
-                "      \"flight_date\":\"2022-06-26\",\n" +
-                "      \"flight_status\":\"active\",\n" +
-                "      \"departure\":{\n" +
-                "         \"airport\":\"Franz Josef Strauss\",\n" +
-                "         \"timezone\":\"Europe\\/Berlin\",\n" +
-                "         \"iata\":\"MUC\",\n" +
-                "         \"icao\":\"EDDM\",\n" +
-                "         \"terminal\":\"1\",\n" +
-                "         \"gate\":\"C26\",\n" +
-                "         \"delay\":15,\n" +
-                "         \"scheduled\":\"2022-06-26T18:25:00+00:00\",\n" +
-                "         \"estimated\":\"2022-06-26T18:25:00+00:00\",\n" +
-                "         \"actual\":null,\n" +
-                "         \"estimated_runway\":null,\n" +
-                "         \"actual_runway\":null\n" +
-                "      },\n" +
-                "      \"arrival\":{\n" +
-                "         \"airport\":\"Mc Carran International\",\n" +
-                "         \"timezone\":\"America\\/Los_Angeles\",\n" +
-                "         \"iata\":\"LAS\",\n" +
-                "         \"icao\":\"KLAS\",\n" +
-                "         \"terminal\":\"3\",\n" +
-                "         \"gate\":null,\n" +
-                "         \"baggage\":null,\n" +
-                "         \"delay\":null,\n" +
-                "         \"scheduled\":\"2022-06-26T21:05:00+00:00\",\n" +
-                "         \"estimated\":\"2022-06-26T21:05:00+00:00\",\n" +
-                "         \"actual\":null,\n" +
-                "         \"estimated_runway\":null,\n" +
-                "         \"actual_runway\":null\n" +
-                "      },\n" +
-                "      \"airline\":{\n" +
-                "         \"name\":\"Austrian\",\n" +
-                "         \"iata\":\"OS\",\n" +
-                "         \"icao\":\"AUA\"\n" +
-                "      },\n" +
-                "      \"flight\":{\n" +
-                "         \"number\":\"8477\",\n" +
-                "         \"iata\":\"OS8477\",\n" +
-                "         \"icao\":\"AUA8477\",\n" +
-                "         \"codeshared\":{\n" +
-                "            \"airline_name\":\"finnair\",\n" +
-                "            \"airline_iata\":\"ay\",\n" +
-                "            \"airline_icao\":\"fin\",\n" +
-                "            \"flight_number\":\"56\",\n" +
-                "            \"flight_iata\":\"ay56\",\n" +
-                "            \"flight_icao\":\"fin56\"\n" +
-                "         }\n" +
-                "      },\n" +
-                "      \"aircraft\":null,\n" +
-                "      \"live\":null\n" +
-                "   },\n" +
-                "   \"success\":true\n" +
-                "}", null, null);
-        assert flightList != null;
-        System.out.println(flightList.toString());
-       /* try {
-            //System.out.println(HTTP_GetRequest.httpRequest("http://api.aviationstack.com/v1/flights", new String[]{"?access_key=8df0ff3c6cd266e3219eed88b44cc2ee", "?limit=10"}));
-            System.out.println(FlightParser.parseFlightJson(HTTP_GetRequest.httpRequest("http://api.aviationstack.com/v1/flights", new String[]{"?access_key=8df0ff3c6cd266e3219eed88b44cc2ee", "&limit=10"})));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }
 
     public String toString(List<Flight> flights) {

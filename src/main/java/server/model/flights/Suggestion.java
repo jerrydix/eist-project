@@ -1,6 +1,9 @@
 package server.model.flights;
 
 public class Suggestion {
+    /**
+     * Class used for frontend city suggestions
+     */
     String label;
 
     public Suggestion(String label) {
