@@ -46,6 +46,7 @@ export default {
   <w-input
       v-model="user.password"
       placeholder="Enter your password"
+      type="password"
   ></w-input>
   <w-button @click="registerUser">Register</w-button>
   <br/>

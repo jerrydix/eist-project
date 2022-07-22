@@ -57,6 +57,7 @@ export default {
       v-model="user.password"
       class="mb4"
       placeholder="Enter your password"
+      type="password"
   ></w-input>
   <w-button @click="loginUser">Login</w-button>
   <br/>

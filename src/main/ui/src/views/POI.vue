@@ -3,9 +3,10 @@
     <w-flex grow>
       <aside>
         <w-flex align-center grow justify-center>
-          <HomeButton />
-          <w-checkbox color="orange" @input="topTen">Show Top 10</w-checkbox>
-          <w-checkbox @input="table.activeFilter == 0 ? table.activeFilter = 1 : table.activeFilter = 0">Show Favourites
+          <HomeButton/>
+          <w-checkbox color="orange" style="padding: 5px" @input="topTen">Show Top 10</w-checkbox>
+          <w-checkbox style="padding: 5px"
+                      @input="table.activeFilter == 0 ? table.activeFilter = 1 : table.activeFilter = 0">Show Favourites
           </w-checkbox>
         </w-flex>
         <w-table
