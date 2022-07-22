@@ -10,7 +10,7 @@ public class CatalogueFactory {
     /**
      * Create a movie for each entry in {@link MovieTag} as long as it is registered in
      * {@link CatalogueFactory#getMovie(MovieTag) getMovie()} and a valid entry in
-     * {@linkplain <a href="http://omdbapi.com">OMDb</a>} exists.
+     * OMDb exists.
      * Gather all movies in a list.
      *
      * @return {@link MovieCatalogue} with list of movies based on {@link MovieTag}
