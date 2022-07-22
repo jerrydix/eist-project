@@ -46,7 +46,7 @@ The scope of the system is the development of a flight entertainment system. Thi
 
 ### References
 
-* [Software Design Document (SDD)](SDD.md)
+* [Software Design Document (SDD)](SDDmarkdown.md)
 * [Readme](../README.md)
 * [Source code](../src/main)
 

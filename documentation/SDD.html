@@ -1,0 +1,211 @@
+<h1 id="system-design-document">System Design Document</h1>
+<h2 id="overview">Overview</h2>
+<ol>
+    <li>Introduction<ul>
+        <li>Overview</li>
+        <li>Definitions, acronyms and abbreviations</li>
+        <li>References</li>
+    </ul>
+    </li>
+    <li>Design Goals</li>
+    <li>Subsystem Decomposition</li>
+    <li>Hardware / Software mapping</li>
+    <li>Data management</li>
+    <li>Access control and security</li>
+    <li>Global software control</li>
+    <li>Boundary conditions</li>
+</ol>
+<h2 id="1-introduction">1. Introduction</h2>
+<h3 id="overview-">Overview:</h3>
+<p>The following system design document will provide an overview over the system design of the Garching Airlines Flight
+    Infotainment System. This SDD will describe the design goals, the system design, the software control and other
+    components of the software, while also providing boundary conditions and models of the system architecture.</p>
+<h3 id="definitions-">Definitions:</h3>
+<ul>
+    <li><em>GAFIS</em>: Garching Airlines Flight Infotainment System</li>
+</ul>
+<h3 id="references-">References:</h3>
+<ul>
+    <li><a href="RADmarkdown.md">Requirements Analysis Document (RAD)</a></li>
+    <li><a href="../README.md">Readme</a></li>
+    <li><a href="../src/main">Source code</a></li>
+</ul>
+<h2 id="2-design-goals">2. Design Goals</h2>
+<h3 id="non-functional-requirements-">Non-functional Requirements:</h3>
+<ul>
+    <li><p><strong>NFR1: Usability:</strong> The system should be intuitive to use, and the user interface should be easy to understand. All
+        interactions should be completed in less than three clicks.</p>
+    </li>
+    <li><p><strong>NFR2: Conformance to guidelines:</strong> The design of the system should conform to the typical usability guidelines such
+        as Nielsen’s usability heuristics.</p>
+    </li>
+    <li><p><strong>NFR3: Serversystem:</strong> A server subsystem with a couple of services must be used in the system. However, additional
+        services like destination information for weather and POIs should be obtained from external services.</p>
+    </li>
+</ul>
+<h3 id="additional-design-goals-">Additional design goals:</h3>
+<ul>
+    <li>Good Documentation, including source code documentation, RAD, SDD</li>
+    <li>Rapid development (2 months)</li>
+    <li>No cost (usage of free webservices and APIs)</li>
+    <li>Fault tolerance, especially in search bars for city names</li>
+</ul>
+<h2 id="3-subsystem-decomposition">3. Subsystem Decomposition</h2>
+<p><img src="images/SubsystemDecomposition.PNG" alt="Subsystem Decomposition"></p>
+<h2 id="4-hardware-software-mapping">4. Hardware / Software mapping</h2>
+<p><img src="images/HardwareSoftwareMapping.PNG" alt="Hardware / Software mapping"></p>
+<h2 id="5-data-management">5. Data management</h2>
+<p>There is no persistent data management present in GAFIS. All data is instantiated during runtime and lost after
+    shutdown. The data is stored in Spring beans (objects of service classes) or in static Lists that save all created
+    objects of a class.</p>
+<p><code>UserService</code> maintains a list of all registered users (<code>List&lt;User&gt; systemUsers</code>), as well as if any
+    user is logged in (<code>boolean loggedIn</code>) and which user that is (<code>User loggedInUser</code>).</p>
+<p>Every user also has a <code>List&lt;FlightJourney&gt;</code> of all the booked journeys of the user,
+    a <code>Flight currentFlight</code> that is the current flight of the user given to the system upon registration and
+    a <code>List&lt;Reward&gt;</code> of all received rewards for completing Surveys, as well as the unique username and password.</p>
+<p>Additionally, there is a <code>static List&lt;Location&gt; locationList</code> in the Location class, which stores already
+    fetched locations during runtime.</p>
+<p>Apart from that, the frontend uses <code>localStorage</code> of the page as well as a reactive global store from the
+    <a href="https://pinia.vuejs.org/">Pinia</a> library to have access to the logged-in user&#39;s username in order to adapt
+    the Home page as well as other views according to if a user is logged in or not and what is their username. This data
+    is fetched from the backend on startup or page refresh.</p>
+<p>In summary, the following data is stored:</p>
+<ul>
+    <li><p>General User data</p>
+        <ul>
+            <li><code>systemUsers</code></li>
+            <li><code>loggedInUser</code></li>
+        </ul>
+    </li>
+    <li><p>Each user&#39;s data</p>
+        <ul>
+            <li><code>username</code></li>
+            <li><code>password</code></li>
+            <li><code>Flight currentFlight</code></li>
+            <li><code>FlightJourney</code> list</li>
+        </ul>
+    </li>
+    <li><p>Locations that have already been fetched (<code>static List&lt;Location&gt; locationList</code>)</p>
+    </li>
+    <li><p>Username of currently logged-in user (client)</p>
+    </li>
+</ul>
+<h2 id="6-access-control-and-security">6. Access control and security</h2>
+<p>The only authentication mechanism used in GAFIS is a simple username and password login system. At startup, the user
+    chooses between <em><strong>Register</strong></em> and <em><strong>Login</strong></em> to either perform a login or make an account. When registering, the user
+    is prompted to choose a username and a password (the password cannot be empty), which is later used to log in. The user
+    data is then stored without
+    encryption. When the user logs in, he has to provide his username and password, which both have to be spelled correctly
+    in order for the user to successfully log in. The user has the ability to log out by using the <em><strong>Logout</strong></em> button.  </p>
+<p>The access rights change depending on whether a user is logged in or not. While the user is not logged in, he is only able to access some of the features of the system.<br>Those features are:</p>
+<ul>
+    <li>Watch the flight safety video</li>
+    <li>Call flight assistant</li>
+    <li>Order food / drinks</li>
+    <li>Watch movies</li>
+</ul>
+<p>If the user is logged in into his account, he can use the follwing features:</p>
+<ul>
+    <li>View current flight</li>
+    <li>Participate in surveys</li>
+    <li>Create flight journeys and add / remove flights to it.</li>
+    <li>View location data, including a map with POIs</li>
+    <li>Create POI favorites list and add / remove POIs to it.</li>
+    <li>Watch the flight safety video</li>
+    <li>Call flight assistant</li>
+    <li>Order food / drinks</li>
+    <li>Watch movies</li>
+</ul>
+<h3 id="access-matrix">Access matrix</h3>
+<table>
+    <thead>
+    <tr>
+        <th></th>
+        <th>Flights</th>
+        <th>Surveys</th>
+        <th>Locations</th>
+        <th>Safety video</th>
+        <th>Catering</th>
+        <th>Entertainment</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>User (logged in)</td>
+        <td>viewCurrentFlight() createFlightJourney() addFlight() removeFlight()</td>
+        <td>participate()</td>
+        <td>viewLocationData() createPOIList() addPOI() removePOI()</td>
+        <td>viewSafetyVideo()</td>
+        <td>orderFoodItem() callFlightAssistant()</td>
+        <td>watchMovie()</td>
+    </tr>
+    <tr>
+        <td>User (logged out)</td>
+        <td>--</td>
+        <td>--</td>
+        <td>--</td>
+        <td>viewSafetyVideo()</td>
+        <td>orderFoodItem() callFlightAssistant()</td>
+        <td>watchMovie()</td>
+    </tr>
+    </tbody>
+</table>
+<h2 id="7-global-software-control">7. Global software control</h2>
+<p>GAFIS uses a monolithic design and a centralized architecture. The backend server is the only master node in GAFIS and all the data is contained there. Thus, if the backend fails, the system wholly shuts down. All users have their data stored on this server.  </p>
+<p>Futhermore, GAFIS uses the RESTful API for communicating with the server. Here, a polling-based design is used. This guarantees high performance on the client side, as the server is always accessible.<br>The functionality is as follows:</p>
+<ol>
+    <li>The client needs certain data or functionality from the server.</li>
+    <li>The client makes a request to the server.</li>
+    <li>The request is processed by the server and the required processes are executed.</li>
+    <li>The server sends a response to the client with the resulting data.</li>
+    <li>The client receives the response and processes it accordingly.</li>
+</ol>
+<h2 id="8-boundary-conditions">8. Boundary conditions</h2>
+<p>There are two main compononents in GAFIS.<br>The server (backend), which mainly handels the functionality of the system, the storing of data and the management of external services, is the first component.<br>The client (frontend), which mainly provides a UI of the system, but is also responsible for wrapping and managing the functionality, is the second component.  </p>
+<p>There are several ways to start / manage those components from a terminal (for developers / server administrators etc.)
+    <br/>
+    <br/></p>
+<h3 id="start-the-front-end-development-server">Start the Front-End Development Server</h3>
+<p>This has hot-reload capabilities but does not start the Spring Boot backend.</p>
+<pre><code class="lang-sh">./gradlew npm_run_dev
+</code></pre>
+<p>open a web browser and visit <code>localhost:3000</code></p>
+<h3 id="lint-javascript-with-eslint-https-eslint-org-">Lint JavaScript with <a href="https://eslint.org/">ESLint</a></h3>
+<pre><code class="lang-sh">./gradlew npm_run_lint
+</code></pre>
+<h3 id="view-the-production-build">View the Production Build</h3>
+<p>This starts both the server and client applications but does not have hot-reload capabilities.</p>
+<pre><code class="lang-sh">./gradlew bootRun
+</code></pre>
+<p>open a web browser and visit <code>localhost:8080</code></p>
+<h3 id="compile-the-jar-file">Compile the JAR file</h3>
+<pre><code class="lang-sh">./gradlew <span class="hljs-built_in">clean</span> build
+</code></pre>
+<h3 id="terminate-execution">Terminate execution</h3>
+<pre><code class="lang-sh"><span class="hljs-comment">^C</span>
+</code></pre>
+<p>When the execution is terminated, the server shuts down and all user and location data is erased.
+    <br/>
+    <br/>
+    <img src="images/UseCaseDiagram.PNG" alt="Use case diagram"></p>
+<p>A use case diagram of a server admin managing the servers
+    <br/>
+    <br/></p>
+<h3 id="system-failures">System failures</h3>
+<p>System failures are handled by shutting down the system.</p>
+<p><br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/></p>
+<!--### Functional Requirements:
+
+* **FR1: Show  flight  information:** The system shows  flight  information (flight  number, start time, end time, gate, terminal, seat, airplane type, airline, etc.) of all the user’s flightsand notifies the user if a flight is canceled or delayed.
+
+* **FR2: Add new flight trip:** The user cansearch through available flights and can select the one’s he has booked. The user can build flight journeys (trips) with multiple connecting flights or one return flight and can see the trips on a map.
+
+* **FR3: Display destination information:** The user can display important information such as  POIs  in  the  destination  place  (e.g., hotels,  restaurants,  attractions)  and  weather  data. POIs should be shown in a map and the user should be able to filter them. When clickingon a POI, the user can see additional information and save the POI in the favorites.
+
+* **FR4: Give feedback:** A passenger can give feedback after he took the flight about the flight itself, catering, entertainment, service orcomfort. Passengers who take the survey will be rewarded, e.g.,by miles, souvenirs, coupons,or price drawings.
+
+* **FR5: Request service:** During a flight, a passenger can request the service. This notifies the service staff so that they can come to the passenger’s seat.-->

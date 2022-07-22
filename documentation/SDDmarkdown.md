@@ -28,7 +28,7 @@ components of the software, while also providing boundary conditions and models 
 
 ### References:
 
-* [Requirements Analysis Document (RAD)](RAD.md)
+* [Requirements Analysis Document (RAD)](RADmarkdown.md)
 * [Readme](../README.md)
 * [Source code](../src/main)
 
