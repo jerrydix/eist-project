@@ -1,8 +1,5 @@
 <template>
   <w-app v-if="this.store.username" id="app">
-    <header>
-      <h2 class="text-center">About your location</h2>
-    </header>
     <w-flex grow>
       <aside>
         <w-flex align-center grow justify-center>

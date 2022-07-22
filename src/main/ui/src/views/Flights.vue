@@ -7,7 +7,6 @@ import {
 import FlightSuggestionCard from "../components/FlightSuggestionCard.vue";
 import Journey from "../components/Journey.vue";
 import { userStore } from "../userStore";
-
 export default {
 	components: { FlightSuggestionCard, Journey },
 	setup() {
@@ -26,20 +25,15 @@ export default {
 			arrivalSuggestions: null,
 			selectedArrival: null,
 			arrivalCity: null,
-
 			requestedFlights: false,
-
 			date: "2022-08-01",
 			center: null,
-
 			flight: null,
 			card: {
 				flights: [],
 			},
-
 			showPOI: false,
 			locationID: -1,
-
 			table: {
 				flights: [],
 			},
@@ -131,24 +125,12 @@ export default {
 		<w-flex grow>
 			<div class="xs6">
 				<div class="flightSearch">
-					<w-flex grow>
-						<div class="xs1"></div>
-						<div class="xs3">
-							<label>Date</label>
-							<br />
-							<w-input
-								v-model="this.date"
-								outline
-								type="date"
-							></w-input>
-						</div>
-						<div class="xs1"></div>
-						<div class="xs4">
-							Watch out for overlapping departure and arrival
-							times when booking your flights!
-						</div>
-					</w-flex>
-					<w-flex grow>
+					<h2 style="text-align: center; padding-top: 10px; padding-bottom: 10px">Book flights</h2>
+					<w-flex
+						grow
+						justify-space-between
+						style="padding-left: 40px; padding-right: 40px"
+					>
 						<div class="xs3" style="position: relative">
 							<label>From</label>
 							<w-input
@@ -188,18 +170,31 @@ export default {
 							>
 							</w-list>
 						</div>
+
+						<div class="xs3">
+							<label>Date</label>
+							<br />
+							<w-input
+								v-model="this.date"
+								outline
+								type="date"
+							></w-input>
+							<w-button
+								class="showFlights"
+								:disabled="
+									this.requestedFlights ||
+									!this.arrivalCity ||
+									!this.departureCity
+								"
+								@click="getFlights"
+								>Show Flights</w-button
+							>
+						</div>
 					</w-flex>
-					<w-flex grow>
-						<w-button
-							:disabled="
-								this.requestedFlights ||
-								!this.arrivalCity ||
-								!this.departureCity
-							"
-							@click="getFlights"
-							>Show Flights</w-button
-						>
-					</w-flex>
+					<w-card class="note" bg-color="warning">
+						Watch out for overlapping departure and arrival times
+						when booking your flights!
+					</w-card>
 				</div>
 				<div class="suggestions">
 					<FlightSuggestionCard
@@ -213,6 +208,7 @@ export default {
 			<div class="xs6">
 				<Journey :flights="this.table.flights" :map="this.map">
 					<w-button
+						bg-color="error"
 						:disabled="this.table.flights.length === 0"
 						@click="deleteLast"
 						>Delete last flight</w-button
@@ -220,6 +216,7 @@ export default {
 				</Journey>
 				<w-button
 					class="save"
+					bg-color="secondary"
 					:disabled="this.table.flights.length === 0"
 					@click="saveJourney"
 					style="margin-right: 10px"
@@ -256,6 +253,19 @@ export default {
 	width: 100%;
 	height: 35px;
 	margin-top: 3px;
+}
+
+.w-card.note {
+	max-width: 300px;
+	font-size: 85%;
+	padding: 2px;
+	margin-top: -20px;
+	margin-left: 20px;
+}
+
+.w-card.showFlights {
+	display: inline-block;
+	text-align: right;
 }
 
 ul.w-list {
