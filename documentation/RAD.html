@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-07-22 Fri 19:42 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Requirements Analysis Document</title>
+<meta name="author" content="Lucio Sauer" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Requirements Analysis Document</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orga5aaeee">1. Introduction</a>
+<ul>
+<li><a href="#org1179b5a">1.1. Purpose of the system</a></li>
+<li><a href="#orgfadf112">1.2. Scope of the system</a></li>
+<li><a href="#orgd122b4a">1.3. Definitions, acronyms, and abbreviations</a></li>
+<li><a href="#org96047ad">1.4. References</a></li>
+<li><a href="#org7919226">1.5. Overview</a></li>
+</ul>
+</li>
+<li><a href="#orgdee9ffb">2. Proposed system</a>
+<ul>
+<li><a href="#org4b32c00">2.1. Overview</a></li>
+<li><a href="#orgd8c3eca">2.2. Functional requirements</a></li>
+<li><a href="#org45c0bdd">2.3. Nonfunctional requirements</a>
+<ul>
+<li><a href="#orgc6cf710">2.3.1. Usability</a></li>
+<li><a href="#orgf937c62">2.3.2. Reliability</a></li>
+<li><a href="#org4b05139">2.3.3. Performance</a></li>
+<li><a href="#org0e155e1">2.3.4. Supportability</a></li>
+<li><a href="#org1a3a5d1">2.3.5. Implementation Requirements</a></li>
+<li><a href="#org7cf3883">2.3.6. Legal Requirements</a></li>
+</ul>
+</li>
+<li><a href="#orgc3eccad">2.4. System models</a>
+<ul>
+<li><a href="#orgd89bdcb">2.4.1. Scenarios</a></li>
+<li><a href="#org08825ea">2.4.2. Use case model</a></li>
+<li><a href="#orga422cf1">2.4.3. Object model</a></li>
+<li><a href="#org6ae3f15">2.4.4. Dynamic model</a></li>
+<li><a href="#org4d74136">2.4.5. User interface</a></li>
+<li><a href="#orgb1d6b86">2.4.6. Glossary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga5aaeee" class="outline-2">
+<h2 id="orga5aaeee"><span class="section-number-2">1.</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org1179b5a" class="outline-3">
+<h3 id="org1179b5a"><span class="section-number-3">1.1.</span> Purpose of the system</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The purpose of the &ldquo;Garching Airlines Flight Infotainment System&rdquo; is to provide passengers on a flight with information about the destination and other flights and offer entertainment and service.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfadf112" class="outline-3">
+<h3 id="orgfadf112"><span class="section-number-3">1.2.</span> Scope of the system</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+The scope of the system is the development of a flight entertainment system. This includes a backend where all data and input from the frontend is processed. This includes a catering service, surveys, searching and saving flights and obtaining information about the destination. The frontend takes care of the display of such information and the user input. What is not included in the scope and will be implemented via APIs are the weather information, flights and maps.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd122b4a" class="outline-3">
+<h3 id="orgd122b4a"><span class="section-number-3">1.3.</span> Definitions, acronyms, and abbreviations</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li><b>GAFIS</b>: Garching Airlines Flight Infotainment System</li>
+<li><b>RAD</b>: Requirements Analysis Document</li>
+<li><b>SDD</b>: Software Design Document</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org96047ad" class="outline-3">
+<h3 id="org96047ad"><span class="section-number-3">1.4.</span> References</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li><a href="SDD.hmtl">Software Design Document (SDD)</a></li>
+<li><a href="../README.md">Readme</a></li>
+<li><a href="../src/main">Source code</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7919226" class="outline-3">
+<h3 id="org7919226"><span class="section-number-3">1.5.</span> Overview</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+The following RAD will give the reader an overview over the (non-)functional requirements of the system, a rough understanding of the design of GAFIS and a preview of the UI.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdee9ffb" class="outline-2">
+<h2 id="orgdee9ffb"><span class="section-number-2">2.</span> Proposed system</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org4b32c00" class="outline-3">
+<h3 id="org4b32c00"><span class="section-number-3">2.1.</span> Overview</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+The GAFIS is primarily a system where passengers in an airplane can search flights, obtain information about theri destination and stay entertained for the length of their journey. To achieve the goals specified via the (non-)functional requirements and scenarios we have included some models of our proposed system.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd8c3eca" class="outline-3">
+<h3 id="orgd8c3eca"><span class="section-number-3">2.2.</span> Functional requirements</h3>
+<div class="outline-text-3" id="text-2-2">
+<ul class="org-ul">
+<li><b>Show flight infomation</b>: The system shows flight information (flight number, start time, end time, gate, terminal, seat, airplane type, airline, etc.) of all the user&rsquo;s flights and notifies the user if a flight is canceled or delayed.</li>
+<li><b>Add new flight trip</b>: The user can search through available flights and can select the one’s he has booked. The user can build flight journeys (trips) with multiple connecting flights or one return flight and can see the trips on a map.</li>
+<li><b>Display destination information</b>: The user can display important information such as POIs in the destination place (e.g., hotels, restaurants, attractions) and weather data. POIs should be shown in a map and the user should be able to filter them. When clicking on a POI, the user can see additional information and save the POI in the favorites.</li>
+<li><b>Give feedback</b>: A passenger can give feedback after he took the flight about the flight itself, catering, entertainment, service or comfort. Passengers who take the survey will be rewarded, e.g., by miles, souvenirs, coupons, or price drawings.</li>
+<li><b>Request service</b>: During a flight, a passenger can request the service. This notifies the service staff so that they can come to the passenger’s seat.</li>
+<li><b>Watch flight safety instructions</b>: The user can watch the flight safety instructions.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org45c0bdd" class="outline-3">
+<h3 id="org45c0bdd"><span class="section-number-3">2.3.</span> Nonfunctional requirements</h3>
+<div class="outline-text-3" id="text-2-3">
+</div>
+<div id="outline-container-orgc6cf710" class="outline-4">
+<h4 id="orgc6cf710"><span class="section-number-4">2.3.1.</span> Usability</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<ul class="org-ul">
+<li>The system should be intuitive to use, and the user interface should be easy to understand. All interactions should be completed in less than three clicks.</li>
+<li>The design of the system should conform to the typical usability guidelines such as Nielsen’s usability heuristics.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf937c62" class="outline-4">
+<h4 id="orgf937c62"><span class="section-number-4">2.3.2.</span> Reliability</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<ul class="org-ul">
+<li>The system has to be fault tolerant to an extent, especially when searching for city names.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org4b05139" class="outline-4">
+<h4 id="org4b05139"><span class="section-number-4">2.3.3.</span> Performance</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<ul class="org-ul">
+<li>Loading times of over 0.25 seconds should never occur when switching views.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0e155e1" class="outline-4">
+<h4 id="org0e155e1"><span class="section-number-4">2.3.4.</span> Supportability</h4>
+<div class="outline-text-4" id="text-2-3-4">
+<ul class="org-ul">
+<li>It should be possible to add a new feature/service in approximately two weeks.</li>
+<li>There has to be extensive documentation including source code documentation, RAD and SDD.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1a3a5d1" class="outline-4">
+<h4 id="org1a3a5d1"><span class="section-number-4">2.3.5.</span> Implementation Requirements</h4>
+<div class="outline-text-4" id="text-2-3-5">
+<ul class="org-ul">
+<li>A server subsystem with a couple of services must be used in the system. However, additional services like destination information for weather and POIs should be obtained from external services.</li>
+<li>Only the use of free webservices and APIs is allowed for the implementation of GAFIS.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7cf3883" class="outline-4">
+<h4 id="org7cf3883"><span class="section-number-4">2.3.6.</span> Legal Requirements</h4>
+<div class="outline-text-4" id="text-2-3-6">
+<ul class="org-ul">
+<li>Media included in the entertainment system of GAFIS may not breach any copyright regulations.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc3eccad" class="outline-3">
+<h3 id="orgc3eccad"><span class="section-number-3">2.4.</span> System models</h3>
+<div class="outline-text-3" id="text-2-4">
+</div>
+<div id="outline-container-orgd89bdcb" class="outline-4">
+<h4 id="orgd89bdcb"><span class="section-number-4">2.4.1.</span> Scenarios</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<ul class="org-ul">
+<li>Julia bought a Lufthansa flight from Munich to Lisbon on June 5 via the Lufthansa website. She opens the system and searches all the available flights between Munich and Lisbon on June 5. She selects the flight and saves it to her flight list. When looking into the details, she recognizes that the sun is shining in Lisbon. When she clicks on Lisbon, she sees the city map with points of interest (POI) and uses a filter to see the 10 best attractions. Julia decides to visit the Belém Tower and saves it in her favorites POI list.</li>
+<li>Simon is currently flying from Rome to London. During the flight, he has a nice dinner with spaghetti and a beer. Then he participates in a survey: Simon is asked to rate the entertainment system and the catering. He gives both a five-star rating. Then he is asked about the comfort. Simon chooses a four-star rating, because the toilet is not clean. He describes the problem in the comment section. After he quits the survey, the system shows him a coupon for a free drink at the Burger restaurant at Heathrow airport.</li>
+<li>Maria is flying from Barcelona to Paris with Lufthansa. Because the steward had a strong German accent, she did not understand the safety instructions before the plane takes off. She opens the system and sees instructions on how to fasten the seatbelt, how to use the oxygen mask and how to locate the nearest emergency exit. After the plane reaches cruising altitude, she decides to watch a movie using the airplane entertainment system. While she is watching the movie, she requests a drink available on the menu</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org08825ea" class="outline-4">
+<h4 id="org08825ea"><span class="section-number-4">2.4.2.</span> Use case model</h4>
+<div class="outline-text-4" id="text-2-4-2">
+
+<div id="org3d0622e" class="figure">
+<p><img src="./images/UseCaseDiagramSystem.png" alt="UseCaseDiagramSystem.png" width="1280px" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Use Case Model</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orga422cf1" class="outline-4">
+<h4 id="orga422cf1"><span class="section-number-4">2.4.3.</span> Object model</h4>
+<div class="outline-text-4" id="text-2-4-3">
+
+<div id="org4861660" class="figure">
+<p><img src="./images/ObjectDiagram.png" alt="ObjectDiagram.png" width="1280px" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Object model</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6ae3f15" class="outline-4">
+<h4 id="org6ae3f15"><span class="section-number-4">2.4.4.</span> Dynamic model</h4>
+<div class="outline-text-4" id="text-2-4-4">
+
+<div id="org82ecf7c" class="figure">
+<p><img src="./images/ScenarioOneCommunication.png" alt="ScenarioOneCommunication.png" width="900px" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Communication model: Scenario 1</p>
+</div>
+
+
+<div id="org140ac97" class="figure">
+<p><img src="./images/ScenarioTwoCommunication.png" alt="ScenarioTwoCommunication.png" width="900px" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Communication model: Scenario 2</p>
+</div>
+
+
+<div id="orgf035b67" class="figure">
+<p><img src="./images/ScenarioThreeCommunication.png" alt="ScenarioThreeCommunication.png" width="800px" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Communication model: Scenario 3</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4d74136" class="outline-4">
+<h4 id="org4d74136"><span class="section-number-4">2.4.5.</span> User interface</h4>
+</div>
+<div id="outline-container-orgb1d6b86" class="outline-4">
+<h4 id="orgb1d6b86"><span class="section-number-4">2.4.6.</span> Glossary</h4>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
