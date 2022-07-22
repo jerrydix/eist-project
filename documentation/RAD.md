@@ -26,8 +26,7 @@
         * Object model 
         * Dynamic model 
         * User interface 
-3. Glossary
-
+        
 
 ## 1. Introduction
 
@@ -128,4 +127,35 @@ Scenario 3: Communication model
 
 #### User interface
 
-## 3. Glossary
+![Homescreen before login](images/homescreen.png)
+Homescreen of GAFIS before login. Only catering, movies and the safety video are available without logging in.
+
+![Registration window](images/Registration.png)
+Registration window
+
+![Login window](images/Login.png)
+Login window
+
+![Homescreen after succesful login](images/Homescreen_loggedIn.png)
+Homescreen after succesful login. Now all features are enabled and the system displays basic informations about flight and destination such as departure time, seat or weather.
+
+![Safety Video](images/SafetyVideo.png)
+Safety video, playable by clicking the red button in the lower left corner on the homescreen.
+
+![Survey window](images/Survey.png)
+The survey menu, only available after logging in. Can be opened when clicking the dark blue button on the bottom.
+
+![Book Flights](images/BookFlights.png)
+Menu where one can search flights from point A to point B. The flights can then be added to a jounrey and will be displayed ont the world map as can be seen in this picture. This screen can be reached by clicking on the corresponding button in the top bar, as are all the following menus and screens.
+
+![Dashboard](images/Dashboard.png)
+The dashboard displays the favourites list of points of interest as well as planned journeys.
+
+![About my destination screen](images/AboutMyDestination.png)
+In this view the user can look up points of interest in his or her destination. These points of interest can then be saved to a favourites list.
+
+![Catering menu](images/Catering.png)
+This is the catering menu. Here a passenger is able to order snacks and drinks.
+
+![Movie menu](images/Movies.png)
+In this screen the passenger can select a movie from our vast collection of films in order to stay entertained for the length of the flight.
