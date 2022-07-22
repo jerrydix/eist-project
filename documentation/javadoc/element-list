@@ -1,0 +1,12 @@
+server
+server.model
+server.model.entertainment
+server.model.flights
+server.model.flights.poi
+server.model.flights.surveys
+server.model.flights.weather
+server.networking
+server.parsing
+server.rest
+server.service
+server.utility

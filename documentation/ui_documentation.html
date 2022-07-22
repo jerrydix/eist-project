@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-07-19 Tue 04:04 -->
+<!-- 2022-07-22 Fri 20:15 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Documentation of the Flight System's Front-End</title>
@@ -201,35 +201,35 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orga0349da">1. Overview</a>
+<li><a href="#org5ad7370">1. Overview</a>
 <ul>
 <li><a href="#deps">1.1. Dependencies</a>
 <ul>
-<li><a href="#org5074aa5">1.1.1. wave ui</a></li>
+<li><a href="#orgf7aa7a1">1.1.1. wave ui</a></li>
 </ul>
 </li>
-<li><a href="#org1bb8f48">1.2. Getting started</a></li>
+<li><a href="#org42215a9">1.2. Getting started</a></li>
 </ul>
 </li>
-<li><a href="#orge58ba8c">2. src/</a>
+<li><a href="#org7a9357f">2. src/</a>
 <ul>
-<li><a href="#orge1d426c">2.1. main.js</a></li>
+<li><a href="#orgf0e7049">2.1. main.js</a></li>
 <li><a href="#appvue">2.2. App.vue</a></li>
 <li><a href="#userstore">2.3. userStore.js</a></li>
-<li><a href="#org56b1d8a">2.4. components/</a>
+<li><a href="#orgf5d503d">2.4. components/</a>
 <ul>
 <li><a href="#flightsuggestion">2.4.1. FlightSuggestionCard.vue</a></li>
 </ul>
 </li>
-<li><a href="#org2815f31">2.5. views/</a>
+<li><a href="#org7e69c69">2.5. views/</a>
 <ul>
-<li><a href="#orgcc6e142">2.5.1. Catering.vue</a></li>
-<li><a href="#orgab9af45">2.5.2. Flights.vue</a></li>
+<li><a href="#org4b13b7c">2.5.1. Catering.vue</a></li>
+<li><a href="#org042b4f9">2.5.2. Flights.vue</a></li>
 <li><a href="#homevue">2.5.3. Home.vue</a></li>
-<li><a href="#orgcd40be0">2.5.4. Movies.vue</a></li>
+<li><a href="#orge2f1966">2.5.4. Movies.vue</a></li>
 </ul>
 </li>
-<li><a href="#orgad58489">2.6. router/</a>
+<li><a href="#org5c1d5ca">2.6. router/</a>
 <ul>
 <li><a href="#routerindex">2.6.1. index.js</a></li>
 </ul>
@@ -240,8 +240,8 @@
 </div>
 </div>
 
-<div id="outline-container-orga0349da" class="outline-2">
-<h2 id="orga0349da"><span class="section-number-2">1.</span> Overview</h2>
+<div id="outline-container-org5ad7370" class="outline-2">
+<h2 id="org5ad7370"><span class="section-number-2">1.</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 The front-end of our flight system is built using the JavaScript framework <a href="https://vuejs.org/">Vue.js</a> and the Vue.js UI framework <a href="https://antoniandre.github.io/wave-ui/">wave ui</a>.
@@ -258,8 +258,8 @@ automatically upon building the project using one of the methods described in th
 </p>
 </div>
 
-<div id="outline-container-org5074aa5" class="outline-4">
-<h4 id="org5074aa5"><span class="section-number-4">1.1.1.</span> wave ui</h4>
+<div id="outline-container-orgf7aa7a1" class="outline-4">
+<h4 id="orgf7aa7a1"><span class="section-number-4">1.1.1.</span> wave ui</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <p>
 wave ui custom tags can be identified by the leading <code>w</code> in the tag. An example would be:
@@ -276,8 +276,8 @@ wave ui custom tags can be identified by the leading <code>w</code> in the tag. 
 </div>
 </div>
 
-<div id="outline-container-org1bb8f48" class="outline-3">
-<h3 id="org1bb8f48"><span class="section-number-3">1.2.</span> Getting started</h3>
+<div id="outline-container-org42215a9" class="outline-3">
+<h3 id="org42215a9"><span class="section-number-3">1.2.</span> Getting started</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 We assume that you are a developer. The following instructions will start our front-end development server <a href="https://vitejs.dev/">Vite</a> and our
@@ -302,12 +302,12 @@ Open another terminal and start the backend:
 </div>
 </div>
 
-<div id="outline-container-orge58ba8c" class="outline-2">
-<h2 id="orge58ba8c"><span class="section-number-2">2.</span> src/</h2>
+<div id="outline-container-org7a9357f" class="outline-2">
+<h2 id="org7a9357f"><span class="section-number-2">2.</span> src/</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orge1d426c" class="outline-3">
-<h3 id="orge1d426c"><span class="section-number-3">2.1.</span> main.js</h3>
+<div id="outline-container-orgf0e7049" class="outline-3">
+<h3 id="orgf0e7049"><span class="section-number-3">2.1.</span> main.js</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 Source the root component from <a href="#appvue">App.vue</a> to create and ultimately mount our app. Set up wave ui&rsquo;s configuration.
@@ -347,8 +347,8 @@ Global Pinia store to keep track of whether the user has logged in and filled ou
 </div>
 </div>
 
-<div id="outline-container-org56b1d8a" class="outline-3">
-<h3 id="org56b1d8a"><span class="section-number-3">2.4.</span> components/</h3>
+<div id="outline-container-orgf5d503d" class="outline-3">
+<h3 id="orgf5d503d"><span class="section-number-3">2.4.</span> components/</h3>
 <div class="outline-text-3" id="text-2-4">
 </div>
 <div id="outline-container-flightsuggestion" class="outline-4">
@@ -360,12 +360,12 @@ TODO
 </div>
 </div>
 </div>
-<div id="outline-container-org2815f31" class="outline-3">
-<h3 id="org2815f31"><span class="section-number-3">2.5.</span> views/</h3>
+<div id="outline-container-org7e69c69" class="outline-3">
+<h3 id="org7e69c69"><span class="section-number-3">2.5.</span> views/</h3>
 <div class="outline-text-3" id="text-2-5">
 </div>
-<div id="outline-container-orgcc6e142" class="outline-4">
-<h4 id="orgcc6e142"><span class="section-number-4">2.5.1.</span> Catering.vue</h4>
+<div id="outline-container-org4b13b7c" class="outline-4">
+<h4 id="org4b13b7c"><span class="section-number-4">2.5.1.</span> Catering.vue</h4>
 <div class="outline-text-4" id="text-2-5-1">
 <div class="org-src-container">
 <pre class="src src-html">&lt;<span style="color: #87cefa;">CateringItem</span> <span style="color: #eedd82;">v-for</span>=<span style="color: #ffa07a;">"menuItem in menuItems"</span> :price=<span style="color: #ffa07a;">"menuItem.price"</span> :text=<span style="color: #ffa07a;">"menuItem.text"</span>/&gt;
@@ -376,8 +376,8 @@ Display multiple <code>CateringItems</code> by looping through the <code>menuIte
 </p>
 </div>
 </div>
-<div id="outline-container-orgab9af45" class="outline-4">
-<h4 id="orgab9af45"><span class="section-number-4">2.5.2.</span> Flights.vue</h4>
+<div id="outline-container-org042b4f9" class="outline-4">
+<h4 id="org042b4f9"><span class="section-number-4">2.5.2.</span> Flights.vue</h4>
 <div class="outline-text-4" id="text-2-5-2">
 <div class="org-src-container">
 <pre class="src src-js">searchDep(city) {...}
@@ -446,8 +446,8 @@ If the user is logged in, fetch their flight from the backend, update the compon
 </p>
 </div>
 </div>
-<div id="outline-container-orgcd40be0" class="outline-4">
-<h4 id="orgcd40be0"><span class="section-number-4">2.5.4.</span> Movies.vue</h4>
+<div id="outline-container-orge2f1966" class="outline-4">
+<h4 id="orge2f1966"><span class="section-number-4">2.5.4.</span> Movies.vue</h4>
 <div class="outline-text-4" id="text-2-5-4">
 <p>
 Display a selection of previously fetched movies in a grid pattern. Depending on screen size, thumbnails
@@ -465,8 +465,8 @@ Fetch a selection of movies from the backend.
 </div>
 </div>
 </div>
-<div id="outline-container-orgad58489" class="outline-3">
-<h3 id="orgad58489"><span class="section-number-3">2.6.</span> router/</h3>
+<div id="outline-container-org5c1d5ca" class="outline-3">
+<h3 id="org5c1d5ca"><span class="section-number-3">2.6.</span> router/</h3>
 <div class="outline-text-3" id="text-2-6">
 </div>
 <div id="outline-container-routerindex" class="outline-4">
@@ -488,11 +488,6 @@ The <code>routes</code> array contains mappings of all imported components to di
 </div>
 </div>
 </div>
-</div>
-<div id="postamble" class="status">
-<p class="author">Author: Lucio Sauer</p>
-<p class="date">Created: 2022-07-19 Tue 04:04</p>
-<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
