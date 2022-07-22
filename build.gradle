@@ -8,6 +8,7 @@ plugins {
 node {
     download = true
     version = "16.15.1"
+    npmVersion = "8.15.0"
     nodeProjectDir = file("${project.projectDir}/src/main/ui")
 }
 group = 'hello.world'
