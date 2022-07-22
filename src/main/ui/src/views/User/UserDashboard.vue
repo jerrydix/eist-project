@@ -2,6 +2,7 @@
   <div v-if="this.store.username" id="app">
     <w-app>
       <header>
+        <HombeButton></HombeButton>
         <h2 class="text-center">Dashboard</h2>
       </header>
       <w-flex class="text-center" wrap>
@@ -63,9 +64,10 @@ import {removePOIFromFavourites} from "../../services/POIService.js";
 import FavPOI from "../../components/FavPOI.vue";
 import JourneyInflet from "../../components/JourneyInflet.vue";
 import Journey from "../../components/Journey.vue";
+import HombeButton from "../../components/HomeButton.vue";
 
 export default {
-  components: {Journey, JourneyInflet, FavPOI, FlightInfo},
+  components: {Journey, JourneyInflet, FavPOI, FlightInfo, HombeButton},
   data() {
     return {
       user: null,

@@ -1,5 +1,6 @@
 <script setup>
 import CateringItem from "../components/CateringItem.vue";
+import HomeButton from "../components/HomeButton.vue"
 
 const menuItems = [
 	{ text: "NicNacs", price: 5.5 },
@@ -33,6 +34,7 @@ let testNote = () => {
 
 <template>
   <w-app>
+	<HomeButton style="align-self: start;"/>
     <h2 class="text-center">Food and Drinks</h2>
     <CateringItem v-for="menuItem in menuItems" :price="menuItem.price" :text="menuItem.text"/>
   </w-app>

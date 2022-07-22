@@ -47,7 +47,7 @@ export default {
 			>
 				<template #footer>
 					<w-flex justify-start style="padding: 5px;">
-						<slot>Here you should see a button</slot>
+						<slot></slot>
 					</w-flex>
 				</template>
 			</w-table>

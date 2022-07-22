@@ -1,7 +1,9 @@
 <script>
 import { getMovies } from "../services/MoviesService.js";
+import HomeButton from "../components/HomeButton.vue";
 
 export default {
+  components: {HomeButton},
   data() {
     return {
       showRickRoll: false,
@@ -26,6 +28,7 @@ export default {
 <template>
   <w-app id="app">
     <header>
+      <HomeButton />
       <h2 class="text-center">Movies</h2>
     </header>
     <main class="grow">

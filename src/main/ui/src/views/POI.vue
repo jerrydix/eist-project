@@ -3,8 +3,8 @@
     <w-flex grow>
       <aside>
         <w-flex align-center grow justify-center>
+          <HomeButton />
           <w-checkbox color="orange" @input="topTen">Show Top 10</w-checkbox>
-          <div class="xs1"></div>
           <w-checkbox @input="table.activeFilter == 0 ? table.activeFilter = 1 : table.activeFilter = 0">Show Favourites
           </w-checkbox>
         </w-flex>
@@ -61,6 +61,7 @@
 <script>
 import {defineComponent} from "vue";
 import {GoogleMap, InfoWindow, Marker} from "vue3-google-map";
+import HomeButton from "../components/HomeButton.vue";
 import {
   addPOIToFavourites,
   getPointsOfInterest,
@@ -70,7 +71,7 @@ import {
 import {userStore} from "../userStore";
 
 export default defineComponent({
-  components: {GoogleMap, Marker, InfoWindow},
+  components: {GoogleMap, Marker, InfoWindow, HomeButton},
   props: ['location'],
   setup() {
     const store = userStore();

@@ -6,9 +6,10 @@ import {
 } from "../services/FlightService.js";
 import FlightSuggestionCard from "../components/FlightSuggestionCard.vue";
 import Journey from "../components/Journey.vue";
+import HomeButton from "../components/HomeButton.vue";
 import { userStore } from "../userStore";
 export default {
-	components: { FlightSuggestionCard, Journey },
+	components: { FlightSuggestionCard, Journey, HomeButton },
 	setup() {
 		const store = userStore();
 		return {
@@ -125,6 +126,7 @@ export default {
 		<w-flex grow>
 			<div class="xs6">
 				<div class="flightSearch">
+					<HomeButton />
 					<h2 style="text-align: center; padding-top: 10px; padding-bottom: 10px">Book flights</h2>
 					<w-flex
 						grow
