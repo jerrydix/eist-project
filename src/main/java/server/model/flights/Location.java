@@ -24,7 +24,7 @@ public class Location {
     private List<String> airports;
     private String iata;
 
-    private final static String API_KEY = "&api_key=39d3c1f7-b08b-4f22-83b4-a92f4c19a365";
+    private final static String API_KEY = "&api_key=d652af55-c729-4e68-aa73-afb41e32ec66";
 
     public Location(String name, double latitude, double longitude) {
         this.name = name;
