@@ -77,9 +77,6 @@ public class FlightJourney {
         if (flight == null) {
             return false;
         }
-        //if (flights.size() > 0 && !flight.getStartLocation().equals(flights.get(flights.size() - 1).getEndLocation())) {
-        //    return false;
-        //}
         if (flights.isEmpty()) {
             this.origin = flight.getStartLocation();
             this.originName = origin.getName();

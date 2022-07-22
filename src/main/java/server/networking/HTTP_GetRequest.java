@@ -31,10 +31,8 @@ public class HTTP_GetRequest {
 
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-            //request type
             con.setRequestMethod("GET");
 
-            //header request
             con.setRequestProperty("User-Agent", "Mozilla/5.0");
             int responseCode = con.getResponseCode();
             System.out.println("\nSending 'GET' request to URL : " + url);
@@ -47,11 +45,9 @@ public class HTTP_GetRequest {
                 response.append(inputLine);
             }
             in.close();
-            //print in String
-           // System.out.println(response.toString());
+            //System.out.println(response.toString());
 
             return response.toString();
-            //Read JSON response and print
         } catch (IOException exception) {
             System.out.println("Get request to " + url + " failed");
         }

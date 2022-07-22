@@ -89,28 +89,8 @@ public class Flight {
         if (toAirportIATAs != null) {
             toIATA = toAirportIATAs.get(0);
         }
-        System.out.println("TEST");
-        System.out.println("TEST");
 
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-
-        System.out.println(fromAirportIATAs.size());
-        System.out.println(toAirportIATAs.size());
         List<Flight> list = new ArrayList<>();
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-        System.out.println("TEST");
-
-
 
         var currentList = FlightParser.parseFlightJson(
                 HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
@@ -207,19 +187,8 @@ public class Flight {
     }
 
     public static void main(String[] args) {
-        /*
-         * Flight flight = new Flight("1", LocalDateTime.of(1994, Month.APRIL,
-         * 15,11,30), LocalDateTime.of(1994, Month.APRIL, 15,11,30),"1","a", 1,
-         * "Lufthansa",
-         * new Location("test", -1, -1), new Location("test", -1, -1));
-         * System.out.println(flight);
-         */
-
         List<Flight> flights = fetchFlightsFromToAt("Berlin (BER)", "New York City (CDG)", "28/06/2022");
         System.out.println(flights);
-        //System.out.println(flights.get(0).getStartLocation().getPoiList().toString());
-        //System.out.println(flights.get(0).getEndLocation().getPoiList().toString());
-
     }
 
     public String getFullEndName() {

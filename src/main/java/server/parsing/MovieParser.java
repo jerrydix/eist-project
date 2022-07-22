@@ -15,7 +15,6 @@ public class MovieParser {
     public static Movie parseMovieJson(String json) {
         try {
             JSONObject response = new JSONObject(json);
-            // throws classcast or nullpointerexception - how to handle?
             if (!response.getBoolean("Response")) {
                 System.out.println(response.getString("Error"));
                 return null;
