@@ -66,7 +66,7 @@ export default {
 </script>
 
 <template>
-  <w-card>
+  <w-card class="flight-info-card">
     <w-flex>
       <div class="xs8 data-wrapper">
         <p class="airline">{{ flight.airline }}</p>
@@ -103,13 +103,15 @@ export default {
         <p class="temperature">
           {{ flight["endLocation"]["weather"]["degrees"] + "°C" }}
         </p>
-        <font-awesome-icon :icon="weatherImage"/>
+        <div style="text-align: center">
+          <font-awesome-icon class="text-center" :icon="weatherImage"/>
+        </div>
         <!--{{ weatherImage }}-->
-        <p class="weather-text">
+        <p class="center-text">
           {{ flight["endLocation"]["weather"]["weatherType"] }}
         </p>
         <div class="spacer"></div>
-        <p class="date">
+        <p class="center-text">
           {{
             flight.startTime.substring(8, 10) +
             "/" +
@@ -128,11 +130,23 @@ export default {
   height: 100%;
 }
 
+.flight-info-card {
+  height: 320px;
+  width: 100%;
+  margin-top: 0px;
+  min-width: 550px;
+  border-radius: 0px;
+  background-color: var(--color-background-mute-transparent);
+  box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);
+  -webkit-box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);
+}
+
 .icon-wrapper svg {
   height: 25%;
 }
 
-.weather-text {
+.center-text {
   text-align: center;
 }
 
@@ -149,5 +163,6 @@ export default {
 
 .temperature {
   font-size: 3rem;
+  text-align: center;
 }
 </style>

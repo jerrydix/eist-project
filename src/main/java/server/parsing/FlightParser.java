@@ -28,13 +28,10 @@ public class FlightParser {
      * @param toName   the name of the arrival location
      * @return A list of all found flights from "fromName" to "toName"
      */
-    public static List<Flight> parseFlightJson(String jsonText, String fromName, String toName) {
+    public static List<Flight> parseFlightJson(String jsonText) {
         try {
             List<Flight> flights = new ArrayList<>();
             JSONArray array = new JSONArray(jsonText);
-
-            double[] startCoords = fetchCoordsForGivenAddress(fromName);
-            double[] endCoords = fetchCoordsForGivenAddress(toName);
 
             for (int i = 0; i < array.length(); i++) {
 
@@ -88,43 +85,10 @@ public class FlightParser {
                 }
 
                 boolean cancelled = false;
-                boolean delayed = false;
-
-                String delayedDate = current.getJSONObject("departure").getString("estimated");
-
-                int delayedYear = Integer.parseInt(delayedDate.substring(0, 4));
-                int delayedMonth = Integer.parseInt(delayedDate.substring(5, 7));
-                int delayedDay = Integer.parseInt(delayedDate.substring(8, 10));
-
-                int delayedHour = Integer.parseInt(delayedDate.substring(startHourTIndex + 1, startHourTIndex + 3));
-                int delayedMinute = Integer.parseInt(delayedDate.substring(startHourTIndex + 4, startHourTIndex + 6));
-
-                Month delayedM = parseToMonth(delayedMonth);
-                LocalDateTime delayedTime = LocalDateTime.of(delayedYear, delayedM, delayedDay, delayedHour, delayedMinute);
-
-                if (!startTime.equals(delayedTime)) {
-                    delayed = true;
-                }
-
-                int minutes = (int) ChronoUnit.MINUTES.between(startTime, delayedTime);
-
-                int delayHours = minutes / 60;
-                int delayMinutes = minutes % 60;
-                String dHours = String.valueOf(delayHours);
-                String dMinutes = String.valueOf(delayMinutes);
-                if (delayHours < 10) {
-                    dHours = "0" + dHours;
-                }
-                if (delayMinutes < 10) {
-                    dMinutes = "0" + dMinutes;
-                }
 
                 Flight currentFlight = new Flight(number, startTime, endTime, gate, terminal, seat, airline, null, null, FlightFactory.generateRandomAirplane());
-                currentFlight.setDelayed(delayed);
+                currentFlight.setDelayed(false);
                 currentFlight.setCancelled(cancelled);
-                currentFlight.setDelayTime(delayedTime);
-                currentFlight.setDelayMinutes(dMinutes);
-                currentFlight.setDelayHours(dHours);
                 flights.add(currentFlight);
             }
             return flights;

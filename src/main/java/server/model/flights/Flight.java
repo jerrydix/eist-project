@@ -95,8 +95,7 @@ public class Flight {
         var currentList = FlightParser.parseFlightJson(
                 HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
                         "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNzYwNzJlNGYyN2E0YTE3ZTM3ZjMzNDhmZDM1MDljNmRlMzM5MmViMTVkNjA4YjE1NDlmZjE1ZTE2OTA3YmY2M2U0OTk4MDQ4ODk2YTRmMWQiLCJpYXQiOjE2NTg1MTQ5MDAsIm5iZiI6MTY1ODUxNDkwMCwiZXhwIjoxNjkwMDUwODk5LCJzdWIiOiI5MDY0Iiwic2NvcGVzIjpbXX0.oXZM_CwLpe9gc5IlnQrTLf1jZ_Yv2wsjcG06kc_2NvSZiuk8Gs22QIScukCZrbuzTFI0Hr8vnzZJy3NmBsc81g",
-                        "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}),
-                fromName, toName);
+                        "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}));
 
         if (currentList != null && !currentList.isEmpty()) {
             list.addAll(currentList);
@@ -110,8 +109,7 @@ public class Flight {
                         List<Flight> current = FlightParser.parseFlightJson(
                                 HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
                                         "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNzYwNzJlNGYyN2E0YTE3ZTM3ZjMzNDhmZDM1MDljNmRlMzM5MmViMTVkNjA4YjE1NDlmZjE1ZTE2OTA3YmY2M2U0OTk4MDQ4ODk2YTRmMWQiLCJpYXQiOjE2NTg1MTQ5MDAsIm5iZiI6MTY1ODUxNDkwMCwiZXhwIjoxNjkwMDUwODk5LCJzdWIiOiI5MDY0Iiwic2NvcGVzIjpbXX0.oXZM_CwLpe9gc5IlnQrTLf1jZ_Yv2wsjcG06kc_2NvSZiuk8Gs22QIScukCZrbuzTFI0Hr8vnzZJy3NmBsc81g",
-                                        "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromAirportIATAs.get(i), "&arr_iata=" + toAirportIATAs.get(j)}),
-                                fromName, toName);
+                                        "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromAirportIATAs.get(i), "&arr_iata=" + toAirportIATAs.get(j)}));
                         if (current != null && !current.isEmpty()) {
                             list.addAll(current);
                         }
@@ -121,8 +119,7 @@ public class Flight {
                         List<Flight> current = FlightParser.parseFlightJson(
                                 HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
                                         "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNzYwNzJlNGYyN2E0YTE3ZTM3ZjMzNDhmZDM1MDljNmRlMzM5MmViMTVkNjA4YjE1NDlmZjE1ZTE2OTA3YmY2M2U0OTk4MDQ4ODk2YTRmMWQiLCJpYXQiOjE2NTg1MTQ5MDAsIm5iZiI6MTY1ODUxNDkwMCwiZXhwIjoxNjkwMDUwODk5LCJzdWIiOiI5MDY0Iiwic2NvcGVzIjpbXX0.oXZM_CwLpe9gc5IlnQrTLf1jZ_Yv2wsjcG06kc_2NvSZiuk8Gs22QIScukCZrbuzTFI0Hr8vnzZJy3NmBsc81g",
-                                        "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromAirportIATAs.get(i), "&arr_iata=" + toAirportIATAs.get(j)}),
-                                fromName, toName);
+                                        "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromAirportIATAs.get(i), "&arr_iata=" + toAirportIATAs.get(j)}));
                         if (current != null && !current.isEmpty()) {
                             list.addAll(current);
                         }
