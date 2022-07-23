@@ -7,7 +7,6 @@ import server.parsing.FlightParser;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class Flight {
@@ -34,6 +33,7 @@ public class Flight {
     private String departureDate;
     private String departureTime;
     private String arrivalTime;
+
 
     private String fullEndName;
 

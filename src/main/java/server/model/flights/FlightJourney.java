@@ -13,8 +13,18 @@ public class FlightJourney {
     private String endName;
     private String startDate;
 
+    private String endDate;
+
     public FlightJourney() {
         this.flights = new ArrayList<>();
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public List<Flight> getFlights() {
@@ -85,6 +95,7 @@ public class FlightJourney {
         flights.add(flight);
         this.endLocation = flight.getEndLocation();
         this.endName = flight.getEndName();
+        this.endDate = flight.getDepartureDate();
         return true;
     }
 

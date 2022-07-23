@@ -22,10 +22,27 @@ export default {
 
 
       ],
-
+      realmap: true,
+      realflights: null,
       showDetails: false,
       selection: null,
     };
+  },
+  watch: {
+    map(val, oldVal) {
+      this.realmap = val;
+      console.log(oldVal);
+    }
+  },
+  created() {
+    if (this.$route.fullPath === "/dashboard/journey") {
+      console.log(this.$route);
+      this.realflights = JSON.parse(this.$route.params.flights);
+
+    } else {
+      this.realflights = this.flights;
+      this.realmap = this.map;
+    }
   },
   methods: {
     show(locationID) {
@@ -41,37 +58,37 @@ export default {
 </script>
 
 <template>
-  <w-flex class="column justify-space-between" wrap>
-    <w-flex class="xs12 column justify-end">
-      <FlightMap
-          v-if="this.map"
-          :flightList="this.flights"
-          height="50vh"
-          width="100%"
-          @show="show"
-      />
-    </w-flex>
-    <w-flex class="xs12" shrink>
-      <w-table
-          :force-selection="false"
-          :headers="this.headers"
-          :items="this.flights"
-          :selectable-rows="1"
-          fixed-headers
-          no-data="no-data"
-          @row-select="showDets"
-      >
-        <template #footer>
-          <w-flex justify-start style="padding: 5px;">
-            <slot></slot>
-          </w-flex>
-        </template>
-      </w-table>
-    </w-flex>
+  <w-flex>
+    <FlightMap
+        v-if="this.realmap"
+        :flightList="this.realflights"
+        height="50vh"
+        width="100%"
+        @show="show"
+    />
   </w-flex>
+  <w-flex>
+    <w-table
+        :force-selection="false"
+        :headers="this.headers"
+        :items="this.realflights"
+        :selectable-rows="1"
+        fixed-headers
+        no-data="no-data"
+        @row-select="showDets"
+    >
+      <template #footer>
+        <w-flex justify-start style="padding: 5px;">
+          <slot></slot>
+        </w-flex>
+      </template>
+    </w-table>
+  </w-flex>
+
   <w-dialog v-model="this.showDetails" :width="580">
     <FlightInfo :flight="this.selection.item"/>
   </w-dialog>
+
   <w-dialog v-model="this.showPOI" :width="1000">
     <POI :location="this.locationID"/>
   </w-dialog>

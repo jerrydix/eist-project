@@ -6,8 +6,8 @@
         <h2 class="text-center">Dashboard</h2>
       </header>
       <w-flex class="text-center" wrap>
-        <div class="xs2"></div>
-        <div class="xs5">
+        <div class="xs1"></div>
+        <div class="xs6">
           <h3 class="text-center">Your Favourite Points of Interest</h3>
           <w-table
               :force-selection="poiTable.forceSelection"
@@ -25,7 +25,7 @@
                   @unsave="unsave"
           />
         </div>
-        <div class="xs3">
+        <div class="xs4">
           <h3 class="text-center">Your Planned Journeys</h3>
 
           <JourneyInflet v-for="(option,i) in this.user.bookedFlightJourneys"
@@ -33,9 +33,9 @@
           <w-dialog v-model="this.showJourney">
             <Journey :flights="this.flightList" :map="true"/>
           </w-dialog>
-          
+
         </div>
-        <div class="xs2"></div>
+        <div class="xs1"></div>
       </w-flex>
       <footer>
         <h3 v-if="this.user.latestReward != null" class="text-center">Reward:
