@@ -69,7 +69,7 @@ export default {
       </w-table>
     </w-flex>
   </w-flex>
-  <w-dialog v-model="this.showDetails">
+  <w-dialog v-model="this.showDetails" :width="580">
     <FlightInfo :flight="this.selection.item"/>
   </w-dialog>
   <w-dialog v-model="this.showPOI" :width="1000">

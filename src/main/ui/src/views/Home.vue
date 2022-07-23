@@ -73,7 +73,7 @@ export default {
         <div class="xs4">
           <h1>Welcome to Garching Airlines</h1>
           <h3><em>Flights of Excellence</em></h3>
-          <FlightInfo
+          <FlightInfo class="flight-info-card"
               v-if="this.store.username"
               :flight="this.flight"
           />
@@ -202,6 +202,18 @@ export default {
 
 .top-wrapper .welcome-wrapper {
   float: left;
+}
+
+.flight-info-card {
+  height: 320px;
+  width: 100%;
+  margin-top: 50px;
+  min-width: 550px;
+  border-radius: 15px;
+  background-color: var(--color-background-mute-transparent);
+  box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);
+  -webkit-box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);
+  -moz-box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);
 }
 
 h1 {
