@@ -58,33 +58,32 @@ export default {
 </script>
 
 <template>
-  <w-flex>
-    <FlightMap
-        v-if="this.realmap"
-        :flightList="this.realflights"
-        height="50vh"
-        width="100%"
-        @show="show"
-    />
+  <w-flex column>
+      <FlightMap
+          v-if="this.realmap"
+          :flightList="this.realflights"
+          height="50vh"
+          width="100%"
+          @show="show"
+      />
+    <div class="xs12 pa1">
+      <w-table
+          :force-selection="false"
+          :headers="this.headers"
+          :items="this.realflights"
+          :selectable-rows="1"
+          fixed-headers
+          no-data="no-data"
+          @row-select="showDets"
+      >
+        <template #footer>
+          <w-flex justify-start style="padding: 5px;">
+            <slot></slot>
+          </w-flex>
+        </template>
+      </w-table>
+    </div>
   </w-flex>
-  <w-flex>
-    <w-table
-        :force-selection="false"
-        :headers="this.headers"
-        :items="this.realflights"
-        :selectable-rows="1"
-        fixed-headers
-        no-data="no-data"
-        @row-select="showDets"
-    >
-      <template #footer>
-        <w-flex justify-start style="padding: 5px;">
-          <slot></slot>
-        </w-flex>
-      </template>
-    </w-table>
-  </w-flex>
-
   <w-dialog v-model="this.showDetails" :width="580">
     <FlightInfo :flight="this.selection.item"/>
   </w-dialog>
@@ -93,6 +92,7 @@ export default {
     <POI :location="this.locationID"/>
   </w-dialog>
 </template>
+
 <style scoped>
 .w-table-wrap {
   width: 100%;
