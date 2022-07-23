@@ -8,9 +8,12 @@ public class Weather {
     private String weatherType;
     private double degrees;
 
+    private String description;
+
     public Weather(String weatherType, double degrees) {
         this.weatherType = weatherType;
         this.degrees = degrees;
+        this.description = this.toString();
     }
 
     /**
@@ -43,7 +46,15 @@ public class Weather {
         this.degrees = degrees;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String toString() {
-        return "Weather type: " + weatherType + "\nTemperature: " + degrees;
+        return degrees + "°C | " + weatherType;
     }
 }
