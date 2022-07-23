@@ -1,14 +1,19 @@
 <template>
   <w-card>
     <p>
-      {{ journey.startDate }} | {{ journey.originName }} -> {{ journey.endName }} | {{ journey.endDate }} |
-      {{ journey.flights.length }}
-
-      <RouterLink :to="{name:'journey', params:{flights:JSON.stringify(this.journey.flights)}}">
-        <w-button>Show details</w-button>
-      </RouterLink>
-
+      {{ journey.startDate }} - {{ journey.endDate }}
     </p>
+    <p>
+      {{ journey.originName }} -> {{ journey.endName }}
+    </p>
+    <p> Journey length: {{ journey.flights.length }} </p>
+
+
+    <RouterLink :to="{name:'journey', params:{flights:JSON.stringify(this.journey.flights)}}">
+      <w-button>Show details</w-button>
+    </RouterLink>
+
+
   </w-card>
 </template>
 

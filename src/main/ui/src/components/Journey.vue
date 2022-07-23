@@ -32,6 +32,10 @@ export default {
     map(val, oldVal) {
       this.realmap = val;
       console.log(oldVal);
+    },
+    flights(val, oldval) {
+      this.realflights = val;
+      console.log(oldval);
     }
   },
   created() {
