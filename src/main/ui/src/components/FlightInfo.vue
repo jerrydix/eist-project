@@ -58,7 +58,6 @@ export default {
         this.weatherImage = "fa-solid fa-cloud";
         break;
     }
-    console.log(this.weatherImage);
   }
 }
 
@@ -143,7 +142,7 @@ export default {
 }
 
 .icon-wrapper svg {
-  height: 25%;
+  height: 120px;
 }
 
 .center-text {
@@ -162,7 +161,8 @@ export default {
 }
 
 .temperature {
-  font-size: 3rem;
+  font-size: 2.5rem;
   text-align: center;
+  padding-bottom: 20px;
 }
 </style>

@@ -121,10 +121,4 @@ coverage
 # Config files
 .prettierrc
 
-###############
-# API Keys
-.env
-.env.production
-keys.txt
-
 
