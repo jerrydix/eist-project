@@ -102,17 +102,17 @@ export default {
         <p class="temperature">
           {{ flight["endLocation"]["weather"]["degrees"] + "°C" }}
         </p>
-        <div style="text-align: center">
-          <font-awesome-icon class="text-center" :icon="weatherImage"/>
+        <div>
+          <font-awesome-icon :icon="weatherImage"/>
         </div>
-        <p class="center-text">
+        <p>
           {{ flight["endLocation"]["weather"]["weatherType"] }}
         </p>
         <p>
-          @ {{ flight.endLocation.name }}
+          in {{ flight.endLocation.name }}
         </p>
         <div class="spacer"></div>
-        <p class="center-text">
+        <p>
           {{
             flight.startTime.substring(8, 10) +
             "/" +
@@ -145,6 +145,10 @@ export default {
 
 .icon-wrapper svg {
   height: 100px;
+}
+
+.icon-wrapper {
+  text-align: center;
 }
 
 .center-text {

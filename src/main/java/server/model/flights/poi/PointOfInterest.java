@@ -54,20 +54,11 @@ public class PointOfInterest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        var pagetoken2 = PointOfInterestParser.parsePOIJson(
+        PointOfInterestParser.parsePOIJson(
                 HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
                         new String[]{"?pagetoken=" + pagetoken1,
                                 "&key=" + KeyReader.getAPIkey()}), completeList);
-        /*try {
-            Thread.sleep(2000L);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        var dada = PointOfInterestParser.parsePOIJson(
-                HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
-                        new String[]{"?pagetoken=" + pagetoken2,
-                                "&key=" + KeyReader.getAPIkey()}), completeList);
-        */
+    
         return completeList;
     }
 
