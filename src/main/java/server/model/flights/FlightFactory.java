@@ -14,7 +14,7 @@ import java.util.Random;
 public class FlightFactory {
     private static final String[] IATAcodes = new String[]{"TU", "PP", "XA", "KR", "LS", "AH", "CA", "SC", "CR", "OC", "OF", "GA", "PW"};
     private static final String[] airlines = new String[]{"TUMAir", "PinguPinguWings", "Excellence Airways", "Krusche Airlines", "Lasser Schafways",
-            "Air Hams", "Claudian Air", "Schosair", "Cremers Wings", "OCamlFly", "OnlyFlights", "Garching Airlines", "Pretschnerwings"};
+            "Air Hams", "Claudian Air", "Schosair", "Cremers Aviation", "OCamlFly", "OnlyFlights", "Garching Airlines", "Pretschnerwings"};
     private static final String[] cities = new String[]{"Berlin", "Rome", "Dubai", "Paris", "London", "Los Angeles", "Frankfurt", "Budapest", "Tehran",
             "Sydney", "Warsaw", "Vienna", "Madrid", "Mumbai"};
     private static final String[] planes = new String[]{"Boeing 737-800", "Boeing 737-700", "Airbus A320", "Airbus A321", "Bombardier CRJ200", "Boeing 757-200",
