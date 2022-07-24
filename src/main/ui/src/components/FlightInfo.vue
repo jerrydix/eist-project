@@ -105,9 +105,11 @@ export default {
         <div style="text-align: center">
           <font-awesome-icon class="text-center" :icon="weatherImage"/>
         </div>
-        <!--{{ weatherImage }}-->
         <p class="center-text">
           {{ flight["endLocation"]["weather"]["weatherType"] }}
+        </p>
+        <p>
+          @ {{ flight.endLocation.name }}
         </p>
         <div class="spacer"></div>
         <p class="center-text">
