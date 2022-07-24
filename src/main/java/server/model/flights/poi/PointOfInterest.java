@@ -49,8 +49,8 @@ public class PointOfInterest {
                         new String[]{"?location=" + longitude + "%2C" + latitude, "&radius=100000",
                                 "&rankby=prominence", "&type=tourist_attraction", "&pagetoken",
                                 "&key=" + KeyReader.getAPIkey()}), completeList);
-        /*try {
-            Thread.sleep(2000L);
+        try {
+            Thread.sleep(1750L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -58,7 +58,7 @@ public class PointOfInterest {
                 HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
                         new String[]{"?pagetoken=" + pagetoken1,
                                 "&key=" + KeyReader.getAPIkey()}), completeList);
-        try {
+        /*try {
             Thread.sleep(2000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

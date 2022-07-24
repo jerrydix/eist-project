@@ -25,7 +25,7 @@
           :items="table.items"
           :selectable-rows="table.selectableRows"
           no-data="no-data"
-          style="height: 93.5vh"
+          style="height: 96.5vh"
           @row-select="select"
         >
         </w-table>
