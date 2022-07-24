@@ -129,7 +129,6 @@ public class FlightFactory {
         String id = String.format("%04d", r.nextInt(10000));
 
         int number = r.nextInt(0, 13);
-        String airline = pickAirline(number);
 
         return pickIATA(number) + id;
     }
