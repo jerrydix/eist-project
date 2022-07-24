@@ -142,7 +142,7 @@ export default {
 }
 
 .icon-wrapper svg {
-  height: 120px;
+  height: 100px;
 }
 
 .center-text {
