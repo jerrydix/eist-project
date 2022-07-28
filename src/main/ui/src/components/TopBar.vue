@@ -3,11 +3,17 @@ import {userStore} from "../userStore";
 import LoginButtons from "./LoginButtons.vue";
 
 export default {
+  emits: ["safety"],
   setup() {
     const store = userStore();
     return {
       store,
     };
+  },
+  methods: {
+    showSafety() {
+      this.$emit("safety");
+    }
   },
   components: {LoginButtons},
 };
@@ -29,7 +35,9 @@ export default {
     <RouterLink to="/movies">
       <w-button class="ma1" color="primary" lg text>Movies</w-button>
     </RouterLink>
-
+    <div v-if="!this.store.username">
+      <w-button class="ma1" color="primary" lg text @click="showSafety">Safety Video</w-button>
+    </div>
     <div class="spacer"></div>
 
     <LoginButtons/>

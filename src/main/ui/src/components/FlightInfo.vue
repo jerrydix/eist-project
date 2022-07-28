@@ -135,7 +135,7 @@ export default {
   height: 320px;
   width: 100%;
   margin-top: 0px;
-  min-width: 550px;
+  min-width: 350px;
   border-radius: 0px;
   background-color: var(--color-background-mute-transparent);
   box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);

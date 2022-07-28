@@ -23,7 +23,7 @@ export default {
   data: () => ({
     showLoginDialog: false,
     showRegisterDialog: false,
-    showSurveyDialog: false,
+    showSurveyDialog: true,
     showSafetyVideo: false,
     flight: null,
   }),
@@ -42,9 +42,11 @@ export default {
         this.store.username = response;
         window.localStorage.setItem("user", response);
       }
+      this.showSurveyDialog = this.showSurveyDialog && this.store.username;
     });
     hasCompletedSurvey().then((response) => {
       this.store.completedSurvey = response;
+      this.showSurveyDialog = this.showSurveyDialog && !this.store.completedSurvey;
     });
     if (this.store.username != null) {
       getCurrentFlight().then((response) => {
@@ -64,18 +66,20 @@ export default {
 
 <template>
   <w-app>
-    <TopBar/>
+    <TopBar @safety="showSafetyVideo = true"/>
     <w-flex basis-zero grow wrap>
       <w-flex class="grow column align-center justify-center">
         <div class="top-wrapper">
           <WelcomeMessage/>
         </div>
-        <div class="xs4">
-          <h1>Welcome to Garching Airlines</h1>
-          <h3><em>Flights of Excellence</em></h3>
-          <FlightInfo class="flight-info-card"
-              v-if="this.store.username"
-              :flight="this.flight"
+        <div class="xs6">
+          <div v-if="!this.store.username">
+            <h1>Welcome to Garching Airlines</h1>
+            <h3><em>Flights of Excellence</em></h3>
+          </div>
+          <FlightInfo v-if="this.store.username"
+                      :flight="this.flight"
+                      class="flight-info-card"
           />
 
           <!-- <FlightMap v-if="this.store.username" :flight="this.flight" /> -->
@@ -91,11 +95,17 @@ export default {
           <Login/>
         </w-dialog>
 
+
         <w-dialog
             v-model="showSurveyDialog"
+            :persistent="true"
+            :persistent-no-animation="true"
             :width="550"
-            title="Survey"
         >
+          <template #title>
+            Rate us!
+            <w-button absolute icon="wi-cross" right @click="showSurveyDialog = false"></w-button>
+          </template>
           <Survey :flight-number="this.flight.number"/>
         </w-dialog>
 
@@ -113,55 +123,52 @@ export default {
 
         <div class="spacer"></div>
 
-        <w-flex class="justify-end" style="margin-right: auto">
-          <w-flex class="xs4">
-            <div
-                class="justify-self-start"
-                style="margin-top: auto"
-            >
-              <w-button
-                  bg-color="error"
-                  class="bottom-button"
-                  @click="showSafetyVideo = true"
-              >
-                Watch safety video
-              </w-button>
-            </div>
+        <w-flex justify-center style="margin-right: auto">
 
-            <div class="spacer"></div>
-
-            <div
-                class="justify-self-center"
-                style="margin-top: auto"
+          <!--<div
+              class="justify-self-start"
+              style="margin-top: auto"
+          >
+            <w-button
+                bg-color="error"
+                class="bottom-button"
+                @click="showSafetyVideo = true"
             >
-              <w-button
-                  bg-color="info"
-                  class="bottom-button"
-                  @click="
+              Watch safety video
+            </w-button>
+          </div>-->
+
+          <div class="spacer"></div>
+
+          <div
+              class="justify-self-center"
+              style="margin-top: auto"
+          >
+            <w-button
+                bg-color="info"
+                class="bottom-button"
+                @click="
 									$waveui.notify(
 										'The flight crew has been notified. Please stay put.'
 									)
 								"
-              >
-                Call flight assistant
-              </w-button>
-            </div>
+            >
+              Call flight assistant
+            </w-button>
+          </div>
 
-            <div class="justify-self-end" style="margin-top: auto">
-              <w-button
-                  v-if="
-									this.store.username &&
-									!this.store.completedSurvey
-								"
-                  class="bottom-button"
-                  @click="showSurveyDialog = true"
-              >
-                We value your opinion
-              </w-button>
-            </div>
-          </w-flex>
-
-          <w-flex class="xs8"></w-flex>
+          <!--<div class="justify-self-end" style="margin-top: auto">
+            <w-button
+                v-if="
+                this.store.username &&
+                !this.store.completedSurvey
+              "
+                class="bottom-button"
+                @click="showSurveyDialog = true"
+            >
+              We value your opinion
+            </w-button>
+          </div> -->
         </w-flex>
       </w-flex>
     </w-flex>
@@ -205,10 +212,10 @@ export default {
 }
 
 .flight-info-card {
-  height: 320px;
+  height: 310px;
   width: 100%;
-  margin-top: 50px;
-  min-width: 550px;
+
+  min-width: 430px;
   border-radius: 15px;
   background-color: var(--color-background-mute-transparent);
   box-shadow: 0px 0px 22px -3px rgba(0, 0, 0, 0.45);
