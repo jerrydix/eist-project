@@ -10,6 +10,7 @@ build
 *.jar
 *.war
 *.ear
+*.env
 
 #################
 # Eclipse .gitignore
