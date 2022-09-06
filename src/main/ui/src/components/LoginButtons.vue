@@ -24,6 +24,10 @@ export default {
         console.log(response);
       });
     },
+    switch() {
+      this.showLoginDialog = false
+      this.showRegisterDialog = true
+    },
   },
   components: {
     Register,
@@ -37,22 +41,28 @@ export default {
 </script>
 
 <template>
-  <div v-if="!this.store.username" class="ml2">
+  <!-- <div v-if="!this.store.username" class="ml2">
     <w-button class="px4" @click="showRegisterDialog = true">
       Register
     </w-button>
+  </div> -->
+  <div v-if="!this.store.username">
+    <w-button class="px4" @click="showLoginDialog = true"> Login</w-button>
   </div>
-  <div v-if="!this.store.username" class="ml2">
-    <w-button class="px4" @click="showLoginDialog = true"> Login </w-button>
-  </div>
-  <w-dialog v-model="showRegisterDialog" :width="550" title="Register">
+  <w-dialog v-model="showRegisterDialog" :width="550" title="Register" title-class="titles">
     <Register/>
   </w-dialog>
-  <w-dialog v-model="showLoginDialog" :width="550" title="Login">
-    <Login/>
+  <w-dialog v-model="showLoginDialog" :width="550" title="Login" title-class="titles">
+    <Login @switchToRegister="this.switch"/>
   </w-dialog>
 
   <div v-if="this.store.username" align-self-end class="xs1 pa1">
-    <w-button class="nav-button" @click="logoutUser"> Logout </w-button>
+    <w-button class="nav-button" @click="logoutUser"> Logout</w-button>
   </div>
 </template>
+
+<style>
+.titles {
+  justify-content: center;
+}
+</style>

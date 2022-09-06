@@ -156,19 +156,6 @@ export default {
               Call flight assistant
             </w-button>
           </div>
-
-          <!--<div class="justify-self-end" style="margin-top: auto">
-            <w-button
-                v-if="
-                this.store.username &&
-                !this.store.completedSurvey
-              "
-                class="bottom-button"
-                @click="showSurveyDialog = true"
-            >
-              We value your opinion
-            </w-button>
-          </div> -->
         </w-flex>
       </w-flex>
     </w-flex>
