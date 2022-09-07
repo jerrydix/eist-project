@@ -20,7 +20,7 @@ repositories {
     mavenCentral()
 }
 
-processResources{
+processResources {
     dependsOn 'copyFrontendToBuild'
 }
 
@@ -31,9 +31,12 @@ task copyFrontendToBuild(type: Copy) {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.h2database:h2'
+    implementation 'org.projectlombok:lombok:1.18.24'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

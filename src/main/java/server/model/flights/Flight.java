@@ -4,12 +4,18 @@ import server.networking.HTTP_GetRequest;
 import server.parsing.AirportParser;
 import server.parsing.FlightParser;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Entity
 public class Flight {
+
+    @Id
     private String number;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -22,9 +28,11 @@ public class Flight {
     private LocalDateTime delayTime;
     private String delayHours;
     private String delayMinutes;
+    @OneToOne
     private Location startLocation;
     private String startName;
     private String endName;
+    @OneToOne
     private Location endLocation;
     private String airplane;
     private String weatherType;
@@ -64,6 +72,10 @@ public class Flight {
         this.departureDate = this.startTime.toString().substring(8, 10) + "/" + this.startTime.toString().substring(5, 7) + "/" + this.startTime.toString().substring(0, 4);
         this.departureTime = this.startTime.toString().substring(11, 16);
         this.arrivalTime = this.endTime.toString().substring(11, 16);
+    }
+
+    protected Flight() {
+
     }
 
     /**

@@ -1,13 +1,24 @@
 package server.model.flights;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Entity
 public class FlightJourney {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long journeyId;
+
+    @OneToMany
     private List<Flight> flights;
+
+    @OneToOne
     private Location origin;
+
+    @OneToOne
     private Location endLocation;
     private String originName;
     private String endName;

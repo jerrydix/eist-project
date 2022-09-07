@@ -1,13 +1,22 @@
 package server.model.flights.surveys;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Random;
 
+@Entity
 public class Reward {
 
     private static final RewardType[] REWARD_TYPES = RewardType.values();
     private final RewardType rewardType;
     private final int amount;
     private final String description;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     public Reward() {
         this.rewardType = REWARD_TYPES[generateRandom(0, REWARD_TYPES.length)];
@@ -40,6 +49,10 @@ public class Reward {
 
     public int getAmount() {
         return amount;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getDescription() {

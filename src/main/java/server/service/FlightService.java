@@ -6,6 +6,7 @@ import server.model.User;
 import server.model.flights.Flight;
 import server.model.flights.FlightJourney;
 import server.model.flights.Suggestion;
+import server.repository.FlightRepository;
 
 import java.util.List;
 
@@ -14,6 +15,9 @@ public class FlightService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FlightRepository flightRepository;
 
     public Suggestion[] getSuggestions(String city) {
 

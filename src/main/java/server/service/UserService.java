@@ -1,23 +1,23 @@
 package server.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.model.User;
 import server.model.flights.FlightFactory;
 import server.model.flights.FlightJourney;
-
-import java.util.ArrayList;
-import java.util.List;
+import server.repository.UserRepository;
 
 @Service
 public class UserService {
-    private final List<User> systemUsers;
+
+    @Autowired
+    private UserRepository userRepository;
 
     private boolean loggedIn;
 
     private User loggedInUser;
 
     public UserService() {
-        this.systemUsers = new ArrayList<>();
         loggedIn = false;
         loggedInUser = null;
     }
@@ -36,7 +36,9 @@ public class UserService {
         user.setCurrentFlight(journey.getFlights().get(0));
         user.addJourney(journey);
 
-        systemUsers.add(user);
+
+        userRepository.save(user);
+
         return true;
     }
 
@@ -84,12 +86,7 @@ public class UserService {
 
 
     public User getUser(String username) {
-        for (User user : systemUsers) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        return null;
+        return userRepository.findByUsername(username);
     }
 
     public boolean completedSurvey() {
@@ -98,16 +95,6 @@ public class UserService {
             return false;
         }
         return user.hasCompletedSurvey();
-    }
-
-    public List<User> getSystemUsers() {
-        return systemUsers;
-    }
-
-    public void printUsers() {
-        for (User user : systemUsers) {
-            System.out.println(user.getUsername());
-        }
     }
 
     public User getLoggedInUser() {

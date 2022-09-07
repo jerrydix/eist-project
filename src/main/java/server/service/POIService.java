@@ -16,12 +16,15 @@ public class POIService {
     @Autowired
     private UserService userService;
 
-    public List<PointOfInterest> unsaveFavourite(String id, int locationID) {
+    @Autowired
+    private LocationService locationService;
+
+    public List<PointOfInterest> unsaveFavourite(String id, int locationId) {
         User user = userService.getLoggedInUser();
         if (user == null) {
             return null;
         }
-        if (locationID == -1) {
+        if (locationId == -1) {
             List<PointOfInterest> list = new ArrayList<>(user.getFavouritePOIs());
 
             for (PointOfInterest pointOfInterest : list) {
@@ -32,7 +35,7 @@ public class POIService {
             }
             return user.getFavouritePOIs();
         }
-        List<PointOfInterest> list = this.getPointsOfInterest(locationID);
+        List<PointOfInterest> list = this.getPointsOfInterest(locationId);
         if (list == null) {
             return null;
         }
@@ -45,12 +48,12 @@ public class POIService {
         return list;
     }
 
-    public List<PointOfInterest> saveFavourite(String id, int locationID) {
+    public List<PointOfInterest> saveFavourite(String id, int locationId) {
         User user = userService.getLoggedInUser();
         if (user == null) {
             return null;
         }
-        List<PointOfInterest> list = getPointsOfInterest(locationID);
+        List<PointOfInterest> list = getPointsOfInterest(locationId);
         if (list == null) {
             return null;
         }
@@ -63,12 +66,12 @@ public class POIService {
         return list;
     }
 
-    public List<PointOfInterest> getPointsOfInterest(int locationID) {
+    public List<PointOfInterest> getPointsOfInterest(int locationId) {
         User user = userService.getLoggedInUser();
         if (user == null || user.getCurrentFlight() == null) {
             return null;
         }
-        Location location = Location.getLocationWithId(locationID);
+        Location location = locationService.getLocationWithId(locationId);
         if (location == null) {
             return null;
         }
@@ -91,8 +94,8 @@ public class POIService {
         return newList;
     }
 
-    public List<PointOfInterest> getTopPointsOfInterest(int locationID) {
-        Location location = Location.getLocationWithId(locationID);
+    public List<PointOfInterest> getTopPointsOfInterest(int locationId) {
+        Location location = locationService.getLocationWithId(locationId);
         if (location == null) {
             return null;
         }

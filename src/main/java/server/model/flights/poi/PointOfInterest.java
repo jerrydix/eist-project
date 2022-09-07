@@ -4,11 +4,15 @@ import server.networking.HTTP_GetRequest;
 import server.parsing.PointOfInterestParser;
 import server.utility.KeyReader;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class PointOfInterest {
 
+    @Id
     private String id;
     private String title;
     private String address;
@@ -16,7 +20,8 @@ public class PointOfInterest {
     private String description;
     private String label;
     private double rating;
-    private Position position;
+    private double latitude;
+    private double longitude;
     private int favourited;
     private String formattedType;
 
@@ -29,9 +34,14 @@ public class PointOfInterest {
         this.label = "T";
         this.rating = rating;
         this.favourited = 0;
-        this.position = new Position(latitude, longitude);
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.description = toString();
         this.formattedType = this.typeToString(pointOfInterestType);
+    }
+
+    protected PointOfInterest() {
+
     }
 
     /**
@@ -58,7 +68,7 @@ public class PointOfInterest {
                 HTTP_GetRequest.httpRequest("https://maps.googleapis.com/maps/api/place/nearbysearch/json",
                         new String[]{"?pagetoken=" + pagetoken1,
                                 "&key=" + KeyReader.getAPIkey()}), completeList);
-    
+
         return completeList;
     }
 
@@ -115,11 +125,14 @@ public class PointOfInterest {
     }
 
     public Position getPosition() {
-        return position;
+        return new Position(latitude, longitude);
     }
 
     public void setPosition(Position position) {
-        this.position = position;
+        if (position != null) {
+            this.latitude = position.getLat();
+            this.longitude = position.getLng();
+        }
     }
 
     public String getDescription() {

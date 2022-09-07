@@ -4,45 +4,44 @@ import server.model.flights.poi.PointOfInterest;
 import server.model.flights.poi.Position;
 import server.model.flights.weather.Weather;
 import server.networking.HTTP_GetRequest;
-import server.parsing.AirportParser;
 import server.parsing.CityParser;
 import server.parsing.PointOfInterestParser;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Location {
 
-    static int currentID = 0;
-    private static List<Location> locationList = new ArrayList<>();
-    List<PointOfInterest> pointsOfInterest;
-    private int locationID = -1; //defaults to -1 if nonexistent
-    private String name;
-    private Weather weather;
-
-    private Position position;
-    private List<String> airports;
-    private String iata;
-
     private final static String API_KEY = "&api_key=d652af55-c729-4e68-aa73-afb41e32ec66";
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long locationId;
+
+    @OneToMany
+    private List<PointOfInterest> pointsOfInterest;
+    private String name;
+
+    @OneToOne
+    private Weather weather;
+    private double latitude;
+    private double longitude;
+
+
+    private String iata;
 
     public Location(String name, double latitude, double longitude) {
         this.name = name;
         this.weather = Weather.fetchWeather(latitude, longitude);
-        this.airports = new ArrayList<>();
-        locationID = currentID;
-        currentID++;
         this.pointsOfInterest = PointOfInterest.fetchPOIs(latitude, longitude);
-        locationList.add(this);
-        this.position = new Position(latitude, longitude);
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public static List<Location> getLocationList() {
-        return locationList;
-    }
+    protected Location() {
 
-    public static void setLocationList(List<Location> locationList) {
-        Location.locationList = locationList;
     }
 
     /**
@@ -64,27 +63,6 @@ public class Location {
         System.out.println(PointOfInterestParser.toString(location.pointsOfInterest));
     }
 
-    public static Location getLocationWithId(int id) {
-        for (Location location : locationList) {
-            if (location.getLocationID() == id) {
-                return location;
-            }
-        }
-        return null;
-    }
-
-
-    public static PointOfInterest getPOIWithId(String id) {
-        for (Location location : locationList) {
-            for (PointOfInterest pointOfInterest : location.getPointsOfInterest()) {
-                if (pointOfInterest.getID().equals(id)) {
-                    return pointOfInterest;
-                }
-            }
-        }
-        return null;
-    }
-
     public String getIata() {
         return iata;
     }
@@ -94,20 +72,12 @@ public class Location {
     }
 
 
-    public int getLocationID() {
-        return locationID;
+    public long getLocationId() {
+        return locationId;
     }
 
-    public void setLocationID(int locationID) {
-        this.locationID = locationID;
-    }
-
-    public List<String> getAirports() {
-        return airports;
-    }
-
-    public void setAirports(List<String> airports) {
-        this.airports = airports;
+    public void setLocationId(long locationId) {
+        this.locationId = locationId;
     }
 
     /**
@@ -143,11 +113,11 @@ public class Location {
     }
 
     public double getLongitude() {
-        return position.getLng();
+        return this.longitude;
     }
 
     public double getLatitude() {
-        return position.getLat();
+        return this.latitude;
     }
 
     public String getName() {
@@ -166,6 +136,7 @@ public class Location {
         this.weather = weather;
     }
 
+    @Override
     public String toString() {
         return this.name;
     }
@@ -175,14 +146,18 @@ public class Location {
         if (!(obj instanceof Location)) {
             return false;
         }
-        return this.getLocationID() == ((Location) obj).getLocationID();
+        return this.getLocationId() == ((Location) obj).getLocationId();
     }
 
     public Position getPosition() {
-        return position;
+        return new Position(latitude, longitude);
     }
 
     public void setPosition(Position position) {
-        this.position = position;
+        if (position != null) {
+            this.latitude = position.getLat();
+            this.longitude = position.getLng();
+        }
     }
+
 }

@@ -5,31 +5,47 @@ import server.model.flights.FlightJourney;
 import server.model.flights.poi.PointOfInterest;
 import server.model.flights.surveys.Reward;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class User {
-
+    @Id
     private String username;
+
     private String password;
 
     private boolean authenticated = false;
 
+    @OneToMany
     private List<PointOfInterest> favouritePOIs = new ArrayList<>();
 
+    @OneToMany
     private List<Reward> rewards = new ArrayList<>();
 
+    @OneToOne
     private Reward latestReward = null;
 
     private boolean completedSurvey = false;
+
+    @OneToMany
     private List<FlightJourney> bookedFlightJourneys = new ArrayList<>();
 
+    @OneToOne
     private Flight currentFlight;
 
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    protected User() {
+
     }
 
     /**
@@ -82,6 +98,7 @@ public class User {
         this.password = password;
     }
 
+
     public String getUsername() {
         return username;
     }
@@ -94,6 +111,11 @@ public class User {
         return authenticated;
     }
 
+    public void setAuthenticated(boolean authenticated) {
+        this.authenticated = authenticated;
+    }
+
+
     public Flight getCurrentFlight() {
         return currentFlight;
     }
@@ -105,6 +127,7 @@ public class User {
     public void addJourney(FlightJourney flightJourney) {
         bookedFlightJourneys.add(flightJourney);
     }
+
 
     public Reward getLatestReward() {
         return latestReward;
@@ -124,20 +147,17 @@ public class User {
         this.favouritePOIs.remove(poi);
     }
 
+
     public List<PointOfInterest> getFavouritePOIs() {
         return favouritePOIs;
     }
 
-    public boolean hasCompletedSurvey() {
-        return completedSurvey;
-    }
-
-    public void setAuthenticated(boolean authenticated) {
-        this.authenticated = authenticated;
-    }
-
     public void setFavouritePOIs(List<PointOfInterest> favouritePOIs) {
         this.favouritePOIs = favouritePOIs;
+    }
+
+    public boolean hasCompletedSurvey() {
+        return completedSurvey;
     }
 
     public List<Reward> getRewards() {
@@ -163,4 +183,5 @@ public class User {
     public void setBookedFlightJourneys(List<FlightJourney> bookedFlightJourneys) {
         this.bookedFlightJourneys = bookedFlightJourneys;
     }
+
 }

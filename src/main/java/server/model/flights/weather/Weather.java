@@ -3,8 +3,17 @@ package server.model.flights.weather;
 import server.networking.HTTP_GetRequest;
 import server.parsing.WeatherParser;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Weather {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long weatherId;
     private String weatherType;
     private double degrees;
 
@@ -14,6 +23,10 @@ public class Weather {
         this.weatherType = weatherType;
         this.degrees = degrees;
         this.description = this.toString();
+    }
+
+    protected Weather() {
+
     }
 
     /**
@@ -56,5 +69,13 @@ public class Weather {
 
     public String toString() {
         return degrees + "°C | " + weatherType;
+    }
+
+    public long getWeatherId() {
+        return weatherId;
+    }
+
+    public void setWeatherId(long weatherId) {
+        this.weatherId = weatherId;
     }
 }

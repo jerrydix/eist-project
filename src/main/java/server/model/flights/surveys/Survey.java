@@ -1,14 +1,21 @@
 package server.model.flights.surveys;
 
 import server.model.User;
+import server.model.flights.Flight;
 
+import javax.persistence.*;
+
+@Entity
 public class Survey {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long surveyId;
 
-    private static int currentID = 0;
-    private int surveyID;
+    @OneToOne
     private User user;
-    private String flightNumber;
 
+    @OneToOne
+    private Flight flight;
 
     private int flightRating;
     private int cateringRating;
@@ -18,13 +25,13 @@ public class Survey {
 
     private String comment;
 
+    @OneToOne
     private Reward reward;
 
-    public Survey(String flightNumber, int flightRating, int cateringRating, int entertainmentRating, int comfortRating,
+    public Survey(Flight flight, int flightRating, int cateringRating, int entertainmentRating, int comfortRating,
                   int serviceRating, String comment, Reward reward) {
         this.reward = reward;
-        this.surveyID = currentID++;
-        this.flightNumber = flightNumber;
+        this.flight = flight;
         this.cateringRating = cateringRating;
         this.entertainmentRating = entertainmentRating;
         this.comfortRating = comfortRating;
@@ -33,8 +40,12 @@ public class Survey {
         this.comment = comment;
     }
 
-    public int getID() {
-        return this.surveyID;
+    protected Survey() {
+
+    }
+
+    public long getId() {
+        return this.surveyId;
     }
 
     public int getCateringRating() {
@@ -53,8 +64,8 @@ public class Survey {
         return comment;
     }
 
-    public String getFlightNumber() {
-        return flightNumber;
+    public Flight getFlight() {
+        return flight;
     }
 
     public User getUser() {
