@@ -5,10 +5,7 @@ import server.model.flights.FlightJourney;
 import server.model.flights.poi.PointOfInterest;
 import server.model.flights.surveys.Reward;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,21 +18,21 @@ public class User {
 
     private boolean authenticated = false;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<PointOfInterest> favouritePOIs = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Reward> rewards = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Reward latestReward = null;
 
     private boolean completedSurvey = false;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<FlightJourney> bookedFlightJourneys = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Flight currentFlight;
 
 

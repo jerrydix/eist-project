@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import server.model.User;
 import server.model.flights.FlightFactory;
 import server.model.flights.FlightJourney;
+import server.repository.FlightRepository;
+import server.repository.JourneyRepository;
 import server.repository.UserRepository;
 
 @Service
@@ -12,6 +14,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private FlightRepository flightRepository;
+
+    @Autowired
+    private JourneyRepository journeyRepository;
 
     private boolean loggedIn;
 
@@ -36,7 +44,7 @@ public class UserService {
         user.setCurrentFlight(journey.getFlights().get(0));
         user.addJourney(journey);
 
-
+        
         userRepository.save(user);
 
         return true;

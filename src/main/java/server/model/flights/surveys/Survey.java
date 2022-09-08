@@ -11,10 +11,10 @@ public class Survey {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long surveyId;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private User user;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Flight flight;
 
     private int flightRating;
@@ -25,7 +25,7 @@ public class Survey {
 
     private String comment;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Reward reward;
 
     public Survey(Flight flight, int flightRating, int cateringRating, int entertainmentRating, int comfortRating,

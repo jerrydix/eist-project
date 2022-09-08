@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.model.User;
 import server.model.flights.Flight;
+import server.model.flights.FlightFactory;
 import server.model.flights.FlightJourney;
 import server.model.flights.Suggestion;
 import server.repository.FlightRepository;
@@ -30,7 +31,11 @@ public class FlightService {
     }
 
     public List<Flight> getFlights(String from, String to, String date) {
-        return Flight.fetchFlightsFromToAt(from, to, date);
+        List<Flight> list = flightRepository.findByStartNameAndEndNameAndDepartureDate(from, to, date);
+        if (list.isEmpty()) {
+            list = (List<Flight>) flightRepository.saveAll(FlightFactory.fetchFlightsFromToAt(from, to, date));
+        }
+        return list;
     }
 
     public FlightJourney constructJourney(List<Flight> flights) {

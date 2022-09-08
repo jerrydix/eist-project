@@ -12,13 +12,13 @@ public class FlightJourney {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long journeyId;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<Flight> flights;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Location origin;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Location endLocation;
     private String originName;
     private String endName;

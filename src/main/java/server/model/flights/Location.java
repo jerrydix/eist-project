@@ -20,11 +20,11 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long locationId;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<PointOfInterest> pointsOfInterest;
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Weather weather;
     private double latitude;
     private double longitude;
@@ -101,7 +101,7 @@ public class Location {
      */
 
     public List<Flight> find10Flights(String to, String date) {
-        return Flight.fetchFlightsFromToAt(this.name, to, date);
+        return FlightFactory.fetchFlightsFromToAt(this.name, to, date);
     }
 
     public List<PointOfInterest> getPointsOfInterest() {
