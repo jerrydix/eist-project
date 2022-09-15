@@ -5,20 +5,29 @@ import org.springframework.stereotype.Service;
 import server.model.User;
 import server.model.flights.Flight;
 import server.model.flights.FlightFactory;
-import server.model.flights.FlightJourney;
+import server.model.flights.Location;
 import server.model.flights.Suggestion;
 import server.repository.FlightRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FlightService {
 
+    private final FlightRepository flightRepository;
     @Autowired
     private UserService userService;
 
     @Autowired
-    private FlightRepository flightRepository;
+    private JourneyService journeyService;
+
+    @Autowired
+    private LocationService locationService;
+
+    public FlightService(FlightRepository flightRepository) {
+        this.flightRepository = flightRepository;
+    }
 
     public Suggestion[] getSuggestions(String city) {
 
@@ -30,32 +39,37 @@ public class FlightService {
         return suggestions;
     }
 
+    public Location getLocation(String locationNameWithIATA) {
+        String locationName = FlightFactory.getName(locationNameWithIATA);
+        Optional<Location> optLoc = locationService.getLocationWithName(locationName);
+        Location location;
+        if (optLoc.isEmpty()) {
+            location = locationService.saveLocation(FlightFactory.getLocation(locationNameWithIATA));
+        } else {
+            location = optLoc.get();
+        }
+
+        return location;
+    }
+
     public List<Flight> getFlights(String from, String to, String date) {
         List<Flight> list = flightRepository.findByStartNameAndEndNameAndDepartureDate(from, to, date);
         if (list.isEmpty()) {
-            list = (List<Flight>) flightRepository.saveAll(FlightFactory.fetchFlightsFromToAt(from, to, date));
+            list = FlightFactory.fetchFlightsFromToAt(from, to, date);
         }
+        Location fromLoc = this.getLocation(from);
+        Location toLoc = this.getLocation(to);
+
+        for (Flight flight : list) {
+            flight.setFullStartName(from);
+            flight.setFullEndName(to);
+            flight.setStartLocation(fromLoc);
+            flight.setEndLocation(toLoc);
+        }
+
+        list = (List<Flight>) flightRepository.saveAll(list);
+
         return list;
-    }
-
-    public FlightJourney constructJourney(List<Flight> flights) {
-        User user = userService.getLoggedInUser();
-        if (user == null) {
-            return null;
-        }
-        FlightJourney journey = this.buildJourney(flights);
-        if (journey != null) {
-            user.addJourney(journey);
-        }
-        return journey;
-    }
-
-    private FlightJourney buildJourney(List<Flight> flights) {
-        if (flights.isEmpty()) {
-            return null;
-        }
-        FlightJourney journey = new FlightJourney();
-        return journey.buildJourney(flights) ? journey : null;
     }
 
     public Flight getCurrentFlight() {

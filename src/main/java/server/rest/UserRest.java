@@ -10,7 +10,7 @@ import server.service.UserService;
 @RequestMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 public class UserRest {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserRest(UserService userService) {
         this.userService = userService;

@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       showPOI: false,
-      locationID: -1,
+      locationId: -1,
       headers: [
         {label: "Number", key: "number", align: "center"},
         {label: "Airline", key: "airline", align: "center"},
@@ -49,9 +49,9 @@ export default {
     }
   },
   methods: {
-    show(locationID) {
+    show(locationId) {
       this.showPOI = true;
-      this.locationID = locationID;
+      this.locationId = locationId;
     },
     showDets(selection) {
       this.selection = selection
@@ -63,13 +63,13 @@ export default {
 
 <template>
   <w-flex column>
-      <FlightMap
-          v-if="this.realmap"
-          :flightList="this.realflights"
-          height="50vh"
-          width="100%"
-          @show="show"
-      />
+    <FlightMap
+        v-if="this.realmap"
+        :flightList="this.realflights"
+        height="50vh"
+        width="100%"
+        @show="show"
+    />
     <div class="xs12 pa1">
       <w-table
           :force-selection="false"
@@ -93,7 +93,7 @@ export default {
   </w-dialog>
 
   <w-dialog v-model="this.showPOI" :width="1000">
-    <POI :location="this.locationID"/>
+    <POI :location="this.locationId"/>
   </w-dialog>
 </template>
 

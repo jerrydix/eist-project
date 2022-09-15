@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 public class PoiRest {
 
-    private POIService poiService;
+    private final POIService poiService;
 
 
     public PoiRest(POIService poiService) {

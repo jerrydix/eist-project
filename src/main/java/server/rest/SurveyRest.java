@@ -13,7 +13,7 @@ import server.service.SurveyService;
 @RequestMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 public class SurveyRest {
 
-    private SurveyService surveyService;
+    private final SurveyService surveyService;
 
     public SurveyRest(SurveyService surveyService) {
         this.surveyService = surveyService;

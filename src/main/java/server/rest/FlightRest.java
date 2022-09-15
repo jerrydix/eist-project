@@ -2,9 +2,11 @@ package server.rest;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import server.model.flights.Flight;
-import server.model.flights.FlightJourney;
 import server.model.flights.Suggestion;
 import server.service.FlightService;
 
@@ -14,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
 public class FlightRest {
-    private FlightService flightService;
+    private final FlightService flightService;
 
     public FlightRest(FlightService flightService) {
         this.flightService = flightService;
@@ -36,16 +38,6 @@ public class FlightRest {
         return ResponseEntity.ok(flightService.getFlights(from, to, date));
     }
 
-    @PostMapping("api/journey")
-    public ResponseEntity<FlightJourney> constructJourney(@RequestBody List<Flight> flights) {
-
-        FlightJourney journey = flightService.constructJourney(flights);
-        if (journey == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(journey);
-
-    }
 
     @PostMapping("api/currentFlight")
     public ResponseEntity<Flight> getCurrentFlight() {

@@ -1,6 +1,5 @@
 package server.model.flights;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -23,11 +22,11 @@ public class Flight {
     private LocalDateTime delayTime;
     private String delayHours;
     private String delayMinutes;
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne
     private Location startLocation;
     private String startName;
     private String endName;
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne
     private Location endLocation;
     private String airplane;
     private String weatherType;

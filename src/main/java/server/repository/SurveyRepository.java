@@ -6,5 +6,4 @@ import server.model.flights.surveys.Survey;
 
 @Repository
 public interface SurveyRepository extends CrudRepository<Survey, Long> {
-    Survey findSurveyBySurveyId(Long surveyId);
 }

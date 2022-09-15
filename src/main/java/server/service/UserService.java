@@ -1,50 +1,53 @@
 package server.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.model.User;
 import server.model.flights.FlightFactory;
 import server.model.flights.FlightJourney;
-import server.repository.FlightRepository;
-import server.repository.JourneyRepository;
+import server.model.flights.poi.PointOfInterest;
 import server.repository.UserRepository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private FlightRepository flightRepository;
-
-    @Autowired
-    private JourneyRepository journeyRepository;
+    private final UserRepository userRepository;
 
     private boolean loggedIn;
 
-    private User loggedInUser;
+    private String loggedInUser;
 
-    public UserService() {
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
         loggedIn = false;
         loggedInUser = null;
+    }
+
+    public User save(User user) {
+        return this.userRepository.save(user);
+    }
+
+    public List<PointOfInterest> getFavouritePOIList(User user) {
+        Optional<User> userOpt = userRepository.findById(user.getUsername());
+        return userOpt.map(User::getFavouritePOIList).orElse(null);
     }
 
     public boolean registerUser(String username, String password, String flightNumber) {
         if (password == null || password.isBlank() || username == null || username.isBlank() || flightNumber == null || flightNumber.isBlank()) {
             return false;
         }
-        User user = getUser(username);
-        if (user != null) {
+        if (userRepository.findById(username).isPresent()) {
             return false;
         }
-        user = new User(username, password);
+        User user = new User(username, password);
 
         FlightJourney journey = FlightFactory.generateRandomJourney(flightNumber);
         user.setCurrentFlight(journey.getFlights().get(0));
         user.addJourney(journey);
 
-        
+
         userRepository.save(user);
 
         return true;
@@ -55,13 +58,14 @@ public class UserService {
             return false;
         }
         User user = getUser(username);
-        if (user == null || user.isAuthenticated()) {
+        if (user == null) {
             return false;
         }
         loggedIn = user.authenticateUser(password);
         if (loggedIn) {
-            loggedInUser = user;
+            loggedInUser = user.getUsername();
         }
+        userRepository.save(user);
 
         return loggedIn;
     }
@@ -70,31 +74,23 @@ public class UserService {
         if (!loggedIn) {
             return false;
         }
-        User user = loggedInUser;
+        User user = getLoggedInUser();
         if (user == null) {
             return false;
         }
         user.logout();
         loggedIn = false;
         loggedInUser = null;
+        userRepository.save(user);
         return true;
     }
 
-
-    public User getUserData(String username) {
-        if (!loggedIn) {
-            return null;
-        }
-        User user = getUser(username);
-        if (user == null || !user.isAuthenticated()) {
-            return null;
-        }
-        return user;
-    }
-
-
     public User getUser(String username) {
-        return userRepository.findByUsername(username);
+        if (username == null) {
+            return null;
+        }
+        Optional<User> user = userRepository.findById(username);
+        return user.orElse(null);
     }
 
     public boolean completedSurvey() {
@@ -106,6 +102,6 @@ public class UserService {
     }
 
     public User getLoggedInUser() {
-        return loggedInUser;
+        return getUser(loggedInUser);
     }
 }

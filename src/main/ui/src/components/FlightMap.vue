@@ -14,7 +14,7 @@
         <w-flex align-center column justify-center>
           <h2>{{ option.name }}</h2>
           <p>Current weather: {{ option.weather.description }}</p>
-          <w-button @click="show(option.locationID)"
+          <w-button @click="show(option.locationId)"
           >Show points of interest
           </w-button
           >
@@ -51,8 +51,8 @@ export default defineComponent({
     };
   },
   methods: {
-    show(locationID) {
-      this.$emit("show", locationID);
+    show(locationId) {
+      this.$emit("show", locationId);
     },
   },
   mounted() {

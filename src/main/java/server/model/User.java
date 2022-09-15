@@ -16,10 +16,8 @@ public class User {
 
     private String password;
 
-    private boolean authenticated = false;
-
     @OneToMany(cascade = {CascadeType.ALL})
-    private List<PointOfInterest> favouritePOIs = new ArrayList<>();
+    private List<PointOfInterest> favouritePOIList = new ArrayList<>();
 
     @OneToMany(cascade = {CascadeType.ALL})
     private List<Reward> rewards = new ArrayList<>();
@@ -29,7 +27,7 @@ public class User {
 
     private boolean completedSurvey = false;
 
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany
     private List<FlightJourney> bookedFlightJourneys = new ArrayList<>();
 
     @OneToOne(cascade = {CascadeType.ALL})
@@ -53,25 +51,24 @@ public class User {
      */
     public boolean authenticateUser(String password) {
         if (this.password.equals(password)) {
-            this.authenticated = true;
             this.setFavourites();
+            return true;
         }
-        return this.isAuthenticated();
+        return false;
     }
 
     private void setFavourites() {
-        for (PointOfInterest pointOfInterest : favouritePOIs) {
+        for (PointOfInterest pointOfInterest : favouritePOIList) {
             pointOfInterest.favourite();
         }
     }
 
     public void logout() {
-        this.authenticated = false;
         this.unsetFavourites();
     }
 
     private void unsetFavourites() {
-        for (PointOfInterest pointOfInterest : favouritePOIs) {
+        for (PointOfInterest pointOfInterest : favouritePOIList) {
             pointOfInterest.unFavourite();
         }
     }
@@ -104,14 +101,6 @@ public class User {
         this.username = username;
     }
 
-    public boolean isAuthenticated() {
-        return authenticated;
-    }
-
-    public void setAuthenticated(boolean authenticated) {
-        this.authenticated = authenticated;
-    }
-
 
     public Flight getCurrentFlight() {
         return currentFlight;
@@ -135,22 +124,22 @@ public class User {
     }
 
     public void addPOI(PointOfInterest poi) {
-        if (!this.favouritePOIs.contains(poi)) {
-            this.favouritePOIs.add(poi);
+        if (!this.favouritePOIList.contains(poi)) {
+            this.favouritePOIList.add(poi);
         }
     }
 
     public void removePOI(PointOfInterest poi) {
-        this.favouritePOIs.remove(poi);
+        this.favouritePOIList.remove(poi);
     }
 
 
-    public List<PointOfInterest> getFavouritePOIs() {
-        return favouritePOIs;
+    public List<PointOfInterest> getFavouritePOIList() {
+        return favouritePOIList;
     }
 
-    public void setFavouritePOIs(List<PointOfInterest> favouritePOIs) {
-        this.favouritePOIs = favouritePOIs;
+    public void setFavouritePOIList(List<PointOfInterest> favouritePOIList) {
+        this.favouritePOIList = favouritePOIList;
     }
 
     public boolean hasCompletedSurvey() {
@@ -181,4 +170,7 @@ public class User {
         this.bookedFlightJourneys = bookedFlightJourneys;
     }
 
+    public FlightJourney getLastBookedJourney() {
+        return this.bookedFlightJourneys.get(bookedFlightJourneys.size() - 1);
+    }
 }

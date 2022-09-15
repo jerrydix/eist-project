@@ -52,7 +52,10 @@ export default {
       getCurrentFlight().then((response) => {
         this.flight = response;
         this.store.endLocationId =
-            this.flight["endLocation"]["locationID"];
+            this.flight["endLocation"]["locationId"];
+
+        console.log(this.store.endLocationId);
+
         let a = this.store.username;
         this.store.username = null;
         this.$nextTick().then(() => {

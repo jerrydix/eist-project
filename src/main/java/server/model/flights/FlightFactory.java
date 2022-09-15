@@ -22,6 +22,15 @@ public class FlightFactory {
     private static final String[] planes = new String[]{"Boeing 737-800", "Boeing 737-700", "Airbus A320", "Airbus A321", "Bombardier CRJ200", "Boeing 757-200",
             "Embraer E175", "Airbus A319", "Boeing 737-900ER", "Bombardier CRJ900", "Boeing 737-800"};
 
+
+    public static String getName(String locationWithIATA) {
+        return locationWithIATA.substring(0, locationWithIATA.indexOf("(") - 1);
+    }
+
+    public static String getIATA(String locationWithIATA) {
+        return locationWithIATA.substring(locationWithIATA.indexOf("(") + 1, locationWithIATA.indexOf(")"));
+    }
+
     /**
      * A wrapper method used to retrieve flights from one location to another at a specific date.
      *
@@ -31,10 +40,10 @@ public class FlightFactory {
      * @return A list of 5 or more flights from "from" to "to" at "date", which (if the API does not find any real flights) are stocked up by dummy flights
      */
     public static List<Flight> fetchFlightsFromToAt(String from, String to, String date) {
-        String fromIATA = from.substring(from.indexOf("(") + 1, from.indexOf(")"));
-        String toIATA = to.substring(to.indexOf("(") + 1, to.indexOf(")"));
-        String fromName = from.substring(0, from.indexOf("(") - 1);
-        String toName = to.substring(0, to.indexOf("(") - 1);
+        String fromIATA = getIATA(from);
+        String toIATA = getIATA(to);
+        String fromName = getName(from);
+        String toName = getName(to);
 
         List<String> fromAirportIATAs = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports?city_code=" + fromIATA + "&api_key=23c0135c-2b3c-4bc9-88f0-98aa15ac238c", new String[]{}));
         List<String> toAirportIATAs = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports?city_code=" + toIATA + "&api_key=23c0135c-2b3c-4bc9-88f0-98aa15ac238c", new String[]{}));
@@ -92,31 +101,21 @@ public class FlightFactory {
             list.add(FlightFactory.generateFlightWithoutLocation(fromName, toName, date));
         }
 
-        double[] startCoords = FlightParser.fetchCoordsForGivenAddress(fromName);
-        double[] endCoords = FlightParser.fetchCoordsForGivenAddress(toName);
-
-        Location startLocation;
-        Location endLocation;
-        if (startCoords != null) {
-            startLocation = new Location(fromName, startCoords[1], startCoords[0]);
-        } else {
-            startLocation = new Location(fromName, -1, -1);
-        }
-        if (endCoords != null) {
-            endLocation = new Location(toName, endCoords[1], endCoords[0]);
-        } else {
-            endLocation = new Location(toName, -1, -1);
-        }
-
-
-        for (Flight flight : list) {
-            flight.setFullEndName(to);
-            flight.setFullStartName(from);
-            flight.setStartLocation(startLocation);
-            flight.setEndLocation(endLocation);
-        }
-
         return list;
+    }
+
+    public static Location getLocation(String locationNameWithIATA) {
+        String locationName = getName(locationNameWithIATA);
+        double[] startCoords = FlightParser.fetchCoordsForGivenAddress(locationName);
+
+        Location location;
+        if (startCoords != null) {
+            location = new Location(locationName, startCoords[1], startCoords[0]);
+        } else {
+            location = new Location(locationName, -1, -1);
+        }
+
+        return location;
     }
 
     /**

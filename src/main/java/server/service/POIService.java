@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import server.model.User;
 import server.model.flights.Location;
 import server.model.flights.poi.PointOfInterest;
+import server.repository.POIRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +14,26 @@ import java.util.List;
 public class POIService {
 
 
+    private final POIRepository poiRepository;
     @Autowired
     private UserService userService;
-
     @Autowired
     private LocationService locationService;
+
+    public POIService(POIRepository poiRepository) {
+        this.poiRepository = poiRepository;
+    }
+
+    public PointOfInterest getFavouritePOI(User user, String id) {
+        List<PointOfInterest> pois = userService.getFavouritePOIList(user);
+        for (PointOfInterest pointOfInterest : pois) {
+            if (pointOfInterest.getID().equals(id)) {
+                return pointOfInterest;
+            }
+        }
+        return null;
+    }
+
 
     public List<PointOfInterest> unsaveFavourite(String id, int locationId) {
         User user = userService.getLoggedInUser();
@@ -25,15 +41,15 @@ public class POIService {
             return null;
         }
         if (locationId == -1) {
-            List<PointOfInterest> list = new ArrayList<>(user.getFavouritePOIs());
+            PointOfInterest pointOfInterest = this.getFavouritePOI(user, id);
 
-            for (PointOfInterest pointOfInterest : list) {
-                if (pointOfInterest.getID().equals(id)) {
-                    pointOfInterest.unFavourite();
-                    user.removePOI(pointOfInterest);
-                }
+            if (pointOfInterest != null) {
+                pointOfInterest.unFavourite();
+                user.removePOI(pointOfInterest);
+                poiRepository.save(pointOfInterest);
             }
-            return user.getFavouritePOIs();
+
+            return userService.save(user).getFavouritePOIList();
         }
         List<PointOfInterest> list = this.getPointsOfInterest(locationId);
         if (list == null) {
@@ -42,9 +58,11 @@ public class POIService {
         for (PointOfInterest pointOfInterest : list) {
             if (pointOfInterest.getID().equals(id)) {
                 pointOfInterest.unFavourite();
+                poiRepository.save(pointOfInterest);
                 user.removePOI(pointOfInterest);
             }
         }
+        userService.save(user);
         return list;
     }
 
@@ -60,9 +78,11 @@ public class POIService {
         for (PointOfInterest pointOfInterest : list) {
             if (pointOfInterest.getID().equals(id)) {
                 pointOfInterest.favourite();
+                poiRepository.save(pointOfInterest);
                 user.addPOI(pointOfInterest);
             }
         }
+        userService.save(user);
         return list;
     }
 
@@ -76,10 +96,9 @@ public class POIService {
             return null;
         }
         List<PointOfInterest> list = location.getPointsOfInterest();
-        List<PointOfInterest> list2 = user.getFavouritePOIs();
+        List<PointOfInterest> list2 = userService.getFavouritePOIList(user);
         List<PointOfInterest> newList = new ArrayList<>(list2);
-
-
+        
         for (PointOfInterest pointOfInterest : list) {
             if (!list2.contains(pointOfInterest)) {
                 newList.add(pointOfInterest);
