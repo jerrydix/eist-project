@@ -101,7 +101,7 @@ export default {
   mounted() {
     getUserData().then((response) => {
       this.user = response
-      this.poiTable.items = this.user.favouritePOIs;
+      this.poiTable.items = this.user.favouritePOIList;
       if (this.poiTable.items.length > 0) {
         this.current = this.poiTable.items[0].position;
       }
