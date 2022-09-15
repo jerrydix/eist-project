@@ -1,7 +1,9 @@
 package server.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.model.User;
+import server.model.flights.Flight;
 import server.model.flights.FlightFactory;
 import server.model.flights.FlightJourney;
 import server.model.flights.poi.PointOfInterest;
@@ -14,6 +16,15 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    @Autowired
+    private JourneyService journeyService;
+
+    @Autowired
+    private LocationService locationService;
+
+    @Autowired
+    private FlightService flightService;
 
     private boolean loggedIn;
 
@@ -44,9 +55,20 @@ public class UserService {
         User user = new User(username, password);
 
         FlightJourney journey = FlightFactory.generateRandomJourney(flightNumber);
+
+        Flight flight = journey.getFlights().get(0);
+
+        flight.setStartLocation(locationService.getLocationWithName(flight.getStartName()));
+        flight.setEndLocation(locationService.getLocationWithName(flight.getEndName()));
+
+        journey.getFlights().set(0, flightService.save(flight));
+
+        journey.setOrigin(flight.getStartLocation());
+        journey.setEndLocation(flight.getEndLocation());
+
+        journey = journeyService.save(journey);
         user.setCurrentFlight(journey.getFlights().get(0));
         user.addJourney(journey);
-
 
         userRepository.save(user);
 

@@ -10,7 +10,6 @@ import server.model.flights.Suggestion;
 import server.repository.FlightRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FlightService {
@@ -29,6 +28,10 @@ public class FlightService {
         this.flightRepository = flightRepository;
     }
 
+    public Flight save(Flight flight) {
+        return flightRepository.save(flight);
+    }
+
     public Suggestion[] getSuggestions(String city) {
 
         String[] sug = Flight.getSuggestions(city);
@@ -39,26 +42,14 @@ public class FlightService {
         return suggestions;
     }
 
-    public Location getLocation(String locationNameWithIATA) {
-        String locationName = FlightFactory.getName(locationNameWithIATA);
-        Optional<Location> optLoc = locationService.getLocationWithName(locationName);
-        Location location;
-        if (optLoc.isEmpty()) {
-            location = locationService.saveLocation(FlightFactory.getLocation(locationNameWithIATA));
-        } else {
-            location = optLoc.get();
-        }
-
-        return location;
-    }
 
     public List<Flight> getFlights(String from, String to, String date) {
         List<Flight> list = flightRepository.findByStartNameAndEndNameAndDepartureDate(from, to, date);
         if (list.isEmpty()) {
             list = FlightFactory.fetchFlightsFromToAt(from, to, date);
         }
-        Location fromLoc = this.getLocation(from);
-        Location toLoc = this.getLocation(to);
+        Location fromLoc = locationService.getLocationWithIATA(from);
+        Location toLoc = locationService.getLocationWithIATA(to);
 
         for (Flight flight : list) {
             flight.setFullStartName(from);

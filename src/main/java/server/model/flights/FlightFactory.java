@@ -104,8 +104,7 @@ public class FlightFactory {
         return list;
     }
 
-    public static Location getLocation(String locationNameWithIATA) {
-        String locationName = getName(locationNameWithIATA);
+    public static Location fetchLocation(String locationName) {
         double[] startCoords = FlightParser.fetchCoordsForGivenAddress(locationName);
 
         Location location;
@@ -280,7 +279,11 @@ public class FlightFactory {
         Flight flight = FlightFactory.generateRandomFlight(flightNum);
         flights.add(flight);
         FlightJourney journey = new FlightJourney();
-        journey.buildJourney(flights);
+        journey.setFlights(flights);
+        journey.setOriginName(flight.getStartName());
+        journey.setEndName(flight.getEndName());
+        journey.setStartDate(flight.getDepartureDate());
+        journey.setEndDate(flight.getDepartureDate());
         return journey;
     }
 
@@ -300,7 +303,14 @@ public class FlightFactory {
 
         LocalDateTime now = LocalDateTime.now();
         String date = now.toString();
-        Flight flight = generateFlight(pickLocationString(first), pickLocationString(second), date);
+
+        String fromName = pickLocationString(first);
+        String toName = pickLocationString(second);
+
+        Flight flight = generateFlightWithoutLocation(fromName, toName, date);
+
+        flight.setStartName(fromName);
+        flight.setEndName(toName);
         flight.setNumber(flightNum);
         String airline = pickAirline(11);
         for (int i = 0; i < IATAcodes.length; i++) {
