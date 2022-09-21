@@ -1,16 +1,13 @@
 <script>
-import {
-  constructJourney,
-  getFlights,
-  getSuggestions,
-} from "../services/FlightService.js";
+import {constructJourney, getFlights, getSuggestions,} from "../services/FlightService.js";
 import FlightSuggestionCard from "../components/FlightSuggestionCard.vue";
 import Journey from "../components/Journey.vue";
 import HomeButton from "../components/HomeButton.vue";
-import { userStore } from "../userStore";
+import {userStore} from "../userStore";
+import TopBar from "../components/TopBar.vue";
 
 export default {
-  components: { FlightSuggestionCard, Journey, HomeButton },
+  components: {TopBar, FlightSuggestionCard, Journey, HomeButton},
   setup() {
     const store = userStore();
     return {
@@ -75,11 +72,11 @@ export default {
       this.requestedFlights = true;
       this.showSpinner = true;
       getFlights(this.departureCity, this.arrivalCity, this.date).then(
-        (response) => {
-          this.showSpinner = false;
-          this.card.flights = response;
-          this.reRender();
-        }
+          (response) => {
+            this.showSpinner = false;
+            this.card.flights = response;
+            this.reRender();
+          }
       );
     },
     addToJourney(flight) {
@@ -94,7 +91,7 @@ export default {
       this.table.flights.pop();
       if (this.table.flights.length > 0) {
         this.departureCity =
-          this.table.flights[this.table.flights.length - 1].fullEndName;
+            this.table.flights[this.table.flights.length - 1].fullEndName;
       } else {
         this.departureCity = "";
       }
@@ -124,75 +121,77 @@ export default {
 
 <template>
   <w-app v-if="this.store.username" id="app">
+
+    <TopBar/>
+
     <w-flex grow>
       <div class="xs6">
         <div class="flightSearch">
-          <HomeButton />
           <h2
-            style="text-align: center; padding-top: 10px; padding-bottom: 10px"
+              style="text-align: center; padding-top: 10px; padding-bottom: 10px"
           >
             Book flights
           </h2>
           <w-flex
-            grow
-            justify-space-between
-            style="padding-left: 40px; padding-right: 40px"
+              grow
+              justify-space-between
+              style="padding-left: 40px; padding-right: 40px"
           >
             <div class="xs3" style="position: relative">
               <label>From</label>
               <w-input
-                v-model="this.departureCity"
-                :readonly="this.table.flights.length > 0"
-                outline
-                placeholder="Enter a city"
-                @input="searchDep"
+                  v-model="this.departureCity"
+                  :readonly="this.table.flights.length > 0"
+                  outline
+                  placeholder="Enter a city"
+                  @input="searchDep"
               ></w-input>
               <w-list
-                v-model="this.selectedDeparture"
-                :items="this.departureSuggestions"
-                :multiple="false"
-                :no-unselect="true"
-                class="mt6 mr4 grow"
-                color="deep-purple"
-                @item-click="saveDep"
+                  v-model="this.selectedDeparture"
+                  :items="this.departureSuggestions"
+                  :multiple="false"
+                  :no-unselect="true"
+                  class="mt6 mr4 grow"
+                  color="deep-purple"
+                  @item-click="saveDep"
               >
               </w-list>
             </div>
             <div class="xs3">
               <label>To</label>
               <w-input
-                v-model="this.arrivalCity"
-                outline
-                placeholder="Enter a city"
-                @input="searchArr"
+                  v-model="this.arrivalCity"
+                  outline
+                  placeholder="Enter a city"
+                  @input="searchArr"
               ></w-input>
               <w-list
-                v-model="this.selectedArrival"
-                :items="this.arrivalSuggestions"
-                :multiple="false"
-                :no-unselect="true"
-                class="mt6 mr4 grow"
-                color="deep-purple"
-                @item-click="saveArr"
+                  v-model="this.selectedArrival"
+                  :items="this.arrivalSuggestions"
+                  :multiple="false"
+                  :no-unselect="true"
+                  class="mt6 mr4 grow"
+                  color="deep-purple"
+                  @item-click="saveArr"
               >
               </w-list>
             </div>
 
             <div class="xs3">
               <label>Date</label>
-              <br />
-              <w-input v-model="this.date" outline type="date" style="margin-bottom: 5px;"></w-input>
+              <br/>
+              <w-input v-model="this.date" outline style="margin-bottom: 5px;" type="date"></w-input>
               <w-button
-                :disabled="
+                  :disabled="
                   this.requestedFlights ||
                   !this.arrivalCity ||
                   !this.departureCity
                 "
-                class="showFlights"
-                @click="getFlights"
-                >Show Flights
+                  class="showFlights"
+                  @click="getFlights"
+              >Show Flights
               </w-button>
-              <w-spinner style="margin-left: 10px" xs :model-value="showSpinner" />
+              <w-spinner :model-value="showSpinner" style="margin-left: 10px" xs/>
             </div>
           </w-flex>
           <w-card bg-color="warning" class="note">
@@ -202,10 +201,10 @@ export default {
         </div>
         <div class="suggestions">
           <FlightSuggestionCard
-            v-for="(option, i) in this.card.flights"
-            :key="i"
-            :flight="option"
-            @select="addToJourney"
+              v-for="(option, i) in this.card.flights"
+              :key="i"
+              :flight="option"
+              @select="addToJourney"
           />
         </div>
       </div>
@@ -213,20 +212,20 @@ export default {
         <w-flex column justify-space-between wrap>
           <Journey :flights="this.table.flights" :map="this.map">
             <w-button
-              :disabled="this.table.flights.length === 0"
-              bg-color="error"
-              @click="deleteLast"
-              >Delete last flight
+                :disabled="this.table.flights.length === 0"
+                bg-color="error"
+                @click="deleteLast"
+            >Delete last flight
             </w-button>
           </Journey>
         </w-flex>
         <w-button
-          :disabled="this.table.flights.length === 0"
-          bg-color="secondary"
-          class="save"
-          style="margin-right: 10px"
-          @click="saveJourney"
-          >Save Journey
+            :disabled="this.table.flights.length === 0"
+            bg-color="secondary"
+            class="save"
+            style="margin-right: 10px"
+            @click="saveJourney"
+        >Save Journey
         </w-button>
       </div>
     </w-flex>
@@ -244,6 +243,13 @@ export default {
 </template>
 
 <style scoped>
+.w-toolbar {
+  background-color: var(--color-background-mute-transparent);
+  min-height: 60px;
+  max-height: 8vh;
+  backdrop-filter: blur(10);
+}
+
 .flightSearch {
   height: 20vh;
   background-color: rgba(75, 169, 246, 0.162);
