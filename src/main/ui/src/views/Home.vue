@@ -77,7 +77,12 @@ export default {
         </div>
         <div class="xs6">
           <div v-if="!this.store.username">
-            <h1>Welcome to Garching Airlines</h1>
+            <div style="padding: 30px">
+              <w-image :height="125.6" :src="'https://i.ibb.co/MStfzmL/logo-full.png'"
+                       :width="253"></w-image>
+            </div>
+            <h1>Welcome to </h1>
+            <h1>Garching Airlines</h1>
             <h3><em>Flights of Excellence</em></h3>
           </div>
           <FlightInfo v-if="this.store.username"
