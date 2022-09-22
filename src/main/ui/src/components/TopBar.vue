@@ -1,6 +1,7 @@
 <script>
 import {userStore} from "../userStore";
 import LoginButtons from "./LoginButtons.vue";
+import UserButton from "./UserButton.vue";
 
 export default {
   emits: ["safety"],
@@ -13,13 +14,21 @@ export default {
   methods: {
     showSafety() {
       this.$emit("safety");
-    }
+    },
   },
-  components: {LoginButtons},
+  components: {UserButton, LoginButtons},
 };
 </script>
 <template>
   <w-toolbar>
+    <RouterLink to="/">
+      <div style="padding-top: 10%;">
+        <w-image :height="50.28"
+                 :src="'https://i.ibb.co/wdGCP9P/logo-small.png'"
+                 :width="45.68"
+                 @error="console.log('image loading failed')"></w-image>
+      </div>
+    </RouterLink>
     <RouterLink v-if="this.store.username" to="/flights">
       <w-button class="ma1" color="primary" lg text>Book flights</w-button>
     </RouterLink>
@@ -40,20 +49,19 @@ export default {
     </div>
     <div class="spacer"></div>
 
-    <LoginButtons/>
+
+    <UserButton v-if="this.store.username"/>
+
+    <LoginButtons v-if="!this.store.username"/>
+
   </w-toolbar>
 </template>
 
 <style>
-.w-toolbar {
-  background-color: var(--color-background-mute-transparent);
-  min-height: 60px;
-  max-height: 8vh;
-  backdrop-filter: blur(10);
-}
+
 
 .w-toolbar a {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: 0.8rem;
+  padding-right: 0.8rem;
 }
 </style>

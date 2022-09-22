@@ -5,18 +5,20 @@ import router from "./router";
 import WaveUI from "wave-ui";
 import "wave-ui/dist/wave-ui.css";
 import {library} from "@fortawesome/fontawesome-svg-core";
+import mdiVue from 'mdi-vue/v3'
+import * as mdijs from '@mdi/js'
 import {
 	faCloud,
-	faCloudShowersHeavy,
 	faCloudBolt,
 	faCloudRain,
-	faSnowflake,
-	faSmog,
+	faCloudShowersHeavy,
 	faCloudSun,
-	faWind,
-	faTornado,
+	faRightLong,
+	faSmog,
+	faSnowflake,
 	faSun,
-	faRightLong
+	faTornado,
+	faWind
 } from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import "./assets/css/base.css";
@@ -26,17 +28,17 @@ dotenv.config()
  */
 
 library.add(
-	faCloud,
-	faCloudShowersHeavy,
-	faCloudBolt,
-	faCloudRain,
-	faSnowflake,
-	faSmog,
-	faCloudSun,
-	faWind,
-	faTornado,
-	faSun,
-	faRightLong
+    faCloud,
+    faCloudShowersHeavy,
+    faCloudBolt,
+    faCloudRain,
+    faSnowflake,
+    faSmog,
+    faCloudSun,
+    faWind,
+    faTornado,
+    faSun,
+    faRightLong
 );
 
 const pinia = createPinia();
@@ -45,9 +47,10 @@ new WaveUI(app, {
     notificationManager: {
         align: 'left',
         transition: 'default'
-      }
+    }
 });
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.use(router);
 app.use(pinia);
+app.use(mdiVue, {icons: mdijs});
 app.mount("#app");

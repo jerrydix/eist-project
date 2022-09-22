@@ -77,7 +77,12 @@ export default {
         </div>
         <div class="xs6">
           <div v-if="!this.store.username">
-            <h1>Welcome to Garching Airlines</h1>
+            <div style="padding: 30px">
+              <w-image :height="125.6" :src="'https://i.ibb.co/MStfzmL/logo-full.png'"
+                       :width="253"></w-image>
+            </div>
+            <h1>Welcome to </h1>
+            <h1>Garching Airlines</h1>
             <h3><em>Flights of Excellence</em></h3>
           </div>
           <FlightInfo v-if="this.store.username"
@@ -87,17 +92,17 @@ export default {
 
           <!-- <FlightMap v-if="this.store.username" :flight="this.flight" /> -->
         </div>
-        <w-dialog
-            v-model="showRegisterDialog"
-            :width="550"
-            title="Register"
-        >
-          <Register/>
-        </w-dialog>
-        <w-dialog v-model="showLoginDialog" :width="550" title="Login">
-          <Login/>
-        </w-dialog>
-
+        <!-- <w-dialog
+             v-model="showRegisterDialog"
+             :width="550"
+             title="Register"
+         >
+           <Register/>
+         </w-dialog>
+         <w-dialog v-model="showLoginDialog" :width="550" title="Login">
+           <Login/>
+         </w-dialog>
+ -->
 
         <w-dialog
             v-model="showSurveyDialog"
@@ -123,6 +128,7 @@ export default {
               width="950"
           ></iframe>
         </w-dialog>
+
 
         <div class="spacer"></div>
 
@@ -173,6 +179,12 @@ export default {
   background-size: cover !important;
   text-align: center;
   height: 100%;
+}
+
+.userbox {
+  position: absolute;
+  top: 0;
+  right: 0
 }
 
 .w-toolbar {

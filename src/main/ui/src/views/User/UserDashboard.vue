@@ -2,7 +2,7 @@
   <div v-if="this.store.username" id="app">
     <w-app>
       <header>
-        <HombeButton></HombeButton>
+        <TopBar/>
         <h2 class="text-center">Dashboard</h2>
       </header>
       <w-flex class="text-center" wrap>
@@ -64,10 +64,10 @@ import {removePOIFromFavourites} from "../../services/POIService.js";
 import FavPOI from "../../components/FavPOI.vue";
 import JourneyInflet from "../../components/JourneyInflet.vue";
 import Journey from "../../components/Journey.vue";
-import HombeButton from "../../components/HomeButton.vue";
+import TopBar from "../../components/TopBar.vue";
 
 export default {
-  components: {Journey, JourneyInflet, FavPOI, FlightInfo, HombeButton},
+  components: {Journey, JourneyInflet, FavPOI, FlightInfo, TopBar},
   data() {
     return {
       user: null,
@@ -145,6 +145,13 @@ export default {
 .w-app {
   padding: 0px;
   background-color: #ffffff;
+}
+
+.w-toolbar {
+  background-color: var(--color-background-mute-transparent);
+  min-height: 60px;
+  max-height: 8vh;
+  backdrop-filter: blur(10);
 }
 
 header, footer, aside, main {
