@@ -46,8 +46,8 @@ export default {
       Register
     </w-button>
   </div> -->
-  <div v-if="!this.store.username">
-    <w-button class="px4" @click="showLoginDialog = true"> Login</w-button>
+  <div v-if="!this.store.username" style="margin-right: 8px">
+    <w-button @click="showLoginDialog = true"> Login</w-button>
   </div>
   <w-dialog v-model="showRegisterDialog" :width="550" title="Register" title-class="titles">
     <Register/>

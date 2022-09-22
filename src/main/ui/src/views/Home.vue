@@ -92,17 +92,17 @@ export default {
 
           <!-- <FlightMap v-if="this.store.username" :flight="this.flight" /> -->
         </div>
-        <w-dialog
-            v-model="showRegisterDialog"
-            :width="550"
-            title="Register"
-        >
-          <Register/>
-        </w-dialog>
-        <w-dialog v-model="showLoginDialog" :width="550" title="Login">
-          <Login/>
-        </w-dialog>
-
+        <!-- <w-dialog
+             v-model="showRegisterDialog"
+             :width="550"
+             title="Register"
+         >
+           <Register/>
+         </w-dialog>
+         <w-dialog v-model="showLoginDialog" :width="550" title="Login">
+           <Login/>
+         </w-dialog>
+ -->
 
         <w-dialog
             v-model="showSurveyDialog"
@@ -128,6 +128,7 @@ export default {
               width="950"
           ></iframe>
         </w-dialog>
+
 
         <div class="spacer"></div>
 
@@ -178,6 +179,12 @@ export default {
   background-size: cover !important;
   text-align: center;
   height: 100%;
+}
+
+.userbox {
+  position: absolute;
+  top: 0;
+  right: 0
 }
 
 .w-toolbar {

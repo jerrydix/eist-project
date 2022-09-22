@@ -42,16 +42,26 @@ public class User {
     @OneToOne(cascade = {CascadeType.ALL})
     private Flight currentFlight;
 
+    private double money;
+
     public User(String username, String password) {
         this.username = username;
         this.salt = getNewSalt();
         this.password = this.getEncryptedPassword(password, this.salt);
+        this.money = 2000;
     }
 
     protected User() {
 
     }
 
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
 
     /**
      * Checks if user typed in the correct password and authenticates him if it is correct

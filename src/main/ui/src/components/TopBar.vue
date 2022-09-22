@@ -1,6 +1,7 @@
 <script>
 import {userStore} from "../userStore";
 import LoginButtons from "./LoginButtons.vue";
+import UserButton from "./UserButton.vue";
 
 export default {
   emits: ["safety"],
@@ -13,9 +14,9 @@ export default {
   methods: {
     showSafety() {
       this.$emit("safety");
-    }
+    },
   },
-  components: {LoginButtons},
+  components: {UserButton, LoginButtons},
 };
 </script>
 <template>
@@ -48,7 +49,11 @@ export default {
     </div>
     <div class="spacer"></div>
 
-    <LoginButtons/>
+
+    <UserButton v-if="this.store.username"/>
+
+    <LoginButtons v-if="!this.store.username"/>
+
   </w-toolbar>
 </template>
 
