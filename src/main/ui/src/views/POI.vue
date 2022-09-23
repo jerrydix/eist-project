@@ -1,77 +1,71 @@
 <template>
   <w-app v-if="this.store.username" id="app">
+    <TopBar v-if="this.topbar" />
 
-    <div v-if="this.topbar">
-      <TopBar/>
-    </div>
-
-    <w-flex grow>
-      <aside>
-        <w-flex align-center grow justify-center>
+    <w-flex style="height: 92vh; margin-top: 8vh">
+      <aside style="max-width: 400px">
+        <w-flex align-center grow justify-center style="height: 6vh">
           <w-checkbox color="orange" style="padding: 5px" @input="topTen"
-          >Show Top 10
-          </w-checkbox
-          >
+            >Show Top 10
+          </w-checkbox>
           <w-checkbox
-              style="padding: 5px"
-              @input="
-              table.activeFilter == 0
+            style="padding: 5px"
+            @input="
+              table.activeFilter === 0
                 ? (table.activeFilter = 1)
                 : (table.activeFilter = 0)
             "
-          >Show Favourites
+            >Show Favourites
           </w-checkbox>
         </w-flex>
         <w-table
-            v-model:sort="table.sort"
-            :filter="table.filters[table.activeFilter]"
-            :force-selection="table.forceSelection"
-            :headers="table.headers"
-            :items="table.items"
-            :selectable-rows="table.selectableRows"
-            no-data="no-data"
-            style="height: 96.5vh"
-            @row-select="select"
+          v-model:sort="table.sort"
+          :filter="table.filters[table.activeFilter]"
+          :force-selection="table.forceSelection"
+          :headers="table.headers"
+          :items="table.items"
+          :selectable-rows="table.selectableRows"
+          no-data="no-data"
+          style="height: 86vh"
+          @row-select="select"
         >
         </w-table>
       </aside>
       <main class="grow">
         <GoogleMap
-            v-if="map"
-            :api-key="key"
-            :center="current"
-            :zoom="16"
-            style="width: 100%; height: 100%"
+          v-if="map"
+          :api-key="key"
+          :center="current"
+          :zoom="16"
+          style="width: 100%; height: 100%"
         >
           <MarkerCluster>
             <Marker
-                v-for="(option, i) in this.table.items"
-                :key="i"
-                :options="option"
+              v-for="(option, i) in this.table.items"
+              :key="i"
+              :options="option"
             >
               <InfoWindow>
                 <h4>{{ option.title }}</h4>
                 <div>{{ option.description }}</div>
                 <w-rating
-                    v-model="option.favourited"
-                    color="yellow"
-                    max="1"
-                    md
-                    readonly
+                  v-model="option.favourited"
+                  color="yellow"
+                  max="1"
+                  md
+                  readonly
                 ></w-rating>
-                <br/>
+                <br />
                 <w-button
-                    v-if="!option.favourited"
-                    @click="save($event, option)"
-                >Save to Favourites
-                </w-button
-                >
+                  v-if="!option.favourited"
+                  @click="save($event, option)"
+                  >Save to Favourites
+                </w-button>
                 <w-button
-                    v-if="option.favourited"
-                    @click="unsave($event, option)"
-                >Delete from Favourites
-                </w-button
-                >
+                  v-if="option.favourited"
+                  @click="unsave($event, option)"
+                  >Delete from Favourites
+                </w-button>
               </InfoWindow>
             </Marker>
           </MarkerCluster>
@@ -92,20 +86,19 @@
 </template>
 
 <script>
-import {defineComponent} from "vue";
-import {GoogleMap, InfoWindow, Marker} from "vue3-google-map";
-import HomeButton from "../components/HomeButton.vue";
+import { defineComponent } from "vue";
+import { GoogleMap, InfoWindow, Marker } from "vue3-google-map";
 import {
   addPOIToFavourites,
   getPointsOfInterest,
   getTopPointsOfInterest,
   removePOIFromFavourites,
 } from "../services/POIService.js";
-import {userStore} from "../userStore";
+import { userStore } from "../userStore";
 import TopBar from "../components/TopBar.vue";
 
 export default defineComponent({
-  components: {TopBar, GoogleMap, Marker, InfoWindow, HomeButton},
+  components: { TopBar, GoogleMap, Marker, InfoWindow },
   props: ["location"],
   setup() {
     const store = userStore();
@@ -118,11 +111,11 @@ export default defineComponent({
       topbar: false,
       key: import.meta.env.VITE_GOOGLE_API_KEY,
       map: true,
-      current: {lat: 0, lng: 0},
+      current: { lat: 0, lng: 0 },
       table: {
         headers: [
-          {label: "Name", key: "title", align: "center"},
-          {label: "Rating", key: "rating", align: "center"},
+          { label: "Name", key: "title", align: "center" },
+          { label: "Rating", key: "rating", align: "center" },
         ],
         items: [],
         selectableRows: 1,
@@ -246,16 +239,19 @@ export default defineComponent({
   text-align: center;
 }
 
+.w-app {
+  background: url("../assets/img/above_clouds.jpg") center center fixed
+    no-repeat !important;
+  background-size: cover !important;
+  text-align: center;
+  height: 100%;
+}
+
 .w-toolbar {
   background-color: var(--color-background-mute-transparent);
   min-height: 60px;
   max-height: 8vh;
   backdrop-filter: blur(10);
-}
-
-.w-app {
-  padding: 0px;
-  background-color: #ffffff;
 }
 
 header,
