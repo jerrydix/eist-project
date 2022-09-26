@@ -153,7 +153,9 @@ export default {
 }
 
 .w-toolbar {
-  background-color: var(--color-background-mute-transparent);
+  background: inherit;
+  background-color: rgba(255, 255, 255, 0.4);
+  background-blend-mode: lighten;
   min-height: 60px;
   max-height: 8vh;
   backdrop-filter: blur(10);

@@ -27,6 +27,7 @@ const menuItems = [
 <template>
   <w-app>
     <TopBar />
+
     <h2 class="text-center" style="margin-top: 8vh">Food and Drinks</h2>
     <CateringItem
       v-for="menuItem in menuItems"
@@ -46,7 +47,9 @@ const menuItems = [
 }
 
 .w-toolbar {
-  background-color: var(--color-background-mute-transparent);
+  background: inherit;
+  background-color: rgba(255, 255, 255, 0.4);
+  background-blend-mode: lighten;
   min-height: 60px;
   max-height: 8vh;
   backdrop-filter: blur(10);
