@@ -1,6 +1,6 @@
 <script>
-import {userStore} from "../userStore.js";
-import {logout} from "../services/UserService.js";
+import { userStore } from "../userStore.js";
+import { logout } from "../services/UserService.js";
 import Register from "../views/User/Register.vue";
 import Login from "../views/User/Login.vue";
 
@@ -14,10 +14,7 @@ export default {
   methods: {
     logoutUser() {
       logout().then((response) => {
-        if (
-            !(response === "Broke the system") &&
-            !(response === "Error")
-        ) {
+        if (!(response === "Broke the system") && !(response === "Error")) {
           window.localStorage.removeItem("user");
           this.store.username = null;
         }
@@ -25,8 +22,8 @@ export default {
       });
     },
     switch() {
-      this.showLoginDialog = false
-      this.showRegisterDialog = true
+      this.showLoginDialog = false;
+      this.showRegisterDialog = true;
     },
   },
   components: {
@@ -49,16 +46,26 @@ export default {
   <div v-if="!this.store.username" style="margin-right: 8px">
     <w-button @click="showLoginDialog = true"> Login</w-button>
   </div>
-  <w-dialog v-model="showRegisterDialog" :width="550" title="Register" title-class="titles">
-    <Register/>
+  <w-dialog
+    v-model="showRegisterDialog"
+    :width="550"
+    title="Register"
+    title-class="titles"
+  >
+    <Register />
   </w-dialog>
-  <w-dialog v-model="showLoginDialog" :width="550" title="Login" title-class="titles">
-    <Login @switchToRegister="this.switch"/>
+  <w-dialog
+    v-model="showLoginDialog"
+    :width="550"
+    title="Login"
+    title-class="titles"
+  >
+    <Login @switchToRegister="this.switch" />
   </w-dialog>
 
-  <div v-if="this.store.username" align-self-end class="xs1 pa1">
-    <w-button class="nav-button" @click="logoutUser"> Logout</w-button>
-  </div>
+  <w-button v-if="this.store.username" lg text @click="logoutUser">
+    Logout
+  </w-button>
 </template>
 
 <style>
