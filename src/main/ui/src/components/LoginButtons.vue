@@ -58,9 +58,9 @@ export default {
     <Login @switchToRegister="this.switch" />
   </w-dialog>
 
-  <w-button v-if="this.store.username" lg text @click="logoutUser">
-    Logout
-  </w-button>
+  <RouterLink v-if="this.store.username" to="/">
+    <w-button lg text @click="logoutUser"> Logout </w-button>
+  </RouterLink>
 </template>
 
 <style>
