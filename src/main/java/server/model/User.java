@@ -55,6 +55,10 @@ public class User {
 
     }
 
+    public void addMoney(int money) {
+        this.money += money;
+    }
+
     public double getMoney() {
         return money;
     }
@@ -103,6 +107,12 @@ public class User {
         this.completedSurvey = true;
         this.latestReward = reward;
         rewards.add(reward);
+    }
+
+    public void exchange(Reward reward) {
+        this.money += reward.getValue();
+        rewards.remove(reward);
+        latestReward = rewards.size() > 0 ? rewards.get(rewards.size() - 1) : null;
     }
 
     public String getPassword() {

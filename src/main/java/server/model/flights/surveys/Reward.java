@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 import java.util.Random;
 
 @Entity
@@ -11,20 +12,24 @@ public class Reward {
 
     private static final RewardType[] REWARD_TYPES = RewardType.values();
     private final RewardType rewardType;
-    private final int amount;
-    private final String description;
 
+    private final String type;
+
+    private final int amount;
+
+    private final double value;
+    private final String description;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     public Reward() {
         this.rewardType = REWARD_TYPES[generateRandom(0, REWARD_TYPES.length)];
-
+        this.type = this.rewardType.toString();
         this.amount = switch (rewardType) {
             case MILE -> generateRandom(10000, 60000);
             case SOUVENIR, COUPON -> 1;
-            default -> generateRandom(1, 5);
+            case PRICE_DRAWING -> generateRandom(1, 5);
         };
 
         this.description = switch (rewardType) {
@@ -39,9 +44,25 @@ public class Reward {
                 case 1 -> "Free coffee at Starbucks!";
                 default -> "Free ice-cream at Starbucks!";
             };
-            default -> "Ticket for the Garching Airlines customer lottery!";
+            case PRICE_DRAWING -> "Ticket for the Garching Airlines customer lottery!";
+        };
+
+        this.value = switch (rewardType) {
+            case MILE -> this.amount * 0.002;
+            case SOUVENIR -> 30;
+            case COUPON -> 5;
+            case PRICE_DRAWING -> this.amount * 5;
         };
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
 
     public RewardType getRewardType() {
         return rewardType;
@@ -73,5 +94,18 @@ public class Reward {
 
     public String toString() {
         return amount + " " + rewardType.toString() + "(s)! " + description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reward reward = (Reward) o;
+        return id == reward.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

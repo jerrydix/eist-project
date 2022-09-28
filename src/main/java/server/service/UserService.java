@@ -7,6 +7,7 @@ import server.model.flights.Flight;
 import server.model.flights.FlightFactory;
 import server.model.flights.FlightJourney;
 import server.model.flights.poi.PointOfInterest;
+import server.model.flights.surveys.Reward;
 import server.repository.UserRepository;
 
 import java.util.List;
@@ -105,6 +106,24 @@ public class UserService {
         loggedInUser = null;
         userRepository.save(user);
         return true;
+    }
+
+    public User addMoney(int money) {
+        if (money <= 0) {
+            return null;
+        }
+        User user = getLoggedInUser();
+        user.addMoney(money);
+        return userRepository.save(user);
+    }
+
+    public User exchangeReward(Reward reward) {
+        if (reward == null) {
+            return null;
+        }
+        User user = getLoggedInUser();
+        user.exchange(reward);
+        return userRepository.save(user);
     }
 
     public User getUser(String username) {

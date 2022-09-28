@@ -4,6 +4,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import server.model.User;
+import server.model.flights.surveys.Reward;
 import server.service.UserService;
 
 @RestController
@@ -38,6 +39,24 @@ public class UserRest {
             return ResponseEntity.badRequest().body("Error");
         }
         return ResponseEntity.ok("Logged out");
+    }
+
+    @PostMapping("api/fund")
+    public ResponseEntity<User> addMoney(@RequestParam int money) {
+        User user = userService.addMoney(money);
+        if (user == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("api/exchange")
+    public ResponseEntity<User> exchangeReward(@RequestBody Reward reward) {
+        User user = userService.exchangeReward(reward);
+        if (user == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("api/loggedInUser")
