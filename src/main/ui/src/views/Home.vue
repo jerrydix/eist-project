@@ -202,13 +202,6 @@ export default {
   width: 100%;
 }
 
-.w-toolbar {
-  background-color: var(--color-background-mute-transparent);
-  min-height: 60px;
-  max-height: 8vh;
-  backdrop-filter: blur(10);
-}
-
 .top-wrapper .welcome-wrapper {
   float: left;
 }

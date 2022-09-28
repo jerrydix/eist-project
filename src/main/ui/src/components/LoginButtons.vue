@@ -38,11 +38,6 @@ export default {
 </script>
 
 <template>
-  <!-- <div v-if="!this.store.username" class="ml2">
-    <w-button class="px4" @click="showRegisterDialog = true">
-      Register
-    </w-button>
-  </div> -->
   <div v-if="!this.store.username" style="margin-right: 8px">
     <w-button @click="showLoginDialog = true"> Login</w-button>
   </div>

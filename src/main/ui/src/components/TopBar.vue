@@ -21,46 +21,45 @@ export default {
 </script>
 <template>
   <w-toolbar fixed>
-    <RouterLink to="/">
-      <div style="padding-top: 10%">
-        <w-image
-          :height="50.28"
-          :src="'https://i.ibb.co/wdGCP9P/logo-small.png'"
-          :width="45.68"
-          @error="console.log('image loading failed')"
-        ></w-image>
+    <w-flex align-center justify-space-between>
+      <RouterLink to="/">
+        <div class="mt2">
+          <w-image
+            :height="50.28"
+            :src="'https://i.ibb.co/wdGCP9P/logo-small.png'"
+            :width="45.68"
+            @error="console.log('image loading failed')"
+          ></w-image>
+        </div>
+      </RouterLink>
+
+      <RouterLink v-if="this.store.username" to="/flights">
+        <w-button color="primary" lg text>Book flights</w-button>
+      </RouterLink>
+      <RouterLink v-if="this.store.username" to="/dashboard">
+        <w-button color="primary" lg text>Dashboard</w-button>
+      </RouterLink>
+      <RouterLink
+        v-if="this.store.username"
+        :to="{ name: 'poi', params: { locationID: this.store.endLocationId } }"
+      >
+        <w-button color="primary" lg text>About my destination</w-button>
+      </RouterLink>
+      <RouterLink to="/catering">
+        <w-button color="primary" lg text>Catering</w-button>
+      </RouterLink>
+      <RouterLink to="/movies">
+        <w-button color="primary" lg text>Movies</w-button>
+      </RouterLink>
+      <div v-if="!this.store.username">
+        <w-button color="primary" lg text @click="showSafety"
+          >Safety Video</w-button
+        >
       </div>
-    </RouterLink>
-    <RouterLink v-if="this.store.username" to="/flights">
-      <w-button class="ma1" color="primary" lg text>Book flights</w-button>
-    </RouterLink>
-    <RouterLink v-if="this.store.username" to="/dashboard">
-      <w-button class="ma1" color="primary" lg text>Dashboard</w-button>
-    </RouterLink>
-    <RouterLink
-      v-if="this.store.username"
-      :to="{ name: 'poi', params: { locationID: this.store.endLocationId } }"
-    >
-      <w-button class="ma1" color="primary" lg text
-        >About my destination</w-button
-      >
-    </RouterLink>
-    <RouterLink to="/catering">
-      <w-button class="ma1" color="primary" lg text>Catering</w-button>
-    </RouterLink>
-    <RouterLink to="/movies">
-      <w-button class="ma1" color="primary" lg text>Movies</w-button>
-    </RouterLink>
-    <div v-if="!this.store.username">
-      <w-button class="ma1" color="primary" lg text @click="showSafety"
-        >Safety Video</w-button
-      >
-    </div>
-    <div class="spacer"></div>
+      <UserButton v-if="this.store.username" />
 
-    <UserButton v-if="this.store.username" />
-
-    <LoginButtons v-if="!this.store.username" />
+      <LoginButtons v-if="!this.store.username" />
+    </w-flex>
   </w-toolbar>
 </template>
 
