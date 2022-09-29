@@ -1,8 +1,9 @@
 <script>
 import { userStore } from "../userStore.js";
-import { logout } from "../services/UserService.js";
+import { getUserData } from "../services/UserService.js";
 import Register from "../views/User/Register.vue";
 import Login from "../views/User/Login.vue";
+import CodeDialog from "../views/User/CodeDialog.vue";
 
 export default {
   setup() {
@@ -11,28 +12,35 @@ export default {
       store,
     };
   },
-  methods: {
-    logoutUser() {
-      logout().then((response) => {
-        if (!(response === "Broke the system") && !(response === "Error")) {
-          window.localStorage.removeItem("user");
-          this.store.username = null;
+  mounted() {
+    if (this.store.username != null) {
+      getUserData().then((response) => {
+        if (response.code != null) {
+          this.showCodeDialog = true;
+          console.log(this.showCodeDialog);
         }
-        console.log(response);
       });
-    },
-    switch() {
+    }
+  },
+  methods: {
+    switchToRegister() {
       this.showLoginDialog = false;
       this.showRegisterDialog = true;
+    },
+    switchToCode() {
+      this.showLoginDialog = false;
+      this.showCodeDialog = true;
     },
   },
   components: {
     Register,
     Login,
+    CodeDialog,
   },
   data: () => ({
     showLoginDialog: false,
     showRegisterDialog: false,
+    showCodeDialog: false,
   }),
 };
 </script>
@@ -55,12 +63,21 @@ export default {
     title="Login"
     title-class="titles"
   >
-    <Login @switchToRegister="this.switch" />
+    <Login
+      @switchToCode="this.switchToCode"
+      @switchToRegister="this.switchToRegister"
+    />
   </w-dialog>
 
-  <RouterLink v-if="this.store.username" to="/">
-    <w-button lg text @click="logoutUser"> Logout </w-button>
-  </RouterLink>
+  <w-dialog
+    v-model="showCodeDialog"
+    :width="350"
+    persistent
+    title="Enter Confirmation Code"
+    title-class="titles"
+  >
+    <CodeDialog />
+  </w-dialog>
 </template>
 
 <style>

@@ -1,9 +1,9 @@
 <script>
-import {login} from "../../services/UserService.js";
-import {userStore} from "../../userStore.js";
+import { login } from "../../services/UserService.js";
+import { userStore } from "../../userStore.js";
 
 export default {
-  emits: ['switchToRegister'],
+  emits: ["switchToRegister", "switchToCode"],
   data() {
     return {
       ans: null,
@@ -23,10 +23,14 @@ export default {
     loginUser() {
       login(this.user.username, this.user.password).then((response) => {
         if (
-            response === "Wrong username or password" ||
-            response === "Broke the system"
+          response === "User already logged in" ||
+          response === "User doesn't exist, please register" ||
+          response === "Wrong password"
         ) {
           this.ans = response;
+        } else if (response === "First login") {
+          this.ans = "Please check your inbox";
+          this.$emit("switchToCode");
         } else {
           window.localStorage.setItem("user", response);
           this.store.username = response;
@@ -52,21 +56,25 @@ export default {
 
   <label>Username:</label>
   <w-input
-      v-model="user.username"
-      class="mb4"
-      placeholder="Enter your username"
+    v-model="user.username"
+    class="mb4"
+    placeholder="Enter your username"
   ></w-input>
   <label>Password:</label>
   <w-input
-      v-model="user.password"
-      class="mb4"
-      placeholder="Enter your password"
-      type="password"
+    v-model="user.password"
+    class="mb4"
+    placeholder="Enter your password"
+    type="password"
   ></w-input>
   <w-button @click="loginUser">Login</w-button>
-  <br/>
+  <br />
 
-  <small>Not a user yet?<a href="javascript:;" @click="this.toRegister">Register here!</a></small>
+  <small
+    >Not a user yet?<a href="javascript:;" @click="this.toRegister"
+      >Register here!</a
+    ></small
+  >
 </template>
 
 <style scoped></style>

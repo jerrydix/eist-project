@@ -1,10 +1,11 @@
-export async function register(user, pass, flightnumber) {
+export async function register(user, pass, email, flightnumber) {
   const response = await fetch(
     `api/register` +
       "?" +
       new URLSearchParams({
         username: user,
         password: pass,
+        email: email,
         flightNumber: flightnumber,
       }),
     {
@@ -22,6 +23,21 @@ export async function login(user, pass) {
       new URLSearchParams({
         username: user,
         password: pass,
+      }),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  return await response.text();
+}
+
+export async function confirmEmail(code) {
+  const response = await fetch(
+    `api/confirm` +
+      "?" +
+      new URLSearchParams({
+        code: code,
       }),
     {
       method: "POST",

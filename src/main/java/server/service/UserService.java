@@ -9,6 +9,8 @@ import server.model.flights.FlightJourney;
 import server.model.flights.poi.PointOfInterest;
 import server.model.flights.surveys.Reward;
 import server.repository.UserRepository;
+import server.utility.Dada;
+import server.utility.EmailPurpose;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,14 +48,15 @@ public class UserService {
         return userOpt.map(User::getFavouritePOIList).orElse(null);
     }
 
-    public boolean registerUser(String username, String password, String flightNumber) {
-        if (password == null || password.isBlank() || username == null || username.isBlank() || flightNumber == null || flightNumber.isBlank()) {
+    public boolean registerUser(String username, String password, String email, String flightNumber) {
+        if (password == null || password.isBlank() || username == null || username.isBlank() || email == null || email.isBlank() || flightNumber == null || flightNumber.isBlank()) {
             return false;
         }
+
         if (userRepository.findById(username).isPresent()) {
             return false;
         }
-        User user = new User(username, password);
+        User user = new User(username, password, email);
 
         FlightJourney journey = FlightFactory.generateRandomJourney(flightNumber);
 
@@ -73,24 +76,44 @@ public class UserService {
 
         userRepository.save(user);
 
+        Dada.sendEmail(user.getEmail(), EmailPurpose.REGISTRATION, new String[]{user.getUsername(), user.getCode()});
+
         return true;
     }
 
-    public boolean authenticateUser(String username, String password) {
+    public String authenticateUser(String username, String password) {
         if (loggedIn) {
-            return false;
+            return "User already logged in";
         }
         User user = getUser(username);
         if (user == null) {
-            return false;
+            return "User doesn't exist, please register";
         }
+
         loggedIn = user.authenticateUser(password);
         if (loggedIn) {
             loggedInUser = user.getUsername();
+            userRepository.save(user);
+            if (user.getCode() != null) {
+                return "First login";
+            }
         }
+
         userRepository.save(user);
 
-        return loggedIn;
+        return loggedIn ? username : "Wrong password";
+    }
+
+    public String confirmEmail(String code) {
+        code = code.toUpperCase();
+        User user = getLoggedInUser();
+
+        if (user.getCode().equals(code)) {
+            user.setCode(null);
+            user = userRepository.save(user);
+            return user.getUsername();
+        }
+        return "Wrong code, please try again";
     }
 
     public boolean logout() {
@@ -124,6 +147,14 @@ public class UserService {
         User user = getLoggedInUser();
         user.exchange(reward);
         return userRepository.save(user);
+    }
+
+    public boolean sendEmail(EmailPurpose emailPurpose, String[] additionalContent) {
+        User user = getLoggedInUser();
+        if (user == null) {
+            return false;
+        }
+        return Dada.sendEmail(user.getEmail(), emailPurpose, additionalContent);
     }
 
     public User getUser(String username) {

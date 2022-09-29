@@ -4,6 +4,7 @@ import server.model.flights.Flight;
 import server.model.flights.FlightJourney;
 import server.model.flights.poi.PointOfInterest;
 import server.model.flights.surveys.Reward;
+import server.utility.Dada;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -44,15 +45,37 @@ public class User {
 
     private double money;
 
-    public User(String username, String password) {
+    private String email;
+
+    private String code;
+
+    public User(String username, String password, String email) {
         this.username = username;
         this.salt = getNewSalt();
         this.password = this.getEncryptedPassword(password, this.salt);
         this.money = 2000;
+        this.email = email;
+        this.code = Dada.randomString();
     }
 
     protected User() {
 
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void addMoney(int money) {

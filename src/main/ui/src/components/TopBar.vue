@@ -58,7 +58,7 @@ export default {
       </div>
       <UserButton v-if="this.store.username" />
 
-      <LoginButtons v-if="!this.store.username" />
+      <LoginButtons />
     </w-flex>
   </w-toolbar>
 </template>

@@ -5,10 +5,7 @@ import WelcomeMessage from "../components/WelcomeMessage.vue";
 
 import TopBar from "../components/TopBar.vue";
 import Survey from "./Survey.vue";
-import {
-  getLoggedInUser,
-  hasCompletedSurvey,
-} from "../services/UserService.js";
+import { getLoggedInUser } from "../services/UserService.js";
 import { userStore } from "../userStore";
 import { getCurrentFlight } from "../services/FlightService";
 
@@ -22,7 +19,7 @@ export default {
   data: () => ({
     showLoginDialog: false,
     showRegisterDialog: false,
-    showSurveyDialog: true,
+    showSurveyDialog: false,
     showSafetyVideo: false,
     flight: null,
   }),
@@ -43,18 +40,10 @@ export default {
       }
       this.showSurveyDialog = this.showSurveyDialog && this.store.username;
     });
-    hasCompletedSurvey().then((response) => {
-      this.store.completedSurvey = response;
-      this.showSurveyDialog =
-        this.showSurveyDialog && !this.store.completedSurvey;
-    });
     if (this.store.username != null) {
       getCurrentFlight().then((response) => {
         this.flight = response;
         this.store.endLocationId = this.flight["endLocation"]["locationId"];
-
-        console.log(this.store.endLocationId);
-
         let a = this.store.username;
         this.store.username = null;
         this.$nextTick().then(() => {

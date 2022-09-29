@@ -18,8 +18,8 @@ public class UserRest {
     }
 
     @PostMapping("api/register")
-    public ResponseEntity<String> register(@RequestParam String username, @RequestParam String password, @RequestParam String flightNumber) {
-        if (!userService.registerUser(username, password, flightNumber)) {
+    public ResponseEntity<String> register(@RequestParam String username, @RequestParam String password, @RequestParam String email, @RequestParam String flightNumber) {
+        if (!userService.registerUser(username, password, email, flightNumber)) {
             return ResponseEntity.badRequest().body("Username taken or password too short");
         }
         return ResponseEntity.ok("Registered successfully");
@@ -27,10 +27,14 @@ public class UserRest {
 
     @PostMapping("api/login")
     public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        if (!userService.authenticateUser(username, password)) {
-            return ResponseEntity.badRequest().body("Wrong username or password");
-        }
-        return ResponseEntity.ok(username);
+        String response = userService.authenticateUser(username, password);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("api/confirm")
+    public ResponseEntity<String> confirmEmail(@RequestParam String code) {
+        String response = userService.confirmEmail(code);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("api/logout")
