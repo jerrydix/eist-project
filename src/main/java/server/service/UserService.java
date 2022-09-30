@@ -95,7 +95,7 @@ public class UserService {
             loggedInUser = user.getUsername();
             userRepository.save(user);
             if (user.getCode() != null) {
-                return "First login";
+                return "First login." + user.getUsername();
             }
         }
 

@@ -15,11 +15,12 @@ export default {
   mounted() {
     if (this.store.username != null) {
       getUserData().then((response) => {
-        if (response.code != null) {
-          this.showCodeDialog = true;
-          console.log(this.showCodeDialog);
+        if (response.code == null) {
+          this.showCodeDialog = false;
         }
       });
+    } else {
+      this.showCodeDialog = false;
     }
   },
   methods: {
@@ -40,7 +41,7 @@ export default {
   data: () => ({
     showLoginDialog: false,
     showRegisterDialog: false,
-    showCodeDialog: false,
+    showCodeDialog: true,
   }),
 };
 </script>

@@ -14,16 +14,16 @@
     <w-button lg text>Settings</w-button>
   </RouterLink>
   <hr />
-  <RouterLink v-if="this.store.username" to="/">
-    <w-button lg text @click="logoutUser"> Logout </w-button>
-  </RouterLink>
+  <LogoutButton />
 </template>
 
 <script>
 import { userStore } from "../userStore";
-import { getUserData, logout } from "../services/UserService";
+import { getUserData } from "../services/UserService";
+import LogoutButton from "@/components/LogoutButton.vue";
 
 export default {
+  components: { LogoutButton },
   data() {
     return {
       user: null,
@@ -39,16 +39,6 @@ export default {
     getUserData().then((response) => {
       this.user = response;
     });
-  },
-  methods: {
-    logoutUser() {
-      logout().then((response) => {
-        if (!(response === "Broke the system") && !(response === "Error")) {
-          window.localStorage.removeItem("user");
-          this.store.username = null;
-        }
-      });
-    },
   },
 };
 </script>

@@ -28,7 +28,10 @@ export default {
           response === "Wrong password"
         ) {
           this.ans = response;
-        } else if (response === "First login") {
+        } else if (response.includes("First login")) {
+          var actualUsername = response.split(".")[1];
+          window.localStorage.setItem("user", actualUsername);
+          this.store.username = actualUsername;
           this.ans = "Please check your inbox";
           this.$emit("switchToCode");
         } else {

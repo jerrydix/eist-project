@@ -6,15 +6,19 @@
     placeholder="Enter code"
   ></w-input>
 
-  <w-button @click="confirmEmail">Confirm</w-button>
+  <w-button text @click="confirmEmail">Confirm</w-button>
+  <hr />
+  <LogoutButton />
 </template>
 
 <script>
 import { confirmEmail } from "@/services/UserService";
 import { userStore } from "@/userStore";
+import LogoutButton from "@/components/LogoutButton.vue";
 
 export default {
   name: "CodeDialog",
+  components: { LogoutButton },
   data() {
     return {
       ans: null,
