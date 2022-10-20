@@ -204,19 +204,33 @@ export default {
               />
             </div>
           </w-flex>
-          <w-card bg-color="warning" class="note">
-            Watch out for overlapping departure and arrival times when booking
-            your flights!
-          </w-card>
         </div>
-        <div class="suggestions">
-          <FlightSuggestionCard
-            v-for="(option, i) in this.card.flights"
-            :key="i"
-            :flight="option"
-            @select="addToJourney"
-          />
-        </div>
+        <w-flex grow>
+          <w-flex
+            v-if="this.card.flights.length === 0"
+            grow
+            justify-center
+            style="margin-top: 5vh"
+          >
+            <w-card bg-color="warning" class="note">
+              Watch out for overlapping departure and arrival times when booking
+              your flights!
+            </w-card>
+          </w-flex>
+          <w-flex
+            v-if="!(this.card.flights.length === 0)"
+            justify-space-between
+          >
+            <div class="suggestions">
+              <FlightSuggestionCard
+                v-for="(option, i) in this.card.flights"
+                :key="i"
+                :flight="option"
+                @select="addToJourney"
+              />
+            </div>
+          </w-flex>
+        </w-flex>
       </div>
       <div class="xs6">
         <w-flex column justify-space-between wrap>
@@ -277,7 +291,8 @@ export default {
 .suggestions {
   overflow-x: hidden;
   overflow-y: auto;
-  height: 80vh;
+  height: 72vh;
+  flex-grow: 1;
 }
 
 .w-button.save {

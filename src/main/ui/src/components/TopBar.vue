@@ -46,14 +46,12 @@ export default {
         <w-button color="primary" lg text>About my destination</w-button>
       </RouterLink>
       <RouterLink to="/catering">
-        <w-button color="primary" lg text>Catering</w-button>
+        <w-button color="primary" lg text>On-board Menu</w-button>
       </RouterLink>
-      <RouterLink to="/movies">
-        <w-button color="primary" lg text>Movies</w-button>
-      </RouterLink>
+
       <div v-if="!this.store.username">
         <w-button color="primary" lg text @click="showSafety"
-          >Safety Video</w-button
+          >Watch our Safety Video</w-button
         >
       </div>
       <UserButton v-if="this.store.username" />
