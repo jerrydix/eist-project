@@ -127,37 +127,6 @@ export default {
         </w-dialog>
 
         <div class="spacer"></div>
-
-        <w-flex justify-center style="margin-right: auto">
-          <!--<div
-              class="justify-self-start"
-              style="margin-top: auto"
-          >
-            <w-button
-                bg-color="error"
-                class="bottom-button"
-                @click="showSafetyVideo = true"
-            >
-              Watch safety video
-            </w-button>
-          </div>-->
-
-          <div class="spacer"></div>
-
-          <div class="justify-self-center" style="margin-top: auto">
-            <w-button
-              bg-color="info"
-              class="bottom-button"
-              @click="
-                $waveui.notify(
-                  'The flight crew has been notified. Please stay put.'
-                )
-              "
-            >
-              Call flight assistant
-            </w-button>
-          </div>
-        </w-flex>
       </w-flex>
     </w-flex>
   </w-app>

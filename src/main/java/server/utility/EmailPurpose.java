@@ -427,7 +427,7 @@ public enum EmailPurpose {
                     "                                    <tr>" +
                     "                                        <td align=\"center\" style=\"font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;\">" +
                     "                                            <div style=\"font-family:'Helvetica Neue',Arial,sans-serif;font-size:28px;font-weight:bold;line-height:1;text-align:center;color:#555;\">" +
-                    "                                                Thank you for using Garching airlines" +
+                    "                                                Thank you for using Garching airlines!" +
                     "                                            </div>" +
 
                     "                                        </td>" +
@@ -436,7 +436,7 @@ public enum EmailPurpose {
                     "                                        <td align=\"left\" style=\"font-size:0px;padding:10px 25px;word-break:break-word;\">" +
                     "                                            <div style=\"font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:22px;text-align:left;color:#555;\">" +
                     "                                                Hello " + user + "!<br></br>" +
-                    "                                                We have detected a login with your account. If it was you, ignore this email. If it was, contact us immediately to deactivate your account." +
+                    "                                                We have detected a login with your account. If it was you, ignore this email. If it wasn't, contact us immediately to deactivate your account." +
                     "                                            </div>" +
                     "                                        </td>" +
                     "                                    </tr>" +

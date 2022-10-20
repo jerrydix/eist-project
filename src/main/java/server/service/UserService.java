@@ -94,6 +94,7 @@ public class UserService {
         if (loggedIn) {
             loggedInUser = user.getUsername();
             userRepository.save(user);
+            this.sendEmail(user, EmailPurpose.LOGIN, new String[]{});
         }
 
         userRepository.save(user);
