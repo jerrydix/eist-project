@@ -76,7 +76,7 @@ public class UserService {
 
         userRepository.save(user);
 
-        Dada.sendEmail(user.getEmail(), EmailPurpose.REGISTRATION, new String[]{user.getUsername(), user.getCode()});
+        this.sendEmail(user, EmailPurpose.REGISTRATION, new String[]{});
 
         return true;
     }
@@ -94,9 +94,6 @@ public class UserService {
         if (loggedIn) {
             loggedInUser = user.getUsername();
             userRepository.save(user);
-            if (user.getCode() != null) {
-                return "First login." + user.getUsername();
-            }
         }
 
         userRepository.save(user);
@@ -104,17 +101,6 @@ public class UserService {
         return loggedIn ? username : "Wrong password";
     }
 
-    public String confirmEmail(String code) {
-        code = code.toUpperCase();
-        User user = getLoggedInUser();
-
-        if (user.getCode().equals(code)) {
-            user.setCode(null);
-            user = userRepository.save(user);
-            return user.getUsername();
-        }
-        return "Wrong code, please try again";
-    }
 
     public boolean logout() {
         if (!loggedIn) {
@@ -149,12 +135,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public boolean sendEmail(EmailPurpose emailPurpose, String[] additionalContent) {
-        User user = getLoggedInUser();
+    public boolean sendEmail(User user, EmailPurpose emailPurpose, String[] additionalContent) {
         if (user == null) {
             return false;
         }
-        return Dada.sendEmail(user.getEmail(), emailPurpose, additionalContent);
+        return Dada.sendEmail(user, emailPurpose, additionalContent);
     }
 
     public User getUser(String username) {

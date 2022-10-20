@@ -31,12 +31,6 @@ public class UserRest {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("api/confirm")
-    public ResponseEntity<String> confirmEmail(@RequestParam String code) {
-        String response = userService.confirmEmail(code);
-        return ResponseEntity.ok(response);
-    }
-
     @PostMapping("api/logout")
     public ResponseEntity<String> logout() {
         if (!userService.logout()) {

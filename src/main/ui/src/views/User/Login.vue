@@ -3,7 +3,7 @@ import { login } from "../../services/UserService.js";
 import { userStore } from "../../userStore.js";
 
 export default {
-  emits: ["switchToRegister", "switchToCode"],
+  emits: ["switchToRegister", "loggedIn"],
   data() {
     return {
       ans: null,
@@ -28,16 +28,10 @@ export default {
           response === "Wrong password"
         ) {
           this.ans = response;
-        } else if (response.includes("First login")) {
-          var actualUsername = response.split(".")[1];
-          window.localStorage.setItem("user", actualUsername);
-          this.store.username = actualUsername;
-          this.ans = "Please check your inbox";
-          this.$emit("switchToCode");
         } else {
           window.localStorage.setItem("user", response);
           this.store.username = response;
-          history.go(0);
+          this.$emit("loggedIn");
           this.ans = "Successfully logged in";
         }
         this.$waveui.notify(this.ans);

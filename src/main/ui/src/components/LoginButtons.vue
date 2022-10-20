@@ -1,9 +1,7 @@
 <script>
 import { userStore } from "../userStore.js";
-import { getUserData } from "../services/UserService.js";
 import Register from "../views/User/Register.vue";
 import Login from "../views/User/Login.vue";
-import CodeDialog from "../views/User/CodeDialog.vue";
 
 export default {
   setup() {
@@ -12,36 +10,23 @@ export default {
       store,
     };
   },
-  mounted() {
-    if (this.store.username != null) {
-      getUserData().then((response) => {
-        if (response.code == null) {
-          this.showCodeDialog = false;
-        }
-      });
-    } else {
-      this.showCodeDialog = false;
-    }
-  },
   methods: {
     switchToRegister() {
       this.showLoginDialog = false;
       this.showRegisterDialog = true;
     },
-    switchToCode() {
+    loggedIn() {
       this.showLoginDialog = false;
-      this.showCodeDialog = true;
+      history.go(0);
     },
   },
   components: {
     Register,
     Login,
-    CodeDialog,
   },
   data: () => ({
     showLoginDialog: false,
     showRegisterDialog: false,
-    showCodeDialog: true,
   }),
 };
 </script>
@@ -65,19 +50,9 @@ export default {
     title-class="titles"
   >
     <Login
-      @switchToCode="this.switchToCode"
+      @loggedIn="this.loggedIn"
       @switchToRegister="this.switchToRegister"
     />
-  </w-dialog>
-
-  <w-dialog
-    v-model="showCodeDialog"
-    :width="350"
-    persistent
-    title="Enter Confirmation Code"
-    title-class="titles"
-  >
-    <CodeDialog />
   </w-dialog>
 </template>
 

@@ -130,6 +130,19 @@ public class FlightJourney {
         return true;
     }
 
+    public String[] toEmailContent() {
+        String[] additionalContent = new String[3];
+
+        additionalContent[0] = this.originName;
+        additionalContent[1] = this.endName;
+        additionalContent[2] = "<hr>";
+
+        for (Flight flight : flights) {
+            additionalContent[2] += "<p>" + flight.getStartName() + " -> " + flight.getEndName() + " | " + flight.getDepartureDate() + " | " + flight.getDepartureTime() + " - " + flight.getArrivalTime() + "<p>";
+        }
+        return additionalContent;
+    }
+
     /**
      * Method to automatically replace a cancelled flight in a flight journey with a new subsidiary flight.
      *

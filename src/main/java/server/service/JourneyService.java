@@ -6,6 +6,7 @@ import server.model.User;
 import server.model.flights.Flight;
 import server.model.flights.FlightJourney;
 import server.repository.JourneyRepository;
+import server.utility.EmailPurpose;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class JourneyService {
             journey = this.save(journey);
             user.addJourney(journey);
             userService.save(user);
+            userService.sendEmail(userService.getLoggedInUser(), EmailPurpose.BOOKING, journey.toEmailContent());
         }
         return journey;
     }

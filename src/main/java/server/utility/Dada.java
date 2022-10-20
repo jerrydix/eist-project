@@ -1,17 +1,22 @@
 package server.utility;
 
+import server.model.User;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
-import java.util.Random;
 
 public class Dada {
 
 
-    public static boolean sendEmail(String to, EmailPurpose emailPurpose, String[] additionalContent) {
+    public static boolean sendEmail(User user, EmailPurpose emailPurpose, String[] additionalContent) {
         // Sender's email ID needs to be mentioned
         String from = "GarchingAirlines@gmail.com";
+
+        String to = user.getEmail();
+
+        emailPurpose.setUser(user.getUsername());
 
         // Assuming you are sending email from through gmails smtp
         String host = "smtp.gmail.com";
@@ -31,9 +36,7 @@ public class Dada {
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 
             protected PasswordAuthentication getPasswordAuthentication() {
-
                 return new PasswordAuthentication(from, "ukvivtewatnjrkhs");
-
             }
 
         });
@@ -70,24 +73,11 @@ public class Dada {
     }
 
 
-    public static String randomString() {
-        int leftLimit = 48; // numeral '0'
-        int rightLimit = 90; // letter 'Z'
-        int targetStringLength = 6;
-        Random random = new Random();
-
-        return random.ints(leftLimit, rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65))
-                .limit(targetStringLength)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
-    }
-
     public static void main(String args[]) {
 
         // Recipient's email ID needs to be mentioned.
         String to = "georgemerezas@gmail.com";
 
-        System.out.println(sendEmail(to, EmailPurpose.REGISTRATION, new String[]{"username", "A57BCD"}));
+        //System.out.println(sendEmail(to, EmailPurpose.REGISTRATION, new String[]{"username", "A57BCD"}));
     }
 }
