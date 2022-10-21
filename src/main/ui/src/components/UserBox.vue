@@ -4,7 +4,7 @@
   <RouterLink to="/wallet">
     <w-button lg text>Wallet: </w-button>
   </RouterLink>
-  <h5>{{ this.user.money }}</h5>
+  <h5>{{ this.user.money.toFixed(2) }}</h5>
   <hr />
   <RouterLink to="/dashboard">
     <w-button lg text>Profile</w-button>

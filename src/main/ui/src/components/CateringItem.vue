@@ -1,28 +1,46 @@
-<script setup>
-const props = defineProps({
-  text: String,
-  price: Number,
-});
+<script>
+import { userStore } from "@/userStore";
+import { spendMoney } from "@/services/UserService";
+
+export default {
+  props: { text: String, price: Number },
+  emits: ["bought"],
+  setup() {
+    const store = userStore();
+    return {
+      store,
+    };
+  },
+  methods: {
+    buy() {
+      this.$waveui.notify("Order placed: " + this.text);
+      spendMoney(this.price);
+    },
+  },
+};
 </script>
 
 <template>
-  <w-card>
+  <w-card style="padding: 8px; margin: 5px">
     <w-flex>
-      <w-flex class="xs6">
+      <div class="xs6" style="text-align: left; font-weight: bold">
         {{ text || "If you read this text, something went wrong" }}
-      </w-flex>
-      <w-flex class="xs6">
-        <w-flex class="xs6">
-          <p>{{ price.toFixed(2) + " €" || "It's free!" }}</p>
-        </w-flex>
-        <w-flex class="xs6" style="align-items: flex-end">
+      </div>
+
+      <w-flex class="xs6" justify-space-between>
+        <div style="font-weight: bold">
+          {{ price.toFixed(2) + " €" || "It's free!" }}
+        </div>
+        <div>
           <w-button
-              bg-color="info"
-              @click="$waveui.notify('Order placed: ' + text)"
+            :disabled="!this.store.username"
+            bg-color="black"
+            color="white"
+            @click="this.buy"
           >
             Order
           </w-button>
-        </w-flex>
+        </div>
       </w-flex>
     </w-flex>
   </w-card>
@@ -30,7 +48,8 @@ const props = defineProps({
 
 <style scoped>
 .w-card {
-  background-color: #ffedda;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10);
   width: 100%;
   max-width: 40vw;
   min-width: 400px;

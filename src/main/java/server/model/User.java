@@ -68,7 +68,7 @@ public class User {
         this.email = email;
     }
 
-    public void addMoney(int money) {
+    public void adjustMoney(double money) {
         this.money += money;
     }
 

@@ -118,12 +118,22 @@ public class UserService {
         return true;
     }
 
-    public User addMoney(int money) {
+    public User addMoney(double money) {
         if (money <= 0) {
             return null;
         }
         User user = getLoggedInUser();
-        user.addMoney(money);
+        user.adjustMoney(money);
+        return userRepository.save(user);
+    }
+
+    public User removeMoney(double money) {
+        if (money <= 0) {
+            return null;
+        }
+        money = -money;
+        User user = getLoggedInUser();
+        user.adjustMoney(money);
         return userRepository.save(user);
     }
 

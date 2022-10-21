@@ -678,10 +678,17 @@ public enum EmailPurpose {
                     "                                            </div>" +
                     "                                        </td>" +
                     "                                    </tr>" +
+                    "                                 <tr>" +
+                    "                                               <td align=\"left\" style=\"font-size:0px;padding:10px 25px;word-break:break-word;\">" +
+                    "                                            <div style=\"font-family:'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:22px;text-align:center;color:#555;\">" +
+                    "                                                 <h4>Here is the detailed flight plan:</h4>" +
+                    "                                             </div>" +
+                    "                                        </td>" +
+                    "                                    </tr>" +
                     "                                    <tr>" +
                     "                                        <td align=\"center\" style=\"font-size:0px;padding:10px 25px;padding-top:30px;padding-bottom:50px;word-break:break-word;\">" +
                     "                                             <div style=\"background:#37a34b;color:#ffffff;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;\">" +
-                    "                                                  <p>Here is the detailed flight plan:</p>" + additionalContent[2] +
+                    "                                                  " + additionalContent[2] +
                     "                                             </div>" +
                     "                                        </td>" +
                     "                                    </tr>" +

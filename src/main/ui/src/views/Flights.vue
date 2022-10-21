@@ -3,10 +3,10 @@ import {
   constructJourney,
   getFlights,
   getSuggestions,
-} from "../services/FlightService.js";
+} from "@/services/FlightService";
 import FlightSuggestionCard from "../components/FlightSuggestionCard.vue";
 import Journey from "../components/Journey.vue";
-import { userStore } from "../userStore";
+import { userStore } from "@/userStore";
 import TopBar from "../components/TopBar.vue";
 
 export default {

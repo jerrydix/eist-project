@@ -138,7 +138,7 @@ public class FlightJourney {
         additionalContent[2] = "<hr>";
 
         for (Flight flight : flights) {
-            additionalContent[2] += "<p>" + flight.getStartName() + " -> " + flight.getEndName() + " | " + flight.getDepartureDate() + " | " + flight.getDepartureTime() + " - " + flight.getArrivalTime() + "<p>";
+            additionalContent[2] += "<div style=\"display: flex; align-items: center;justify-content: center;\">" + flight.getStartName() + " -> " + flight.getEndName() + " | " + flight.getDepartureDate() + " | " + flight.getDepartureTime() + " - " + flight.getArrivalTime() + "</div>";
         }
         return additionalContent;
     }

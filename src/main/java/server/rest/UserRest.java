@@ -40,8 +40,17 @@ public class UserRest {
     }
 
     @PostMapping("api/fund")
-    public ResponseEntity<User> addMoney(@RequestParam int money) {
+    public ResponseEntity<User> addMoney(@RequestParam double money) {
         User user = userService.addMoney(money);
+        if (user == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("api/defund")
+    public ResponseEntity<User> removeMoney(@RequestParam double money) {
+        User user = userService.removeMoney(money);
         if (user == null) {
             return ResponseEntity.badRequest().build();
         }

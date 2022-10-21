@@ -70,6 +70,21 @@ export async function addMoney(money) {
   return await response.json();
 }
 
+export async function spendMoney(money) {
+  const response = await fetch(
+    `api/defund` +
+      "?" +
+      new URLSearchParams({
+        money: money,
+      }),
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  return await response.json();
+}
+
 export async function hasCompletedSurvey() {
   const response = await fetch(`api/completedSurvey`, {
     method: "GET",
