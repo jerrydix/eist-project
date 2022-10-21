@@ -135,10 +135,10 @@ public class FlightJourney {
 
         additionalContent[0] = this.originName;
         additionalContent[1] = this.endName;
-        additionalContent[2] = "<hr>";
+        additionalContent[2] = "";
 
         for (Flight flight : flights) {
-            additionalContent[2] += "<div style=\"display: flex; align-items: center;justify-content: center;\">" + flight.getStartName() + " -> " + flight.getEndName() + " | " + flight.getDepartureDate() + " | " + flight.getDepartureTime() + " - " + flight.getArrivalTime() + "</div>";
+            additionalContent[2] += "<div style=\"text-align: center;margin: 7px\">" + flight.getStartName() + " -> " + flight.getEndName() + " | " + flight.getDepartureDate() + " | " + flight.getDepartureTime() + " - " + flight.getArrivalTime() + "</div>";
         }
         return additionalContent;
     }
