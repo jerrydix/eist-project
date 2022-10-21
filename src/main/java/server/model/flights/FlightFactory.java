@@ -45,8 +45,8 @@ public class FlightFactory {
         String fromName = getName(from);
         String toName = getName(to);
 
-        List<String> fromAirportIATAs = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports?city_code=" + fromIATA + "&api_key=23c0135c-2b3c-4bc9-88f0-98aa15ac238c", new String[]{}));
-        List<String> toAirportIATAs = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports?city_code=" + toIATA + "&api_key=23c0135c-2b3c-4bc9-88f0-98aa15ac238c", new String[]{}));
+        List<String> fromAirportIATAs = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports?city_code=" + fromIATA + "&api_key=a519803c-a657-4b02-91e8-00b20a42c630", new String[]{}));
+        List<String> toAirportIATAs = AirportParser.parseAirportJson(HTTP_GetRequest.httpRequest("https://airlabs.co/api/v9/airports?city_code=" + toIATA + "&api_key=a519803c-a657-4b02-91e8-00b20a42c630", new String[]{}));
 
         if (fromAirportIATAs != null) {
             fromIATA = fromAirportIATAs.get(0);
@@ -59,7 +59,7 @@ public class FlightFactory {
 
         var currentList = FlightParser.parseFlightJson(
                 HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
-                        "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNzYwNzJlNGYyN2E0YTE3ZTM3ZjMzNDhmZDM1MDljNmRlMzM5MmViMTVkNjA4YjE1NDlmZjE1ZTE2OTA3YmY2M2U0OTk4MDQ4ODk2YTRmMWQiLCJpYXQiOjE2NTg1MTQ5MDAsIm5iZiI6MTY1ODUxNDkwMCwiZXhwIjoxNjkwMDUwODk5LCJzdWIiOiI5MDY0Iiwic2NvcGVzIjpbXX0.oXZM_CwLpe9gc5IlnQrTLf1jZ_Yv2wsjcG06kc_2NvSZiuk8Gs22QIScukCZrbuzTFI0Hr8vnzZJy3NmBsc81g",
+                        "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiMWUwM2YzNGIyNzVhNDFlYTcxZTE1NTJiZjcyMGFhMWJkYjk4Y2IwYTczN2Y5MjkxZjlkZjg0N2IzZDEyMjg0NzhiOTJkMmNmYjVlNjVlODEiLCJpYXQiOjE2NjYzNTQ0MjIsIm5iZiI6MTY2NjM1NDQyMiwiZXhwIjoxNjk3ODkwNDIyLCJzdWIiOiIxNTcxNCIsInNjb3BlcyI6W119.q7VDFQahpq8hUuWMnZO-wDSycpJpxii9eAi32bgTNGu5a3yTLXiwV4S6PUzqRznvKiITSIiSq8p28nGSuqABTw",
                         "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromIATA, "&arr_iata=" + toIATA}));
 
         if (currentList != null && !currentList.isEmpty()) {
@@ -73,7 +73,7 @@ public class FlightFactory {
                     for (int j = 1; j < toAirportIATAs.size(); j++) {
                         List<Flight> current = FlightParser.parseFlightJson(
                                 HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
-                                        "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNzYwNzJlNGYyN2E0YTE3ZTM3ZjMzNDhmZDM1MDljNmRlMzM5MmViMTVkNjA4YjE1NDlmZjE1ZTE2OTA3YmY2M2U0OTk4MDQ4ODk2YTRmMWQiLCJpYXQiOjE2NTg1MTQ5MDAsIm5iZiI6MTY1ODUxNDkwMCwiZXhwIjoxNjkwMDUwODk5LCJzdWIiOiI5MDY0Iiwic2NvcGVzIjpbXX0.oXZM_CwLpe9gc5IlnQrTLf1jZ_Yv2wsjcG06kc_2NvSZiuk8Gs22QIScukCZrbuzTFI0Hr8vnzZJy3NmBsc81g",
+                                        "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiMWUwM2YzNGIyNzVhNDFlYTcxZTE1NTJiZjcyMGFhMWJkYjk4Y2IwYTczN2Y5MjkxZjlkZjg0N2IzZDEyMjg0NzhiOTJkMmNmYjVlNjVlODEiLCJpYXQiOjE2NjYzNTQ0MjIsIm5iZiI6MTY2NjM1NDQyMiwiZXhwIjoxNjk3ODkwNDIyLCJzdWIiOiIxNTcxNCIsInNjb3BlcyI6W119.q7VDFQahpq8hUuWMnZO-wDSycpJpxii9eAi32bgTNGu5a3yTLXiwV4S6PUzqRznvKiITSIiSq8p28nGSuqABTw",
                                         "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromAirportIATAs.get(i), "&arr_iata=" + toAirportIATAs.get(j)}));
                         if (current != null && !current.isEmpty()) {
                             list.addAll(current);
@@ -83,7 +83,7 @@ public class FlightFactory {
                     for (int j = 0; j < toAirportIATAs.size(); j++) {
                         List<Flight> current = FlightParser.parseFlightJson(
                                 HTTP_GetRequest.httpRequest("https://app.goflightlabs.com/flights", new String[]{
-                                        "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiNzYwNzJlNGYyN2E0YTE3ZTM3ZjMzNDhmZDM1MDljNmRlMzM5MmViMTVkNjA4YjE1NDlmZjE1ZTE2OTA3YmY2M2U0OTk4MDQ4ODk2YTRmMWQiLCJpYXQiOjE2NTg1MTQ5MDAsIm5iZiI6MTY1ODUxNDkwMCwiZXhwIjoxNjkwMDUwODk5LCJzdWIiOiI5MDY0Iiwic2NvcGVzIjpbXX0.oXZM_CwLpe9gc5IlnQrTLf1jZ_Yv2wsjcG06kc_2NvSZiuk8Gs22QIScukCZrbuzTFI0Hr8vnzZJy3NmBsc81g",
+                                        "?access_key=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiMWUwM2YzNGIyNzVhNDFlYTcxZTE1NTJiZjcyMGFhMWJkYjk4Y2IwYTczN2Y5MjkxZjlkZjg0N2IzZDEyMjg0NzhiOTJkMmNmYjVlNjVlODEiLCJpYXQiOjE2NjYzNTQ0MjIsIm5iZiI6MTY2NjM1NDQyMiwiZXhwIjoxNjk3ODkwNDIyLCJzdWIiOiIxNTcxNCIsInNjb3BlcyI6W119.q7VDFQahpq8hUuWMnZO-wDSycpJpxii9eAi32bgTNGu5a3yTLXiwV4S6PUzqRznvKiITSIiSq8p28nGSuqABTw",
                                         "&arr_scheduled_time_dep=" + date, "&dep_iata=" + fromAirportIATAs.get(i), "&arr_iata=" + toAirportIATAs.get(j)}));
                         if (current != null && !current.isEmpty()) {
                             list.addAll(current);
