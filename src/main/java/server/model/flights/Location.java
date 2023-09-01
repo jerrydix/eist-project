@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 public class Location {
 
-    private final static String API_KEY = "&api_key=d652af55-c729-4e68-aa73-afb41e32ec66";
+    private final static String API_KEY = "&api_key=a519803c-a657-4b02-91e8-00b20a42c630";
 
 
     @Id
